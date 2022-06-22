@@ -1,0 +1,15 @@
+{
+  "version": "0.2.1",
+  "tasks": [
+    {
+      "taskLabel": "attività-humor_variable_behaviour",
+      "appliesTo": "/",
+      "type": "launch"
+    },
+    {
+      "taskLabel": "attività-humor_variable_behaviour",
+      "appliesTo": "/",
+      "type": "launch"
+    }
+  ]
+}
