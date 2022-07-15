@@ -1,3 +1,5 @@
+// ignore_for_file: unused_local_variable, prefer_const_constructors
+
 import 'package:flutter/material.dart';
 import 'package:human_variable_behaviour/components/text_field_container.dart';
 

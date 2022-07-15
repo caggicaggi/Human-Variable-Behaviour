@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors, prefer_interpolation_to_compose_strings
+
 import 'package:flutter/material.dart';
 import 'package:human_variable_behaviour/Screens/Login/login_screen.dart';
 import 'package:human_variable_behaviour/Screens/SignUp/components/background.dart';
@@ -88,7 +90,7 @@ class Body extends StatelessWidget {
                 //Controllo presenza stessa email nel database
                 readEmailFromDb(email);
                 //Registro il nuovo utente
-                //signUpToDb(name, surname, email, password);
+                signUpToDb(name, surname, email, password);
               },
             ),
             AlreadyHaveAnAccountCheck(
@@ -144,15 +146,15 @@ void signUpToDb(nameToDb, surnameToDb, emailToDb, passwordToDb) {
   //Scrivo la query
   String query = 'INSERT INTO ' +
       table +
-      ' (Username, Password) VALUES (' +
+      ' (name, surname, email, password) VALUES (" ' +
       name +
-      ',' +
+      '","' +
       surname +
-      ',' +
+      '","' +
       email +
-      ',' +
+      '","' +
       password +
-      ')';
+      '")';
 
   db.getConnection().then((connessione) {
     debugPrint(query);
