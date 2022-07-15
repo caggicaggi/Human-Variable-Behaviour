@@ -9,7 +9,9 @@ import 'package:human_variable_behaviour/components/rounded_input_field.dart';
 import 'package:human_variable_behaviour/components/rounded_password_field.dart';
 import 'package:human_variable_behaviour/mysql/mysql.dart';
 
-String username = '';
+String name = '';
+String surname = '';
+String email = '';
 String password = '';
 
 class Body extends StatelessWidget {
@@ -27,12 +29,12 @@ class Body extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text(
+            const Text(
               'Sign Up Page',
               style: TextStyle(fontWeight: FontWeight.bold),
             ),
             SizedBox(
-              height: size.height * 0.02,
+              height: size.height * 0.01,
             ),
             //Immagine del logo Unicam
             Image.asset(
@@ -43,9 +45,24 @@ class Body extends StatelessWidget {
               height: size.height * 0.02,
             ),
             RoundedInputField(
-              hintText: "Your Email",
+              icon: Icons.person,
+              hintText: "Nome",
               onChange: (value) {
-                username = value;
+                name = value;
+              },
+            ),
+            RoundedInputField(
+              icon: Icons.person,
+              hintText: "Cognome",
+              onChange: (value) {
+                surname = value;
+              },
+            ),
+            RoundedInputField(
+              icon: Icons.email,
+              hintText: "Email",
+              onChange: (value) {
+                email = value;
               },
             ),
             RoundedPasswordField(
@@ -54,14 +71,24 @@ class Body extends StatelessWidget {
               },
             ),
             SizedBox(
-              height: size.height * 0.03,
+              height: size.height * 0.05,
             ),
             RoundedButton(
               text: 'SIGN UP',
               press: () {
                 //Evento scatenato dal click sul RoundedButton
-                //debugPrint('Username: ' + username + ' Password: ' + password);
-                writeIntoDbUtenti(username, password);
+                //Controllo formato email
+                bool emailValid = RegExp(
+                        r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+                    .hasMatch(email);
+                //debugPrint(emailValid.toString());
+                if (!emailValid) {
+                  //Avviso formato email errato
+                }
+                //Controllo presenza stessa email nel database
+                readEmailFromDb(email);
+                //Registro il nuovo utente
+                //signUpToDb(name, surname, email, password);
               },
             ),
             AlreadyHaveAnAccountCheck(
@@ -103,18 +130,26 @@ class Body extends StatelessWidget {
   }
 }
 
-//Funzione per scrivere nel database
-void writeIntoDbUtenti(String username, String password) {
+//Funzione per registrare l'utente nel database
+void signUpToDb(nameToDb, surnameToDb, emailToDb, passwordToDb) {
+  //Avvio la connessione al database
   var db = Mysql();
-  //Tabella
-  username = '\'' + username + '\'';
-  password = '\'' + password + '\'';
+  //Aggiungo i '' a tutte le stringhe passate in input
+  nameToDb = strinToDb(nameToDb);
+  surnameToDb = strinToDb(surnameToDb);
+  emailToDb = strinToDb(emailToDb);
+  passwordToDb = strinToDb(passwordToDb);
+  //Nome della tabella
   String table = 'utenti';
-  //Query
+  //Scrivo la query
   String query = 'INSERT INTO ' +
       table +
       ' (Username, Password) VALUES (' +
-      username +
+      name +
+      ',' +
+      surname +
+      ',' +
+      email +
       ',' +
       password +
       ')';
@@ -125,3 +160,11 @@ void writeIntoDbUtenti(String username, String password) {
     connessione.close();
   });
 }
+
+//Funzione per controllare l'esistenza della mail
+bool readEmailFromDb(emailToRead) {
+  return true;
+}
+
+//Funzione per aggiungere i '' alle stringhe passate in input
+String strinToDb(stringToConvert) => '\'' + stringToConvert + '\'';

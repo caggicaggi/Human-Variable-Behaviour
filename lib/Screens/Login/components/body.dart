@@ -39,6 +39,7 @@ class Body extends StatelessWidget {
             ),
             //Chiamo la classe rounded_input_field.dart
             RoundedInputField(
+              icon: Icons.email,
               hintText: 'Your Email',
               onChange: (value) {},
             ),

@@ -18,10 +18,12 @@ class MyApp extends StatelessWidget {
       title: 'Human Variable Behaviour',
       debugShowCheckedModeBanner: false,
       //Stabilisce il tema dell'applicazione
+      //Permette di scegliere i colori di tutti i widget che si utilizzeranno nell'app
       theme: ThemeData(
-          //Stabilisco il colore dello Scaffold richiamato nella classe WelcomeScreen
           primaryColor: kPrimaryColor,
+          //Stabilisco il colore dello Scaffold
           scaffoldBackgroundColor: Colors.white),
+      //Schermata inziale
       home: const WelcomeScreen(),
     );
   }
