@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors, prefer_interpolation_to_compose_strings, avoid_print
+
 import 'package:flutter/material.dart';
 import 'package:human_variable_behaviour/Screens/SignUp/sign_up_screen.dart';
 import 'package:human_variable_behaviour/Screens/Welcome/components/background.dart';
@@ -5,6 +7,12 @@ import 'package:human_variable_behaviour/components/already_have_an_account_chec
 import 'package:human_variable_behaviour/components/rounded_button.dart';
 import 'package:human_variable_behaviour/components/rounded_input_field.dart';
 import 'package:human_variable_behaviour/components/rounded_password_field.dart';
+
+import '../../../mysql/mysql.dart';
+import '../../SignUp/components/body.dart';
+
+String email = '';
+String password = '';
 
 class Body extends StatelessWidget {
   const Body({
@@ -27,7 +35,7 @@ class Body extends StatelessWidget {
               style: TextStyle(fontWeight: FontWeight.bold),
             ),
             SizedBox(
-              height: size.height * 0.02,
+              height: size.height * 0.01,
             ),
             //Immagine del logo Unicam
             Image.asset(
@@ -37,20 +45,44 @@ class Body extends StatelessWidget {
             SizedBox(
               height: size.height * 0.02,
             ),
-            //Chiamo la classe rounded_input_field.dart
+            //Prendo Email
             RoundedInputField(
               icon: Icons.email,
-              hintText: 'Your Email',
-              onChange: (value) {},
+              hintText: "Email",
+              onChange: (value) {
+                email = value;
+              },
             ),
-            //Chiamo la classe rounded_password_field.dart
+            //Prendo password
             RoundedPasswordField(
-              onChange: (value) {},
+              onChange: (value) {
+                password = value;
+              },
             ),
             SizedBox(
-              height: size.height * 0.03,
+              height: size.height * 0.05,
             ),
-            RoundedButton(text: 'LOGIN', press: () {}),
+            RoundedButton(
+              text: 'Login',
+              press: () {
+                //Evento scatenato dal click sul RoundedButton
+                //Controllo formato email
+                bool emailValid = RegExp(
+                        r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+                    .hasMatch(email);
+                //debugPrint(emailValid.toString());
+                if (!emailValid) {
+                  //Avviso formato email errato
+                }
+                //Controllo presenza stessa email nel database
+                readEmailFromDb(email);
+                //Salvo il check della queri dentro una variabile
+                var CheckConnessione = signInToDb(email, password);
+                /* inserire controllo (la query funziona): se checkConnessione è null allora bisogna
+                reindirizzarlo alla pagina di SignIn se checkConnessione è qualsiasi altro valore 
+                allora logga perchè vuol dire che esiste nel db */
+              },
+            ),
             //Chiamo la classe already_have_an_account_check.dart
             AlreadyHaveAnAccountCheck(
               press: () {
@@ -69,5 +101,27 @@ class Body extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  void signInToDb(emailToDb, passwordToDb) {
+    //Avvio la connessione al database
+    var db = Mysql();
+    //Aggiungo i '' a tutte le stringhe passate in input
+    emailToDb = strinToDb(emailToDb);
+    passwordToDb = strinToDb(passwordToDb);
+    //Nome della tabella
+    String table = 'utenti';
+    //Scrivo la query
+    String query = ' SELECT email = " ' +
+        email +
+        '" , password = " ' +
+        password +
+        '" FROM ' +
+        table;
+    db.getConnection().then((connessione) {
+      debugPrint(query);
+      connessione.query(query);
+      connessione.close();
+    });
   }
 }
