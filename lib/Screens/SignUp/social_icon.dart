@@ -26,7 +26,7 @@ class SocialIcon extends StatelessWidget {
         ),
         child: Image.asset(
           scrIcon,
-          height: 15,
+          height: 20,
           width: 20,
         ),
       ),

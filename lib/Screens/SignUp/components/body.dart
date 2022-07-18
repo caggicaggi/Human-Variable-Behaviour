@@ -13,14 +13,22 @@ String name = '';
 String surname = '';
 String email = '';
 String password = '';
+//Variabili per avviso visivo
+bool emailValidation = true;
+bool emailDuplicated = true;
 
-class Body extends StatelessWidget {
+class Body extends StatefulWidget {
   final Widget child;
   const Body({
     Key? key,
     required this.child,
   }) : super(key: key);
 
+  @override
+  State<Body> createState() => _BodyState();
+}
+
+class _BodyState extends State<Body> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -29,17 +37,10 @@ class Body extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const Text(
-              'Sign Up Page',
-              style: TextStyle(fontWeight: FontWeight.bold),
-            ),
-            SizedBox(
-              height: size.height * 0.01,
-            ),
             //Immagine del logo Unicam
             Image.asset(
               'assets/images/logoUnicam.jpg',
-              height: size.height * 0.18,
+              height: size.height * 0.15,
             ),
             SizedBox(
               height: size.height * 0.02,
@@ -65,28 +66,34 @@ class Body extends StatelessWidget {
                 email = value;
               },
             ),
+            if (!emailValidation)
+              Text(
+                'Formato email non corretto',
+                style:
+                    TextStyle(fontWeight: FontWeight.bold, color: Colors.red),
+              ),
             RoundedPasswordField(
               onChange: (value) {
                 password = value;
               },
             ),
             SizedBox(
-              height: size.height * 0.05,
+              height: size.height * 0.04,
             ),
+            //Avviso email già registrata
             RoundedButton(
               text: 'SIGN UP',
               press: () {
                 //Evento scatenato dal click sul RoundedButton
                 //Controllo formato email
-                bool emailValid = RegExp(
+                emailValidation = RegExp(
                         r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
                     .hasMatch(email);
-                //debugPrint(emailValid.toString());
-                if (!emailValid) {
-                  //Avviso formato email errato
-                }
+                debugPrint(emailValidation.toString());
+                setState(() {});
                 //Controllo presenza stessa email nel database
                 readEmailFromDb(email);
+
                 //Registro il nuovo utente
                 //signUpToDb(name, surname, email, password);
               },
@@ -106,6 +113,7 @@ class Body extends StatelessWidget {
               },
             ),
             OrDivider(),
+
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -132,8 +140,6 @@ class Body extends StatelessWidget {
 
 //Funzione per registrare l'utente nel database
 void signUpToDb(nameToDb, surnameToDb, emailToDb, passwordToDb) {
-  //Avvio la connessione al database
-  var db = Mysql();
   //Aggiungo i '' a tutte le stringhe passate in input
   nameToDb = strinToDb(nameToDb);
   surnameToDb = strinToDb(surnameToDb);
@@ -144,7 +150,7 @@ void signUpToDb(nameToDb, surnameToDb, emailToDb, passwordToDb) {
   //Scrivo la query
   String query = 'INSERT INTO ' +
       table +
-      ' (Username, Password) VALUES (' +
+      ' (nome, cognome, email, password) VALUES (' +
       name +
       ',' +
       surname +
@@ -154,6 +160,8 @@ void signUpToDb(nameToDb, surnameToDb, emailToDb, passwordToDb) {
       password +
       ')';
 
+  //Connessione al database
+  var db = Mysql();
   db.getConnection().then((connessione) {
     debugPrint(query);
     connessione.query(query);
