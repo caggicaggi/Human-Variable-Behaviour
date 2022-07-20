@@ -92,7 +92,7 @@ class _BodyState extends State<Body> {
             //Avviso email già registrata
             RoundedButton(
               text: 'SIGN UP',
-              press: () {
+              press: () async {
                 //Evento scatenato dal click sul RoundedButton
                 //Controllo formato email
                 emailValidation = RegExp(
@@ -100,32 +100,28 @@ class _BodyState extends State<Body> {
                     .hasMatch(email);
                 //Email valida
                 if (emailValidation) {
-                  setState(() async {
-                    //Chiamo la query per verificare se email già inserita
-                    if (await _readEmailFromDb(email)) {
-                      debugPrint(
-                          'Email non registrata, procedo con la registrazione');
-                      _signUpToDb(name, surname, email, password);
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) {
-                            return HomePageScreen();
-                          },
-                        ),
-                      );
-                    } else {
-                      debugPrint('Email registrata, effettuare login');
-                      setState(() {
-                        emailDuplicated = false;
-                      });
-                    }
-                  });
+                  //Chiamo la query per verificare se email già inserita
+                  if (await _readEmailFromDb(email)) {
+                    debugPrint(
+                        'Email non registrata, procedo con la registrazione');
+                    _signUpToDb(name, surname, email, password);
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) {
+                          return HomePageScreen();
+                        },
+                      ),
+                    );
+                  } else {
+                    debugPrint('Email registrata, effettuare login');
+                    setState(() {
+                      emailDuplicated = false;
+                    });
+                  }
                   //Email non valida
                 } else {
-                  setState(() {
-                    emailDuplicated = false;
-                  });
+                  setState(() {});
                 }
               },
             ),
