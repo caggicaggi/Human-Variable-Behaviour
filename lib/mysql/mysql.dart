@@ -11,7 +11,7 @@ class Mysql {
         port: 3306,
         user: 'root',
         password: 'root',
-        // ho una diversa password del db non cancellate grazie gg
+        //Database mala
         //password: 'rootroot',
         db: 'databaseappflutter');
     return MySqlConnection.connect(settings);

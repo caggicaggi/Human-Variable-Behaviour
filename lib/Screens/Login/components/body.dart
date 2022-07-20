@@ -1,24 +1,31 @@
 // ignore_for_file: prefer_const_constructors, prefer_interpolation_to_compose_strings, avoid_print
 
 import 'package:flutter/material.dart';
+import 'package:human_variable_behaviour/Screens/HomePage/homepage_screen.dart';
 import 'package:human_variable_behaviour/Screens/SignUp/sign_up_screen.dart';
 import 'package:human_variable_behaviour/Screens/Welcome/components/background.dart';
 import 'package:human_variable_behaviour/components/already_have_an_account_check.dart';
 import 'package:human_variable_behaviour/components/rounded_button.dart';
 import 'package:human_variable_behaviour/components/rounded_input_field.dart';
 import 'package:human_variable_behaviour/components/rounded_password_field.dart';
-
-import '../../../mysql/mysql.dart';
-import '../../SignUp/components/body.dart';
+import 'package:human_variable_behaviour/mysql/mysql.dart';
 
 String email = '';
 String password = '';
+//Variabili per avviso visivo
+bool emailValidation = true;
+bool emailPresence = true;
 
-class Body extends StatelessWidget {
+class Body extends StatefulWidget {
   const Body({
     Key? key,
   }) : super(key: key);
 
+  @override
+  State<Body> createState() => _BodyState();
+}
+
+class _BodyState extends State<Body> {
   @override
   Widget build(BuildContext context) {
     //Occupo tutto lo schermo sia in altezza che in lunghezza
@@ -29,18 +36,13 @@ class Body extends StatelessWidget {
           //Allineo tutto al centro
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            //Testo della schermata
-            const Text(
-              'Login Page',
-              style: TextStyle(fontWeight: FontWeight.bold),
-            ),
             SizedBox(
               height: size.height * 0.01,
             ),
             //Immagine del logo Unicam
             Image.asset(
               'assets/images/logoUnicam.jpg',
-              height: size.height * 0.18,
+              height: size.height * 0.15,
             ),
             SizedBox(
               height: size.height * 0.02,
@@ -53,6 +55,18 @@ class Body extends StatelessWidget {
                 email = value;
               },
             ),
+            if (!emailValidation)
+              Text(
+                'Formato email non corretto',
+                style:
+                    TextStyle(fontWeight: FontWeight.bold, color: Colors.red),
+              ),
+            if (!emailPresence)
+              Text(
+                'Email non associata ad un account, effettuare registrazione',
+                style:
+                    TextStyle(fontWeight: FontWeight.bold, color: Colors.red),
+              ),
             //Prendo password
             RoundedPasswordField(
               onChange: (value) {
@@ -60,27 +74,34 @@ class Body extends StatelessWidget {
               },
             ),
             SizedBox(
-              height: size.height * 0.05,
+              height: size.height * 0.04,
             ),
             RoundedButton(
               text: 'Login',
-              press: () {
-                //Evento scatenato dal click sul RoundedButton
+              press: () async {
                 //Controllo formato email
-                bool emailValid = RegExp(
+                emailValidation = RegExp(
                         r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
                     .hasMatch(email);
-                //debugPrint(emailValid.toString());
-                if (!emailValid) {
-                  //Avviso formato email errato
+                //Refresh della pagina per visualizzare o cancellare l'avviso del formato errato
+                setState(() {});
+                if (emailValidation) {
+                  //Verifico se email già registrata
+                  if (await _readEmailFromDb(email, password)) {
+                    emailPresence = false;
+                    //Refresh della pagina per visualizzare o cancellare l'avviso del formato errato
+                    setState(() {});
+                  } else {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) {
+                          return HomePageScreen();
+                        },
+                      ),
+                    );
+                  }
                 }
-                //Controllo presenza stessa email nel database
-                readEmailFromDb(email);
-                //Salvo il check della queri dentro una variabile
-                var CheckConnessione = signInToDb(email, password);
-                /* inserire controllo (la query funziona): se checkConnessione è null allora bisogna
-                reindirizzarlo alla pagina di SignIn se checkConnessione è qualsiasi altro valore 
-                allora logga perchè vuol dire che esiste nel db */
               },
             ),
             //Chiamo la classe already_have_an_account_check.dart
@@ -102,26 +123,30 @@ class Body extends StatelessWidget {
       ),
     );
   }
-
-  void signInToDb(emailToDb, passwordToDb) {
-    //Avvio la connessione al database
-    var db = Mysql();
-    //Aggiungo i '' a tutte le stringhe passate in input
-    emailToDb = strinToDb(emailToDb);
-    passwordToDb = strinToDb(passwordToDb);
-    //Nome della tabella
-    String table = 'utenti';
-    //Scrivo la query
-    String query = ' SELECT email = " ' +
-        email +
-        '" , password = " ' +
-        password +
-        '" FROM ' +
-        table;
-    db.getConnection().then((connessione) {
-      debugPrint(query);
-      connessione.query(query);
-      connessione.close();
-    });
-  }
 }
+
+//Funzione per controllare l'esistenza della mail
+Future<bool> _readEmailFromDb(emailToReadToDb, passwordToDb) async {
+  emailToReadToDb = stringToDb(emailToReadToDb);
+  passwordToDb = stringToDb(passwordToDb);
+
+  //Nome della tabella
+  String table = 'utenti';
+  //Scrivo la query
+  String query = 'SELECT distinct email FROM ' +
+      table +
+      ' where email = ' +
+      emailToReadToDb +
+      'and password = ' +
+      passwordToDb;
+  //Connessione al database
+  var db = Mysql();
+  var connessione = await db.getConnection();
+  var result = await connessione.query(query);
+  //True = Query vuota -> Non ho la mail
+  //False = Query con valore di ritorno -> Email già presente
+  return result.isEmpty;
+}
+
+//Funzione per aggiungere i '' alle stringhe passate in input
+String stringToDb(stringToConvert) => '\'' + stringToConvert + '\'';

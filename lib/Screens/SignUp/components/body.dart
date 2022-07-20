@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors, prefer_interpolation_to_compose_strings
 
 import 'package:flutter/material.dart';
+import 'package:human_variable_behaviour/Screens/HomePage/homepage_screen.dart';
 import 'package:human_variable_behaviour/Screens/Login/login_screen.dart';
 import 'package:human_variable_behaviour/Screens/SignUp/components/background.dart';
 import 'package:human_variable_behaviour/Screens/SignUp/components/or_divider.dart';
@@ -74,6 +75,12 @@ class _BodyState extends State<Body> {
                 style:
                     TextStyle(fontWeight: FontWeight.bold, color: Colors.red),
               ),
+            if (!emailDuplicated)
+              Text(
+                'Email già registrata, prego effettuare login',
+                style:
+                    TextStyle(fontWeight: FontWeight.bold, color: Colors.red),
+              ),
             RoundedPasswordField(
               onChange: (value) {
                 password = value;
@@ -91,13 +98,35 @@ class _BodyState extends State<Body> {
                 emailValidation = RegExp(
                         r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
                     .hasMatch(email);
-                debugPrint(emailValidation.toString());
-                setState(() {});
-                //Controllo presenza stessa email nel database
-                readEmailFromDb(email);
-
-                //Registro il nuovo utente
-                signUpToDb(name, surname, email, password);
+                //Email valida
+                if (emailValidation) {
+                  setState(() async {
+                    //Chiamo la query per verificare se email già inserita
+                    if (await _readEmailFromDb(email)) {
+                      debugPrint(
+                          'Email non registrata, procedo con la registrazione');
+                      _signUpToDb(name, surname, email, password);
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) {
+                            return HomePageScreen();
+                          },
+                        ),
+                      );
+                    } else {
+                      debugPrint('Email registrata, effettuare login');
+                      setState(() {
+                        emailDuplicated = false;
+                      });
+                    }
+                  });
+                  //Email non valida
+                } else {
+                  setState(() {
+                    emailDuplicated = false;
+                  });
+                }
               },
             ),
             AlreadyHaveAnAccountCheck(
@@ -141,7 +170,7 @@ class _BodyState extends State<Body> {
 }
 
 //Funzione per registrare l'utente nel database
-void signUpToDb(nameToDb, surnameToDb, emailToDb, passwordToDb) {
+void _signUpToDb(nameToDb, surnameToDb, emailToDb, passwordToDb) {
   //Aggiungo i '' a tutte le stringhe passate in input
   nameToDb = strinToDb(nameToDb);
   surnameToDb = strinToDb(surnameToDb);
@@ -153,15 +182,14 @@ void signUpToDb(nameToDb, surnameToDb, emailToDb, passwordToDb) {
   String query = 'INSERT INTO ' +
       table +
       ' (nome, cognome, email, password) VALUES (' +
-      name +
-      '","' +
-      surname +
-      '","' +
-      email +
-      '","' +
-      password +
-      '")';
-
+      nameToDb +
+      ',' +
+      surnameToDb +
+      ',' +
+      emailToDb +
+      ',' +
+      passwordToDb +
+      ')';
   //Connessione al database
   var db = Mysql();
   db.getConnection().then((connessione) {
@@ -172,9 +200,24 @@ void signUpToDb(nameToDb, surnameToDb, emailToDb, passwordToDb) {
 }
 
 //Funzione per controllare l'esistenza della mail
-bool readEmailFromDb(emailToRead) {
-  return true;
+Future<bool> _readEmailFromDb(emailToReadToDb) async {
+  //Aggiungo i "" a tutte le stringhe passate in input
+  emailToReadToDb = strinToDb(emailToReadToDb);
+  //Nome della tabella
+  String table = 'utenti';
+  //Scrivo la query
+  String query = 'SELECT distinct email FROM ' +
+      table +
+      ' where email = ' +
+      emailToReadToDb;
+  //Connessione al database
+  var db = Mysql();
+  var connessione = await db.getConnection();
+  var result = await connessione.query(query);
+  //True = Query vuota -> Non ho la mail
+  //False = Query con valore di ritorno -> Email già presente
+  return result.isEmpty;
 }
 
 //Funzione per aggiungere i '' alle stringhe passate in input
-String strinToDb(stringToConvert) => '\'' + stringToConvert + '\'';
+String strinToDb(stringToConvert) => '"' + stringToConvert + '"';
