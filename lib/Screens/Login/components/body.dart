@@ -87,11 +87,13 @@ class _BodyState extends State<Body> {
                 setState(() {});
                 if (emailValidation) {
                   //Verifico se email già registrata
-                  if (await _readEmailFromDb(email, password)) {
+                  if (await readEmailPasswordFromDb(email, password)) {
                     emailPresence = false;
                     //Refresh della pagina per visualizzare o cancellare l'avviso del formato errato
                     setState(() {});
                   } else {
+                    emailPresence = true;
+                    setState(() {});
                     Navigator.push(
                       context,
                       MaterialPageRoute(
@@ -124,29 +126,3 @@ class _BodyState extends State<Body> {
     );
   }
 }
-
-//Funzione per controllare l'esistenza della mail
-Future<bool> _readEmailFromDb(emailToReadToDb, passwordToDb) async {
-  emailToReadToDb = stringToDb(emailToReadToDb);
-  passwordToDb = stringToDb(passwordToDb);
-
-  //Nome della tabella
-  String table = 'utenti';
-  //Scrivo la query
-  String query = 'SELECT distinct email FROM ' +
-      table +
-      ' where email = ' +
-      emailToReadToDb +
-      'and password = ' +
-      passwordToDb;
-  //Connessione al database
-  var db = Mysql();
-  var connessione = await db.getConnection();
-  var result = await connessione.query(query);
-  //True = Query vuota -> Non ho la mail
-  //False = Query con valore di ritorno -> Email già presente
-  return result.isEmpty;
-}
-
-//Funzione per aggiungere i '' alle stringhe passate in input
-String stringToDb(stringToConvert) => '\'' + stringToConvert + '\'';

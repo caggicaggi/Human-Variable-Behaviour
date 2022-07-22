@@ -101,10 +101,10 @@ class _BodyState extends State<Body> {
                 //Email valida
                 if (emailValidation) {
                   //Chiamo la query per verificare se email già inserita
-                  if (await _readEmailFromDb(email)) {
-                    debugPrint(
-                        'Email non registrata, procedo con la registrazione');
-                    _signUpToDb(name, surname, email, password);
+                  if (await readEmailFromDb(email)) {
+                    emailDuplicated = true;
+                    setState(() {});
+                    signUpToDb(name, surname, email, password);
                     Navigator.push(
                       context,
                       MaterialPageRoute(
@@ -140,7 +140,6 @@ class _BodyState extends State<Body> {
               },
             ),
             OrDivider(),
-
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -164,56 +163,3 @@ class _BodyState extends State<Body> {
     );
   }
 }
-
-//Funzione per registrare l'utente nel database
-void _signUpToDb(nameToDb, surnameToDb, emailToDb, passwordToDb) {
-  //Aggiungo i '' a tutte le stringhe passate in input
-  nameToDb = strinToDb(nameToDb);
-  surnameToDb = strinToDb(surnameToDb);
-  emailToDb = strinToDb(emailToDb);
-  passwordToDb = strinToDb(passwordToDb);
-  //Nome della tabella
-  String table = 'utenti';
-  //Scrivo la query
-  String query = 'INSERT INTO ' +
-      table +
-      ' (nome, cognome, email, password) VALUES (' +
-      nameToDb +
-      ',' +
-      surnameToDb +
-      ',' +
-      emailToDb +
-      ',' +
-      passwordToDb +
-      ')';
-  //Connessione al database
-  var db = Mysql();
-  db.getConnection().then((connessione) {
-    debugPrint(query);
-    connessione.query(query);
-    connessione.close();
-  });
-}
-
-//Funzione per controllare l'esistenza della mail
-Future<bool> _readEmailFromDb(emailToReadToDb) async {
-  //Aggiungo i "" a tutte le stringhe passate in input
-  emailToReadToDb = strinToDb(emailToReadToDb);
-  //Nome della tabella
-  String table = 'utenti';
-  //Scrivo la query
-  String query = 'SELECT distinct email FROM ' +
-      table +
-      ' where email = ' +
-      emailToReadToDb;
-  //Connessione al database
-  var db = Mysql();
-  var connessione = await db.getConnection();
-  var result = await connessione.query(query);
-  //True = Query vuota -> Non ho la mail
-  //False = Query con valore di ritorno -> Email già presente
-  return result.isEmpty;
-}
-
-//Funzione per aggiungere i '' alle stringhe passate in input
-String strinToDb(stringToConvert) => '"' + stringToConvert + '"';
