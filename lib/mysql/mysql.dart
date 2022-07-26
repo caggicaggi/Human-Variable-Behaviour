@@ -1,5 +1,9 @@
+// ignore_for_file: prefer_interpolation_to_compose_strings
+
 import 'dart:async';
 import 'package:mysql1/mysql1.dart';
+
+var idUtente = '';
 
 class Mysql {
   //Cotruttore
@@ -41,17 +45,25 @@ void signUpToDb(nameToDb, surnameToDb, emailToDb, passwordToDb) {
       ')';
   //Connessione al database
   var db = Mysql();
-  db.getConnection().then((connessione) {
+  db.getConnection().then((connessione) async {
+    //Inserisco le info nel database
     connessione.query(query);
+    //Leggo l'idUtente appena assegnato
+    String queryToId =
+        'select idUtente FROM ' + table + ' WHERE email = ' + emailToDb;
+    await connessione.query(queryToId).then((results) {
+      for (var res in results) {
+        idUtente = res[0].toString();
+      }
+    });
     connessione.close();
   });
 }
 
-//Funzione per controllare l'esistenza della mail
+//Funzione per controllare l'esistenza della mail e password durante il login
 Future<bool> readEmailPasswordFromDb(emailToReadToDb, passwordToDb) async {
   emailToReadToDb = stringToDb(emailToReadToDb);
   passwordToDb = stringToDb(passwordToDb);
-
   //Nome della tabella
   String table = 'utenti';
   //Scrivo la query
@@ -67,16 +79,23 @@ Future<bool> readEmailPasswordFromDb(emailToReadToDb, passwordToDb) async {
   //Aggiunti delay
   await Future.delayed(const Duration(milliseconds: 2));
   var result = await connessione.query(query);
+  //Leggo l'idUtente ottenuto dal login
+  String queryToId =
+      'select idUtente FROM ' + table + ' WHERE email = ' + emailToReadToDb;
+  await connessione.query(queryToId).then((results) {
+    for (var res in results) {
+      idUtente = res[0].toString();
+    }
+  });
   connessione.close();
   //True = Query vuota -> Non ho la mail
   //False = Query con valore di ritorno -> Email già presente
   return result.isEmpty;
 }
 
-//Funzione per controllare l'esistenza della mail
+//Funzione per controllare l'esistenza della mail durante la registrazione
 Future<bool> readEmailFromDb(emailToReadToDb) async {
   emailToReadToDb = stringToDb(emailToReadToDb);
-
   //Nome della tabella
   String table = 'utenti';
   //Scrivo la query
