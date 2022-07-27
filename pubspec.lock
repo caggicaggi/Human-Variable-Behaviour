@@ -95,15 +95,6 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
-<<<<<<< HEAD
-  intl:
-    dependency: "direct main"
-    description:
-      name: intl
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.17.0"
-=======
   flutter_web_plugins:
     dependency: transitive
     description: flutter
@@ -144,6 +135,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.10.2"
+  intl:
+    dependency: "direct main"
+    description:
+      name: intl
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.17.0"
   js:
     dependency: transitive
     description:
@@ -151,7 +149,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.6.4"
->>>>>>> 1a79610d046acd415481c368f2bbde31779e1350
   lints:
     dependency: transitive
     description:
@@ -229,15 +226,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.5.1"
-<<<<<<< HEAD
-  simple_gesture_detector:
-    dependency: transitive
-    description:
-      name: simple_gesture_detector
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.2.0"
-=======
   quiver:
     dependency: transitive
     description:
@@ -245,7 +233,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "3.1.0"
->>>>>>> 1a79610d046acd415481c368f2bbde31779e1350
+  simple_gesture_detector:
+    dependency: transitive
+    description:
+      name: simple_gesture_detector
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.2.0"
   sky_engine:
     dependency: transitive
     description: flutter
@@ -323,8 +317,4 @@ packages:
     version: "3.7.0"
 sdks:
   dart: ">=2.17.5 <3.0.0"
-<<<<<<< HEAD
-  flutter: ">=1.17.0"
-=======
   flutter: ">=2.8.0"
->>>>>>> 1a79610d046acd415481c368f2bbde31779e1350
