@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_interpolation_to_compose_strings
+
 import 'dart:async';
 //import 'dart:html';
 import 'package:flutter/material.dart';
@@ -5,8 +7,11 @@ import 'package:human_variable_behaviour/Screens/Application/Diario/components/M
 import 'package:intl/intl.dart';
 import 'package:mysql1/mysql1.dart';
 
+<<<<<<< HEAD
 import '../Screens/Login/components/body.dart';
 
+=======
+>>>>>>> 1a79610d046acd415481c368f2bbde31779e1350
 var idUtente = '';
 
 class Mysql {
@@ -49,13 +54,18 @@ void signUpToDb(nameToDb, surnameToDb, emailToDb, passwordToDb) {
       ')';
   //Connessione al database
   var db = Mysql();
+<<<<<<< HEAD
 
   db.getConnection().then((connessione) async {
     await Future.delayed(const Duration(seconds: 2));
+=======
+  db.getConnection().then((connessione) async {
+>>>>>>> 1a79610d046acd415481c368f2bbde31779e1350
     //Inserisco le info nel database
     connessione.query(query);
     //Leggo l'idUtente appena assegnato
     String queryToId =
+<<<<<<< HEAD
         'select idutente FROM ' + table + ' WHERE email = ' + emailToDb;
     print(queryToId);
     await connessione.query(queryToId).then((results) {
@@ -65,15 +75,22 @@ void signUpToDb(nameToDb, surnameToDb, emailToDb, passwordToDb) {
       }
     });
     await Future.delayed(const Duration(seconds: 2));
+=======
+        'select idUtente FROM ' + table + ' WHERE email = ' + emailToDb;
+    await connessione.query(queryToId).then((results) {
+      for (var res in results) {
+        idUtente = res[0].toString();
+      }
+    });
+>>>>>>> 1a79610d046acd415481c368f2bbde31779e1350
     connessione.close();
   });
 }
 
-//Funzione per controllare l'esistenza della mail
+//Funzione per controllare l'esistenza della mail e password durante il login
 Future<bool> readEmailPasswordFromDb(emailToReadToDb, passwordToDb) async {
   emailToReadToDb = stringToDb(emailToReadToDb);
   passwordToDb = stringToDb(passwordToDb);
-
   //Nome della tabella
   String table = 'utenti';
   //Scrivo la query
@@ -89,6 +106,7 @@ Future<bool> readEmailPasswordFromDb(emailToReadToDb, passwordToDb) async {
   //Aggiunti delay
   await Future.delayed(const Duration(milliseconds: 2));
   var result = await connessione.query(query);
+<<<<<<< HEAD
   db.getConnection().then((connessione) async {
     await Future.delayed(const Duration(seconds: 2));
     //Inserisco le info nel database
@@ -105,6 +123,15 @@ Future<bool> readEmailPasswordFromDb(emailToReadToDb, passwordToDb) async {
     });
     await Future.delayed(const Duration(seconds: 2));
     connessione.close();
+=======
+  //Leggo l'idUtente ottenuto dal login
+  String queryToId =
+      'select idUtente FROM ' + table + ' WHERE email = ' + emailToReadToDb;
+  await connessione.query(queryToId).then((results) {
+    for (var res in results) {
+      idUtente = res[0].toString();
+    }
+>>>>>>> 1a79610d046acd415481c368f2bbde31779e1350
   });
   connessione.close();
   //True = Query vuota -> Non ho la mail
@@ -112,7 +139,7 @@ Future<bool> readEmailPasswordFromDb(emailToReadToDb, passwordToDb) async {
   return result.isEmpty;
 }
 
-//Funzione per controllare l'esistenza della mail
+//Funzione per controllare l'esistenza della mail durante la registrazione
 Future<bool> readEmailFromDb(emailToReadToDb) async {
   emailToReadToDb = stringToDb(emailToReadToDb);
   //Nome della tabella
