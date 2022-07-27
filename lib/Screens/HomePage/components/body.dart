@@ -27,7 +27,7 @@ class _BodyState extends State<Body> {
     GiochiScreen(),
     PersonaScreen(),
     SchermataPrincipaleScreen(),
-    DiarioScreen(),
+    CustomTableCalendar(),
     UnicamScreen(),
   ];
   @override
