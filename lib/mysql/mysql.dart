@@ -9,6 +9,8 @@ import 'package:mysql1/mysql1.dart';
 
 var idUtente = '';
 
+List<String> list = [];
+
 class Mysql {
   //Cotruttore
   Mysql();
@@ -18,9 +20,7 @@ class Mysql {
         host: '10.0.2.2',
         port: 3306,
         user: 'root',
-        //password: 'root',
-        //Database mala
-        password: 'rootroot',
+        password: 'root',
         db: 'databaseappflutter');
     return MySqlConnection.connect(settings);
   }
@@ -91,7 +91,7 @@ Future<bool> readEmailPasswordFromDb(emailToReadToDb, passwordToDb) async {
   await Future.delayed(const Duration(milliseconds: 2));
   var result = await connessione.query(query);
   db.getConnection().then((connessione) async {
-    await Future.delayed(const Duration(seconds: 2));
+    await Future.delayed(const Duration(milliseconds: 2));
     //Inserisco le info nel database
     connessione.query(query);
     //Leggo l'idUtente appena assegnato
@@ -104,7 +104,7 @@ Future<bool> readEmailPasswordFromDb(emailToReadToDb, passwordToDb) async {
         debugPrint(idUtente);
       }
     });
-    await Future.delayed(const Duration(seconds: 2));
+    await Future.delayed(const Duration(milliseconds: 2));
     connessione.close();
   });
   connessione.close();
@@ -160,11 +160,51 @@ void signDataAndGiornata(
 }
 
 // metodo invocato quando si clicca sulla data del calendario
-List<MyEvents> listaGiornateInserite(DateTime? selectedCalendarDate, idutente) {
-  List<MyEvents> list = [];
-  //print("VARIABILI:::::::::::::::::::");
-  //print(selectedCalendarDate?.toLocal());
-  // FARE QUERY PER IDUTENTE E ORARIO CHE RITORNA LISTA
+Future<List<String>> listaGiornateInserite(dataGiornata, idUtente) async {
+  String table = 'diarioUtente';
+  int parolaDoppia = 0;
+  List<String> controlloInserimento = [];
+  dataGiornata = dataGiornata.toLocal();
+  dataGiornata = DateFormat('yyyy-MM-dd').format(dataGiornata);
+  dataGiornata = stringToDb(dataGiornata);
+  String query = 'SELECT descrizioneGiornata,titoloGiornata FROM ' +
+      table +
+      ' where dataGiornata = ' +
+      dataGiornata +
+      ' AND idUtente = ' +
+      idUtente;
+  var db = Mysql();
+  var connessione = await db.getConnection();
+  //Aggiunti delay
+  await Future.delayed(const Duration(milliseconds: 2));
+  var result = await connessione.query(query);
+  if (result.toString() == null ||
+      result.toString() == "" ||
+      result.toString() == " " ||
+      result.isEmpty) {
+    connessione.close();
+    return list;
+  }
+
+  controlloInserimento.add(result.toString());
+  for (int i = 0; i <= list.length - 1; i++) {
+    for (int j = 0; j <= controlloInserimento.length - 1; j++) {
+      if (controlloInserimento[j] == list[i]) {
+        parolaDoppia++;
+      }
+    }
+    if (parolaDoppia > 0) {
+      connessione.close();
+      list.clear();
+      return list;
+    }
+  }
+  list.add(result.toString());
+  print(list);
+
+  connessione.close();
+  //True = Query vuota -> Non ho la mail
+  //False = Query con valore di ritorno -> Email già presente
 // Here the List should be returned, but after my Function fills it.
   return list;
 }

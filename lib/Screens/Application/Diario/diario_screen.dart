@@ -8,6 +8,8 @@ import '../../../mysql/mysql.dart';
 
 class Calendario {}
 
+String data = "";
+
 class CustomTableCalendar extends StatefulWidget {
   const CustomTableCalendar({Key? key}) : super(key: key);
 
@@ -40,8 +42,10 @@ class _CustomTableCalendarState extends State<CustomTableCalendar> {
     super.dispose();
   }
 
+  //prima cosa che viene effettuata
   List<MyEvents> _listOfDayEvents(DateTime dateTime) {
-    listaGiornateInserite(selectedCalendarDate, mySelectedEvents[dateTime]);
+    listaGiornateInserite(selectedCalendarDate, idUtente);
+    MyEvents(eventDescp: list.toString(), eventTitle: list.toString());
     return mySelectedEvents[dateTime] ?? [];
   }
 
@@ -81,7 +85,7 @@ class _CustomTableCalendarState extends State<CustomTableCalendar> {
                           duration: Duration(seconds: 3),
                         ),
                       );
-                      //Navigator.pop(context);
+                      Navigator.pop(context);
                       return;
                     } else {
                       setState(() {
@@ -97,14 +101,12 @@ class _CustomTableCalendarState extends State<CustomTableCalendar> {
                           ];
                         }
                       });
-                      setState(() {
-                        MyEvents(
-                            eventTitle: titleController.text,
-                            eventDescp: descpController.text);
-                        signDataAndGiornata(idUtente, selectedCalendarDate,
-                            titleController.text, descpController.text);
-                        print(idUtente);
-                      });
+                      MyEvents(
+                          eventTitle: titleController.text,
+                          eventDescp: descpController.text);
+                      data = selectedCalendarDate.toString();
+                      signDataAndGiornata(idUtente, selectedCalendarDate,
+                          titleController.text, descpController.text);
 
                       titleController.clear();
                       descpController.clear();
@@ -269,6 +271,25 @@ class _CustomTableCalendarState extends State<CustomTableCalendar> {
                       BoxDecoration(color: Colors.red, shape: BoxShape.circle),
                 ),
                 selectedDayPredicate: (currentSelectedDate) {
+                  //cliccando sul giorno scelto mi trovo qui
+                  print("SONO QUI");
+                  print("&&&&&&&&&&&&&&&&&&&&&&&&&&&&");
+                  listaGiornateInserite(selectedCalendarDate, idUtente);
+                  print(list);
+                  _listOfDayEvents(selectedCalendarDate!).map(
+                    (list) => ListTile(
+                      leading: Icon(
+                        Icons.done,
+                        color: Colors.blue,
+                      ),
+                      title: Padding(
+                        padding: const EdgeInsets.only(bottom: 8.0),
+                        child: Text(
+                            'Questo è il titolo della giornata:${list.eventTitle}'),
+                      ),
+                      subtitle: Text('Descrizione Giornata:${list.eventDescp}'),
+                    ),
+                  );
                   // as per the documentation 'selectedDayPredicate' needs to determine
                   // current selected day
                   return (isSameDay(
@@ -281,12 +302,13 @@ class _CustomTableCalendarState extends State<CustomTableCalendar> {
                       selectedCalendarDate = selectedDay;
                       _focusedCalendarDate = focusedDay;
                     });
+                    // list.clear();
                   }
                 },
               ),
             ),
             ..._listOfDayEvents(selectedCalendarDate!).map(
-              (myEvents) => ListTile(
+              (list) => ListTile(
                 leading: Icon(
                   Icons.done,
                   color: Colors.blue,
@@ -294,9 +316,9 @@ class _CustomTableCalendarState extends State<CustomTableCalendar> {
                 title: Padding(
                   padding: const EdgeInsets.only(bottom: 8.0),
                   child: Text(
-                      'Questo è il titolo della giornata:${myEvents.eventTitle}'),
+                      'Questo è il titolo della giornata:${list.eventTitle}'),
                 ),
-                subtitle: Text('Descrizione Giornata:${myEvents.eventDescp}'),
+                subtitle: Text('Descrizione Giornata:${list.eventDescp}'),
               ),
             ),
           ],
