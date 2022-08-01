@@ -2,6 +2,8 @@
 
 import 'dart:async';
 //import 'dart:html';
+import 'dart:io';
+//import 'dart:html';
 import 'package:flutter/material.dart';
 import 'package:human_variable_behaviour/Screens/Application/Diario/components/MyEvents.dart';
 import 'package:intl/intl.dart';
@@ -161,7 +163,9 @@ void signDataAndGiornata(
 
 // metodo invocato quando si clicca sulla data del calendario
 Future<List<String>> listaGiornateInserite(dataGiornata, idUtente) async {
+  List<String> list1 = [];
   String table = 'diarioUtente';
+  int controllo = 0;
   int parolaDoppia = 0;
   List<String> controlloInserimento = [];
   dataGiornata = dataGiornata.toLocal();
@@ -178,15 +182,9 @@ Future<List<String>> listaGiornateInserite(dataGiornata, idUtente) async {
   //Aggiunti delay
   await Future.delayed(const Duration(milliseconds: 2));
   var result = await connessione.query(query);
-  if (result.toString() == null ||
-      result.toString() == "" ||
-      result.toString() == " " ||
-      result.isEmpty) {
-    connessione.close();
-    return list;
-  }
 
   controlloInserimento.add(result.toString());
+
   for (int i = 0; i <= list.length - 1; i++) {
     for (int j = 0; j <= controlloInserimento.length - 1; j++) {
       if (controlloInserimento[j] == list[i]) {
@@ -194,19 +192,22 @@ Future<List<String>> listaGiornateInserite(dataGiornata, idUtente) async {
       }
     }
     if (parolaDoppia > 0) {
-      connessione.close();
-      list.clear();
-      return list;
+      controllo = 2;
     }
   }
-  list.add(result.toString());
-  print(list);
+  if (controllo == 2 || result.isEmpty || result.toString() == " ") {
+    connessione.close();
+  } else {
+    list.add(result.toString());
+    list1.add(result.toString());
+    connessione.close();
+  }
 
   connessione.close();
+  return list1;
   //True = Query vuota -> Non ho la mail
   //False = Query con valore di ritorno -> Email già presente
 // Here the List should be returned, but after my Function fills it.
-  return list;
 }
 
 //Funzione per aggiungere i '' alle stringhe passate in input
