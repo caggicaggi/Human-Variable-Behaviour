@@ -39,6 +39,7 @@ dependencies:
   flutter_svg: ^0.17.4
   mysql1: ^0.20.0
   google_sign_in: ^5.4.0
+  flutter_clean_calendar: ^1.1.0
 
 dev_dependencies:
   flutter_test:

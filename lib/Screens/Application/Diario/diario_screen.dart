@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:human_variable_behaviour/Screens/Application/Diario/components/MyEvents.dart';
@@ -25,7 +27,6 @@ class _CustomTableCalendarState extends State<CustomTableCalendar> {
   final descpController = TextEditingController();
 
   late Map<DateTime, List<MyEvents>> mySelectedEvents;
-
   @override
   void initState() {
     selectedCalendarDate = _focusedCalendarDate;
@@ -40,10 +41,28 @@ class _CustomTableCalendarState extends State<CustomTableCalendar> {
     super.dispose();
   }
 
+  loadEventList() async {
+    initState();
+    final _ev = list;
+    List<MyEvents> listToEvent = _ev as List<MyEvents>;
+    return list = listToEvent.cast<String>();
+  }
+
   List<MyEvents> _listOfDayEvents(DateTime dateTime) {
+    listaGiornateInserite(_focusedCalendarDate, idUtente);
+    print("vevmvnjenbvweijqnbvuqeojabnviwuejanbvao");
+    print(list);
     return mySelectedEvents[dateTime] ?? [];
   }
 
+  List<String> _listOfDayEvents1(DateTime dateTime) {
+    listaGiornateInserite(_focusedCalendarDate, idUtente);
+    print("vevmvnjenbvweijqnbvuqeojabnviwuejanbvao");
+    print(list);
+    return list;
+  }
+
+  // viene chiamato quando si preme sul tato Inserisci
   _showAddEventDialog() async {
     await showDialog(
         context: context,
@@ -266,6 +285,7 @@ class _CustomTableCalendarState extends State<CustomTableCalendar> {
                   listaGiornateInserite(_focusedCalendarDate, idUtente);
                   print("Lista:");
                   print(list);
+
                   /*********************************** */
                   // QUI BISOGNEREBBE STAMPARE LA LISTA
                   /*********************************** */
@@ -285,6 +305,18 @@ class _CustomTableCalendarState extends State<CustomTableCalendar> {
                   //necessario per non inserire ripetizioni nella lista
                   list.clear();
                 },
+              ),
+            ),
+            ..._listOfDayEvents1(selectedCalendarDate!).map(
+              (list) => ListTile(
+                leading: const Icon(
+                  Icons.done,
+                  color: Colors.blue,
+                ),
+                title: Padding(
+                  padding: const EdgeInsets.only(bottom: 8.0),
+                  child: Text('Questo è il titolo della giornata:${list}'),
+                ),
               ),
             ),
             ..._listOfDayEvents(selectedCalendarDate!).map(
