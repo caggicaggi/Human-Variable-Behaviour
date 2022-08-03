@@ -1,16 +1,11 @@
 // ignore_for_file: prefer_interpolation_to_compose_strings
-
 import 'dart:async';
-//import 'dart:html';
-import 'dart:io';
-//import 'dart:html';
 import 'package:flutter/material.dart';
-import 'package:human_variable_behaviour/Screens/Application/Diario/components/MyEvents.dart';
 import 'package:intl/intl.dart';
 import 'package:mysql1/mysql1.dart';
 
+//Variabili per utilizzo del programma
 var idUtente = '';
-
 List<String> list = [];
 
 class Mysql {
@@ -29,7 +24,8 @@ class Mysql {
 }
 
 //Funzione per registrare l'utente nel database
-void signUpToDb(nameToDb, surnameToDb, emailToDb, passwordToDb) {
+//Il metodo va messo Future perchè così se richiamato si può utilizzare l'await
+Future signUpToDb(nameToDb, surnameToDb, emailToDb, passwordToDb) async {
   //Aggiungo i '' a tutte le stringhe passate in input
   nameToDb = stringToDb(nameToDb);
   surnameToDb = stringToDb(surnameToDb);
@@ -51,30 +47,27 @@ void signUpToDb(nameToDb, surnameToDb, emailToDb, passwordToDb) {
       ')';
   //Connessione al database
   var db = Mysql();
-
-  db.getConnection().then((connessione) async {
-    await Future.delayed(const Duration(seconds: 2));
+  await db.getConnection().then((connessione) async {
     //Inserisco le info nel database
     connessione.query(query);
     //Leggo l'idUtente appena assegnato
     String queryToId =
         'select idUtente FROM ' + table + ' WHERE email = ' + emailToDb;
-    print(queryToId);
-
-    await Future.delayed(const Duration(seconds: 2));
     await connessione.query(queryToId).then((results) {
       for (var res in results) {
         idUtente = res[0].toString();
-        debugPrint(idUtente);
+        //debugPrint(idUtente);
       }
     });
-    await Future.delayed(const Duration(seconds: 2));
+    //debugPrint('Chiudo la connessione');
     connessione.close();
   });
 }
 
 //Funzione per controllare l'esistenza della mail e password durante il login
+//Il metodo va messo Future perchè così se richiamato si può utilizzare l'await
 Future<bool> readEmailPasswordFromDb(emailToReadToDb, passwordToDb) async {
+  //Aggiungo i '' a tutte le stringhe passate in input
   emailToReadToDb = stringToDb(emailToReadToDb);
   passwordToDb = stringToDb(passwordToDb);
   //Nome della tabella
@@ -88,34 +81,31 @@ Future<bool> readEmailPasswordFromDb(emailToReadToDb, passwordToDb) async {
       passwordToDb;
   //Connessione al database
   var db = Mysql();
-  var connessione = await db.getConnection();
-  //Aggiunti delay
-  await Future.delayed(const Duration(milliseconds: 2));
-  var result = await connessione.query(query);
-  db.getConnection().then((connessione) async {
-    await Future.delayed(const Duration(milliseconds: 2));
-    //Inserisco le info nel database
-    connessione.query(query);
-    //Leggo l'idUtente appena assegnato
-    String queryToId =
-        'select idUtente FROM ' + table + ' WHERE email = ' + emailToReadToDb;
-    print(queryToId);
-    await connessione.query(queryToId).then((results) {
-      for (var res in results) {
-        idUtente = res[0].toString();
-        debugPrint(idUtente);
-      }
+  bool risultatoQuery = true;
+  await db.getConnection().then((connessione) async {
+    await connessione.query(query).then((result) async {
+      //Leggo l'idUtente appena assegnato
+      String queryToId =
+          'select idUtente FROM ' + table + ' WHERE email = ' + emailToReadToDb;
+      await connessione.query(queryToId).then((results) {
+        for (var res in results) {
+          idUtente = res[0].toString();
+          debugPrint(idUtente);
+        }
+        connessione.close();
+      });
+      risultatoQuery = result.isEmpty;
     });
-    connessione.close();
   });
-  connessione.close();
   //True = Query vuota -> Non ho la mail
   //False = Query con valore di ritorno -> Email già presente
-  return result.isEmpty;
+  return risultatoQuery;
 }
 
 //Funzione per controllare l'esistenza della mail durante la registrazione
+//Il metodo va messo Future perchè così se richiamato si può utilizzare l'await
 Future<bool> readEmailFromDb(emailToReadToDb) async {
+  //Aggiungo i '' a tutte le stringhe passate in input
   emailToReadToDb = stringToDb(emailToReadToDb);
   //Nome della tabella
   String table = 'utenti';
@@ -126,15 +116,29 @@ Future<bool> readEmailFromDb(emailToReadToDb) async {
       emailToReadToDb;
   //Connessione al database
   var db = Mysql();
-  var connessione = await db.getConnection();
-  //Aggiunti delay
-  await Future.delayed(const Duration(milliseconds: 2));
-  var result = await connessione.query(query);
-  connessione.close();
+  bool risultatoQuery = true;
+  await db.getConnection().then((connessione) async {
+    await connessione.query(query).then((result) async {
+      risultatoQuery = result.isEmpty;
+      connessione.close();
+    });
+  });
   //True = Query vuota -> Non ho la mail
   //False = Query con valore di ritorno -> Email già presente
-  return result.isEmpty;
+  return risultatoQuery;
 }
+
+//Funzione per aggiungere i '' alle stringhe passate in input
+String stringToDb(stringToConvert) => '"' + stringToConvert + '"';
+
+/*
+I metodi precedenti sono stati corretti e testati, ho aggiunto:
+Future per poter utilizzare l'await quando richiamati nell'app
+Così facendo il programma procede solo nel momento in qui il metodo finisce
+senza quest'impostazione non saremo mai sincronizzati col databas
+*/
+
+//Metodi Malaccari, da rivedere
 
 //funzione per inserire giornata utente
 void signDataAndGiornata(idutente, dataGiornata, descrizioneGiornata) {
@@ -146,7 +150,6 @@ void signDataAndGiornata(idutente, dataGiornata, descrizioneGiornata) {
   //Nome della tabella
   String table = 'diarioUtente';
   //Scrivo la query
-  // ignore: prefer_interpolation_to_compose_strings
   String query =
       '${'INSERT INTO ' + table + ' (idUtente,dataGiornata, descrizioneGiornata) VALUES (' + idutente + ',' + "'" + dataGiornata + "'" + ',' + descrizioneGiornata})';
   //Connessione al database
@@ -205,6 +208,3 @@ Future<List<String>> listaGiornateInserite(dataGiornata, idUtente) async {
   //False = Query con valore di ritorno -> Email già presente
 // Here the List should be returned, but after my Function fills it.
 }
-
-//Funzione per aggiungere i '' alle stringhe passate in input
-String stringToDb(stringToConvert) => '"' + stringToConvert + '"';

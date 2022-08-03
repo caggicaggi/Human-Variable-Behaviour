@@ -87,11 +87,13 @@ class _BodyState extends State<Body> {
                 setState(() {});
                 if (emailValidation) {
                   //Verifico se email già registrata
+                  //debugPrint('Prima della query');
                   if (await readEmailPasswordFromDb(email, password)) {
                     emailPresence = false;
                     //Refresh della pagina per visualizzare o cancellare l'avviso del formato errato
                     setState(() {});
                   } else {
+                    //debugPrint('Dopo della query');
                     emailPresence = true;
                     setState(() {});
                     Navigator.push(

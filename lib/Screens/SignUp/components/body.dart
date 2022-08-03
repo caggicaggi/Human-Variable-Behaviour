@@ -104,14 +104,20 @@ class _BodyState extends State<Body> {
                   if (await readEmailFromDb(email)) {
                     emailDuplicated = true;
                     setState(() {});
-                    signUpToDb(name, surname, email, password);
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) {
-                          return HomePageScreen();
-                        },
-                      ),
+                    //Con l'await aspetto che il metodo finisca, prima di procedere
+                    //debugPrint('Prima della query');
+                    await signUpToDb(name, surname, email, password).then(
+                      (value) {
+                        //debugPrint('Dopo della query');
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) {
+                              return HomePageScreen();
+                            },
+                          ),
+                        );
+                      },
                     );
                   } else {
                     debugPrint('Email registrata, effettuare login');
