@@ -27,6 +27,7 @@ class _CustomTableCalendarState extends State<CustomTableCalendar> {
   final descpController = TextEditingController();
 
   late Map<DateTime, List<MyEvents>> mySelectedEvents;
+
   @override
   void initState() {
     selectedCalendarDate = _focusedCalendarDate;
@@ -41,30 +42,19 @@ class _CustomTableCalendarState extends State<CustomTableCalendar> {
     super.dispose();
   }
 
-  loadEventList() async {
-    initState();
-    final _ev = list;
-    List<MyEvents> listToEvent = _ev as List<MyEvents>;
-    return list = listToEvent.cast<String>();
-  }
-
   List<MyEvents> _listOfDayEvents(DateTime dateTime) {
     listaGiornateInserite(_focusedCalendarDate, idUtente);
-    print("vevmvnjenbvweijqnbvuqeojabnviwuejanbvao");
-    print(list);
     return mySelectedEvents[dateTime] ?? [];
   }
 
   List<String> _listOfDayEvents1(DateTime dateTime) {
     listaGiornateInserite(_focusedCalendarDate, idUtente);
-    print("vevmvnjenbvweijqnbvuqeojabnviwuejanbvao");
-    print(list);
     return list;
   }
 
   // viene chiamato quando si preme sul tato Inserisci
-  _showAddEventDialog() async {
-    await showDialog(
+  _showAddEventDialog() {
+    showDialog(
         context: context,
         builder: (context) => AlertDialog(
               title: const Text('Qui puoi raccontare la tua giornata'),
@@ -72,13 +62,6 @@ class _CustomTableCalendarState extends State<CustomTableCalendar> {
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  // titolo della giornata
-                  buildTextFieldTitolo(
-                      controller: titleController,
-                      hint: 'Che titolo daresti alla giornata?'),
-                  const SizedBox(
-                    height: 30.0,
-                  ),
                   buildTextFieldGiornata(
                       controller: descpController,
                       hint: 'Cosa è successo oggi?'),
@@ -118,8 +101,11 @@ class _CustomTableCalendarState extends State<CustomTableCalendar> {
                       MyEvents(
                           eventTitle: titleController.text,
                           eventDescp: descpController.text);
-                      signDataAndGiornata(idUtente, selectedCalendarDate,
-                          titleController.text, descpController.text);
+                      String concatenazione =
+                          descpController.text + titleController.text;
+                      signDataAndGiornata(
+                          idUtente, selectedCalendarDate, descpController.text);
+                      list.add(concatenazione);
                       titleController.clear();
                       descpController.clear();
                       Navigator.pop(context);
@@ -196,146 +182,137 @@ class _CustomTableCalendarState extends State<CustomTableCalendar> {
         label: const Text('Inserisci la tua giornata'),
       ),
       body: SingleChildScrollView(
-        child: Column(
-          children: [
-            Card(
-              margin: const EdgeInsets.all(8.0),
-              elevation: 5.0,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.all(
-                  Radius.circular(10),
-                ),
-                side: BorderSide(color: Colors.blue, width: 2.0),
+          child: Column(
+        children: [
+          Card(
+            margin: const EdgeInsets.all(8.0),
+            elevation: 5.0,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(
+                Radius.circular(10),
               ),
-              child: TableCalendar(
-                focusedDay: _focusedCalendarDate,
-                // today's date
-                firstDay: _initialCalendarDate,
-                // earliest possible date
-                lastDay: _lastCalendarDate,
-                // latest allowed date
-                calendarFormat: CalendarFormat.month,
-                // default view when displayed
-                // default is Saturday & Sunday but can be set to any day.
-                // instead of day number can be mentioned as well.
-                weekendDays: const [DateTime.sunday, 6],
-                // default is Sunday but can be changed according to locale
-                startingDayOfWeek: StartingDayOfWeek.monday,
-                // height between the day row and 1st date row, default is 16.0
-                daysOfWeekHeight: 40.0,
-                // height between the date rows, default is 52.0
-                rowHeight: 60.0,
-                // this property needs to be added if we want to show events
-                eventLoader: _listOfDayEvents,
-                // Calendar Header Styling
-                headerStyle: HeaderStyle(
-                  titleTextStyle:
-                      TextStyle(color: Colors.black, fontSize: 20.0),
-                  decoration: BoxDecoration(
-                      color: Colors.blue,
-                      borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(10),
-                          topRight: Radius.circular(10))),
-                  formatButtonTextStyle:
-                      TextStyle(color: Colors.black, fontSize: 16.0),
-                  formatButtonDecoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.all(
-                      Radius.circular(5.0),
-                    ),
-                  ),
-                  leftChevronIcon: Icon(
-                    Icons.chevron_left,
-                    color: Colors.black,
-                    size: 28,
-                  ),
-                  rightChevronIcon: Icon(
-                    Icons.chevron_right,
-                    color: Colors.black,
-                    size: 28,
-                  ),
-                ),
-                // Calendar Days Styling
-                daysOfWeekStyle: DaysOfWeekStyle(
-                  // Weekend days color (Sat,Sun)
-                  weekendStyle: TextStyle(
-                    color: Colors.red,
-                  ),
-                ),
-                // Calendar Dates styling
-                calendarStyle: CalendarStyle(
-                  // Weekend dates color (Sat & Sun Column)
-                  weekendTextStyle: TextStyle(
-                    color: Colors.red,
-                  ),
-                  // highlighted color for today
-                  todayDecoration: BoxDecoration(
+              side: BorderSide(color: Colors.blue, width: 2.0),
+            ),
+            child: TableCalendar(
+              focusedDay: _focusedCalendarDate,
+              // today's date
+              firstDay: _initialCalendarDate,
+              // earliest possible date
+              lastDay: _lastCalendarDate,
+              // latest allowed date
+              calendarFormat: CalendarFormat.month,
+              // default view when displayed
+              // default is Saturday & Sunday but can be set to any day.
+              // instead of day number can be mentioned as well.
+              weekendDays: const [DateTime.sunday, 6],
+              // default is Sunday but can be changed according to locale
+              startingDayOfWeek: StartingDayOfWeek.monday,
+              // height between the day row and 1st date row, default is 16.0
+              daysOfWeekHeight: 40.0,
+              // height between the date rows, default is 52.0
+              rowHeight: 60.0,
+              // this property needs to be added if we want to show events
+              eventLoader: _listOfDayEvents,
+              // Calendar Header Styling
+              headerStyle: HeaderStyle(
+                titleTextStyle: TextStyle(color: Colors.black, fontSize: 20.0),
+                decoration: BoxDecoration(
                     color: Colors.blue,
-                    shape: BoxShape.circle,
+                    borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(10),
+                        topRight: Radius.circular(10))),
+                formatButtonTextStyle:
+                    TextStyle(color: Colors.black, fontSize: 16.0),
+                formatButtonDecoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.all(
+                    Radius.circular(5.0),
                   ),
-                  // highlighted color for selected day
-                  selectedDecoration: BoxDecoration(
-                    color: Colors.blue,
-                    shape: BoxShape.circle,
-                  ),
-                  markerDecoration:
-                      BoxDecoration(color: Colors.red, shape: BoxShape.circle),
                 ),
-                selectedDayPredicate: (currentSelectedDate) {
-                  listaGiornateInserite(_focusedCalendarDate, idUtente);
-                  print("Lista:");
-                  print(list);
-
-                  /*********************************** */
-                  // QUI BISOGNEREBBE STAMPARE LA LISTA
-                  /*********************************** */
-                  // as per the documentation 'selectedDayPredicate' needs to determine
-                  // current selected day
-                  return (isSameDay(
-                      selectedCalendarDate!, currentSelectedDate));
-                },
-                onDaySelected: (selectedDay, focusedDay) {
-                  // as per the documentation
-                  if (!isSameDay(selectedCalendarDate, selectedDay)) {
-                    setState(() {
-                      selectedCalendarDate = selectedDay;
-                      _focusedCalendarDate = focusedDay;
-                    });
-                  }
-                  //necessario per non inserire ripetizioni nella lista
-                  list.clear();
-                },
+                leftChevronIcon: Icon(
+                  Icons.chevron_left,
+                  color: Colors.black,
+                  size: 28,
+                ),
+                rightChevronIcon: Icon(
+                  Icons.chevron_right,
+                  color: Colors.black,
+                  size: 28,
+                ),
               ),
-            ),
-            ..._listOfDayEvents1(selectedCalendarDate!).map(
-              (list) => ListTile(
-                leading: const Icon(
-                  Icons.done,
+              // Calendar Days Styling
+              daysOfWeekStyle: DaysOfWeekStyle(
+                // Weekend days color (Sat,Sun)
+                weekendStyle: TextStyle(
+                  color: Colors.red,
+                ),
+              ),
+              // Calendar Dates styling
+              calendarStyle: CalendarStyle(
+                // Weekend dates color (Sat & Sun Column)
+                weekendTextStyle: TextStyle(
+                  color: Colors.red,
+                ),
+                // highlighted color for today
+                todayDecoration: BoxDecoration(
                   color: Colors.blue,
+                  shape: BoxShape.circle,
                 ),
-                title: Padding(
-                  padding: const EdgeInsets.only(bottom: 8.0),
-                  child: Text('Questo è il titolo della giornata:${list}'),
-                ),
-              ),
-            ),
-            ..._listOfDayEvents(selectedCalendarDate!).map(
-              (list) => ListTile(
-                leading: Icon(
-                  Icons.done,
+                // highlighted color for selected day
+                selectedDecoration: BoxDecoration(
                   color: Colors.blue,
+                  shape: BoxShape.circle,
                 ),
-                title: Padding(
-                  padding: const EdgeInsets.only(bottom: 8.0),
-                  child: Text(
-                      'Questo è il titolo della giornata:${list.eventTitle}'),
-                ),
-                subtitle: Text('Descrizione Giornata:${list.eventDescp}'),
+                markerDecoration:
+                    BoxDecoration(color: Colors.red, shape: BoxShape.circle),
+              ),
+              selectedDayPredicate: (currentSelectedDate) {
+                listaGiornateInserite(_focusedCalendarDate, idUtente);
+                return (isSameDay(selectedCalendarDate!, currentSelectedDate));
+              },
+              //mettendolo in entrambi i casi resetta se si preme su un giorno vuoto
+              onDaySelected: (selectedDay, focusedDay) {
+                listaGiornateInserite(_focusedCalendarDate, idUtente);
+                // as per the documentation
+                if (!isSameDay(selectedCalendarDate, selectedDay)) {
+                  setState(() {
+                    selectedCalendarDate = selectedDay;
+                    _focusedCalendarDate = focusedDay;
+                  });
+                }
+              },
+            ),
+          ),
+          ..._listOfDayEvents1(selectedCalendarDate!).map(
+            (list) => ListTile(
+              leading: const Icon(
+                Icons.done,
+                color: Colors.blue,
+              ),
+              title: Padding(
+                padding: const EdgeInsets.only(bottom: 8.0),
+                child: Text(
+                    'Questa è la descrizione della tua giornata : \n ${list}'),
               ),
             ),
-          ],
-        ),
-      ),
+          ),
+        ],
+      )),
     );
   }
 }
+
+
+
+        /*  ..._listOfDayEvents(selectedCalendarDate!).map(
+            (list) => ListTile(
+              leading: const Icon(
+                Icons.done,
+                color: Colors.blue,
+              ),
+              title: Padding(
+                padding: const EdgeInsets.only(bottom: 8.0),
+                child: Text('Questo è quelo che hai inserito: \n ${list}'),
+              ),
+            ),
+          ),*/

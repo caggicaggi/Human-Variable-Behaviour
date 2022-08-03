@@ -106,7 +106,6 @@ Future<bool> readEmailPasswordFromDb(emailToReadToDb, passwordToDb) async {
         debugPrint(idUtente);
       }
     });
-    await Future.delayed(const Duration(milliseconds: 2));
     connessione.close();
   });
   connessione.close();
@@ -138,11 +137,9 @@ Future<bool> readEmailFromDb(emailToReadToDb) async {
 }
 
 //funzione per inserire giornata utente
-void signDataAndGiornata(
-    idutente, dataGiornata, titoloGiornata, descrizioneGiornata) {
+void signDataAndGiornata(idutente, dataGiornata, descrizioneGiornata) {
   //Aggiungo i '' a tutte le stringhe passate in input
   idutente = idutente;
-  titoloGiornata = stringToDb(titoloGiornata);
   descrizioneGiornata = stringToDb(descrizioneGiornata);
   dataGiornata = dataGiornata.toLocal();
   dataGiornata = DateFormat('yyyy-MM-dd').format(dataGiornata);
@@ -151,7 +148,7 @@ void signDataAndGiornata(
   //Scrivo la query
   // ignore: prefer_interpolation_to_compose_strings
   String query =
-      '${'INSERT INTO ' + table + ' (idUtente,dataGiornata, titoloGiornata, descrizioneGiornata) VALUES (' + idutente + ',' + "'" + dataGiornata + "'" + ',' + titoloGiornata + ',' + descrizioneGiornata})';
+      '${'INSERT INTO ' + table + ' (idUtente,dataGiornata, descrizioneGiornata) VALUES (' + idutente + ',' + "'" + dataGiornata + "'" + ',' + descrizioneGiornata})';
   //Connessione al database
   debugPrint(query);
   var db = Mysql();
@@ -171,7 +168,7 @@ Future<List<String>> listaGiornateInserite(dataGiornata, idUtente) async {
   dataGiornata = dataGiornata.toLocal();
   dataGiornata = DateFormat('yyyy-MM-dd').format(dataGiornata);
   dataGiornata = stringToDb(dataGiornata);
-  String query = 'SELECT descrizioneGiornata,titoloGiornata FROM ' +
+  String query = 'SELECT descrizioneGiornata FROM ' +
       table +
       ' where dataGiornata = ' +
       dataGiornata +
@@ -182,7 +179,6 @@ Future<List<String>> listaGiornateInserite(dataGiornata, idUtente) async {
   //Aggiunti delay
   await Future.delayed(const Duration(milliseconds: 2));
   var result = await connessione.query(query);
-
   controlloInserimento.add(result.toString());
 
   for (int i = 0; i <= list.length - 1; i++) {
@@ -193,10 +189,10 @@ Future<List<String>> listaGiornateInserite(dataGiornata, idUtente) async {
     }
     if (parolaDoppia > 0) {
       controllo = 2;
+      list.clear();
     }
   }
   if (controllo == 2 || result.isEmpty || result.toString() == " ") {
-    connessione.close();
   } else {
     list.add(result.toString());
     list1.add(result.toString());
