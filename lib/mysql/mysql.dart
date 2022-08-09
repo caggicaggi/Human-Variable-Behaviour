@@ -7,6 +7,7 @@ import 'package:mysql1/mysql1.dart';
 //Variabili per utilizzo del programma
 var idUtente = '';
 List<String> list = [];
+bool check = false;
 
 class Mysql {
   //Cotruttore
@@ -53,6 +54,7 @@ Future signUpToDb(nameToDb, surnameToDb, emailToDb, passwordToDb) async {
     //Leggo l'idUtente appena assegnato
     String queryToId =
         'select idUtente FROM ' + table + ' WHERE email = ' + emailToDb;
+    await Future.delayed(const Duration(milliseconds: 5));
     await connessione.query(queryToId).then((results) {
       for (var res in results) {
         idUtente = res[0].toString();
@@ -83,6 +85,8 @@ Future<bool> readEmailPasswordFromDb(emailToReadToDb, passwordToDb) async {
   var db = Mysql();
   bool risultatoQuery = true;
   await db.getConnection().then((connessione) async {
+    //delay obbligatorio per Malaccari
+    await Future.delayed(const Duration(milliseconds: 4));
     await connessione.query(query).then((result) async {
       //Leggo l'idUtente appena assegnato
       String queryToId =
@@ -96,6 +100,7 @@ Future<bool> readEmailPasswordFromDb(emailToReadToDb, passwordToDb) async {
       });
       risultatoQuery = result.isEmpty;
     });
+    connessione.close();
   });
   //True = Query vuota -> Non ho la mail
   //False = Query con valore di ritorno -> Email già presente
@@ -118,6 +123,8 @@ Future<bool> readEmailFromDb(emailToReadToDb) async {
   var db = Mysql();
   bool risultatoQuery = true;
   await db.getConnection().then((connessione) async {
+    //delay obbligatorio per Malaccari
+    await Future.delayed(const Duration(milliseconds: 1));
     await connessione.query(query).then((result) async {
       risultatoQuery = result.isEmpty;
       connessione.close();
@@ -140,71 +147,79 @@ senza quest'impostazione non saremo mai sincronizzati col databas
 
 //Metodi Malaccari, da rivedere
 
-//funzione per inserire giornata utente
+//funzione per inserire evento utente
 void signDataAndGiornata(idutente, dataGiornata, descrizioneGiornata) {
   //Aggiungo i '' a tutte le stringhe passate in input
   idutente = idutente;
-  descrizioneGiornata = stringToDb(descrizioneGiornata);
+  descrizioneGiornata = descrizioneGiornata;
   dataGiornata = dataGiornata.toLocal();
   dataGiornata = DateFormat('yyyy-MM-dd').format(dataGiornata);
   //Nome della tabella
   String table = 'diarioUtente';
   //Scrivo la query
   String query =
-      '${'INSERT INTO ' + table + ' (idUtente,dataGiornata, descrizioneGiornata) VALUES (' + idutente + ',' + "'" + dataGiornata + "'" + ',' + descrizioneGiornata})';
+      '${'INSERT INTO ' + table + ' (idUtente,dataGiornata, descrizioneGiornata) VALUES (' + idutente + ',' + "'" + dataGiornata + "'" + ',' + "'" + descrizioneGiornata + "'"})';
   //Connessione al database
   debugPrint(query);
   var db = Mysql();
+  //eseguo query
   db.getConnection().then((connessione) {
     connessione.query(query);
     connessione.close();
   });
 }
 
-// metodo invocato quando si clicca sulla data del calendario
+// metodo invocato per ottenere lista eventi
 Future<List<String>> listaGiornateInserite(dataGiornata, idUtente) async {
+  //dichiaro variabili
   List<String> list1 = [];
-  String table = 'diarioUtente';
   int controllo = 0;
   int parolaDoppia = 0;
   List<String> controlloInserimento = [];
   dataGiornata = dataGiornata.toLocal();
   dataGiornata = DateFormat('yyyy-MM-dd').format(dataGiornata);
   dataGiornata = stringToDb(dataGiornata);
+  //nome della tabella
+  String table = 'diarioUtente';
+  //compongo query
   String query = 'SELECT descrizioneGiornata FROM ' +
       table +
       ' where dataGiornata = ' +
       dataGiornata +
       ' AND idUtente = ' +
       idUtente;
+  //connessione al db
   var db = Mysql();
   var connessione = await db.getConnection();
-  //Aggiunti delay
+  //delay obbligatorio per Malaccari
   await Future.delayed(const Duration(milliseconds: 2));
+  //eseguo query e salvo il risultato in result
   var result = await connessione.query(query);
   controlloInserimento.add(result.toString());
-
+  //controllo per verificare se c'è una parola doppia
   for (int i = 0; i <= list.length - 1; i++) {
     for (int j = 0; j <= controlloInserimento.length - 1; j++) {
       if (controlloInserimento[j] == list[i]) {
         parolaDoppia++;
       }
     }
-    if (parolaDoppia > 0) {
-      controllo = 2;
-      list.clear();
-    }
   }
-  if (controllo == 2 || result.isEmpty || result.toString() == " ") {
+  if (parolaDoppia > 0) {
+    controllo = 2;
+  }
+
+  if (controllo == 2) {
+    connessione.close();
+    return list1;
   } else {
+    //pulisco lista
+    list.clear();
+    //aggiungo elementi alla lista
     list.add(result.toString());
     list1.add(result.toString());
     connessione.close();
   }
-
+  //chiudo connessione
   connessione.close();
   return list1;
-  //True = Query vuota -> Non ho la mail
-  //False = Query con valore di ritorno -> Email già presente
-// Here the List should be returned, but after my Function fills it.
 }

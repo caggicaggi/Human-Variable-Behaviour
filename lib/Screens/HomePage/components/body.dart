@@ -1,7 +1,7 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
-import 'package:human_variable_behaviour/Screens/Application/Diario/diario_screen.dart';
+import 'package:human_variable_behaviour/Screens/Application/Diario/dynamic_event.dart';
 import 'package:human_variable_behaviour/Screens/Application/Giochi/giochi_screen.dart';
 import 'package:human_variable_behaviour/Screens/Application/Persona/persona_screen.dart';
 import 'package:human_variable_behaviour/Screens/Application/SchermataPrincipale/schermata_principale_screen.dart';
@@ -23,11 +23,11 @@ class _BodyState extends State<Body> {
 
   //Lista di widget richiamati dal NavigationBar
   //Qui occorre chiamare il construttore di una classe che ritornerà un wiget
-  List<Widget> pages = const [
+  List<Widget> pages = [
     GiochiScreen(),
     PersonaScreen(),
     SchermataPrincipaleScreen(),
-    CustomTableCalendar(),
+    DynamicEvent(),
     UnicamScreen(),
   ];
   @override

@@ -29,7 +29,6 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  table_calendar: ^3.0.2
   intl: ^0.17.0
 
 
@@ -39,8 +38,9 @@ dependencies:
   flutter_svg: ^0.17.4
   mysql1: ^0.20.0
   google_sign_in: ^5.4.0
-  flutter_clean_calendar: ^1.1.0
-
+  table_calendar: ^2.2.1
+  shared_preferences: ^2.0.15
+shared_preferences: ^0.5.4+5
 dev_dependencies:
   flutter_test:
     sdk: flutter
