@@ -1,9 +1,13 @@
+// ignore_for_file: deprecated_member_use
+
 import 'dart:convert';
 //import 'dart:html';
 import 'package:flutter/material.dart';
+import 'package:human_variable_behaviour/Screens/HomePage/homepage_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:table_calendar/table_calendar.dart';
 
+import '../../../components/rounded_button.dart';
 import '../../../mysql/mysql.dart';
 
 class DynamicEvent extends StatefulWidget {
@@ -64,6 +68,8 @@ class _DynamicEventState extends State<DynamicEvent> {
 
   @override
   Widget build(BuildContext context) {
+    //resetto la Map
+    _events.clear();
     return Scaffold(
       backgroundColor: Colors.grey[100],
       appBar: PreferredSize(
@@ -168,7 +174,7 @@ class _DynamicEventState extends State<DynamicEvent> {
                     height: MediaQuery.of(context).size.height / 7,
                     width: MediaQuery.of(context).size.width / 1,
                     decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
+                        borderRadius: BorderRadius.circular(20),
                         color: Colors.white,
                         border: Border.all(color: Colors.white)),
                     child: Center(
@@ -194,18 +200,54 @@ class _DynamicEventState extends State<DynamicEvent> {
 
   _showAddDialog() async {
     await showDialog(
-        context: context,
-        builder: (context) => AlertDialog(
-              backgroundColor: Colors.white70,
-              title: Text("Raccontami la giornata: "),
-              content: TextField(
-                controller: _eventController,
+      context: context,
+      builder: (context) => AlertDialog(
+          backgroundColor: Colors.white,
+          title: Text("Raccontami la tua giornata: "),
+          content: SizedBox(
+            height: 160,
+            width: 400,
+            child: TextField(
+              maxLines: 20,
+              controller: _eventController,
+              decoration: new InputDecoration(
+                border: new OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(20),
+                    borderSide: new BorderSide(color: Colors.teal)),
               ),
-              actions: <Widget>[
+            ),
+          ),
+          actions: <Widget>[
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
                 FlatButton(
                   child: Text(
-                    "Salva",
+                    textAlign: TextAlign.left,
+                    "Torna Indietro",
                     style: TextStyle(
+                        fontSize: 15,
+                        color: Color.fromARGB(255, 54, 143, 244),
+                        fontWeight: FontWeight.bold),
+                  ),
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) {
+                          // inserire ritorno a calendari con navbar sotto
+                          return HomePageScreen();
+                        },
+                      ),
+                    );
+                  },
+                ),
+                FlatButton(
+                  child: Text(
+                    "Salva giornata",
+                    textAlign: TextAlign.right,
+                    style: TextStyle(
+                        fontSize: 15,
                         color: Color.fromARGB(255, 54, 143, 244),
                         fontWeight: FontWeight.bold),
                   ),
@@ -229,12 +271,15 @@ class _DynamicEventState extends State<DynamicEvent> {
                       //aggiungo la stringa a Map<DateTime,List<String>>
                       prefs.setString(
                           "events", json.encode(encodeMap(_events)));
+
                       _eventController.clear();
                       Navigator.pop(context);
                     });
                   },
-                )
+                ),
               ],
-            ));
+            )
+          ]),
+    );
   }
 }

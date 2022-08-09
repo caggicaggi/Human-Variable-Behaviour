@@ -195,29 +195,34 @@ Future<List<String>> listaGiornateInserite(dataGiornata, idUtente) async {
   await Future.delayed(const Duration(milliseconds: 2));
   //eseguo query e salvo il risultato in result
   var result = await connessione.query(query);
-  controlloInserimento.add(result.toString());
-  //controllo per verificare se c'è una parola doppia
-  for (int i = 0; i <= list.length - 1; i++) {
-    for (int j = 0; j <= controlloInserimento.length - 1; j++) {
-      if (controlloInserimento[j] == list[i]) {
-        parolaDoppia++;
+  if (result.isNotEmpty) {
+    controlloInserimento.add(result.toString());
+    //controllo per verificare se c'è una parola doppia
+    for (int i = 0; i <= list.length - 1; i++) {
+      for (int j = 0; j <= controlloInserimento.length - 1; j++) {
+        if (controlloInserimento[j] == list[i]) {
+          parolaDoppia++;
+        }
       }
     }
-  }
-  if (parolaDoppia > 0) {
-    controllo = 2;
-  }
+    if (parolaDoppia > 0) {
+      controllo = 2;
+    }
 
-  if (controllo == 2) {
-    connessione.close();
-    return list1;
+    if (controllo == 2) {
+      connessione.close();
+      return list1;
+    } else {
+      //pulisco lista
+      list.clear();
+      //aggiungo elementi alla lista
+      list.add(result.toString());
+      list1.add(result.toString());
+      connessione.close();
+    }
   } else {
-    //pulisco lista
     list.clear();
-    //aggiungo elementi alla lista
-    list.add(result.toString());
-    list1.add(result.toString());
-    connessione.close();
+    list.add("Non hai inserito nessuna descrizione in questa data");
   }
   //chiudo connessione
   connessione.close();
