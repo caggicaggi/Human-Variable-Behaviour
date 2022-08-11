@@ -108,7 +108,16 @@ class _DynamicEventState extends State<DynamicEvent> {
         child: AppBar(
           leading: IconButton(
             icon: Icon(Icons.arrow_back, color: Colors.black),
-            onPressed: () {},
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) {
+                    return HomePageScreen();
+                  },
+                ),
+              );
+            },
             //onPressed: () => Navigator.of(context).pop(),
           ),
           bottom: PreferredSize(
@@ -121,15 +130,20 @@ class _DynamicEventState extends State<DynamicEvent> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Text(
-                    'ECCO IL TUO DIARIO PERSONALE ',
-                    style: TextStyle(color: Colors.white, fontSize: 26.0),
+                    'ECCO IL TUO DIARIO PERSONALE '
+                    '\n',
+                    style: TextStyle(
+                        fontSize: 27,
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold),
                   ),
                   Text(
-                    '\n'
-                    'SELEZIONA LA DATA CHE VUOI VEDERE '
-                    '\n',
-                    style: TextStyle(color: Colors.white, fontSize: 14.0),
-                  )
+                    "Raccontami una tua giornata",
+                    style: TextStyle(
+                        fontSize: 19,
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold),
+                  ),
                 ],
               ),
             ),
@@ -234,7 +248,7 @@ class _DynamicEventState extends State<DynamicEvent> {
       context: context,
       builder: (context) => AlertDialog(
           backgroundColor: Colors.white,
-          title: Text("Raccontami la tua giornata: "),
+          title: Text("Qui puoi scrivere quello che è successo: "),
           content: SizedBox(
             height: 160,
             width: 400,
