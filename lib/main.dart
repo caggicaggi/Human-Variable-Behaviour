@@ -20,6 +20,8 @@ class MyApp extends StatelessWidget {
       //Stabilisce il tema dell'applicazione
       //Permette di scegliere i colori di tutti i widget che si utilizzeranno nell'app
       theme: ThemeData(
+          primarySwatch: Colors.blue,
+          visualDensity: VisualDensity.adaptivePlatformDensity,
           primaryColor: kPrimaryColor,
           //Stabilisco il colore dello Scaffold
           scaffoldBackgroundColor: Colors.white),
