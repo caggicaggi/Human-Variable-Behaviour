@@ -148,7 +148,8 @@ senza quest'impostazione non saremo mai sincronizzati col databas
 //Metodi Malaccari, da rivedere
 
 //funzione per inserire evento utente
-void signDataAndGiornata(idutente, dataGiornata, descrizioneGiornata) {
+Future<void> signDataAndGiornata(
+    idutente, dataGiornata, descrizioneGiornata) async {
   //Aggiungo i '' a tutte le stringhe passate in input
   idutente = idutente;
   descrizioneGiornata = descrizioneGiornata;
@@ -210,14 +211,19 @@ Future<List<String>> listaGiornateInserite(dataGiornata, idUtente) async {
     }
 
     if (controllo == 2) {
+      for (int i = 0; i < list.length - 1; i++) {
+        list[i] = result.toString();
+      }
       connessione.close();
       return list1;
     } else {
       //pulisco lista
       list.clear();
-      //aggiungo elementi alla lista
-      list.add(result.toString());
-      list1.add(result.toString());
+      for (var res in result) {
+        //aggiungo elementi alla lista
+        list.add("Descrizione Giornata selezionata : \n" + res[0].toString());
+        list1.add(result.toString());
+      }
       connessione.close();
     }
   } else {

@@ -9,10 +9,18 @@ import 'package:table_calendar/table_calendar.dart';
 
 import '../../../components/rounded_button.dart';
 import '../../../mysql/mysql.dart';
+import '../../HomePage/components/body.dart';
 
 class DynamicEvent extends StatefulWidget {
   @override
   _DynamicEventState createState() => _DynamicEventState();
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Body(),
+    );
+  }
 }
 
 class _DynamicEventState extends State<DynamicEvent> {
@@ -38,7 +46,30 @@ class _DynamicEventState extends State<DynamicEvent> {
     if (b == false) {
       DateTime dataInizioPosizione = DateTime.now();
       await listaGiornateInserite(dataInizioPosizione, idUtente);
+      for (int i = 0; i < list.length; i++) {
+        _selectedEvents.add(list[i].toString());
+      }
+      _selectedEvents.map((list) => Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Container(
+              height: MediaQuery.of(context).size.height / 7,
+              width: MediaQuery.of(context).size.width / 1,
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(20),
+                  color: Colors.white,
+                  border: Border.all(color: Colors.white)),
+              child: Center(
+                  child: Text(
+                list.toString(),
+                style: TextStyle(
+                    color: Colors.black,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 16),
+              )),
+            ),
+          ));
       b == true;
+      list.clear();
     }
     prefs = await SharedPreferences.getInstance();
     //setto e converto la string inserendola in Map<DateTime, List<dynamic>>
@@ -231,15 +262,7 @@ class _DynamicEventState extends State<DynamicEvent> {
                         fontWeight: FontWeight.bold),
                   ),
                   onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) {
-                          // inserire ritorno a calendari con navbar sotto
-                          return HomePageScreen();
-                        },
-                      ),
-                    );
+                    Navigator.pop(context);
                   },
                 ),
                 FlatButton(
@@ -251,7 +274,39 @@ class _DynamicEventState extends State<DynamicEvent> {
                         color: Color.fromARGB(255, 54, 143, 244),
                         fontWeight: FontWeight.bold),
                   ),
-                  onPressed: () {
+                  onPressed: () async {
+                    Navigator.pop(context);
+                    //update giornata inserita
+                    await signDataAndGiornata(idUtente, _controller.selectedDay,
+                        _eventController.text);
+                    await listaGiornateInserite(
+                        _controller.selectedDay, idUtente);
+                    if (list.isNotEmpty) {
+                      _selectedEvents.clear();
+                    }
+                    for (int i = 0; i < list.length; i++) {
+                      print(list[0]);
+                      _selectedEvents.add(list[i].toString());
+                    }
+                    _selectedEvents.map((list) => Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Container(
+                            height: MediaQuery.of(context).size.height / 7,
+                            width: MediaQuery.of(context).size.width / 1,
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(20),
+                                color: Colors.white,
+                                border: Border.all(color: Colors.white)),
+                            child: Center(
+                                child: Text(
+                              list.toString(),
+                              style: TextStyle(
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 16),
+                            )),
+                          ),
+                        ));
                     //Controllo e salvataggio dati inseriti
                     if (_eventController.text.isEmpty) return;
                     setState(() {
@@ -263,17 +318,14 @@ class _DynamicEventState extends State<DynamicEvent> {
                           _eventController.text
                         ];
                       }
-                      //update giornata inserita
-                      signDataAndGiornata(idUtente, _controller.selectedDay,
-                          _eventController.text);
+
                       //ricalcolo lista
-                      listaGiornateInserite(_controller.selectedDay, idUtente);
+
                       //aggiungo la stringa a Map<DateTime,List<String>>
                       prefs.setString(
                           "events", json.encode(encodeMap(_events)));
 
                       _eventController.clear();
-                      Navigator.pop(context);
                     });
                   },
                 ),
