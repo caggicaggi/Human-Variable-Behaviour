@@ -76,6 +76,7 @@ class _BodyState extends State<Body> {
             SizedBox(
               height: size.height * 0.04,
             ),
+
             RoundedButton(
               text: 'Login',
               press: () async {
@@ -108,6 +109,7 @@ class _BodyState extends State<Body> {
                 }
               },
             ),
+
             //Chiamo la classe already_have_an_account_check.dart
             AlreadyHaveAnAccountCheck(
               press: () {
@@ -121,6 +123,17 @@ class _BodyState extends State<Body> {
                   ),
                 );
               },
+            ),
+            FloatingActionButton.extended(
+              onPressed: () {},
+              icon: Image.asset(
+                'assets/images/google.jpg',
+                height: 32,
+                width: 32,
+              ),
+              label: Text('Sign in wit Google'),
+              backgroundColor: Colors.white,
+              foregroundColor: Colors.black,
             ),
           ],
         ),
