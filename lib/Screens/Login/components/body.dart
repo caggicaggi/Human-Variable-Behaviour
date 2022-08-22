@@ -1,6 +1,10 @@
 // ignore_for_file: prefer_const_constructors, prefer_interpolation_to_compose_strings, avoid_print
 
+//import 'dart:html';
+
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_signin_button/flutter_signin_button.dart';
 import 'package:human_variable_behaviour/Screens/HomePage/homepage_screen.dart';
 import 'package:human_variable_behaviour/Screens/SignUp/sign_up_screen.dart';
 import 'package:human_variable_behaviour/Screens/Welcome/components/background.dart';
@@ -63,7 +67,7 @@ class _BodyState extends State<Body> {
               ),
             if (!emailPresence)
               Text(
-                'Email non associata ad un account, effettuare registrazione',
+                'Id o password errati, controlla e riprova',
                 style:
                     TextStyle(fontWeight: FontWeight.bold, color: Colors.red),
               ),
@@ -109,6 +113,19 @@ class _BodyState extends State<Body> {
                 }
               },
             ),
+            SignInButton(
+              padding: const EdgeInsets.symmetric(horizontal: 60),
+              Buttons.Google,
+              text: "Sign up with Google",
+              onPressed: () {},
+            ),
+
+            SignInButton(
+              padding: const EdgeInsets.symmetric(horizontal: 60),
+              Buttons.Facebook,
+              text: "Sign up with Facebook",
+              onPressed: () {},
+            ),
 
             //Chiamo la classe already_have_an_account_check.dart
             AlreadyHaveAnAccountCheck(
@@ -123,17 +140,6 @@ class _BodyState extends State<Body> {
                   ),
                 );
               },
-            ),
-            FloatingActionButton.extended(
-              onPressed: () {},
-              icon: Image.asset(
-                'assets/images/google.jpg',
-                height: 32,
-                width: 32,
-              ),
-              label: Text('Sign in wit Google'),
-              backgroundColor: Colors.white,
-              foregroundColor: Colors.black,
             ),
           ],
         ),

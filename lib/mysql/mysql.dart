@@ -221,7 +221,7 @@ Future<List<String>> listaGiornateInserite(dataGiornata, idUtente) async {
       list.clear();
       for (var res in result) {
         //aggiungo elementi alla lista
-        list.add("Descrizione Giornata selezionata : \n" + res[0].toString());
+        list.add(res[0].toString());
         list1.add(result.toString());
       }
       connessione.close();

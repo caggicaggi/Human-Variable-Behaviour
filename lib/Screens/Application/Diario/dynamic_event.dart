@@ -3,6 +3,7 @@
 import 'dart:convert';
 //import 'dart:html';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:human_variable_behaviour/Screens/HomePage/homepage_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:table_calendar/table_calendar.dart';
@@ -49,25 +50,6 @@ class _DynamicEventState extends State<DynamicEvent> {
       for (int i = 0; i < list.length; i++) {
         _selectedEvents.add(list[i].toString());
       }
-      _selectedEvents.map((list) => Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Container(
-              height: MediaQuery.of(context).size.height / 7,
-              width: MediaQuery.of(context).size.width / 1,
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(20),
-                  color: Colors.white,
-                  border: Border.all(color: Colors.white)),
-              child: Center(
-                  child: Text(
-                list.toString(),
-                style: TextStyle(
-                    color: Colors.black,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 16),
-              )),
-            ),
-          ));
       b == true;
       list.clear();
     }
@@ -118,7 +100,6 @@ class _DynamicEventState extends State<DynamicEvent> {
                 ),
               );
             },
-            //onPressed: () => Navigator.of(context).pop(),
           ),
           bottom: PreferredSize(
             preferredSize: Size.fromHeight(30.0),
@@ -130,19 +111,12 @@ class _DynamicEventState extends State<DynamicEvent> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Text(
-                    'ECCO IL TUO DIARIO PERSONALE '
-                    '\n',
-                    style: TextStyle(
-                        fontSize: 27,
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold),
+                    'ECCO IL TUO DIARIO PERSONALE ',
+                    style: GoogleFonts.akayaTelivigala(fontSize: 30),
                   ),
                   Text(
                     "Raccontami una tua giornata",
-                    style: TextStyle(
-                        fontSize: 19,
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold),
+                    style: GoogleFonts.akayaTelivigala(fontSize: 22),
                   ),
                 ],
               ),
@@ -156,7 +130,7 @@ class _DynamicEventState extends State<DynamicEvent> {
           children: <Widget>[
             TableCalendar(
               events: _events,
-              initialCalendarFormat: CalendarFormat.week,
+              initialCalendarFormat: CalendarFormat.month,
               calendarStyle: CalendarStyle(
                   canEventMarkersOverflow: true,
                   todayColor: Colors.blue,
@@ -225,10 +199,7 @@ class _DynamicEventState extends State<DynamicEvent> {
                     child: Center(
                         child: Text(
                       event,
-                      style: TextStyle(
-                          color: Colors.black,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 16),
+                      style: GoogleFonts.akayaTelivigala(fontSize: 20),
                     )),
                   ),
                 )),
@@ -237,7 +208,7 @@ class _DynamicEventState extends State<DynamicEvent> {
       ),
       floatingActionButton: FloatingActionButton(
         backgroundColor: Colors.blue,
-        child: Icon(Icons.add),
+        child: Icon(Icons.add_comment_sharp),
         onPressed: _showAddDialog,
       ),
     );
@@ -248,7 +219,7 @@ class _DynamicEventState extends State<DynamicEvent> {
       context: context,
       builder: (context) => AlertDialog(
           backgroundColor: Colors.white,
-          title: Text("Qui puoi scrivere quello che è successo: "),
+          title: Text("Qui puoi raccontare la tua giornata: "),
           content: SizedBox(
             height: 160,
             width: 400,
@@ -281,7 +252,7 @@ class _DynamicEventState extends State<DynamicEvent> {
                 ),
                 FlatButton(
                   child: Text(
-                    "Salva giornata",
+                    "Inserisci giornata",
                     textAlign: TextAlign.right,
                     style: TextStyle(
                         fontSize: 15,
@@ -302,7 +273,7 @@ class _DynamicEventState extends State<DynamicEvent> {
                       print(list[0]);
                       _selectedEvents.add(list[i].toString());
                     }
-                    _selectedEvents.map((list) => Padding(
+                    await _selectedEvents.map((list) => Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: Container(
                             height: MediaQuery.of(context).size.height / 7,
@@ -332,9 +303,6 @@ class _DynamicEventState extends State<DynamicEvent> {
                           _eventController.text
                         ];
                       }
-
-                      //ricalcolo lista
-
                       //aggiungo la stringa a Map<DateTime,List<String>>
                       prefs.setString(
                           "events", json.encode(encodeMap(_events)));
