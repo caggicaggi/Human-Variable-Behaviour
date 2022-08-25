@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_interpolation_to_compose_strings
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:human_variable_behaviour/Screens/Application/Giochi/quiz_questions.dart';
 import 'package:intl/intl.dart';
 import 'package:mysql1/mysql1.dart';
 
@@ -8,6 +9,7 @@ import 'package:mysql1/mysql1.dart';
 var idUtente = '';
 List<String> list = [];
 bool check = false;
+bool risultatoQueryDomande = true;
 
 class Mysql {
   //Cotruttore
@@ -233,4 +235,77 @@ Future<List<String>> listaGiornateInserite(dataGiornata, idUtente) async {
   //chiudo connessione
   connessione.close();
   return list1;
+}
+
+//funzione per inserire domanda e risposta utente
+Future<void> signDomandaERisposta(
+    idutente, domandaUtente, rispostaDomanda) async {
+  //Nome della tabella
+  String table = 'domandeUtente';
+  //Scrivo la query
+  String query =
+      '${'INSERT INTO ' + table + '(idUtenteDomanda,domandaUtente, rispostaDomanda) VALUES (' + idutente + ',' + "'" + domandaUtente + "'" + ',' + "'" + rispostaDomanda + "'"})';
+  debugPrint(query);
+  var db = Mysql();
+  //eseguo query
+  await db.getConnection().then((connessione) {
+    debugPrint(query);
+    connessione.query(query);
+    connessione.close();
+  });
+}
+
+//UPDATE domandeUtente SET rispostaDomanda='Muori' WHERE domandaUtente = "Cosa faresti se vedessi una ragazza piangere?";
+Future<void> updateDomandaCorretta(
+    idutente, domandaUtente, rispostaDomanda) async {
+  //Nome della tabella
+  String table = 'domandeUtente';
+  //Scrivo la query
+  String query = 'Update ' +
+      table +
+      ' SET rispostaDomanda = ' +
+      "'" +
+      rispostaDomanda +
+      "'" +
+      'WHERE domandaUtente =' +
+      "'" +
+      domandaUtente +
+      "'";
+  debugPrint(query);
+  var db = Mysql();
+  //eseguo query
+  await db.getConnection().then((connessione) {
+    debugPrint(query);
+    connessione.query(query);
+    connessione.close();
+  });
+}
+
+//Funzione per controllare se la domanda è gia presente
+//Il metodo va messo Future perchè così se richiamato si può utilizzare l'await
+Future<bool> readQuestions(domandaUtente) async {
+  //Aggiungo i '' a tutte le stringhe passate in input
+  domandaUtente = stringToDb(domandaUtente);
+  //Nome della tabella
+  String table = 'domandeUtente';
+  //Scrivo la query
+  String query = 'SELECT distinct domandaUtente FROM ' +
+      table +
+      ' where domandaUtente = ' +
+      domandaUtente;
+  //Connessione al database
+  var db = Mysql();
+  await db.getConnection().then((connessione) async {
+    //delay obbligatorio per Malaccari
+    await Future.delayed(const Duration(milliseconds: 1));
+    await connessione.query(query).then((result) async {
+      debugPrint(query);
+      risultatoQueryDomande = result.isEmpty;
+      connessione.close();
+    });
+  });
+  debugPrint(risultatoQueryDomande.toString());
+  //True = Query vuota -> Non ho la mail
+  //False = Query con valore di ritorno -> Email già presente
+  return risultatoQueryDomande;
 }

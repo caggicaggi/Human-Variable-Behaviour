@@ -7,8 +7,6 @@ import 'package:human_variable_behaviour/Screens/Application/Giochi/quiz_questio
 
 import '../../../../constant.dart';
 
-int b = 0;
-
 class Option extends StatelessWidget {
   const Option({
     Key? key,
@@ -55,7 +53,7 @@ class Option extends StatelessWidget {
                 children: [
                   Text(
                     "${index + 1}. $text",
-                    style: TextStyle(color: getTheRightColor(), fontSize: 16),
+                    style: TextStyle(color: Colors.black, fontSize: 16),
                   ),
                   Container(
                     height: 26,
@@ -127,9 +125,6 @@ class Body extends StatelessWidget {
                               .headline5!
                               .copyWith(color: kBlackColor),
                         ),
-                        /* if (_questionController.questions.length ==
-                            _questionController.questionNumber.value)
-                          {b == 1}*/
                       ],
                     ),
                   ),
@@ -243,6 +238,7 @@ class QuestionCard extends StatelessWidget {
               press: () => _controller.checkAns(question, index),
             ),
           ),
+          Text("\n"),
           TextButton.icon(
               onPressed: (() {
                 Navigator.push(context,

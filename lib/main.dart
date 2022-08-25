@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:human_variable_behaviour/Screens/Welcome/welcome_screen.dart';
 import 'package:human_variable_behaviour/constant.dart';
 import 'package:human_variable_behaviour/mysql/mysql.dart';
@@ -14,7 +15,7 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return GetMaterialApp(
       title: 'Human Variable Behaviour',
       debugShowCheckedModeBanner: false,
       //Stabilisce il tema dell'applicazione

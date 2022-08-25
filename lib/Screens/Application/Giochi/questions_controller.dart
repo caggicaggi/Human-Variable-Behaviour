@@ -1,9 +1,9 @@
-import 'package:flutter/widgets.dart';
-import 'package:get/get.dart';
+import 'package:flutter/material.dart';
+import 'package:get/route_manager.dart';
 import 'package:get/state_manager.dart';
 import 'package:human_variable_behaviour/Screens/Application/Giochi/Score.dart';
 import 'package:human_variable_behaviour/Screens/Application/Giochi/quiz_questions.dart';
-import 'package:human_variable_behaviour/Screens/HomePage/homepage_screen.dart';
+import '../../../mysql/mysql.dart';
 
 // We use get package for our state management
 
@@ -81,13 +81,31 @@ class QuestionController extends GetxController
     _correctAns = question.answer;
     _selectedAns = selectedIndex;
 
-    if (_correctAns == _selectedAns) _numOfCorrectAns++;
+    if (_correctAns == _selectedAns) {
+      _numOfCorrectAns++;
+      await readQuestions(question.question);
+      if (risultatoQueryDomande) {
+        await signDomandaERisposta(
+            idUtente, question.question, question.options[_selectedAns]);
+      }
+      await updateDomandaCorretta(
+          idUtente, question.question, question.options[_selectedAns]);
+    } else {
+      await readQuestions(question.question);
+      if (risultatoQueryDomande) {
+        await signDomandaERisposta(
+            idUtente, question.question, question.options[_selectedAns]);
+      }
+      await updateDomandaCorretta(
+          idUtente, question.question, question.options[_selectedAns]);
+    }
+
     // It will stop the counter
     _animationController.stop();
     update();
 
     // Once user select an ans after 3s it will go to the next qn
-    await Future.delayed(Duration(seconds: 2), () {
+    await Future.delayed(Duration(seconds: 1), () {
       nextQuestion();
     });
   }
@@ -105,9 +123,15 @@ class QuestionController extends GetxController
       // Once timer is finish go to the next qn
       _animationController.forward().whenComplete(nextQuestion);
     } else {
+      _questionNumber = 1.obs;
+
+      // Reset the counter
+      _animationController.reset();
+      // Then start it again
+      // Once timer is finish go to the next qn
+      _animationController.forward().whenComplete(nextQuestion);
       // Get package provide us simple way to naviigate another page
-      //Get.testMode = true;
-      //Get.to(HomePageScreen());
+      Get.to(ScoreScreen());
     }
   }
 

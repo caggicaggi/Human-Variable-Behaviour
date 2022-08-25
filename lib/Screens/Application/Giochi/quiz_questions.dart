@@ -47,7 +47,7 @@ const List sample_data = [
   {
     "id": 4,
     "question":
-        "A chi chiederesti aiuto se c'è gente che ti da fastidio a scuola?",
+        "A chi chiederesti aiuto se vedi qualcuno che ti da fastidio a scuola?",
     "options": [
       'Alla polizia',
       'Alla bidella',
