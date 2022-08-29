@@ -10,6 +10,7 @@ class ScoreScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     QuestionController _qnController = Get.put(QuestionController());
+
     return Scaffold(
       body: Stack(
         fit: StackFit.expand,
@@ -41,8 +42,14 @@ class ScoreScreen extends StatelessWidget {
               Spacer(flex: 3),
               TextButton(
                 onPressed: (() {
+                  //resetto variabile per lista domande
                   b = false;
+                  //resetto variabili
                   _qnController.resetScoreNumber();
+                  _qnController.resetQuestionNumber();
+                  //cancello instanza controller
+                  Get.delete<QuestionController>();
+
                   Navigator.push(
                       context,
                       MaterialPageRoute(

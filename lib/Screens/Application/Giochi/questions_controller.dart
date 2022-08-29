@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:get/instance_manager.dart';
 import 'package:get/route_manager.dart';
 import 'package:get/state_manager.dart';
 import 'package:human_variable_behaviour/Screens/Application/Giochi/Score.dart';
@@ -116,7 +117,7 @@ class QuestionController extends GetxController
     }
 
     // It will stop the counter
-    _animationController.stop();
+    _animationController.reset();
     update();
 
     // Once user select an ans after 3s it will go to the next qn
@@ -143,12 +144,9 @@ class QuestionController extends GetxController
       _animationController.reset();
       _questionNumber = 1.obs;
       _isAnswered = false;
-      // Reset the counter
-      _animationController.reset();
-// Then start it again
-      // Once timer is finish go to the next qn
-      _animationController.forward().whenComplete(nextQuestion);
       onInit();
+
+      update();
       // Get package provide us simple way to naviigate another page
       Get.to(ScoreScreen());
     }

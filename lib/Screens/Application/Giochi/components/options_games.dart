@@ -98,6 +98,7 @@ class Body extends StatelessWidget {
   Widget build(BuildContext context) {
     // So that we have acccess our controller
     QuestionController _questionController = Get.put(QuestionController());
+    _questionController.resetQuestionNumber();
     return Stack(
       children: [
         Image.asset(

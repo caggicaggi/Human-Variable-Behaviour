@@ -48,10 +48,12 @@ class GiochiScreen extends StatelessWidget {
                   ),*/
                   Spacer(), // 1/6
                   InkWell(
-                    onTap: () => Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => QuizScreen()),
-                    ),
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => QuizScreen()));
+                    },
                     child: Container(
                       width: double.infinity,
                       alignment: Alignment.center,
@@ -69,7 +71,7 @@ class GiochiScreen extends StatelessWidget {
                       ),
                     ),
                   ),
-                  Spacer(flex: 4), // it will take 2/6 spaces
+                  Spacer(flex: 20), // it will take 2/6 spaces
                 ],
               ),
             ),
@@ -83,26 +85,68 @@ class GiochiScreen extends StatelessWidget {
 class QuizScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    QuestionController _questionController = Get.put(QuestionController());
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: AppBar(
         // nasconde il backButton messo automaticamente da flutter
         automaticallyImplyLeading: false,
-
         backgroundColor: Colors.transparent,
         elevation: 0,
         actions: [
-          // se vogliamo inserire il pulsante home bisogna capire come resettare tutto!
-          /* TextButton(
-              onPressed: () {
-                _questionController.resetQuestionNumber();
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => HomePageScreen()),
-                );
-              },
-              child: Text("Home")),*/
+          TextButton(
+            onPressed: () {
+              Get.delete<QuestionController>();
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => GiochiScreen()),
+              );
+            },
+            child: Align(
+              alignment: Alignment.topRight,
+              child: ElevatedButton(
+                child: Icon(
+                  color: Colors.white,
+                  Icons.arrow_back,
+                  size: 40,
+                ),
+                onPressed: () {
+                  b = false;
+                  //cancello instanza controller
+                  Get.delete<QuestionController>();
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => GiochiScreen()),
+                  );
+                },
+              ),
+            ),
+          ),
+          TextButton(
+            onPressed: () {
+              Get.delete<QuestionController>();
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => GiochiScreen()),
+              );
+            },
+            child: Align(
+              alignment: Alignment.topRight,
+              child: ElevatedButton(
+                child: Icon(
+                  color: Colors.white,
+                  Icons.home,
+                  size: 40,
+                ),
+                onPressed: () {
+                  Get.delete<QuestionController>();
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => HomePageScreen()),
+                  );
+                },
+              ),
+            ),
+          ),
         ],
       ),
       body: Body(),
