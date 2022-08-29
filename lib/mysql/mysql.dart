@@ -275,7 +275,6 @@ Future<void> updateDomandaCorretta(
   var db = Mysql();
   //eseguo query
   await db.getConnection().then((connessione) {
-    debugPrint(query);
     connessione.query(query);
     connessione.close();
   });
@@ -299,12 +298,10 @@ Future<bool> readQuestions(domandaUtente) async {
     //delay obbligatorio per Malaccari
     await Future.delayed(const Duration(milliseconds: 1));
     await connessione.query(query).then((result) async {
-      debugPrint(query);
       risultatoQueryDomande = result.isEmpty;
       connessione.close();
     });
   });
-  debugPrint(risultatoQueryDomande.toString());
   //True = Query vuota -> Non ho la mail
   //False = Query con valore di ritorno -> Email già presente
   return risultatoQueryDomande;

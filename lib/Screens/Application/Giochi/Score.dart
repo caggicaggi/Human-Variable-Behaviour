@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:human_variable_behaviour/Screens/Application/Giochi/components/options_games.dart';
 import 'package:human_variable_behaviour/Screens/Application/Giochi/questions_controller.dart';
 import 'package:human_variable_behaviour/Screens/HomePage/homepage_screen.dart';
 
@@ -40,6 +41,8 @@ class ScoreScreen extends StatelessWidget {
               Spacer(flex: 3),
               TextButton(
                 onPressed: (() {
+                  b = false;
+                  _qnController.resetScoreNumber();
                   Navigator.push(
                       context,
                       MaterialPageRoute(

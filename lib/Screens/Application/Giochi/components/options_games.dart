@@ -1,11 +1,21 @@
+import 'dart:io';
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:human_variable_behaviour/Screens/Application/Giochi/Score.dart';
 import 'package:human_variable_behaviour/Screens/Application/Giochi/giochi_screen.dart';
 import 'package:human_variable_behaviour/Screens/Application/Giochi/questions_controller.dart';
 import 'package:human_variable_behaviour/Screens/Application/Giochi/quiz_questions.dart';
+import 'package:human_variable_behaviour/mysql/mysql.dart';
 
 import '../../../../constant.dart';
+
+int count = 0;
+bool b = false;
+Set<int> setOfInts = Set();
+
+bool checkBool = false;
 
 class Option extends StatelessWidget {
   const Option({
@@ -23,6 +33,7 @@ class Option extends StatelessWidget {
     return GetBuilder<QuestionController>(
         init: QuestionController(),
         builder: (qnController) {
+          //settare la risposta giusta e far venire il flag verde o rosso
           Color getTheRightColor() {
             if (qnController.isAnswered) {
               if (index == qnController.correctAns) {
@@ -111,6 +122,7 @@ class Body extends StatelessWidget {
                 child: Obx(
                   () => Text.rich(
                     TextSpan(
+                      //visualizzare numero domanda corrente e il totale
                       text:
                           "Question ${_questionController.questionNumber.value}",
                       style: Theme.of(context)
@@ -133,6 +145,7 @@ class Body extends StatelessWidget {
               Divider(thickness: 1.5),
               SizedBox(height: kDefaultPadding),
               Expanded(
+                //dati passati alla QuestionCard per formulare domanda
                 child: PageView.builder(
                   // Block swipe to next qn
                   physics: NeverScrollableScrollPhysics(),
@@ -140,7 +153,7 @@ class Body extends StatelessWidget {
                   onPageChanged: _questionController.updateTheQnNum,
                   itemCount: _questionController.questions.length,
                   itemBuilder: (context, index) => QuestionCard(
-                      question: _questionController.questions[index]),
+                      question: _questionController.questions[setIndex()]),
                 ),
               ),
             ],
@@ -149,6 +162,31 @@ class Body extends StatelessWidget {
       ],
     );
   }
+}
+
+//metodo per estrerre indice casuale dalla lista domande senza ripetizione
+int setIndex() {
+  //max= numero di domande
+  int max = 4;
+  int i = 0;
+  int s = 0;
+  int index = 0;
+  Random random = new Random();
+  if (b == false) {
+    for (i = 0; i <= max; i++) {
+      setOfInts.add(Random().nextInt(max));
+      b = true;
+    }
+    do {
+      setOfInts.add(Random().nextInt(max));
+    } while (setOfInts.length < max);
+  }
+
+  for (var j in setOfInts) {
+    index = setOfInts.first;
+  }
+
+  return index;
 }
 
 class ProgressBar extends StatelessWidget {
@@ -188,7 +226,10 @@ class ProgressBar extends StatelessWidget {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Text("${(controller.animation.value * 20).round()} sec"),
+                      // si impostano i secondi della navbar
+                      Text(
+                        "${(controller.animation.value * 20).round()} sec",
+                      ),
                     ],
                   ),
                 ),
@@ -229,7 +270,7 @@ class QuestionCard extends StatelessWidget {
                 .headline5!
                 .copyWith(color: kBlackColor),
           ),
-          SizedBox(height: kDefaultPadding / 0.5),
+          SizedBox(height: kDefaultPadding / 1),
           ...List.generate(
             question.options.length,
             (index) => Option(
@@ -239,15 +280,12 @@ class QuestionCard extends StatelessWidget {
             ),
           ),
           Text("\n"),
-          TextButton.icon(
-              onPressed: (() {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => ScoreScreen()));
-              }),
-              icon: Icon(Icons.alarm_on, color: Colors.black),
-              label: Text(
-                "Termina quiz",
-              )),
+          Image.asset(
+            "assets/images/logoUnicam.jpg",
+            height: 100,
+            width: 300,
+            fit: BoxFit.cover,
+          ),
         ],
       ),
     );

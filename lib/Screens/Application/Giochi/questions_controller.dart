@@ -1,7 +1,10 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:get/route_manager.dart';
 import 'package:get/state_manager.dart';
 import 'package:human_variable_behaviour/Screens/Application/Giochi/Score.dart';
+import 'package:human_variable_behaviour/Screens/Application/Giochi/components/options_games.dart';
 import 'package:human_variable_behaviour/Screens/Application/Giochi/quiz_questions.dart';
 import '../../../mysql/mysql.dart';
 
@@ -46,7 +49,7 @@ class QuestionController extends GetxController
 
   int _numOfCorrectAns = 0;
   int get numOfCorrectAns => this._numOfCorrectAns;
-
+  int get __numOfCorrectAns => this.__numOfCorrectAns;
   // called immediately after the widget is allocated memory
   @override
   void onInit() {
@@ -56,17 +59,18 @@ class QuestionController extends GetxController
         AnimationController(duration: Duration(seconds: 10), vsync: this);
     _animation = Tween<double>(begin: 0, end: 1).animate(_animationController)
       ..addListener(() {
-        // update like setState
         update();
       });
 
     // start our animation
     // Once 60s is completed go to the next qn
     _animationController.forward().whenComplete(nextQuestion);
-    _pageController = PageController();
+    _pageController = new PageController();
     super.onInit();
   }
 
+  void resetScoreNumber() => _numOfCorrectAns = 0;
+  void resetQuestionNumber() => _questionNumber.value = 1;
   // // called just before the Controller is deleted from memory
   @override
   void onClose() {
@@ -75,6 +79,7 @@ class QuestionController extends GetxController
     _pageController.dispose();
   }
 
+//controllo risposta
   void checkAns(Question question, int selectedIndex) async {
     // because once user press any option then it will run
     _isAnswered = true;
@@ -82,22 +87,32 @@ class QuestionController extends GetxController
     _selectedAns = selectedIndex;
 
     if (_correctAns == _selectedAns) {
+      // conto risposte corrette
       _numOfCorrectAns++;
+      //controllo se la domanda è gia presente
       await readQuestions(question.question);
+      //non è presente quindi faccio l'insert
       if (risultatoQueryDomande) {
         await signDomandaERisposta(
             idUtente, question.question, question.options[_selectedAns]);
       }
+      //è presente quindi faccio l'update
       await updateDomandaCorretta(
           idUtente, question.question, question.options[_selectedAns]);
     } else {
+      //controllo se la domanda è gia presente
       await readQuestions(question.question);
+      //non è presente quindi faccio l'insert
       if (risultatoQueryDomande) {
+        //non è presente quindi faccio l'insert
         await signDomandaERisposta(
             idUtente, question.question, question.options[_selectedAns]);
       }
       await updateDomandaCorretta(
-          idUtente, question.question, question.options[_selectedAns]);
+          //è presente quindi faccio l'update
+          idUtente,
+          question.question,
+          question.options[_selectedAns]);
     }
 
     // It will stop the counter
@@ -119,17 +134,21 @@ class QuestionController extends GetxController
       // Reset the counter
       _animationController.reset();
 
+      setOfInts.remove(setOfInts.first);
       // Then start it again
       // Once timer is finish go to the next qn
       _animationController.forward().whenComplete(nextQuestion);
     } else {
-      _questionNumber = 1.obs;
-
       // Reset the counter
       _animationController.reset();
-      // Then start it again
+      _questionNumber = 1.obs;
+      _isAnswered = false;
+      // Reset the counter
+      _animationController.reset();
+// Then start it again
       // Once timer is finish go to the next qn
       _animationController.forward().whenComplete(nextQuestion);
+      onInit();
       // Get package provide us simple way to naviigate another page
       Get.to(ScoreScreen());
     }

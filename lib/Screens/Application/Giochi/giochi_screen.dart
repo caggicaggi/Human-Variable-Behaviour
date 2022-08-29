@@ -1,5 +1,7 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:human_variable_behaviour/Screens/Application/Giochi/components/options_games.dart';
@@ -81,22 +83,26 @@ class GiochiScreen extends StatelessWidget {
 class QuizScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    QuestionController _controller = Get.put(QuestionController());
+    QuestionController _questionController = Get.put(QuestionController());
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: AppBar(
-        // Fluttter show the back button automatically
+        // nasconde il backButton messo automaticamente da flutter
+        automaticallyImplyLeading: false,
+
         backgroundColor: Colors.transparent,
         elevation: 0,
         actions: [
-          FlatButton(
+          // se vogliamo inserire il pulsante home bisogna capire come resettare tutto!
+          /* TextButton(
               onPressed: () {
+                _questionController.resetQuestionNumber();
                 Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) => HomePageScreen()),
                 );
               },
-              child: Text("Home")),
+              child: Text("Home")),*/
         ],
       ),
       body: Body(),

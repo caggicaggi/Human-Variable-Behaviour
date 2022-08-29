@@ -27,12 +27,12 @@ class UnicamScreen extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               Padding(
-                padding: const EdgeInsets.all(32.0),
+                padding: const EdgeInsets.all(0),
                 child: Column(
                   children: <Widget>[
                     Text(
                       textAlign: TextAlign.center,
-                      'SCEGLI COSA VUOI VEDERE',
+                      '\nSCEGLI COSA VUOI VEDERE',
                       style: TextStyle(
                         fontFamily: 'Avenir',
                         fontSize: 44,
@@ -40,21 +40,18 @@ class UnicamScreen extends StatelessWidget {
                         fontWeight: FontWeight.w900,
                       ),
                     ),
+                    Text(
+                      'SERVIZI UNICAM',
+                      textAlign: TextAlign.left,
+                      style: TextStyle(
+                        fontFamily: 'Avenir',
+                        fontSize: 25,
+                        color: const Color(0x7cdbf1ff),
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
                     DropdownButton<String>(
-                      items: [
-                        DropdownMenuItem(
-                          child: Text(
-                            'SERVIZI UNICAM',
-                            style: TextStyle(
-                              fontFamily: 'Avenir',
-                              fontSize: 24,
-                              color: const Color(0x7cdbf1ff),
-                              fontWeight: FontWeight.w500,
-                            ),
-                            textAlign: TextAlign.center,
-                          ),
-                        ),
-                      ],
+                      items: [],
                       underline: SizedBox(),
                       onChanged: (value) {},
                     ),
