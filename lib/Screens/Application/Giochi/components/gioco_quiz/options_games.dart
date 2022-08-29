@@ -3,13 +3,10 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:human_variable_behaviour/Screens/Application/Giochi/Score.dart';
-import 'package:human_variable_behaviour/Screens/Application/Giochi/giochi_screen.dart';
-import 'package:human_variable_behaviour/Screens/Application/Giochi/questions_controller.dart';
-import 'package:human_variable_behaviour/Screens/Application/Giochi/quiz_questions.dart';
+import 'package:human_variable_behaviour/Screens/Application/Giochi/components/gioco_quiz/questions_controller.dart';
+import 'package:human_variable_behaviour/Screens/Application/Giochi/components/gioco_quiz/quiz_questions.dart';
+import 'package:human_variable_behaviour/constant.dart';
 import 'package:human_variable_behaviour/mysql/mysql.dart';
-
-import '../../../../constant.dart';
 
 int count = 0;
 bool b = false;

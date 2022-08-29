@@ -4,8 +4,8 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:human_variable_behaviour/Screens/Application/Giochi/components/options_games.dart';
-import 'package:human_variable_behaviour/Screens/Application/Giochi/questions_controller.dart';
+import 'package:human_variable_behaviour/Screens/Application/Giochi/components/gioco_quiz/options_games.dart';
+import 'package:human_variable_behaviour/Screens/Application/Giochi/components/gioco_quiz/questions_controller.dart';
 import 'package:human_variable_behaviour/Screens/HomePage/homepage_screen.dart';
 import 'package:human_variable_behaviour/constant.dart';
 
@@ -31,22 +31,13 @@ class GiochiScreen extends StatelessWidget {
                 children: [
                   Spacer(flex: 2), //2/6
                   Text(
-                    "Ora comincia il quiz!",
+                    "Ora comincia a giocare!",
                     style: Theme.of(context).textTheme.headline4?.copyWith(
                         color: Colors.white, fontWeight: FontWeight.bold),
                   ),
-                  Spacer(), // 1/6
-                  /*TextField(
-                    decoration: InputDecoration(
-                      filled: true,
-                      fillColor: kPrimaryLightColor,
-                      hintText: "Nome Completo",
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(12)),
-                      ),
-                    ),
-                  ),*/
-                  Spacer(), // 1/6
+                  Spacer(
+                    flex: 1,
+                  ), // 1/6
                   InkWell(
                     onTap: () {
                       Navigator.push(
@@ -71,7 +62,90 @@ class GiochiScreen extends StatelessWidget {
                       ),
                     ),
                   ),
-                  Spacer(flex: 20), // it will take 2/6 spaces
+                  Spacer(
+                    flex: 1,
+                  ), // 1/6
+                  InkWell(
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => QuizScreen()));
+                    },
+                    child: Container(
+                      width: double.infinity,
+                      alignment: Alignment.center,
+                      padding: EdgeInsets.all(kDefaultPadding * 0.75), // 15
+                      decoration: BoxDecoration(
+                        gradient: kPrimaryGradient,
+                        borderRadius: BorderRadius.all(Radius.circular(12)),
+                      ),
+                      child: Text(
+                        "Inizia Gioco 2",
+                        style: Theme.of(context)
+                            .textTheme
+                            .button
+                            ?.copyWith(color: Colors.black),
+                      ),
+                    ),
+                  ),
+                  Spacer(
+                    flex: 1,
+                  ),
+                  InkWell(
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => QuizScreen()));
+                    },
+                    child: Container(
+                      width: double.infinity,
+                      alignment: Alignment.center,
+                      padding: EdgeInsets.all(kDefaultPadding * 0.75), // 15
+                      decoration: BoxDecoration(
+                        gradient: kPrimaryGradient,
+                        borderRadius: BorderRadius.all(Radius.circular(12)),
+                      ),
+                      child: Text(
+                        "Inizia Gioco 3",
+                        style: Theme.of(context)
+                            .textTheme
+                            .button
+                            ?.copyWith(color: Colors.black),
+                      ),
+                    ),
+                  ),
+                  Spacer(
+                    flex: 1,
+                  ),
+                  InkWell(
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => QuizScreen()));
+                    },
+                    child: Container(
+                      width: double.infinity,
+                      alignment: Alignment.center,
+                      padding: EdgeInsets.all(kDefaultPadding * 0.75), // 15
+                      decoration: BoxDecoration(
+                        gradient: kPrimaryGradient,
+                        borderRadius: BorderRadius.all(Radius.circular(12)),
+                      ),
+                      child: Text(
+                        "Inizia Gioco 4",
+                        style: Theme.of(context)
+                            .textTheme
+                            .button
+                            ?.copyWith(color: Colors.black),
+                      ),
+                    ),
+                  ),
+                  Spacer(
+                    flex: 4,
+                  ), // it will take 2/6 spaces
                 ],
               ),
             ),

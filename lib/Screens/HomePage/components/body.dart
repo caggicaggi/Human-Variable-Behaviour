@@ -2,7 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:human_variable_behaviour/Screens/Application/Diario/dynamic_event.dart';
-import 'package:human_variable_behaviour/Screens/Application/Giochi/giochi_screen.dart';
+import 'package:human_variable_behaviour/Screens/Application/Giochi/components/gioco_quiz/giochi_screen.dart';
 import 'package:human_variable_behaviour/Screens/Application/Persona/persona_screen.dart';
 import 'package:human_variable_behaviour/Screens/Application/SchermataPrincipale/schermata_principale_screen.dart';
 import 'package:human_variable_behaviour/Screens/Application/Unicam/unicam_screen.dart';

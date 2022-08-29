@@ -1,7 +1,6 @@
 // ignore_for_file: prefer_interpolation_to_compose_strings
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:human_variable_behaviour/Screens/Application/Giochi/quiz_questions.dart';
 import 'package:intl/intl.dart';
 import 'package:mysql1/mysql1.dart';
 

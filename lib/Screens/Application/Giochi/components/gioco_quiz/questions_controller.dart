@@ -4,10 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:get/instance_manager.dart';
 import 'package:get/route_manager.dart';
 import 'package:get/state_manager.dart';
-import 'package:human_variable_behaviour/Screens/Application/Giochi/Score.dart';
-import 'package:human_variable_behaviour/Screens/Application/Giochi/components/options_games.dart';
-import 'package:human_variable_behaviour/Screens/Application/Giochi/quiz_questions.dart';
-import '../../../mysql/mysql.dart';
+import 'package:human_variable_behaviour/Screens/Application/Giochi/components/gioco_quiz/Score.dart';
+import 'package:human_variable_behaviour/Screens/Application/Giochi/components/gioco_quiz/options_games.dart';
+import 'package:human_variable_behaviour/Screens/Application/Giochi/components/gioco_quiz/quiz_questions.dart';
+import 'package:human_variable_behaviour/mysql/mysql.dart';
 
 // We use get package for our state management
 

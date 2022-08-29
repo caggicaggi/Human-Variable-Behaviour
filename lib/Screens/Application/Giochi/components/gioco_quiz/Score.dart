@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:human_variable_behaviour/Screens/Application/Giochi/components/options_games.dart';
-import 'package:human_variable_behaviour/Screens/Application/Giochi/questions_controller.dart';
+import 'package:human_variable_behaviour/Screens/Application/Giochi/components/gioco_quiz/options_games.dart';
+import 'package:human_variable_behaviour/Screens/Application/Giochi/components/gioco_quiz/questions_controller.dart';
 import 'package:human_variable_behaviour/Screens/HomePage/homepage_screen.dart';
-
-import '../../../constant.dart';
 
 class ScoreScreen extends StatelessWidget {
   @override

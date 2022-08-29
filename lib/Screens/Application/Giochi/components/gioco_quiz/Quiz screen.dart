@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:human_variable_behaviour/Screens/Application/Giochi/components/options_games.dart';
-import 'package:human_variable_behaviour/Screens/Application/Giochi/questions_controller.dart';
-import 'package:human_variable_behaviour/Screens/Application/Giochi/quiz_questions.dart';
-import 'package:human_variable_behaviour/constant.dart';
+import 'package:human_variable_behaviour/Screens/Application/Giochi/components/gioco_quiz/questions_controller.dart';
+import 'package:human_variable_behaviour/Screens/Application/Giochi/components/gioco_quiz/quiz_questions.dart';
 
-import 'body.dart';
+import 'package:human_variable_behaviour/constant.dart';
 
 class QuizScreen extends StatelessWidget {
   @override
