@@ -57,6 +57,10 @@ class _CorrectWrongOverlayState extends State<CorrectWrongOverlay>
               widget.isCorrect ? "Giustooo!" : "No hai sbagliatoo!",
               style: TextStyle(color: Colors.white, fontSize: 30.0),
             ),
+            Text(
+              "premi per andare avanti",
+              style: TextStyle(color: Colors.white, fontSize: 13.0),
+            )
           ],
         ),
       ),

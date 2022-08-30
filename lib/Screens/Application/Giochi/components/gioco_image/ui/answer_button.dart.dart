@@ -10,11 +10,11 @@ class AnswerButton extends StatelessWidget {
     return Container(
       child: Material(
         child: RaisedButton(
-          color: Colors.blueAccent.shade100,
+          color: Colors.blue,
           onPressed: () => _onTap(),
           child: Center(
             child: Container(
-              padding: EdgeInsets.all(5.0),
+              padding: EdgeInsets.all(25.0),
               child: Text(
                 _answer == true ? "SIII!" : "NOOO!",
                 style: TextStyle(

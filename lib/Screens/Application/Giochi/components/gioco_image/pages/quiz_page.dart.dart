@@ -65,6 +65,7 @@ class _QuizPageState extends State<QuizPagina> {
             //This is our main page
             children: <Widget>[
               QuestionTextWithImage("$questionText", questionNumber, imageName),
+              Text("\n"),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
