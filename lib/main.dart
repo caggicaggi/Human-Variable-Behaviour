@@ -6,7 +6,9 @@ import 'package:human_variable_behaviour/mysql/mysql.dart';
 
 void main() {
   Mysql();
-  runApp(const MyApp());
+  runApp(
+    const MyApp(),
+  );
 }
 
 class MyApp extends StatelessWidget {

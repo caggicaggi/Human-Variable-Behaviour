@@ -4,6 +4,9 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get/get_core/get_core.dart';
+import 'package:human_variable_behaviour/Screens/Application/Giochi/components/gioco_image/pages/landing_page.dart.dart';
+import 'package:human_variable_behaviour/Screens/Application/Giochi/components/gioco_image/pages/quiz_page.dart.dart';
 import 'package:human_variable_behaviour/Screens/Application/Giochi/components/gioco_quiz/options_games.dart';
 import 'package:human_variable_behaviour/Screens/Application/Giochi/components/gioco_quiz/questions_controller.dart';
 import 'package:human_variable_behaviour/Screens/HomePage/homepage_screen.dart';
@@ -54,7 +57,7 @@ class GiochiScreen extends StatelessWidget {
                         borderRadius: BorderRadius.all(Radius.circular(12)),
                       ),
                       child: Text(
-                        "Inizia il Quiz",
+                        "Inizia il quiz",
                         style: Theme.of(context)
                             .textTheme
                             .button
@@ -70,7 +73,7 @@ class GiochiScreen extends StatelessWidget {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => QuizScreen()));
+                              builder: (context) => LandingPage()));
                     },
                     child: Container(
                       width: double.infinity,
@@ -81,7 +84,7 @@ class GiochiScreen extends StatelessWidget {
                         borderRadius: BorderRadius.all(Radius.circular(12)),
                       ),
                       child: Text(
-                        "Inizia Gioco 2",
+                        "Indovina l'immagine",
                         style: Theme.of(context)
                             .textTheme
                             .button
@@ -97,7 +100,7 @@ class GiochiScreen extends StatelessWidget {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => QuizScreen()));
+                              builder: (context) => QuizPagina()));
                     },
                     child: Container(
                       width: double.infinity,

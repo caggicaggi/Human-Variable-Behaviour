@@ -46,6 +46,7 @@ dependencies:
   flutter_signin_button: ^2.0.0
   google_fonts: ^3.0.1
   get: ^4.6.5
+  word_search: ^0.1.2
 
 
 shared_preferences: ^0.5.4+5
