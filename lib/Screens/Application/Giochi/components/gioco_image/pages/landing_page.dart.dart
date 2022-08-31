@@ -5,6 +5,7 @@ import 'package:human_variable_behaviour/Screens/Application/Giochi/components/g
 class LandingPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
         title: Text(

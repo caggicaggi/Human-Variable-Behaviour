@@ -1,13 +1,9 @@
 // ignore_for_file: prefer_interpolation_to_compose_strings
 
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:human_variable_behaviour/Screens/Application/Diario/dynamic_event.dart';
 import 'package:human_variable_behaviour/Screens/Application/SchermataPrincipale/components/background.dart';
 import 'package:human_variable_behaviour/Screens/HomePage/components/category_card.dart';
-import 'package:human_variable_behaviour/Screens/HomePage/homepage_screen.dart';
 import 'package:human_variable_behaviour/Screens/HomePage/search_bar.dart';
-import 'package:human_variable_behaviour/mysql/mysql.dart';
 
 class Body extends StatefulWidget {
   const Body({
@@ -30,12 +26,7 @@ class _BodyState extends State<Body> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               Container(
-                decoration: BoxDecoration(
-                  color: Color(0xFFF5CEB8),
-                  // image: DecorationImage(
-                  //   alignment: Alignment.centerLeft,
-                  //   image: AssetImage("assets/images/search.svg"),
-                ),
+                decoration: BoxDecoration(color: Color(0xFFF5CEB8)),
               ),
               SafeArea(
                   minimum: const EdgeInsets.all(16.0),
@@ -68,6 +59,10 @@ class _BodyState extends State<Body> {
                             ),
                             CategoryCard(
                                 title: "Informazoni 4",
+                                svgSrc: "assets/icons/facebook.svg",
+                                press: () {}),
+                            CategoryCard(
+                                title: "Informazoni 5",
                                 svgSrc: "assets/icons/facebook.svg",
                                 press: () {}),
                           ],

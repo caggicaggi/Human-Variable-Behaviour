@@ -93,6 +93,7 @@ class Body extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     // So that we have acccess our controller
     QuestionController _questionController = Get.put(QuestionController());
     _questionController.resetQuestionNumber();
@@ -125,14 +126,14 @@ class Body extends StatelessWidget {
                           "Question ${_questionController.questionNumber.value}",
                       style: Theme.of(context)
                           .textTheme
-                          .headline4!
+                          .headline6!
                           .copyWith(color: kBlackColor),
                       children: [
                         TextSpan(
                           text: "/${_questionController.questions.length}",
                           style: Theme.of(context)
                               .textTheme
-                              .headline5!
+                              .headline6!
                               .copyWith(color: kBlackColor),
                         ),
                       ],
@@ -140,7 +141,6 @@ class Body extends StatelessWidget {
                   ),
                 ),
               ),
-              Divider(thickness: 1.5),
               SizedBox(height: kDefaultPadding),
               Expanded(
                 //dati passati alla QuestionCard per formulare domanda
@@ -251,6 +251,7 @@ class QuestionCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     QuestionController _controller = Get.put(QuestionController());
     return Container(
       margin: EdgeInsets.symmetric(horizontal: kDefaultPadding),
@@ -265,10 +266,10 @@ class QuestionCard extends StatelessWidget {
             question.question,
             style: Theme.of(context)
                 .textTheme
-                .headline5!
+                .headline6!
                 .copyWith(color: kBlackColor),
           ),
-          SizedBox(height: kDefaultPadding / 1),
+          SizedBox(height: size.height * 0.02),
           ...List.generate(
             question.options.length,
             (index) => Option(
@@ -276,13 +277,6 @@ class QuestionCard extends StatelessWidget {
               text: question.options[index],
               press: () => _controller.checkAns(question, index),
             ),
-          ),
-          Text("\n"),
-          Image.asset(
-            "assets/images/logoUnicam.jpg",
-            height: 100,
-            width: 300,
-            fit: BoxFit.cover,
           ),
         ],
       ),

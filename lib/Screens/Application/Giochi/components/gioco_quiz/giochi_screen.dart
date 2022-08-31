@@ -17,6 +17,7 @@ class GiochiScreen extends StatelessWidget {
 //Schermata iniziale
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     return Scaffold(
       body: Stack(
         children: [
@@ -162,6 +163,7 @@ class GiochiScreen extends StatelessWidget {
 class QuizScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     Get.delete<QuestionController>();
     return Scaffold(
       extendBodyBehindAppBar: true,
