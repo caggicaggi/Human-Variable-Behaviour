@@ -21,7 +21,7 @@ class UnicamScreen extends StatelessWidget {
                 colors: [gradientStartColor, gradientEndColor],
                 begin: Alignment.topCenter,
                 end: Alignment.bottomCenter,
-                stops: [0.3, 0.8])),
+                stops: [0.3, 1])),
         child: SafeArea(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -50,25 +50,19 @@ class UnicamScreen extends StatelessWidget {
                         fontWeight: FontWeight.w500,
                       ),
                     ),
-                    DropdownButton<String>(
-                      items: [],
-                      underline: SizedBox(),
-                      onChanged: (value) {},
-                    ),
                   ],
                 ),
               ),
-              // PALLINI SOTTO AL QUADRATO
               Container(
-                height: 430,
+                height: 450,
                 padding: const EdgeInsets.only(),
                 child: Swiper(
                   itemCount: link.length,
                   itemWidth: MediaQuery.of(context).size.width - 2 * 64,
                   layout: SwiperLayout.STACK,
                   pagination: SwiperPagination(
-                    builder:
-                        DotSwiperPaginationBuilder(activeSize: 20, space: 10),
+                    builder: DotSwiperPaginationBuilder(
+                        activeSize: 20, space: 10, color: Colors.blue),
                   ),
                   itemBuilder: (context, index) {
                     return InkWell(
@@ -167,7 +161,7 @@ class UnicamScreen extends StatelessWidget {
                               style: TextStyle(
                                 fontFamily: 'Avenir',
                                 fontSize: 200,
-                                color: primaryTextColor.withOpacity(0.08),
+                                color: primaryTextColor.withOpacity(0.5),
                                 fontWeight: FontWeight.w900,
                               ),
                               textAlign: TextAlign.left,

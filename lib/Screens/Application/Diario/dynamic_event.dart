@@ -4,6 +4,7 @@ import 'dart:convert';
 //import 'dart:html';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:human_variable_behaviour/Screens/HomePage/components/background.dart';
 import 'package:human_variable_behaviour/Screens/HomePage/homepage_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:table_calendar/table_calendar.dart';
@@ -83,133 +84,144 @@ class _DynamicEventState extends State<DynamicEvent> {
   Widget build(BuildContext context) {
     //resetto la Map
     _events.clear();
-    return Scaffold(
-      backgroundColor: Colors.grey[100],
-      appBar: PreferredSize(
-        preferredSize: Size.fromHeight(120.0),
-        child: AppBar(
-          leading: IconButton(
-            icon: Icon(Icons.arrow_back, color: Colors.black),
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) {
-                    return HomePageScreen();
-                  },
-                ),
-              );
-            },
-          ),
-          bottom: PreferredSize(
-            preferredSize: Size.fromHeight(30.0),
-            child: Container(
-              alignment: Alignment.center,
-              padding: EdgeInsets.symmetric(horizontal: 10),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Text(
-                    'ECCO IL TUO DIARIO PERSONALE ',
-                    style: GoogleFonts.akayaTelivigala(fontSize: 30),
+    return Container(
+      decoration: BoxDecoration(
+          image: DecorationImage(
+              image: AssetImage("assets/images/afxrltWy.jpeg"),
+              fit: BoxFit.cover)),
+      child: Scaffold(
+        backgroundColor: Colors.transparent,
+        appBar: PreferredSize(
+          preferredSize: Size.fromHeight(120.0),
+          child: AppBar(
+            backgroundColor: Colors.transparent,
+            leading: IconButton(
+              icon: Icon(Icons.arrow_back, color: Colors.black),
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) {
+                      return HomePageScreen();
+                    },
                   ),
-                  Text(
-                    "Raccontami una tua giornata",
-                    style: GoogleFonts.akayaTelivigala(fontSize: 22),
-                  ),
-                ],
-              ),
-            ),
-          ),
-        ),
-      ),
-      body: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            TableCalendar(
-              events: _events,
-              initialCalendarFormat: CalendarFormat.month,
-              calendarStyle: CalendarStyle(
-                  canEventMarkersOverflow: true,
-                  todayColor: Colors.blue,
-                  selectedColor: Theme.of(context).primaryColor,
-                  todayStyle: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 18.0,
-                      color: Colors.white)),
-              headerStyle: HeaderStyle(
-                centerHeaderTitle: true,
-                formatButtonDecoration: BoxDecoration(
-                  color: Colors.blue,
-                  borderRadius: BorderRadius.circular(20.0),
-                ),
-                formatButtonTextStyle: TextStyle(color: Colors.white),
-                formatButtonShowsNext: false,
-              ),
-              startingDayOfWeek: StartingDayOfWeek.monday,
-              onDaySelected: (date, events, holidays) async {
-                //pulisco events
-                events.clear();
-                //calcolo lista eventi
-                await listaGiornateInserite(date, idUtente);
-                /* converto la lista della query di formato String
-                nella lista in formato dynamic */
-                events = List<dynamic>.from(list);
-                // setto gli eventi per stamparli nella schermata
-                setState(() {
-                  _selectedEvents = events;
-                });
+                );
               },
-              builders: CalendarBuilders(
-                selectedDayBuilder: (context, date, events) => Container(
-                    margin: const EdgeInsets.all(4.0),
-                    alignment: Alignment.center,
-                    decoration: BoxDecoration(
-                        color: Theme.of(context).primaryColor,
-                        borderRadius: BorderRadius.circular(10.0)),
-                    child: Text(
-                      date.day.toString(),
-                      style: TextStyle(color: Colors.white),
-                    )),
-                todayDayBuilder: (context, date, events) => Container(
-                    margin: const EdgeInsets.all(4.0),
-                    alignment: Alignment.center,
-                    decoration: BoxDecoration(
-                        color: Colors.blue,
-                        borderRadius: BorderRadius.circular(10.0)),
-                    child: Text(
-                      date.day.toString(),
-                      style: TextStyle(color: Colors.white),
-                    )),
-              ),
-              calendarController: _controller,
             ),
-            //stampo valori contenuti in _selectedEvents presi da events
-            ..._selectedEvents.map((event) => Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Container(
-                    height: MediaQuery.of(context).size.height / 7,
-                    width: MediaQuery.of(context).size.width / 1,
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(20),
-                        color: Colors.white,
-                        border: Border.all(color: Colors.white)),
-                    child: Center(
-                        child: Text(
-                      event,
-                      style: GoogleFonts.akayaTelivigala(fontSize: 20),
-                    )),
-                  ),
-                )),
-          ],
+            bottom: PreferredSize(
+              preferredSize: Size.fromHeight(30.0),
+              child: Container(
+                alignment: Alignment.center,
+                padding: EdgeInsets.symmetric(horizontal: 10),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Text(
+                      'ECCO IL TUO DIARIO PERSONALE ',
+                      style: GoogleFonts.akayaTelivigala(
+                          fontSize: 30, color: Colors.white),
+                    ),
+                    Text(
+                      "Raccontami una tua giornata",
+                      style: GoogleFonts.akayaTelivigala(
+                          fontSize: 22, color: Colors.blue),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
         ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        backgroundColor: Colors.blue,
-        child: Icon(Icons.add_comment_sharp),
-        onPressed: _showAddDialog,
+        body: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              TableCalendar(
+                events: _events,
+                initialCalendarFormat: CalendarFormat.month,
+                calendarStyle: CalendarStyle(
+                    canEventMarkersOverflow: true,
+                    todayColor: Colors.blue,
+                    selectedColor: Theme.of(context).primaryColor,
+                    todayStyle: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 19.0,
+                        color: Colors.white)),
+                headerStyle: HeaderStyle(
+                  centerHeaderTitle: true,
+                  formatButtonDecoration: BoxDecoration(
+                    color: Colors.blue,
+                    borderRadius: BorderRadius.circular(20.0),
+                  ),
+                  formatButtonTextStyle:
+                      TextStyle(color: Colors.white, fontSize: 18),
+                  formatButtonShowsNext: false,
+                ),
+                startingDayOfWeek: StartingDayOfWeek.monday,
+                onDaySelected: (date, events, holidays) async {
+                  //pulisco events
+                  events.clear();
+                  //calcolo lista eventi
+                  await listaGiornateInserite(date, idUtente);
+                  /* converto la lista della query di formato String
+                nella lista in formato dynamic */
+                  events = List<dynamic>.from(list);
+                  // setto gli eventi per stamparli nella schermata
+                  setState(() {
+                    _selectedEvents = events;
+                  });
+                },
+                builders: CalendarBuilders(
+                  selectedDayBuilder: (context, date, events) => Container(
+                      margin: const EdgeInsets.all(4.0),
+                      alignment: Alignment.center,
+                      decoration: BoxDecoration(
+                          color: Theme.of(context).primaryColor,
+                          borderRadius: BorderRadius.circular(19.0)),
+                      child: Text(
+                        date.day.toString(),
+                        style: TextStyle(color: Colors.white, fontSize: 18),
+                      )),
+                  todayDayBuilder: (context, date, events) => Container(
+                      margin: const EdgeInsets.all(4.0),
+                      alignment: Alignment.center,
+                      decoration: BoxDecoration(
+                          color: Colors.blue,
+                          borderRadius: BorderRadius.circular(10.0)),
+                      child: Text(
+                        date.day.toString(),
+                        style: TextStyle(color: Colors.white),
+                      )),
+                ),
+                calendarController: _controller,
+              ),
+              //stampo valori contenuti in _selectedEvents presi da events
+              ..._selectedEvents.map((event) => Padding(
+                    padding: const EdgeInsets.all(5.0),
+                    child: Container(
+                      height: MediaQuery.of(context).size.height / 7,
+                      width: MediaQuery.of(context).size.width / 1,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(20),
+                          color: Colors.white,
+                          border: Border.all(color: Colors.white)),
+                      child: Center(
+                          child: Text(
+                        event,
+                        style: GoogleFonts.akayaTelivigala(fontSize: 23),
+                        textAlign: TextAlign.center,
+                      )),
+                    ),
+                  )),
+            ],
+          ),
+        ),
+        floatingActionButton: FloatingActionButton(
+          backgroundColor: Colors.blue,
+          child: Icon(Icons.add_comment_sharp),
+          onPressed: _showAddDialog,
+        ),
       ),
     );
   }

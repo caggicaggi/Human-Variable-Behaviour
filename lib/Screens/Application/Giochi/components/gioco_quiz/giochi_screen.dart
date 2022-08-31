@@ -162,42 +162,15 @@ class GiochiScreen extends StatelessWidget {
 class QuizScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    Get.delete<QuestionController>();
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: AppBar(
         // nasconde il backButton messo automaticamente da flutter
-        automaticallyImplyLeading: false,
+        automaticallyImplyLeading: true,
         backgroundColor: Colors.transparent,
         elevation: 0,
         actions: [
-          TextButton(
-            onPressed: () {
-              Get.delete<QuestionController>();
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => GiochiScreen()),
-              );
-            },
-            child: Align(
-              alignment: Alignment.topRight,
-              child: ElevatedButton(
-                child: Icon(
-                  color: Colors.white,
-                  Icons.arrow_back,
-                  size: 40,
-                ),
-                onPressed: () {
-                  b = false;
-                  //cancello instanza controller
-                  Get.delete<QuestionController>();
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => GiochiScreen()),
-                  );
-                },
-              ),
-            ),
-          ),
           TextButton(
             onPressed: () {
               Get.delete<QuestionController>();
