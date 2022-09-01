@@ -191,6 +191,7 @@ class QuizScreen extends StatelessWidget {
                 ),
                 onPressed: () {
                   Get.delete<QuestionController>();
+                  b = false;
                   Navigator.push(
                     context,
                     MaterialPageRoute(builder: (context) => HomePageScreen()),

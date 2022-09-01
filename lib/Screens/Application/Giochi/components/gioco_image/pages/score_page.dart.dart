@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:human_variable_behaviour/Screens/Application/Giochi/components/gioco_image/ui/answer_button.dart.dart';
+import 'package:human_variable_behaviour/Screens/Application/Giochi/components/gioco_image/utils/quiz.dart.dart';
 import 'package:human_variable_behaviour/Screens/HomePage/homepage_screen.dart';
 
 class ScorePage extends StatefulWidget {
@@ -45,6 +46,11 @@ class _ScorePageState extends State<ScorePage> {
               Spacer(flex: 3),
               TextButton(
                 onPressed: (() {
+                  setState(() {});
+
+                  b1 = false;
+                  setOfInts1.clear();
+                  checknumberQuestions = 0;
                   Navigator.push(
                       context,
                       MaterialPageRoute(

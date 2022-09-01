@@ -166,24 +166,20 @@ class Body extends StatelessWidget {
 int setIndex() {
   //max= numero di domande
   int max = 4;
-  int i = 0;
-  int s = 0;
   int index = 0;
   Random random = new Random();
   if (b == false) {
-    for (i = 0; i <= max; i++) {
-      setOfInts.add(Random().nextInt(max));
-      b = true;
-    }
     do {
       setOfInts.add(Random().nextInt(max));
     } while (setOfInts.length < max);
+    b = true;
   }
 
   for (var j in setOfInts) {
     index = setOfInts.first;
   }
-
+  print(setOfInts);
+  print(index);
   return index;
 }
 

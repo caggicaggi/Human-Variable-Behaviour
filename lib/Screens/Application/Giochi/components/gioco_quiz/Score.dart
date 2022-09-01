@@ -47,7 +47,6 @@ class ScoreScreen extends StatelessWidget {
                   _qnController.resetQuestionNumber();
                   //cancello instanza controller
                   Get.delete<QuestionController>();
-
                   Navigator.push(
                       context,
                       MaterialPageRoute(

@@ -2,10 +2,9 @@ import 'package:flutter/material.dart';
 
 class QuestionTextWithImage extends StatefulWidget {
   final String _question;
-  final int _questionNumber;
   final String _img;
 
-  QuestionTextWithImage(this._question, this._questionNumber, this._img);
+  QuestionTextWithImage(this._question, this._img);
   @override
   _QuestionTextWithImageState createState() => _QuestionTextWithImageState();
 }
@@ -59,7 +58,7 @@ class _QuestionTextWithImageState extends State<QuestionTextWithImage>
               width: 400.0,
             ),
             Text(
-              "${widget._questionNumber}: ${widget._question}",
+              "${widget._question}",
               style: TextStyle(
                   fontSize: _fontSizeAnimation.value * 25,
                   fontFamily: "Pacifico"),
