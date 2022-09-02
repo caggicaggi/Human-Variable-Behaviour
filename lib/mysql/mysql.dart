@@ -6,6 +6,11 @@ import 'package:mysql1/mysql1.dart';
 
 //Variabili per utilizzo del programma
 var idUtente = '';
+var nome = '';
+var cognome = '';
+var email = '';
+var password = '';
+
 List<String> list = [];
 bool check = false;
 bool risultatoQueryDomande = true;
@@ -304,4 +309,35 @@ Future<bool> readQuestions(domandaUtente) async {
   //True = Query vuota -> Non ho la mail
   //False = Query con valore di ritorno -> Email già presente
   return risultatoQueryDomande;
+}
+
+//ottengo tutte le informazioni per la sezione profilo
+Future<void> readInformationWithId(idtuente) async {
+  //idUtente = stringToDb(idUtente);
+  //Nome della tabella
+  String table = 'utenti';
+  //Scrivo la query
+  String query = 'SELECT nome,cognome,email,password FROM ' +
+      table +
+      ' where idUtente = ' +
+      idUtente;
+  debugPrint(query);
+  //Connessione al database
+  var db = Mysql();
+  await db.getConnection().then((connessione) async {
+    //delay obbligatorio per Malaccari
+    await Future.delayed(const Duration(milliseconds: 1));
+    await connessione.query(query).then((result) async {
+      for (var res in result) {
+        nome = res[0].toString();
+        cognome = res[1].toString();
+        email = res[2].toString();
+        password = res[3].toString();
+      }
+      connessione.close();
+    });
+  });
+  //True = Query vuota -> Non ho la mail
+  //False = Query con valore di ritorno -> Email già presente
+  return;
 }

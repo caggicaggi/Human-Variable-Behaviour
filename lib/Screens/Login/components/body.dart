@@ -5,6 +5,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_signin_button/flutter_signin_button.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:human_variable_behaviour/Screens/HomePage/homepage_screen.dart';
 import 'package:human_variable_behaviour/Screens/SignUp/sign_up_screen.dart';
 import 'package:human_variable_behaviour/Screens/Welcome/components/background.dart';
@@ -84,6 +85,18 @@ class _BodyState extends State<Body> {
             RoundedButton(
               text: 'Login',
               press: () async {
+                ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                    behavior: SnackBarBehavior.floating,
+                    content: Container(
+                      height: 90,
+                      decoration: BoxDecoration(color: Colors.blue),
+                      child: Text(
+                        "RICORDA DI COMPILARE I TUOI DATI NELLA SEZIONE 'PERSONA'",
+                        textAlign: TextAlign.center,
+                        style: GoogleFonts.aBeeZee(
+                            fontSize: 22, color: Colors.white),
+                      ),
+                    )));
                 //Controllo formato email
                 emailValidation = RegExp(
                         r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")

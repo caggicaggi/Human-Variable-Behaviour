@@ -24,17 +24,8 @@ class Quiz {
 
   Question? get nextQuestion {
     index = setIndex();
-    print(setOfInts1);
     _currentQuestionIndex = index;
     checknumberQuestions++;
-    print("index");
-    print(index);
-    print("currentQUestionindex");
-    print(_currentQuestionIndex);
-    print("checknumberquestions");
-    print(checknumberQuestions);
-    print("checknumberQuestions > _questions.length");
-    print(checknumberQuestions > _questions.length);
     if (checknumberQuestions > _questions.length) {
       return null;
     }
