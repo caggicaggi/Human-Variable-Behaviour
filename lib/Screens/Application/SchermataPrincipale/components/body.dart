@@ -36,7 +36,7 @@ class _BodyState extends State<Body> {
                       children: <Widget>[
                         Text(
                           textAlign: TextAlign.center,
-                          "Benvenuto campione!",
+                          "Benvenuto!",
                           style: Theme.of(context)
                               .textTheme
                               .headline4!

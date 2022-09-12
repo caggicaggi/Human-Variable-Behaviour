@@ -22,10 +22,10 @@ class Body extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             //Testo della schermata
-            const Text(
+            /* Text(
               'Human Variable Behaviour',
               style: TextStyle(fontWeight: FontWeight.bold),
-            ),
+            ),*/
             //Spaziatura
             SizedBox(height: size.height * 0.05),
             //Immagine del logo Unicam

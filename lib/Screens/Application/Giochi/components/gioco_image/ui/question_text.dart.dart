@@ -43,6 +43,8 @@ class _QuestionTextWithImageState extends State<QuestionTextWithImage>
     }
   }
 
+  //PERMETTE DI POTER VEDERE LA DOMANDA
+
   @override
   Widget build(BuildContext context) {
     return Material(

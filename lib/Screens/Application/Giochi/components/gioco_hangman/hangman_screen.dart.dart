@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:human_variable_behaviour/Screens/Application/Giochi/components/gioco_hangman/score_screen.dart';
+import 'package:human_variable_behaviour/Screens/Application/Giochi/components/gioco_hangman/scorebadquestions_screen.dart.dart';
 import 'package:human_variable_behaviour/Screens/Application/Giochi/components/gioco_hangman/ui/figure_image.dart';
 import 'package:human_variable_behaviour/Screens/Application/Giochi/components/gioco_hangman/ui/letter.dart';
 import 'package:human_variable_behaviour/Screens/Application/Giochi/components/gioco_hangman/utils/game.dart';
@@ -23,9 +24,7 @@ class HangMan extends StatefulWidget {
 }
 
 class _HangManAppState extends State<HangMan> {
-  //choosing the game word
-
-  //Create a list that contains the Alphabet, or you can just copy and paste it
+  //Creo una lista che contiene l'alfabeto
   List<String> alphabets = [
     "A",
     "B",
@@ -83,10 +82,7 @@ class _HangManAppState extends State<HangMan> {
               Center(
                 child: Stack(
                   children: <Widget>[
-                    //let's make the figure widget
-                    //let's add the images to the asset folder
-                    //Okey now we will create a Game class
-                    //Now the figure will be built according to the number of tries
+                    //a seconda dei tentativi aggiungo un pezzo di immagini
                     figureImage(Game.tries >= 0, "assets/images/hang.png"),
                     figureImage(Game.tries >= 1, "assets/images/head.png"),
                     figureImage(Game.tries >= 2, "assets/images/body.png"),
@@ -97,7 +93,6 @@ class _HangManAppState extends State<HangMan> {
                   ],
                 ),
               ),
-
               //Now we will build the Hidden word widget
               //now let's go back to the Game class and add
               // a new variable to store the selected character
@@ -110,7 +105,6 @@ class _HangManAppState extends State<HangMan> {
                         !Game.selectedChar.contains(e.toUpperCase())))
                     .toList(),
               ),
-
               //Now let's build the Game keyboard
               SizedBox(
                 width: double.infinity,
@@ -127,16 +121,21 @@ class _HangManAppState extends State<HangMan> {
                           : () {
                               setState(() {
                                 Game.selectedChar.add(e);
-                                //print(Game.selectedChar);
                                 if (!word.split('').contains(e.toUpperCase())) {
                                   Game.tries++;
 
-                                  if (checkCorrectQuestions() == true)
+                                  if (checkCorrectQuestions() == true) {
                                     Get.to(HomePageScreen());
+                                  }
                                 }
 
-                                if (checkCorrectQuestions() == true)
+                                if (checkCorrectQuestions() == true) {
                                   Get.to(ScorePageHangMan());
+                                }
+
+                                if (Game.tries == 6) {
+                                  Get.to(ScorePageHangManBadQuestion());
+                                }
                               });
                             },
                       shape: RoundedRectangleBorder(
@@ -166,7 +165,7 @@ class _HangManAppState extends State<HangMan> {
 
   String selectStringQuestions(String word) {
     List<String> listofStringQuestions = [];
-
+    //lista parole da indovinare senza doppie
     listofStringQuestions.add("Marco");
     listofStringQuestions.add("Mina");
     listofStringQuestions.add("Cena");

@@ -10,15 +10,17 @@ var nome = '';
 var cognome = '';
 var email = '';
 var password = '';
-
 var variabile = 0;
+
 String rispostaCorretta = '';
 String rispostaErrata1 = '';
 String rispostaErrata2 = '';
 String rispostaErrata3 = '';
+
 int newVariabile = 0;
 
 List<String> list = [];
+
 bool check = false;
 bool risultatoQueryDomande = true;
 
@@ -157,12 +159,9 @@ senza quest'impostazione non saremo mai sincronizzati col databas
 
 //Metodi Malaccari, da rivedere
 
-//funzione per inserire evento utente
+//FUNZIONE PER INSERIRE LA GIORNATA
 Future<void> signDataAndGiornata(
     idutente, dataGiornata, descrizioneGiornata) async {
-  //Aggiungo i '' a tutte le stringhe passate in input
-  idutente = idutente;
-  descrizioneGiornata = descrizioneGiornata;
   dataGiornata = dataGiornata.toLocal();
   dataGiornata = DateFormat('yyyy-MM-dd').format(dataGiornata);
   //Nome della tabella
@@ -179,7 +178,7 @@ Future<void> signDataAndGiornata(
   });
 }
 
-// metodo invocato per ottenere lista eventi
+// OTTENGO LISTA EVENTI INSERITI
 Future<List<String>> listaGiornateInserite(dataGiornata, idUtente) async {
   //dichiaro variabili
   List<String> list1 = [];
@@ -244,7 +243,7 @@ Future<List<String>> listaGiornateInserite(dataGiornata, idUtente) async {
   return list1;
 }
 
-//funzione per inserire domanda e risposta utente
+//INSERISCO DOMANDA E RISPOSTA UTENTE
 Future<void> signDomandaERisposta(
     idutente, domandaUtente, rispostaDomanda) async {
   //Nome della tabella
@@ -260,7 +259,7 @@ Future<void> signDomandaERisposta(
   });
 }
 
-//UPDATE domandeUtente SET rispostaDomanda='Muori' WHERE domandaUtente = "Cosa faresti se vedessi una ragazza piangere?";
+//INSERISCO LA DOMANDA
 Future<void> updateDomandaCorretta(
     idutente, domandaUtente, rispostaDomanda) async {
   //Nome della tabella
@@ -306,14 +305,13 @@ Future<bool> readQuestions(domandaUtente) async {
       connessione.close();
     });
   });
-  //True = Query vuota -> Non ho la mail
-  //False = Query con valore di ritorno -> Email già presente
+  //True = Query vuota -> Non ho la domanda inserita e faccio l'insert
+  //False = Query con valore di ritorno -> La domanda è gia inserita e faccio update
   return risultatoQueryDomande;
 }
 
-//ottengo tutte le informazioni per la sezione profilo
+//RICHIAMO TUTTE LE INFORMAZIONI DEL PROFILO TRAMITE L'IDUTENTE
 Future<void> readInformationWithId(idtuente) async {
-  //idUtente = stringToDb(idUtente);
   //Nome della tabella
   String table = 'utenti';
   //Scrivo la query
@@ -336,14 +334,14 @@ Future<void> readInformationWithId(idtuente) async {
       connessione.close();
     });
   });
-  //True = Query vuota -> Non ho la mail
-  //False = Query con valore di ritorno -> Email già presente
   return;
 }
 
+//RICHIAMO LA RISPOSTA CORRETTA ALLA DOMANDA
 String getRispostaCorretta(domanda) {
   domanda = stringToDb(domanda);
   String check = '';
+  //Nome della tabella
   String table = 'listaDomande';
   //Scrivo la query
   String query =
@@ -368,6 +366,7 @@ String getRispostaCorretta(domanda) {
 String getRispostaErrata1(domanda) {
   domanda = stringToDb(domanda);
   String check = '';
+  //Nome della tabella
   String table = 'listaDomande';
   //Scrivo la query
   String query =
@@ -384,7 +383,6 @@ String getRispostaErrata1(domanda) {
       connessione.close();
     });
   });
-
   return check;
 }
 
@@ -392,6 +390,7 @@ String getRispostaErrata1(domanda) {
 String getRispostaErrata2(domanda) {
   domanda = stringToDb(domanda);
   String check = '';
+  //Nome della tabella
   String table = 'listaDomande';
   //Scrivo la query
   String query =
@@ -408,7 +407,6 @@ String getRispostaErrata2(domanda) {
       connessione.close();
     });
   });
-
   return check;
 }
 
@@ -416,6 +414,7 @@ String getRispostaErrata2(domanda) {
 String getRispostaErrata3(domanda) {
   domanda = stringToDb(domanda);
   String check = '';
+  //Nome della tabella
   String table = 'listaDomande';
   //Scrivo la query
   String query =
@@ -432,13 +431,13 @@ String getRispostaErrata3(domanda) {
       connessione.close();
     });
   });
-
   return check;
 }
 
 //RICHIAMO LA VARIABILE DELL'UTENTE
 Future<int> getVariabile() async {
-  var check;
+  var check = 0;
+  //Nome della tabella
   String table = 'utenti';
   //Scrivo la query
   String query =
@@ -455,14 +454,14 @@ Future<int> getVariabile() async {
       connessione.close();
     });
   });
-
   return check;
 }
 
 //AGGIORNO LA VARIABILE A SECONDA DELLA RISPOSTA (IN QUESTO CASO CORRETTA --> RISPOSTA +4 )
 Future<void> updateVariable1(idUtente) async {
-  String check = '';
+  //Nome della tabella
   String table = 'utenti';
+  //Attendo risultato variabile
   await getVariabile();
   print("VARIABILE:");
   print(variabile);
@@ -493,7 +492,9 @@ Future<void> updateVariable1(idUtente) async {
 //AGGIORNO LA VARIABILE A SECONDA DELLA RISPOSTA (IN QUESTO CASO -1 --> RISPOSTA 1 )
 Future<void> updateVariable2(idUtente) async {
   String check = '';
+  //Nome della tabella
   String table = 'utenti';
+  //Attendo risultato variabile
   await getVariabile();
   print("VARIABILE:");
   print(variabile);
@@ -523,8 +524,9 @@ Future<void> updateVariable2(idUtente) async {
 
 //AGGIORNO LA VARIABILE A SECONDA DELLA RISPOSTA (IN QUESTO CASO -2 --> RISPOSTA 2 )
 Future<void> updateVariable3(idUtente) async {
-  String check = '';
+  //Nome della tabella
   String table = 'utenti';
+  //Attendo risultato variabile
   await getVariabile();
   print("VARIABILE:");
   print(variabile);
@@ -554,8 +556,9 @@ Future<void> updateVariable3(idUtente) async {
 
 //AGGIORNO LA VARIABILE A SECONDA DELLA RISPOSTA (IN QUESTO CASO -3 --> RISPOSTA 3 )
 Future<void> updateVariable4(idUtente) async {
-  String check = '';
+  //Nome della tabella
   String table = 'utenti';
+  //Attendo risultato variabile
   await getVariabile();
   print("VARIABILE:");
   print(variabile);

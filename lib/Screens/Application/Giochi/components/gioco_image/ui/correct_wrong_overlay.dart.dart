@@ -30,6 +30,7 @@ class _CorrectWrongOverlayState extends State<CorrectWrongOverlay>
     super.dispose();
   }
 
+  // PERMETTE DI VEDERE IL RISULTATO DELLA RISPOSTA
   @override
   Widget build(BuildContext context) {
     return Material(

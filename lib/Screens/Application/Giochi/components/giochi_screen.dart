@@ -8,6 +8,7 @@ import 'package:get/get_core/get_core.dart';
 import 'package:human_variable_behaviour/Screens/Application/Giochi/components/gioco_hangman/hangman_screen.dart.dart';
 import 'package:human_variable_behaviour/Screens/Application/Giochi/components/gioco_image/pages/landing_page.dart.dart';
 import 'package:human_variable_behaviour/Screens/Application/Giochi/components/gioco_image/pages/quiz_page.dart.dart';
+import 'package:human_variable_behaviour/Screens/Application/Giochi/components/gioco_memoria/memoria_screen.dart';
 import 'package:human_variable_behaviour/Screens/Application/Giochi/components/gioco_quiz/options_games.dart';
 import 'package:human_variable_behaviour/Screens/Application/Giochi/components/gioco_quiz/questions_controller.dart';
 import 'package:human_variable_behaviour/Screens/Application/Giochi/components/gioco_quiz/quiz_questions.dart';
@@ -130,7 +131,7 @@ class GiochiScreen extends StatelessWidget {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => QuizScreen()));
+                              builder: (context) => MemoriaScreen()));
                     },
                     child: Container(
                       width: double.infinity,
@@ -141,7 +142,7 @@ class GiochiScreen extends StatelessWidget {
                         borderRadius: BorderRadius.all(Radius.circular(12)),
                       ),
                       child: Text(
-                        "Inizia Gioco 4",
+                        "Inizia il gioco di memoria",
                         style: Theme.of(context)
                             .textTheme
                             .button

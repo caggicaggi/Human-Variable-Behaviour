@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:human_variable_behaviour/Screens/Application/Giochi/components/gioco_hangman/ui/colors.dart';
 
+// STAMPA LA CASELLA DELLA LETTERA
 Widget letter(String character, bool hidden) {
   return Container(
     alignment: Alignment.center,

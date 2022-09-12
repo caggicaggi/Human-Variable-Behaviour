@@ -106,7 +106,7 @@ class _BodyState extends State<Body> {
                                           children: <Widget>[
                                             SizedBox(
                                               width: 200,
-                                              height: 20,
+                                              height: 60,
                                             ),
                                             Text(
                                               link[index].name,
@@ -164,8 +164,8 @@ class _BodyState extends State<Body> {
                                 //POSIZIONE NUMERO SULLO SFONDO
                                 Positioned(
                                   right: 0,
-                                  left: 180,
-                                  top: 190,
+                                  left: 200,
+                                  top: 220,
                                   bottom: 60,
                                   child: Text(
                                     link[index].position.toString(),

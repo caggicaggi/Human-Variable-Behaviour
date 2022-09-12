@@ -92,9 +92,9 @@ class _DynamicEventState extends State<DynamicEvent> {
       child: Scaffold(
         backgroundColor: Colors.transparent,
         appBar: PreferredSize(
-          preferredSize: Size.fromHeight(120.0),
+          preferredSize: Size.fromHeight(100.0),
           child: AppBar(
-            backgroundColor: Colors.transparent,
+            backgroundColor: Colors.blue,
             leading: IconButton(
               icon: Icon(Icons.arrow_back, color: Colors.black),
               onPressed: () {
@@ -125,7 +125,7 @@ class _DynamicEventState extends State<DynamicEvent> {
                     Text(
                       "Raccontami una tua giornata",
                       style: GoogleFonts.akayaTelivigala(
-                          fontSize: 22, color: Colors.blue),
+                          fontSize: 22, color: Colors.white),
                     ),
                   ],
                 ),
@@ -141,7 +141,26 @@ class _DynamicEventState extends State<DynamicEvent> {
                 events: _events,
                 initialCalendarFormat: CalendarFormat.month,
                 calendarStyle: CalendarStyle(
-                    canEventMarkersOverflow: true,
+                    //giorni in rosso ( cioè weekend)
+                    weekendStyle: TextStyle(
+                      color: const Color(0xFFF44336),
+                      fontSize: 19,
+                    ),
+                    //tutti gli altri giorni del mese corrente
+                    weekdayStyle: TextStyle(
+                      fontSize: 19,
+                    ),
+                    //giorni che si vedono del mese successivo/precedente giorni
+                    outsideStyle: TextStyle(
+                      color: const Color(0xFF9E9E9E),
+                      fontSize: 20,
+                    ),
+                    //giorni che si vedono del mese successivo/precedente weekend
+                    outsideWeekendStyle: TextStyle(
+                      color: const Color(0xFFEF9A9A),
+                      fontSize: 20,
+                    ),
+                    canEventMarkersOverflow: false,
                     todayColor: Colors.blue,
                     selectedColor: Theme.of(context).primaryColor,
                     todayStyle: TextStyle(

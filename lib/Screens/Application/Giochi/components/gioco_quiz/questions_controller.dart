@@ -84,14 +84,14 @@ class QuestionController extends GetxController
 //controllo risposta
   void checkAns(Question question, int selectedIndex) async {
     await Future.delayed(Duration(milliseconds: 50));
+    //Richiamo tutte le risposte
     await attesaPerMetodi(question.question);
     // because once user press any option then it will run
     _isAnswered = true;
     _correctAns = question.answer;
     _selectedAns = selectedIndex;
-
+    //se la risposta è corretta
     if (_correctAns == _selectedAns) {
-      //risposta corretta
       // conto risposte corrette
       _numOfCorrectAns++;
       //controllo se la domanda è gia presente
@@ -114,21 +114,21 @@ class QuestionController extends GetxController
         await signDomandaERisposta(
             idUtente, question.question, question.options[_selectedAns]);
       }
+
+      //è presente quindi faccio l'update
       await updateDomandaCorretta(
-          //è presente quindi faccio l'update
-          idUtente,
-          question.question,
-          question.options[_selectedAns]);
+          idUtente, question.question, question.options[_selectedAns]);
     }
     await Future.delayed(Duration(milliseconds: 50));
 
+    //Calcolo il punteggio da togliere
     await attesaPerMetodi1(question.options[_selectedAns]);
 
-    // It will stop the counter
+    //Stoppa il countdown
     _animationController.reset();
     update();
 
-    // Once user select an ans after 3s it will go to the next qn
+    //Aspetta X secondi per andare alla domanda successiva
     await Future.delayed(Duration(seconds: 1), () {
       nextQuestion();
     });
@@ -143,9 +143,11 @@ class QuestionController extends GetxController
       // Reset the counter
       _animationController.reset();
 
+      /* rimuovo il primo indice della lista generata precedentemente dal metodo
+      setIndex */
       setOfInts.remove(setOfInts.first);
-      // Then start it again
-      // Once timer is finish go to the next qn
+
+      // Quando il timer termina va alla prossima domanda
       _animationController.forward().whenComplete(nextQuestion);
     } else {
       // Reset the counter
@@ -155,23 +157,28 @@ class QuestionController extends GetxController
       onInit();
 
       update();
-      // Get package provide us simple way to naviigate another page
+      //Vado alla pagina dello score
       Get.to(ScoreScreen());
     }
   }
 
+  //prossima domanda
   void updateTheQnNum(int index) {
     _questionNumber.value = index + 1;
   }
 
+  //metodo per poter utilizzare await nella get delle risposte
   Future<void> attesaPerMetodi(question) async {
+    //question = domanda in corso
     getRispostaCorretta(question);
     getRispostaErrata1(question);
     getRispostaErrata2(question);
     getRispostaErrata3(question);
   }
 
+  //metodo per poter utilizzare await negli update
   Future<void> attesaPerMetodi1(String question) async {
+    //question = risposta data dall'utente
     if (question.contains(rispostaCorretta)) {
       await updateVariable1(idUtente); // + 4 RISP CORRETTA
     } else if (question.contains(rispostaErrata1)) {

@@ -5,6 +5,8 @@ class AnswerButton extends StatelessWidget {
   final VoidCallback _onTap;
   AnswerButton(this._answer, this._onTap);
 
+// PULSANTE RISPOSTA ALLA IMMAGINE
+
   @override
   Widget build(BuildContext context) {
     return Container(

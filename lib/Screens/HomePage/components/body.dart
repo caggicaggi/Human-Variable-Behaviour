@@ -45,11 +45,6 @@ class _BodyState extends State<Body> {
         backgroundColor: kPrimaryLightColor,
         selectedIndex: _currentIndex,
         onDestinationSelected: (int newIndex) {
-          /* for (i = 1; i < 5; i++) {
-            getDomanda(i);
-            getIdDomanda(i);
-            getAnswerQuestion(i);
-          }*/
           setState(() {
             _currentIndex = newIndex;
           });

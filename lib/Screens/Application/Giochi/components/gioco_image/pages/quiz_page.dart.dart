@@ -15,6 +15,7 @@ class QuizPagina extends StatefulWidget {
 
 class _QuizPageState extends State<QuizPagina> {
   late Question currentQuestion;
+  //LISTA IMMAGINI E DOMANDE
   Quiz quiz = Quiz([
     Question("Nella foto si può vedere obama?", true, "assets/images/p1.jpeg"),
     Question("Questa è una pizza?", false, "assets/images/p2.jpeg"),
@@ -83,14 +84,13 @@ class _QuizPageState extends State<QuizPagina> {
           ),
           overlayShouldBeVisible == true
               ? CorrectWrongOverlay(isCorrect, () {
+                  //se le domande terminano vado alla pagina ScorePage per il risultato
                   if (quiz.length == checknumberQuestions) {
                     Navigator.of(context).pushAndRemoveUntil(
                         MaterialPageRoute(
                             builder: (BuildContext context) =>
                                 ScorePage(quiz.score, quiz.length)),
-                        (Route route) =>
-                            route ==
-                            ScorePage); // stopping the user from navigating back
+                        (Route route) => route == ScorePage);
                     return;
                   }
 

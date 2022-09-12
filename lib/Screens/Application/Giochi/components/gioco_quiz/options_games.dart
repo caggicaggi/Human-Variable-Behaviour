@@ -94,7 +94,6 @@ class Body extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    // So that we have acccess our controller
     QuestionController _questionController = Get.put(QuestionController());
     _questionController.resetQuestionNumber();
     return Stack(
@@ -167,7 +166,6 @@ int setIndex() {
   //max= numero di domande
   int max = 4;
   int index = 0;
-  Random random = new Random();
   if (b == false) {
     do {
       setOfInts.add(Random().nextInt(max));
@@ -200,11 +198,8 @@ class ProgressBar extends StatelessWidget {
         builder: (controller) {
           return Stack(
             children: [
-              // LayoutBuilder provide us the available space for the conatiner
-              // constraints.maxWidth needed for our animation
               LayoutBuilder(
                 builder: (context, constraints) => Container(
-                  // from 0 to 1 it takes 60s
                   width: constraints.maxWidth * controller.animation.value,
                   decoration: BoxDecoration(
                     gradient: kPrimaryGradient,
