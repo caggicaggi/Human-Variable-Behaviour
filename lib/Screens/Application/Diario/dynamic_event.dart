@@ -87,7 +87,7 @@ class _DynamicEventState extends State<DynamicEvent> {
     return Container(
       decoration: BoxDecoration(
           image: DecorationImage(
-              image: AssetImage("assets/images/afxrltWy.jpeg"),
+              image: AssetImage("assets/images/sfondo_games.png"),
               fit: BoxFit.cover)),
       child: Scaffold(
         backgroundColor: Colors.transparent,

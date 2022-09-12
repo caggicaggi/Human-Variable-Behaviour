@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:human_variable_behaviour/Screens/Application/Diario/dynamic_event.dart';
 import 'package:human_variable_behaviour/Screens/Application/Giochi/components/giochi_screen.dart';
+import 'package:human_variable_behaviour/Screens/Application/Giochi/components/gioco_quiz/quiz_questions.dart';
 import 'package:human_variable_behaviour/Screens/Application/Persona/persona_screen.dart';
 import 'package:human_variable_behaviour/Screens/Application/SchermataPrincipale/schermata_principale_screen.dart';
 import 'package:human_variable_behaviour/Screens/Application/Unicam/unicam_screen.dart';
@@ -44,6 +45,11 @@ class _BodyState extends State<Body> {
         backgroundColor: kPrimaryLightColor,
         selectedIndex: _currentIndex,
         onDestinationSelected: (int newIndex) {
+          /* for (i = 1; i < 5; i++) {
+            getDomanda(i);
+            getIdDomanda(i);
+            getAnswerQuestion(i);
+          }*/
           setState(() {
             _currentIndex = newIndex;
           });

@@ -178,8 +178,6 @@ int setIndex() {
   for (var j in setOfInts) {
     index = setOfInts.first;
   }
-  print(setOfInts);
-  print(index);
   return index;
 }
 

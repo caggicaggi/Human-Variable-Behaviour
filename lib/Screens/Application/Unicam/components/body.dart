@@ -25,11 +25,14 @@ class _BodyState extends State<Body> {
           children: [
             Container(
               decoration: BoxDecoration(
+                  image: DecorationImage(
+                      image: AssetImage("assets/images/sfondo_games.png"),
+                      fit: BoxFit.cover),
                   gradient: LinearGradient(
                       colors: [gradientStartColor, gradientEndColor],
                       begin: Alignment.topCenter,
                       end: Alignment.bottomCenter,
-                      stops: [0.3, 1])),
+                      stops: [0.9, 1.1])),
               child: SafeArea(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -62,7 +65,7 @@ class _BodyState extends State<Body> {
                       ),
                     ),
                     Container(
-                      height: 450,
+                      height: 610,
                       padding: const EdgeInsets.only(),
                       child: Swiper(
                         itemCount: link.length,

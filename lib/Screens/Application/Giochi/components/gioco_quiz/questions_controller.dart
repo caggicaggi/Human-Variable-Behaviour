@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/instance_manager.dart';
 import 'package:get/route_manager.dart';
 import 'package:get/state_manager.dart';
+import 'package:get/utils.dart';
 import 'package:human_variable_behaviour/Screens/Application/Giochi/components/gioco_quiz/Score.dart';
 import 'package:human_variable_behaviour/Screens/Application/Giochi/components/gioco_quiz/options_games.dart';
 import 'package:human_variable_behaviour/Screens/Application/Giochi/components/gioco_quiz/quiz_questions.dart';
@@ -57,7 +58,7 @@ class QuestionController extends GetxController
     // Our animation duration is 60 s
     // so our plan is to fill the progress bar within 60s
     _animationController =
-        AnimationController(duration: Duration(seconds: 10), vsync: this);
+        AnimationController(duration: Duration(seconds: 30), vsync: this);
     _animation = Tween<double>(begin: 0, end: 1).animate(_animationController)
       ..addListener(() {
         update();
@@ -82,12 +83,15 @@ class QuestionController extends GetxController
 
 //controllo risposta
   void checkAns(Question question, int selectedIndex) async {
+    await Future.delayed(Duration(milliseconds: 50));
+    await attesaPerMetodi(question.question);
     // because once user press any option then it will run
     _isAnswered = true;
     _correctAns = question.answer;
     _selectedAns = selectedIndex;
 
     if (_correctAns == _selectedAns) {
+      //risposta corretta
       // conto risposte corrette
       _numOfCorrectAns++;
       //controllo se la domanda è gia presente
@@ -101,6 +105,7 @@ class QuestionController extends GetxController
       await updateDomandaCorretta(
           idUtente, question.question, question.options[_selectedAns]);
     } else {
+      //risposta errata
       //controllo se la domanda è gia presente
       await readQuestions(question.question);
       //non è presente quindi faccio l'insert
@@ -115,6 +120,9 @@ class QuestionController extends GetxController
           question.question,
           question.options[_selectedAns]);
     }
+    await Future.delayed(Duration(milliseconds: 50));
+
+    await attesaPerMetodi1(question.options[_selectedAns]);
 
     // It will stop the counter
     _animationController.reset();
@@ -154,5 +162,24 @@ class QuestionController extends GetxController
 
   void updateTheQnNum(int index) {
     _questionNumber.value = index + 1;
+  }
+
+  Future<void> attesaPerMetodi(question) async {
+    getRispostaCorretta(question);
+    getRispostaErrata1(question);
+    getRispostaErrata2(question);
+    getRispostaErrata3(question);
+  }
+
+  Future<void> attesaPerMetodi1(String question) async {
+    if (question.contains(rispostaCorretta)) {
+      await updateVariable1(idUtente); // + 4 RISP CORRETTA
+    } else if (question.contains(rispostaErrata1)) {
+      await updateVariable2(idUtente); // -1 RISP 2
+    } else if (question.contains(rispostaErrata2)) {
+      await updateVariable3(idUtente); // -2 RISP 3
+    } else if (question.contains(rispostaErrata3)) {
+      await updateVariable4(idUtente); // -3 RISP 4
+    }
   }
 }

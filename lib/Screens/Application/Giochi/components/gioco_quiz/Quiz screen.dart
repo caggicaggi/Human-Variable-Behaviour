@@ -5,6 +5,8 @@ import 'package:human_variable_behaviour/Screens/Application/Giochi/components/g
 
 import 'package:human_variable_behaviour/constant.dart';
 
+import '../../../../../mysql/mysql.dart';
+
 class QuizScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -57,7 +59,7 @@ class QuestionCard extends StatelessWidget {
             question.options.length,
             (index) => Option(
               index: index,
-              text: question.options[index],
+              text: question.options[index].toString(),
               press: () => _controller.checkAns(question, index),
             ),
           ),
@@ -256,7 +258,7 @@ class Body extends StatelessWidget {
                   onPageChanged: _questionController.updateTheQnNum,
                   itemCount: _questionController.questions.length,
                   itemBuilder: (context, index) => QuestionCard(
-                      question: _questionController.questions[index]),
+                      question: _questionController.questions as Question),
                 ),
               ),
             ],

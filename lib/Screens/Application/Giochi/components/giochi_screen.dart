@@ -10,8 +10,11 @@ import 'package:human_variable_behaviour/Screens/Application/Giochi/components/g
 import 'package:human_variable_behaviour/Screens/Application/Giochi/components/gioco_image/pages/quiz_page.dart.dart';
 import 'package:human_variable_behaviour/Screens/Application/Giochi/components/gioco_quiz/options_games.dart';
 import 'package:human_variable_behaviour/Screens/Application/Giochi/components/gioco_quiz/questions_controller.dart';
+import 'package:human_variable_behaviour/Screens/Application/Giochi/components/gioco_quiz/quiz_questions.dart';
 import 'package:human_variable_behaviour/Screens/HomePage/homepage_screen.dart';
 import 'package:human_variable_behaviour/constant.dart';
+
+int i = 0;
 
 class GiochiScreen extends StatelessWidget {
   const GiochiScreen({Key? key}) : super(key: key);
@@ -44,7 +47,7 @@ class GiochiScreen extends StatelessWidget {
                     flex: 1,
                   ), // 1/6
                   InkWell(
-                    onTap: () {
+                    onTap: () async {
                       Navigator.push(
                           context,
                           MaterialPageRoute(

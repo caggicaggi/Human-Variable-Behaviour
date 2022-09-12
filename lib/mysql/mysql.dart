@@ -11,6 +11,13 @@ var cognome = '';
 var email = '';
 var password = '';
 
+var variabile = 0;
+String rispostaCorretta = '';
+String rispostaErrata1 = '';
+String rispostaErrata2 = '';
+String rispostaErrata3 = '';
+int newVariabile = 0;
+
 List<String> list = [];
 bool check = false;
 bool risultatoQueryDomande = true;
@@ -64,10 +71,8 @@ Future signUpToDb(nameToDb, surnameToDb, emailToDb, passwordToDb) async {
     await connessione.query(queryToId).then((results) {
       for (var res in results) {
         idUtente = res[0].toString();
-        //debugPrint(idUtente);
       }
     });
-    //debugPrint('Chiudo la connessione');
     connessione.close();
   });
 }
@@ -100,7 +105,6 @@ Future<bool> readEmailPasswordFromDb(emailToReadToDb, passwordToDb) async {
       await connessione.query(queryToId).then((results) {
         for (var res in results) {
           idUtente = res[0].toString();
-          debugPrint(idUtente);
         }
         connessione.close();
       });
@@ -167,7 +171,6 @@ Future<void> signDataAndGiornata(
   String query =
       '${'INSERT INTO ' + table + ' (idUtente,dataGiornata, descrizioneGiornata) VALUES (' + idutente + ',' + "'" + dataGiornata + "'" + ',' + "'" + descrizioneGiornata + "'"})';
   //Connessione al database
-  debugPrint(query);
   var db = Mysql();
   //eseguo query
   db.getConnection().then((connessione) {
@@ -249,11 +252,9 @@ Future<void> signDomandaERisposta(
   //Scrivo la query
   String query =
       '${'INSERT INTO ' + table + '(idUtenteDomanda,domandaUtente, rispostaDomanda) VALUES (' + idutente + ',' + "'" + domandaUtente + "'" + ',' + "'" + rispostaDomanda + "'"})';
-  debugPrint(query);
   var db = Mysql();
   //eseguo query
   await db.getConnection().then((connessione) {
-    debugPrint(query);
     connessione.query(query);
     connessione.close();
   });
@@ -275,7 +276,6 @@ Future<void> updateDomandaCorretta(
       "'" +
       domandaUtente +
       "'";
-  debugPrint(query);
   var db = Mysql();
   //eseguo query
   await db.getConnection().then((connessione) {
@@ -321,7 +321,6 @@ Future<void> readInformationWithId(idtuente) async {
       table +
       ' where idUtente = ' +
       idUtente;
-  debugPrint(query);
   //Connessione al database
   var db = Mysql();
   await db.getConnection().then((connessione) async {
@@ -340,4 +339,246 @@ Future<void> readInformationWithId(idtuente) async {
   //True = Query vuota -> Non ho la mail
   //False = Query con valore di ritorno -> Email già presente
   return;
+}
+
+String getRispostaCorretta(domanda) {
+  domanda = stringToDb(domanda);
+  String check = '';
+  String table = 'listaDomande';
+  //Scrivo la query
+  String query =
+      'SELECT rispostaCorretta FROM ' + table + ' where Domanda = ' + domanda;
+  //Connessione al database
+  var db = Mysql();
+  db.getConnection().then((connessione) async {
+    //delay obbligatorio per Malaccari
+    await Future.delayed(const Duration(milliseconds: 1));
+    await connessione.query(query).then((result) async {
+      for (var res in result) {
+        rispostaCorretta = res[0].toString();
+      }
+      connessione.close();
+    });
+  });
+
+  return check;
+}
+
+//RICHIAMO LA RISPOSTA ERRATA NUMERO 1
+String getRispostaErrata1(domanda) {
+  domanda = stringToDb(domanda);
+  String check = '';
+  String table = 'listaDomande';
+  //Scrivo la query
+  String query =
+      'SELECT rispostaErrata1 FROM ' + table + ' where Domanda = ' + domanda;
+  //Connessione al database
+  var db = Mysql();
+  db.getConnection().then((connessione) async {
+    //delay obbligatorio per Malaccari
+    await Future.delayed(const Duration(milliseconds: 1));
+    await connessione.query(query).then((result) async {
+      for (var res in result) {
+        rispostaErrata1 = res[0].toString();
+      }
+      connessione.close();
+    });
+  });
+
+  return check;
+}
+
+//RICHIAMO LA RISPOSTA ERRATA NUMERO 2
+String getRispostaErrata2(domanda) {
+  domanda = stringToDb(domanda);
+  String check = '';
+  String table = 'listaDomande';
+  //Scrivo la query
+  String query =
+      'SELECT rispostaErrata2 FROM ' + table + ' where Domanda = ' + domanda;
+  //Connessione al database
+  var db = Mysql();
+  db.getConnection().then((connessione) async {
+    //delay obbligatorio per Malaccari
+    await Future.delayed(const Duration(milliseconds: 1));
+    await connessione.query(query).then((result) async {
+      for (var res in result) {
+        rispostaErrata2 = res[0].toString();
+      }
+      connessione.close();
+    });
+  });
+
+  return check;
+}
+
+//RICHIAMO LA RISPOSTA ERRATA NUMERO 3
+String getRispostaErrata3(domanda) {
+  domanda = stringToDb(domanda);
+  String check = '';
+  String table = 'listaDomande';
+  //Scrivo la query
+  String query =
+      'SELECT rispostaErrata3 FROM ' + table + ' where Domanda = ' + domanda;
+  //Connessione al database
+  var db = Mysql();
+  db.getConnection().then((connessione) async {
+    //delay obbligatorio per Malaccari
+    await Future.delayed(const Duration(milliseconds: 1));
+    await connessione.query(query).then((result) async {
+      for (var res in result) {
+        rispostaErrata3 = res[0].toString();
+      }
+      connessione.close();
+    });
+  });
+
+  return check;
+}
+
+//RICHIAMO LA VARIABILE DELL'UTENTE
+Future<int> getVariabile() async {
+  var check;
+  String table = 'utenti';
+  //Scrivo la query
+  String query =
+      'SELECT VARIABILE FROM ' + table + ' where idUtente = ' + idUtente;
+  //Connessione al database
+  var db = Mysql();
+  await db.getConnection().then((connessione) async {
+    //delay obbligatorio per Malaccari
+    await Future.delayed(const Duration(milliseconds: 1));
+    await connessione.query(query).then((result) async {
+      for (var res in result) {
+        variabile = res[0];
+      }
+      connessione.close();
+    });
+  });
+
+  return check;
+}
+
+//AGGIORNO LA VARIABILE A SECONDA DELLA RISPOSTA (IN QUESTO CASO CORRETTA --> RISPOSTA +4 )
+Future<void> updateVariable1(idUtente) async {
+  String check = '';
+  String table = 'utenti';
+  await getVariabile();
+  print("VARIABILE:");
+  print(variabile);
+  newVariabile = variabile + 4;
+  print("NEWVARIABILE");
+  print(newVariabile);
+  String query = 'Update ' +
+      table +
+      ' SET VARIABILE = ' +
+      "'" +
+      newVariabile.toString() +
+      "'" +
+      'WHERE idUtente =' +
+      "'" +
+      idUtente +
+      "'";
+  //Connessione al database
+  var db = Mysql();
+  db.getConnection().then((connessione) async {
+    //delay obbligatorio per Malaccari
+    await Future.delayed(const Duration(milliseconds: 1));
+    await connessione.query(query).then((result) async {
+      connessione.close();
+    });
+  });
+}
+
+//AGGIORNO LA VARIABILE A SECONDA DELLA RISPOSTA (IN QUESTO CASO -1 --> RISPOSTA 1 )
+Future<void> updateVariable2(idUtente) async {
+  String check = '';
+  String table = 'utenti';
+  await getVariabile();
+  print("VARIABILE:");
+  print(variabile);
+  newVariabile = variabile - 1;
+  print("NEWVARIABILE");
+  print(newVariabile);
+  String query = 'Update ' +
+      table +
+      ' SET VARIABILE = ' +
+      "'" +
+      newVariabile.toString() +
+      "'" +
+      'WHERE idUtente =' +
+      "'" +
+      idUtente +
+      "'";
+  //Connessione al database
+  var db = Mysql();
+  db.getConnection().then((connessione) async {
+    //delay obbligatorio per Malaccari
+    await Future.delayed(const Duration(milliseconds: 1));
+    await connessione.query(query).then((result) async {
+      connessione.close();
+    });
+  });
+}
+
+//AGGIORNO LA VARIABILE A SECONDA DELLA RISPOSTA (IN QUESTO CASO -2 --> RISPOSTA 2 )
+Future<void> updateVariable3(idUtente) async {
+  String check = '';
+  String table = 'utenti';
+  await getVariabile();
+  print("VARIABILE:");
+  print(variabile);
+  newVariabile = variabile - 2;
+  print("NEWVARIABILE");
+  print(newVariabile);
+  String query = 'Update ' +
+      table +
+      ' SET VARIABILE = ' +
+      "'" +
+      newVariabile.toString() +
+      "'" +
+      'WHERE idUtente =' +
+      "'" +
+      idUtente +
+      "'";
+  //Connessione al database
+  var db = Mysql();
+  db.getConnection().then((connessione) async {
+    //delay obbligatorio per Malaccari
+    await Future.delayed(const Duration(milliseconds: 1));
+    await connessione.query(query).then((result) async {
+      connessione.close();
+    });
+  });
+}
+
+//AGGIORNO LA VARIABILE A SECONDA DELLA RISPOSTA (IN QUESTO CASO -3 --> RISPOSTA 3 )
+Future<void> updateVariable4(idUtente) async {
+  String check = '';
+  String table = 'utenti';
+  await getVariabile();
+  print("VARIABILE:");
+  print(variabile);
+  newVariabile = variabile - 3;
+  print("NEWVARIABILE");
+  print(newVariabile);
+  String query = 'Update ' +
+      table +
+      ' SET VARIABILE = ' +
+      "'" +
+      newVariabile.toString() +
+      "'" +
+      'WHERE idUtente =' +
+      "'" +
+      idUtente +
+      "'";
+  //Connessione al database
+  var db = Mysql();
+  db.getConnection().then((connessione) async {
+    //delay obbligatorio per Malaccari
+    await Future.delayed(const Duration(milliseconds: 1));
+    await connessione.query(query).then((result) async {
+      connessione.close();
+    });
+  });
 }
