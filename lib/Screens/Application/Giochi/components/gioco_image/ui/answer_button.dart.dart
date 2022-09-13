@@ -9,14 +9,16 @@ class AnswerButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     return Container(
       child: Material(
+        elevation: 20,
         child: RaisedButton(
           color: Colors.blue,
           onPressed: () => _onTap(),
           child: Center(
             child: Container(
-              padding: EdgeInsets.all(25.0),
+              padding: EdgeInsets.all(size.height * 0.01),
               child: Text(
                 _answer == true ? "SIII!" : "NOOO!",
                 style: TextStyle(

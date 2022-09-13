@@ -76,9 +76,10 @@ class ProgressBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     return Container(
       width: double.infinity,
-      height: 35,
+      height: size.height,
       decoration: BoxDecoration(
         border: Border.all(color: Color(0xFF3F4768), width: 3),
         borderRadius: BorderRadius.circular(50),

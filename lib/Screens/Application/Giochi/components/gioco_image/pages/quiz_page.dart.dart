@@ -48,10 +48,11 @@ class _QuizPageState extends State<QuizPagina> {
 
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: Colors.transparent,
       appBar: AppBar(
-        title: Text(" Ecco a te le immagini da indovinare"),
+        title: Text(" Buon divertimento!"),
         backgroundColor: Colors.blue,
         elevation: 0.5,
       ),
@@ -60,21 +61,28 @@ class _QuizPageState extends State<QuizPagina> {
         children: <Widget>[
           Image.asset(
             "assets/images/sfondo_games.png",
-            height: 100,
-            width: 100,
+            height: size.height,
+            width: size.width,
             fit: BoxFit.cover,
           ),
           Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
             //This is our main page
             children: <Widget>[
+              Padding(
+                padding: EdgeInsets.all(size.height * 0.02),
+              ),
               QuestionTextWithImage("$questionText", imageName),
+              Padding(
+                padding: EdgeInsets.all(size.height * 0.02),
+              ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   //True Button
                   AnswerButton(true, () => handleAnswer(true)),
                   Padding(
-                    padding: EdgeInsets.all(10.0),
+                    padding: EdgeInsets.all(size.height * 0.02),
                   ),
                   //False Button
                   AnswerButton(false, () => handleAnswer(false)),

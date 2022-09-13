@@ -1,11 +1,12 @@
 import 'package:flutter/cupertino.dart';
 
-Widget figureImage(bool visible, String path) {
+Widget figureImage(BuildContext context, bool visible, String path) {
+  Size size = MediaQuery.of(context).size;
   return Visibility(
       visible: visible,
       child: Container(
-        width: 250,
-        height: 250,
+        width: size.width * 0.4,
+        height: size.height * 0.2,
         child: Image.asset(path),
       ));
 }

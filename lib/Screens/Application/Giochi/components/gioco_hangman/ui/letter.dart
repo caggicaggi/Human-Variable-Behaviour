@@ -3,12 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:human_variable_behaviour/Screens/Application/Giochi/components/gioco_hangman/ui/colors.dart';
 
 // STAMPA LA CASELLA DELLA LETTERA
-Widget letter(String character, bool hidden) {
+
+Widget letter(BuildContext context, String character, bool hidden) {
+  Size size = MediaQuery.of(context).size;
   return Container(
     alignment: Alignment.center,
-    height: 65,
-    width: 57,
-    padding: EdgeInsets.all(12.0),
+    height: size.height * 0.1,
+    width: size.width * 0.1,
+    padding: EdgeInsets.all(0),
     decoration: BoxDecoration(
       color: Colors.blue,
       borderRadius: BorderRadius.circular(4.0),

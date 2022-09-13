@@ -25,20 +25,16 @@ class _BodyState extends State<Body> {
           children: [
             Container(
               decoration: BoxDecoration(
-                  image: DecorationImage(
-                      image: AssetImage("assets/images/sfondo_games.png"),
-                      fit: BoxFit.cover),
-                  gradient: LinearGradient(
-                      colors: [gradientStartColor, gradientEndColor],
-                      begin: Alignment.topCenter,
-                      end: Alignment.bottomCenter,
-                      stops: [0.9, 1.1])),
+                image: DecorationImage(
+                    image: AssetImage("assets/images/sfondo_games.png"),
+                    fit: BoxFit.cover),
+              ),
               child: SafeArea(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     Padding(
-                      padding: const EdgeInsets.all(0),
+                      padding: EdgeInsets.all(size.height * 0.001),
                       child: Column(
                         children: <Widget>[
                           Text(
@@ -46,7 +42,7 @@ class _BodyState extends State<Body> {
                             'SCEGLI COSA VUOI VEDERE',
                             style: TextStyle(
                               fontFamily: 'Avenir',
-                              fontSize: 44,
+                              fontSize: size.height * 0.06,
                               color: const Color(0xffffffff),
                               fontWeight: FontWeight.w900,
                             ),
@@ -56,7 +52,7 @@ class _BodyState extends State<Body> {
                             textAlign: TextAlign.left,
                             style: TextStyle(
                               fontFamily: 'Avenir',
-                              fontSize: 25,
+                              fontSize: size.height * 0.04,
                               color: const Color(0x7cdbf1ff),
                               fontWeight: FontWeight.w500,
                             ),
@@ -65,11 +61,11 @@ class _BodyState extends State<Body> {
                       ),
                     ),
                     Container(
-                      height: 610,
-                      padding: const EdgeInsets.only(),
+                      height: size.height * 0.7,
                       child: Swiper(
                         itemCount: link.length,
-                        itemWidth: MediaQuery.of(context).size.width - 2 * 64,
+                        itemWidth: MediaQuery.of(context).size.width - 2 * 30,
+                        itemHeight: MediaQuery.of(context).size.width - 2 * 34,
                         layout: SwiperLayout.STACK,
                         pagination: SwiperPagination(
                           builder: DotSwiperPaginationBuilder(
@@ -91,9 +87,8 @@ class _BodyState extends State<Body> {
                               children: <Widget>[
                                 Column(
                                   children: <Widget>[
-                                    SizedBox(height: 100),
                                     Card(
-                                      elevation: 10,
+                                      elevation: 20,
                                       shape: RoundedRectangleBorder(
                                         borderRadius: BorderRadius.circular(32),
                                       ),
@@ -105,37 +100,37 @@ class _BodyState extends State<Body> {
                                               CrossAxisAlignment.start,
                                           children: <Widget>[
                                             SizedBox(
-                                              width: 200,
-                                              height: 60,
+                                              width: size.width,
+                                              height: 0,
                                             ),
                                             Text(
                                               link[index].name,
                                               style: TextStyle(
                                                 fontFamily: 'Avenir',
-                                                fontSize: 40,
+                                                fontSize: size.height * 0.06,
                                                 color: const Color(0xff47455f),
                                                 fontWeight: FontWeight.w900,
                                               ),
                                               textAlign: TextAlign.left,
                                             ),
                                             Text(
-                                              "UNIVERSITA' CAMERINO",
+                                              "UNIVERSITA' CAMERINO\n",
                                               style: TextStyle(
                                                 fontFamily: 'Avenir',
-                                                fontSize: 23,
+                                                fontSize: size.height * 0.02,
                                                 color: primaryTextColor,
                                                 fontWeight: FontWeight.w500,
                                               ),
                                               textAlign: TextAlign.left,
                                             ),
-                                            SizedBox(height: 20),
                                             Row(
                                               children: <Widget>[
                                                 Text(
                                                   'Leggi di piu',
                                                   style: TextStyle(
                                                     fontFamily: 'Avenir',
-                                                    fontSize: 18,
+                                                    fontSize:
+                                                        size.height * 0.02,
                                                     color: secondaryTextColor,
                                                     fontWeight: FontWeight.w500,
                                                   ),
@@ -163,15 +158,14 @@ class _BodyState extends State<Body> {
                               )),*/
                                 //POSIZIONE NUMERO SULLO SFONDO
                                 Positioned(
-                                  right: 0,
-                                  left: 200,
-                                  top: 220,
-                                  bottom: 60,
+                                  left: size.width * 0.56,
+                                  top: size.width * 0.01,
+                                  bottom: 20,
                                   child: Text(
                                     link[index].position.toString(),
                                     style: TextStyle(
                                       fontFamily: 'Avenir',
-                                      fontSize: 200,
+                                      fontSize: size.height * 0.3,
                                       color: primaryTextColor.withOpacity(0.5),
                                       fontWeight: FontWeight.w900,
                                     ),

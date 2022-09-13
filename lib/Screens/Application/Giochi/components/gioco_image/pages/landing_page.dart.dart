@@ -25,6 +25,8 @@ class LandingPage extends StatelessWidget {
             Image.asset(
               "assets/images/sfondo_games.png",
               fit: BoxFit.fitHeight,
+              width: size.width,
+              height: size.height,
             ),
             Image.asset(
               "assets/images/logoUnicam.jpg",
@@ -47,9 +49,7 @@ class LandingPage extends StatelessWidget {
                             fontSize: 20.0,
                             fontWeight: FontWeight.bold),
                       )),
-                  Padding(
-                    padding: EdgeInsets.all(10.0),
-                  )
+                  Padding(padding: EdgeInsets.all(size.height * 0.029)),
                 ],
               ),
             ),

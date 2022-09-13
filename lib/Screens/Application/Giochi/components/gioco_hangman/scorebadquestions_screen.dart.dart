@@ -14,6 +14,7 @@ class ScorePageHangManBadQuestion extends StatefulWidget {
 class _ScorePageHangManState extends State<ScorePageHangManBadQuestion> {
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     return Scaffold(
       body: Stack(
         fit: StackFit.expand,
@@ -30,14 +31,14 @@ class _ScorePageHangManState extends State<ScorePageHangManBadQuestion> {
                 textAlign: TextAlign.center,
                 style: Theme.of(context)
                     .textTheme
-                    .headline3!
+                    .headline5!
                     .copyWith(color: Colors.amber),
               ),
               Spacer(flex: 3),
               Image.asset(
                 "assets/images/logoUnicam.jpg",
-                height: 200,
-                width: 400,
+                height: size.height * 0.2,
+                width: size.width * 0.7,
                 fit: BoxFit.cover,
               ),
               Spacer(flex: 3),

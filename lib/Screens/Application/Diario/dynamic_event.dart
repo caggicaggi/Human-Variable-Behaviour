@@ -119,11 +119,13 @@ class _DynamicEventState extends State<DynamicEvent> {
                   children: [
                     Text(
                       'ECCO IL TUO DIARIO PERSONALE ',
+                      textAlign: TextAlign.center,
                       style: GoogleFonts.akayaTelivigala(
                           fontSize: 30, color: Colors.white),
                     ),
                     Text(
                       "Raccontami una tua giornata",
+                      textAlign: TextAlign.center,
                       style: GoogleFonts.akayaTelivigala(
                           fontSize: 22, color: Colors.white),
                     ),

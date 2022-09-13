@@ -47,18 +47,15 @@ class _QuestionTextWithImageState extends State<QuestionTextWithImage>
 
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     return Material(
       color: Colors.white,
       child: Padding(
-        padding: EdgeInsets.symmetric(vertical: 20.0),
+        padding: EdgeInsets.symmetric(horizontal: 1),
         child: Center(
             child: Column(
           children: <Widget>[
-            Image.asset(
-              widget._img,
-              height: 400.0,
-              width: 400.0,
-            ),
+            Image.asset(widget._img, alignment: Alignment.topCenter),
             Text(
               "${widget._question}",
               style: TextStyle(

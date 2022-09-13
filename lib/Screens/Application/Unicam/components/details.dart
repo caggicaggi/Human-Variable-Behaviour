@@ -9,6 +9,7 @@ class DetailPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     return Scaffold(
       body: SafeArea(
         bottom: false,
@@ -23,7 +24,7 @@ class DetailPage extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
-                        SizedBox(height: 300),
+                        SizedBox(height: size.height),
                         Text(
                           link.name,
                           style: TextStyle(
@@ -45,7 +46,6 @@ class DetailPage extends StatelessWidget {
                           textAlign: TextAlign.left,
                         ),
                         Divider(color: Colors.black38),
-                        SizedBox(height: 32),
                         Text(
                           link.description,
                           maxLines: 5,
@@ -57,7 +57,6 @@ class DetailPage extends StatelessWidget {
                             fontWeight: FontWeight.w500,
                           ),
                         ),
-                        SizedBox(height: 32),
                         Divider(color: Colors.black38),
                       ],
                     ),
@@ -76,7 +75,7 @@ class DetailPage extends StatelessWidget {
                     ),
                   ),
                   Container(
-                    height: 250,
+                    height: size.height,
                     padding: const EdgeInsets.only(left: 32.0),
                     child: ListView.builder(
                         itemCount: link.images.length,
@@ -100,7 +99,7 @@ class DetailPage extends StatelessWidget {
               ),
             ),
             Positioned(
-              top: 60,
+              top: 160,
               left: 32,
               child: Text(
                 link.position.toString(),
@@ -112,12 +111,6 @@ class DetailPage extends StatelessWidget {
                 ),
                 textAlign: TextAlign.left,
               ),
-            ),
-            IconButton(
-              icon: Icon(Icons.arrow_back_ios),
-              onPressed: () {
-                Navigator.pop(context);
-              },
             ),
           ],
         ),

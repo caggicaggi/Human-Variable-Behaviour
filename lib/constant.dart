@@ -22,4 +22,4 @@ const kPrimaryGradient = LinearGradient(
   end: Alignment.centerRight,
 );
 
-const double kDefaultPadding = 20.0;
+const double kDefaultPadding = 20.0 * 0.6;

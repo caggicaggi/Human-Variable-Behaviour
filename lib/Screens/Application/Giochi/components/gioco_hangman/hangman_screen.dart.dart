@@ -55,6 +55,7 @@ class _HangManAppState extends State<HangMan> {
   ];
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     if (checkQuestion == false) {
       word = selectStringQuestions(word).toUpperCase();
       checkQuestion = true;
@@ -83,13 +84,20 @@ class _HangManAppState extends State<HangMan> {
                 child: Stack(
                   children: <Widget>[
                     //a seconda dei tentativi aggiungo un pezzo di immagini
-                    figureImage(Game.tries >= 0, "assets/images/hang.png"),
-                    figureImage(Game.tries >= 1, "assets/images/head.png"),
-                    figureImage(Game.tries >= 2, "assets/images/body.png"),
-                    figureImage(Game.tries >= 3, "assets/images/ra.png"),
-                    figureImage(Game.tries >= 4, "assets/images/la.png"),
-                    figureImage(Game.tries >= 5, "assets/images/rl.png"),
-                    figureImage(Game.tries >= 6, "assets/images/ll.png"),
+                    figureImage(
+                        context, Game.tries >= 0, "assets/images/hang.png"),
+                    figureImage(
+                        context, Game.tries >= 1, "assets/images/head.png"),
+                    figureImage(
+                        context, Game.tries >= 2, "assets/images/body.png"),
+                    figureImage(
+                        context, Game.tries >= 3, "assets/images/ra.png"),
+                    figureImage(
+                        context, Game.tries >= 4, "assets/images/la.png"),
+                    figureImage(
+                        context, Game.tries >= 5, "assets/images/rl.png"),
+                    figureImage(
+                        context, Game.tries >= 6, "assets/images/ll.png"),
                   ],
                 ),
               ),
@@ -101,19 +109,19 @@ class _HangManAppState extends State<HangMan> {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: word
                     .split('')
-                    .map((e) => letter(e.toUpperCase(),
+                    .map((e) => letter(context, e.toUpperCase(),
                         !Game.selectedChar.contains(e.toUpperCase())))
                     .toList(),
               ),
               //Now let's build the Game keyboard
               SizedBox(
-                width: double.infinity,
-                height: 350.0,
+                width: size.width * 1,
+                height: size.height * 0.4,
                 child: GridView.count(
-                  crossAxisCount: 7,
-                  mainAxisSpacing: 8.0,
-                  crossAxisSpacing: 8.0,
-                  padding: EdgeInsets.all(8.0),
+                  crossAxisCount: 8,
+                  mainAxisSpacing: 10.0,
+                  crossAxisSpacing: 1.0,
+                  padding: EdgeInsets.all(size.height * 0.01),
                   children: alphabets.map((e) {
                     return RawMaterialButton(
                       onPressed: Game.selectedChar.contains(e)

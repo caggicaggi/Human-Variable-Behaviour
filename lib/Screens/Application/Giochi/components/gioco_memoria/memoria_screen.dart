@@ -10,6 +10,8 @@ import 'package:human_variable_behaviour/Screens/Application/Giochi/components/g
 
 import '../../../../HomePage/homepage_screen.dart';
 
+bool e = false;
+
 class MemoriaScreen extends StatefulWidget {
   const MemoriaScreen({Key? key}) : super(key: key);
 
@@ -52,22 +54,19 @@ class _HomeScreenState extends State<MemoriaScreen> {
             children: [
               Center(
                 child: Text(
-                  "Te lo ricordi?",
+                  "\nTe lo ricordi?",
                   style: TextStyle(
                     fontSize: 48.0,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
               ),
-              SizedBox(
-                height: 24.0,
-              ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  info_card("Tentativi", "$tries"),
-                  info_card("Punteggio", "$score"),
+                  info_card(context, "Tentativi", "$tries"),
+                  info_card(context, "Punteggio", "$score"),
                 ],
               ),
               SizedBox(
@@ -76,7 +75,7 @@ class _HomeScreenState extends State<MemoriaScreen> {
                   child: GridView.builder(
                       itemCount: _game.gameImg!.length,
                       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 4,
+                        crossAxisCount: 5,
                         crossAxisSpacing: 16.0,
                         mainAxisSpacing: 16.0,
                       ),
@@ -85,8 +84,15 @@ class _HomeScreenState extends State<MemoriaScreen> {
                         return GestureDetector(
                           onTap: () {
                             setState(() {
-                              //incrementing the clicks
-                              tries++;
+                              //INCREMENTO TENTATIVI
+                              if (e == true) {
+                                tries++;
+                                e = false;
+                              } else {
+                                e = true;
+                              }
+
+                              print("nveorjsflv");
                               _game.gameImg![index] = _game.cards_list[index];
                               _game.matchCheck
                                   .add({index: _game.cards_list[index]});
@@ -114,9 +120,9 @@ class _HomeScreenState extends State<MemoriaScreen> {
                             }
                           },
                           child: Container(
-                            padding: EdgeInsets.all(16.0),
+                            padding: EdgeInsets.all(0),
                             decoration: BoxDecoration(
-                              color: Color(0xFFFFB46A),
+                              color: Colors.red,
                               borderRadius: BorderRadius.circular(8.0),
                               image: DecorationImage(
                                 image: AssetImage(_game.gameImg![index]),

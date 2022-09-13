@@ -27,6 +27,7 @@ class Option extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     return GetBuilder<QuestionController>(
         init: QuestionController(),
         builder: (qnController) {
@@ -61,7 +62,8 @@ class Option extends StatelessWidget {
                 children: [
                   Text(
                     "${index + 1}. $text",
-                    style: TextStyle(color: Colors.black, fontSize: 16),
+                    style: TextStyle(
+                        color: Colors.black, fontSize: size.height * 0.025),
                   ),
                   Container(
                     height: 26,
