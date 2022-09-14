@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:human_variable_behaviour/Screens/Application/Unicam/components/const.dart';
 import 'package:human_variable_behaviour/Screens/Application/Unicam/components/data_link.dart';
+import 'package:human_variable_behaviour/Screens/Application/Unicam/unicam_screen.dart';
+import 'package:human_variable_behaviour/Screens/HomePage/homepage_screen.dart';
 
 class DetailPage extends StatelessWidget {
   final Infolink link;
@@ -24,12 +26,11 @@ class DetailPage extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
-                        SizedBox(height: size.height),
                         Text(
                           link.name,
                           style: TextStyle(
                             fontFamily: 'Avenir',
-                            fontSize: 56,
+                            fontSize: size.height * 0.1,
                             color: primaryTextColor,
                             fontWeight: FontWeight.w900,
                           ),
@@ -39,7 +40,7 @@ class DetailPage extends StatelessWidget {
                           'SERVIZI UNICAM',
                           style: TextStyle(
                             fontFamily: 'Avenir',
-                            fontSize: 31,
+                            fontSize: size.height * 0.03,
                             color: primaryTextColor,
                             fontWeight: FontWeight.w300,
                           ),
@@ -48,11 +49,11 @@ class DetailPage extends StatelessWidget {
                         Divider(color: Colors.black38),
                         Text(
                           link.description,
-                          maxLines: 5,
+                          maxLines: 10,
                           overflow: TextOverflow.ellipsis,
                           style: TextStyle(
                             fontFamily: 'Avenir',
-                            fontSize: 20,
+                            fontSize: size.height * 0.02,
                             color: contentTextColor,
                             fontWeight: FontWeight.w500,
                           ),
@@ -67,7 +68,7 @@ class DetailPage extends StatelessWidget {
                       'Gallery',
                       style: TextStyle(
                         fontFamily: 'Avenir',
-                        fontSize: 25,
+                        fontSize: size.height * 0.03,
                         color: const Color(0xff47455f),
                         fontWeight: FontWeight.w300,
                       ),
@@ -84,7 +85,8 @@ class DetailPage extends StatelessWidget {
                           return Card(
                             clipBehavior: Clip.antiAlias,
                             shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(24),
+                              borderRadius:
+                                  BorderRadius.circular(size.height * 0.01),
                             ),
                             child: AspectRatio(
                                 aspectRatio: 1,
@@ -98,9 +100,9 @@ class DetailPage extends StatelessWidget {
                 ],
               ),
             ),
-            Positioned(
-              top: 160,
-              left: 32,
+            /* Positioned(
+              top: size.height,
+              left: size.width,
               child: Text(
                 link.position.toString(),
                 style: TextStyle(
@@ -111,7 +113,7 @@ class DetailPage extends StatelessWidget {
                 ),
                 textAlign: TextAlign.left,
               ),
-            ),
+            ),*/
           ],
         ),
       ),

@@ -174,7 +174,6 @@ class QuizScreen extends StatelessWidget {
         // nasconde il backButton messo automaticamente da flutter
         automaticallyImplyLeading: true,
         backgroundColor: Colors.transparent,
-        elevation: 0,
         actions: [
           TextButton(
             onPressed: () {
@@ -190,7 +189,7 @@ class QuizScreen extends StatelessWidget {
                 child: Icon(
                   color: Colors.white,
                   Icons.home,
-                  size: 40,
+                  size: size.height * 0.04,
                 ),
                 onPressed: () {
                   Get.delete<QuestionController>();

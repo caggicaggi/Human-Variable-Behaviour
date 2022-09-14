@@ -18,7 +18,7 @@ class Background extends StatelessWidget {
             image: AssetImage("assets/images/cactus.jpeg"), fit: BoxFit.cover),
       ),
       height: size.height,
-      width: double.infinity,
+      width: size.width,
       child: Stack(
         alignment: Alignment.center,
         children: [

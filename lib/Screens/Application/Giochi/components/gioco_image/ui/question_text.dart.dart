@@ -55,7 +55,8 @@ class _QuestionTextWithImageState extends State<QuestionTextWithImage>
         child: Center(
             child: Column(
           children: <Widget>[
-            Image.asset(widget._img, alignment: Alignment.topCenter),
+            Image.asset(widget._img,
+                alignment: Alignment.topCenter, width: size.width * 0.6),
             Text(
               "${widget._question}",
               style: TextStyle(

@@ -63,11 +63,11 @@ class Option extends StatelessWidget {
                   Text(
                     "${index + 1}. $text",
                     style: TextStyle(
-                        color: Colors.black, fontSize: size.height * 0.025),
+                        color: Colors.black, fontSize: size.height * 0.018),
                   ),
                   Container(
-                    height: 26,
-                    width: 26,
+                    height: size.width * 0.06,
+                    width: size.height * 0.03,
                     decoration: BoxDecoration(
                       color: getTheRightColor() == kGrayColor
                           ? Colors.transparent
@@ -77,7 +77,7 @@ class Option extends StatelessWidget {
                     ),
                     child: getTheRightColor() == kGrayColor
                         ? null
-                        : Icon(getTheRightIcon(), size: 16),
+                        : Icon(getTheRightIcon(), size: size.height * 0.03),
                   )
                 ],
               ),
@@ -115,7 +115,6 @@ class Body extends StatelessWidget {
                     const EdgeInsets.symmetric(horizontal: kDefaultPadding),
                 child: ProgressBar(),
               ),
-              SizedBox(height: kDefaultPadding),
               Padding(
                 padding:
                     const EdgeInsets.symmetric(horizontal: kDefaultPadding),
@@ -142,7 +141,6 @@ class Body extends StatelessWidget {
                   ),
                 ),
               ),
-              SizedBox(height: kDefaultPadding),
               Expanded(
                 //dati passati alla QuestionCard per formulare domanda
                 child: PageView.builder(
@@ -188,11 +186,12 @@ class ProgressBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     return Container(
       width: double.infinity,
-      height: 35,
+      height: size.height * 0.05,
       decoration: BoxDecoration(
-        border: Border.all(color: Color(0xFF3F4768), width: 2),
+        border: Border.all(color: Color(0xFF3F4768), width: size.width * 0.01),
         borderRadius: BorderRadius.circular(50),
       ),
       child: GetBuilder<QuestionController>(
@@ -245,14 +244,16 @@ class QuestionCard extends StatelessWidget {
     Size size = MediaQuery.of(context).size;
     QuestionController _controller = Get.put(QuestionController());
     return Container(
-      margin: EdgeInsets.symmetric(horizontal: kDefaultPadding),
-      padding: EdgeInsets.all(kDefaultPadding),
+      margin: EdgeInsets.symmetric(
+          horizontal: size.width * 0.09, vertical: size.width * 0.07),
+      padding: EdgeInsets.all(size.height * 0.03),
       decoration: BoxDecoration(
         color: Colors.white,
-        borderRadius: BorderRadius.circular(25),
+        borderRadius: BorderRadius.circular(55),
       ),
       child: Column(
         children: [
+          SizedBox(height: size.height * 0.001),
           Text(
             question.question,
             style: Theme.of(context)
@@ -260,7 +261,7 @@ class QuestionCard extends StatelessWidget {
                 .headline6!
                 .copyWith(color: kBlackColor),
           ),
-          SizedBox(height: size.height * 0.02),
+          SizedBox(height: size.height * 0.01),
           ...List.generate(
             question.options.length,
             (index) => Option(

@@ -94,7 +94,7 @@ class _BodyState extends State<Body> {
                                       ),
                                       color: Colors.white,
                                       child: Padding(
-                                        padding: const EdgeInsets.all(32.0),
+                                        padding: const EdgeInsets.all(15),
                                         child: Column(
                                           crossAxisAlignment:
                                               CrossAxisAlignment.start,
@@ -158,18 +158,16 @@ class _BodyState extends State<Body> {
                               )),*/
                                 //POSIZIONE NUMERO SULLO SFONDO
                                 Positioned(
-                                  left: size.width * 0.56,
-                                  top: size.width * 0.01,
-                                  bottom: 20,
+                                  left: size.height * 0.31,
+                                  top: size.width * 0.1,
                                   child: Text(
                                     link[index].position.toString(),
                                     style: TextStyle(
                                       fontFamily: 'Avenir',
-                                      fontSize: size.height * 0.3,
-                                      color: primaryTextColor.withOpacity(0.5),
+                                      fontSize: size.height * 0.2,
+                                      color: primaryTextColor.withOpacity(0.4),
                                       fontWeight: FontWeight.w900,
                                     ),
-                                    textAlign: TextAlign.left,
                                   ),
                                 ),
                               ],

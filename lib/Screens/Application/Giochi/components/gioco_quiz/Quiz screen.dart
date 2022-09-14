@@ -17,11 +17,7 @@ class QuizScreen extends StatelessWidget {
         // Fluttter show the back button automatically
         backgroundColor: Colors.transparent,
         elevation: 0,
-        actions: [
-          FlatButton(onPressed: _controller.nextQuestion, child: Text("Skip")),
-        ],
       ),
-      //body: Body(),
     );
   }
 }
@@ -43,7 +39,7 @@ class QuestionCard extends StatelessWidget {
       padding: EdgeInsets.all(kDefaultPadding),
       decoration: BoxDecoration(
         color: Colors.white,
-        borderRadius: BorderRadius.circular(25),
+        borderRadius: BorderRadius.circular(15),
       ),
       child: Column(
         children: [
@@ -51,7 +47,7 @@ class QuestionCard extends StatelessWidget {
             question.question,
             style: Theme.of(context)
                 .textTheme
-                .headline6!
+                .headline1!
                 .copyWith(color: kBlackColor),
           ),
           SizedBox(height: kDefaultPadding / 2),
@@ -78,7 +74,7 @@ class ProgressBar extends StatelessWidget {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Container(
-      width: double.infinity,
+      width: size.width,
       height: size.height,
       decoration: BoxDecoration(
         border: Border.all(color: Color(0xFF3F4768), width: 3),

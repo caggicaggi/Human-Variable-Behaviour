@@ -70,14 +70,14 @@ class _HomeScreenState extends State<MemoriaScreen> {
                 ],
               ),
               SizedBox(
-                  height: MediaQuery.of(context).size.width,
+                  height: MediaQuery.of(context).size.width * 0.8,
                   width: MediaQuery.of(context).size.width,
                   child: GridView.builder(
                       itemCount: _game.gameImg!.length,
                       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                         crossAxisCount: 5,
-                        crossAxisSpacing: 16.0,
-                        mainAxisSpacing: 16.0,
+                        crossAxisSpacing: 19.0,
+                        mainAxisSpacing: 8.0,
                       ),
                       padding: EdgeInsets.all(16.0),
                       itemBuilder: (context, index) {
@@ -91,8 +91,6 @@ class _HomeScreenState extends State<MemoriaScreen> {
                               } else {
                                 e = true;
                               }
-
-                              print("nveorjsflv");
                               _game.gameImg![index] = _game.cards_list[index];
                               _game.matchCheck
                                   .add({index: _game.cards_list[index]});
