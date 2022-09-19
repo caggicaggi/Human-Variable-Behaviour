@@ -129,6 +129,8 @@ class _HangManAppState extends State<HangMan> {
                           : () {
                               setState(() {
                                 Game.selectedChar.add(e);
+                                print(e);
+                                print("@@@@@@@@@@@@@@@@@@@@@@");
                                 if (!word.split('').contains(e.toUpperCase())) {
                                   Game.tries++;
 
@@ -174,22 +176,15 @@ class _HangManAppState extends State<HangMan> {
   String selectStringQuestions(String word) {
     List<String> listofStringQuestions = [];
     //lista parole da indovinare senza doppie
-    listofStringQuestions.add("Marco");
-    listofStringQuestions.add("Mina");
-    listofStringQuestions.add("Cena");
-    listofStringQuestions.add("Mano");
-    listofStringQuestions.add("Pensato");
-    listofStringQuestions.add("Cane");
-    listofStringQuestions.add("Unicam");
-    listofStringQuestions.add("Mestoli");
-    listofStringQuestions.add("Cartine");
-    listofStringQuestions.add("Fante");
-    listofStringQuestions.add("Regina");
+    listofStringQuestions.add("Marrco");
+    listofStringQuestions.add("Matteo");
 
     var index = Random().nextInt(listofStringQuestions.length - 1) + (0);
     ;
     return listofStringQuestions[index];
   }
+
+  String wordToCheck = '';
 
 // il metodo non verifica in tal caso ci siano lettere doppi attaccate
   bool checkCorrectQuestions() {
@@ -208,14 +203,33 @@ class _HangManAppState extends State<HangMan> {
       for (int j = 0; j < word.length; j++) {
         if (word[j] == e) {
           setCorrectQuestions.add(word[j]);
+          wordToCheck += e;
         }
       }
 
-      if (setCorrectQuestions.length == word.length) {
+      debugPrint(removeDups(word));
+      debugPrint(removeDups(wordToCheck));
+
+      if (removeDups(wordToCheck) == removeDups(word)) {
         CorrectQuestions = true;
+      } else {
+        debugPrint("--------------" + setCorrectQuestions.toString());
       }
     }
 
     return CorrectQuestions;
   }
+}
+
+String removeDups(String s) {
+  var arr = new List.filled(256, 0);
+  String l = '';
+  int i = 0;
+  for (i = 0; i < s.length; i++) {
+    if (arr[s.codeUnitAt(i)] == 0) {
+      l += s[i];
+      arr[s.codeUnitAt(i)]++;
+    }
+  }
+  return l;
 }

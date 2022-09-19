@@ -50,9 +50,10 @@ Future signUpToDb(nameToDb, surnameToDb, emailToDb, passwordToDb) async {
   //Nome della tabella
   String table = 'utenti';
   //Scrivo la query
+
   String query = 'INSERT INTO ' +
       table +
-      ' (nome, cognome, email, password) VALUES (' +
+      ' (nome, cognome, email, password, variabile) VALUES (' +
       nameToDb +
       ',' +
       surnameToDb +
@@ -60,7 +61,10 @@ Future signUpToDb(nameToDb, surnameToDb, emailToDb, passwordToDb) async {
       emailToDb +
       ',' +
       passwordToDb +
+      ',' +
+      '100' +
       ')';
+  debugPrint(query);
   //Connessione al database
   var db = Mysql();
   await db.getConnection().then((connessione) async {

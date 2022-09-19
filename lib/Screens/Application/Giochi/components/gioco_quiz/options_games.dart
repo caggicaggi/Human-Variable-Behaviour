@@ -245,7 +245,7 @@ class QuestionCard extends StatelessWidget {
     QuestionController _controller = Get.put(QuestionController());
     return Container(
       margin: EdgeInsets.symmetric(
-          horizontal: size.width * 0.02, vertical: size.width * 0.3),
+          horizontal: size.width * 0.02, vertical: size.width * 0.2),
       padding: EdgeInsets.all(size.height * 0.023),
       decoration: BoxDecoration(
         color: Colors.white,
