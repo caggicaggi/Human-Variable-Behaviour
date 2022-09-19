@@ -39,7 +39,7 @@ class _BodyState extends State<Body> {
                         children: <Widget>[
                           Text(
                             textAlign: TextAlign.center,
-                            'SCEGLI COSA VUOI VEDERE',
+                            'Quale argomento vogliamo approfondire?',
                             style: TextStyle(
                               fontFamily: 'Avenir',
                               fontSize: size.height * 0.06,
@@ -61,11 +61,11 @@ class _BodyState extends State<Body> {
                       ),
                     ),
                     Container(
-                      height: size.height * 0.7,
+                      height: size.height * 0.63,
                       child: Swiper(
                         itemCount: link.length,
-                        itemWidth: MediaQuery.of(context).size.width - 2 * 30,
-                        itemHeight: MediaQuery.of(context).size.width - 2 * 34,
+                        itemWidth: MediaQuery.of(context).size.width - 2 * 5,
+                        itemHeight: MediaQuery.of(context).size.width - 2 * 30,
                         layout: SwiperLayout.STACK,
                         pagination: SwiperPagination(
                           builder: DotSwiperPaginationBuilder(
@@ -94,20 +94,16 @@ class _BodyState extends State<Body> {
                                       ),
                                       color: Colors.white,
                                       child: Padding(
-                                        padding: const EdgeInsets.all(15),
+                                        padding: const EdgeInsets.all(40),
                                         child: Column(
                                           crossAxisAlignment:
                                               CrossAxisAlignment.start,
                                           children: <Widget>[
-                                            SizedBox(
-                                              width: size.width,
-                                              height: 0,
-                                            ),
                                             Text(
                                               link[index].name,
                                               style: TextStyle(
                                                 fontFamily: 'Avenir',
-                                                fontSize: size.height * 0.06,
+                                                fontSize: size.height * 0.05,
                                                 color: const Color(0xff47455f),
                                                 fontWeight: FontWeight.w900,
                                               ),
@@ -158,14 +154,14 @@ class _BodyState extends State<Body> {
                               )),*/
                                 //POSIZIONE NUMERO SULLO SFONDO
                                 Positioned(
-                                  left: size.height * 0.31,
-                                  top: size.width * 0.1,
+                                  left: size.height * 0.38,
+                                  top: size.width * 0.09,
                                   child: Text(
                                     link[index].position.toString(),
                                     style: TextStyle(
                                       fontFamily: 'Avenir',
                                       fontSize: size.height * 0.2,
-                                      color: primaryTextColor.withOpacity(0.4),
+                                      color: primaryTextColor.withOpacity(1),
                                       fontWeight: FontWeight.w900,
                                     ),
                                   ),

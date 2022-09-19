@@ -63,10 +63,10 @@ class Option extends StatelessWidget {
                   Text(
                     "${index + 1}. $text",
                     style: TextStyle(
-                        color: Colors.black, fontSize: size.height * 0.018),
+                        color: Colors.black, fontSize: size.height * 0.016),
                   ),
                   Container(
-                    height: size.width * 0.06,
+                    height: size.width * 0.062,
                     width: size.height * 0.03,
                     decoration: BoxDecoration(
                       color: getTheRightColor() == kGrayColor
@@ -245,8 +245,8 @@ class QuestionCard extends StatelessWidget {
     QuestionController _controller = Get.put(QuestionController());
     return Container(
       margin: EdgeInsets.symmetric(
-          horizontal: size.width * 0.09, vertical: size.width * 0.07),
-      padding: EdgeInsets.all(size.height * 0.03),
+          horizontal: size.width * 0.02, vertical: size.width * 0.3),
+      padding: EdgeInsets.all(size.height * 0.023),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(55),
@@ -261,7 +261,7 @@ class QuestionCard extends StatelessWidget {
                 .headline6!
                 .copyWith(color: kBlackColor),
           ),
-          SizedBox(height: size.height * 0.01),
+          SizedBox(height: size.height * 0.02),
           ...List.generate(
             question.options.length,
             (index) => Option(

@@ -13,12 +13,13 @@ class Question {
 const List sample_data = [
   {
     "id": 1,
-    "question": "Cosa faresti se vedessi un bullo maltrattare un ragazzo?",
+    "question":
+        "C'è un alunna molto brava in tutte le materie e la noti mentre deride un alunno che ha preso un voto più basso",
     "options": [
-      'Ti schieri dalla parte del bullo',
-      'Intervieni o chiami qualcuno',
+      'Se hai preso di più, ti metti anche te a deriderlo',
+      'Intervieni o chiami la professoressa',
       'Ignori la situazione',
-      'Rimani fermo a guardare'
+      'Ti metti a ridere'
     ],
     "answer_index": 1,
   },
@@ -27,7 +28,7 @@ const List sample_data = [
     "question": "Cosa faresti se vedessi una ragazza piangere?",
     "options": [
       'Cerco i miei amici per deriderla',
-      'La derido dato che piange',
+      'Comincio a fargli foto',
       'Cerco di capire perchè piange',
       'Faccio finta di niente'
     ],
@@ -40,7 +41,7 @@ const List sample_data = [
       'Mi scuso e vedo se si è fatto male',
       'Comincio a ridere',
       'Me ne vado senza fare nulla',
-      'Cerco di fargli ancora male'
+      'lo minaccio perchè non lo deve dire a nessuno'
     ],
     "answer_index": 0,
   },
@@ -49,10 +50,10 @@ const List sample_data = [
     "question":
         "A chi chiederesti aiuto se vedi qualcuno che ti da fastidio a scuola?",
     "options": [
-      'Alla polizia',
+      'Alla preside',
       'Alla bidella',
       'Alla professoressa',
-      'Ai pompieri'
+      'A chi guida il pulman di scuola'
     ],
     "answer_index": 2,
   },

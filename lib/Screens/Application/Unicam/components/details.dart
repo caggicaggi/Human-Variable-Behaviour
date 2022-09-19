@@ -30,7 +30,7 @@ class DetailPage extends StatelessWidget {
                           link.name,
                           style: TextStyle(
                             fontFamily: 'Avenir',
-                            fontSize: size.height * 0.1,
+                            fontSize: size.height * 0.09,
                             color: primaryTextColor,
                             fontWeight: FontWeight.w900,
                           ),
@@ -49,7 +49,7 @@ class DetailPage extends StatelessWidget {
                         Divider(color: Colors.black38),
                         Text(
                           link.description,
-                          maxLines: 10,
+                          maxLines: 2222,
                           overflow: TextOverflow.ellipsis,
                           style: TextStyle(
                             fontFamily: 'Avenir',
@@ -76,8 +76,8 @@ class DetailPage extends StatelessWidget {
                     ),
                   ),
                   Container(
-                    height: size.height,
-                    padding: const EdgeInsets.only(left: 32.0),
+                    height: size.height * 0.43,
+                    padding: const EdgeInsets.only(left: 32),
                     child: ListView.builder(
                         itemCount: link.images.length,
                         scrollDirection: Axis.horizontal,

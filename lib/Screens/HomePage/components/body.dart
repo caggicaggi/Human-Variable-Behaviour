@@ -73,7 +73,7 @@ class _BodyState extends State<Body> {
           NavigationDestination(
             selectedIcon: Icon(Icons.school),
             icon: Icon(Icons.school_outlined),
-            label: 'unicam',
+            label: 'informativa',
           ),
         ],
       ),
