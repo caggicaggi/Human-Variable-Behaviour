@@ -50,7 +50,6 @@ Future signUpToDb(nameToDb, surnameToDb, emailToDb, passwordToDb) async {
   //Nome della tabella
   String table = 'utenti';
   //Scrivo la query
-
   String query = 'INSERT INTO ' +
       table +
       ' (nome, cognome, email, password, variabile) VALUES (' +
@@ -149,6 +148,29 @@ Future<bool> readEmailFromDb(emailToReadToDb) async {
   //True = Query vuota -> Non ho la mail
   //False = Query con valore di ritorno -> Email già presente
   return risultatoQuery;
+}
+
+//Funzione per ottenere nome e cognome dall'idUtente
+//Il metodo va messo Future perchè così se richiamato si può utilizzare l'await
+Future<void> getNameSurnameFromId() async {
+  //Nome della tabella
+  String table = 'utenti';
+  //Scrivo la query
+  String query =
+      'SELECT nome, cognome FROM ' + table + ' where idUtente = ' + idUtente;
+  //Connessione al database
+  var db = Mysql();
+  await db.getConnection().then((connessione) async {
+    //Delay aggiuntivo
+    await Future.delayed(const Duration(milliseconds: 1));
+    await connessione.query(query).then((results) async {
+      for (var res in results) {
+        nome = res[0].toString();
+        cognome = res[1].toString();
+      }
+      connessione.close();
+    });
+  });
 }
 
 //Funzione per aggiungere i '' alle stringhe passate in input

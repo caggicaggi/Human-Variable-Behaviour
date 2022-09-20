@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:human_variable_behaviour/Screens/Application/Giochi/components/background.dart';
+import 'package:human_variable_behaviour/Screens/Application/Giochi/background.dart';
 
 class Body extends StatefulWidget {
   const Body({

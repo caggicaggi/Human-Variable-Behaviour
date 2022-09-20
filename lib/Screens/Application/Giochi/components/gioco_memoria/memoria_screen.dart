@@ -1,9 +1,5 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/instance_manager.dart';
-import 'package:human_variable_behaviour/Screens/Application/Giochi/components/giochi_screen.dart';
-import 'package:human_variable_behaviour/Screens/Application/Giochi/components/gioco_image/pages/score_page.dart.dart';
 import 'package:human_variable_behaviour/Screens/Application/Giochi/components/gioco_memoria/games_utils.dart';
 import 'package:human_variable_behaviour/Screens/Application/Giochi/components/gioco_memoria/info_card.dart';
 import 'package:human_variable_behaviour/Screens/Application/Giochi/components/gioco_memoria/scorepage_screen.dart';
