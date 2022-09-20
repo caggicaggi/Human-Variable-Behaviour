@@ -11,6 +11,7 @@ class DetailPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    //Occupo tutto lo schermo sia in altezza che in lunghezza
     Size size = MediaQuery.of(context).size;
     return Scaffold(
       body: SafeArea(

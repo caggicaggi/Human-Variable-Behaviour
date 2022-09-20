@@ -129,8 +129,6 @@ class _HangManAppState extends State<HangMan> {
                           : () {
                               setState(() {
                                 Game.selectedChar.add(e);
-                                print(e);
-                                print("@@@@@@@@@@@@@@@@@@@@@@");
                                 if (!word.split('').contains(e.toUpperCase())) {
                                   Game.tries++;
 
@@ -176,8 +174,11 @@ class _HangManAppState extends State<HangMan> {
   String selectStringQuestions(String word) {
     List<String> listofStringQuestions = [];
     //lista parole da indovinare senza doppie
-    listofStringQuestions.add("Marrco");
-    listofStringQuestions.add("Matteo");
+    listofStringQuestions.add("Bullismo");
+    listofStringQuestions.add("Unicam");
+    listofStringQuestions.add("Scuola");
+    listofStringQuestions.add("Studiare");
+    listofStringQuestions.add("Universita");
 
     var index = Random().nextInt(listofStringQuestions.length - 1) + (0);
     ;
@@ -207,13 +208,8 @@ class _HangManAppState extends State<HangMan> {
         }
       }
 
-      debugPrint(removeDups(word));
-      debugPrint(removeDups(wordToCheck));
-
-      if (removeDups(wordToCheck) == removeDups(word)) {
+      if (removeDups(wordToCheck).length == removeDups(word).length) {
         CorrectQuestions = true;
-      } else {
-        debugPrint("--------------" + setCorrectQuestions.toString());
       }
     }
 

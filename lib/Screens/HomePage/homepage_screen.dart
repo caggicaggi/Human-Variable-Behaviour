@@ -8,8 +8,8 @@ class HomePageScreen extends StatelessWidget {
   const HomePageScreen({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
+    //Estraggo tutte le informazioni dell'utente loggato
     readInformationWithId(idUtente);
-
     return Scaffold(
       body: Body(),
     );
