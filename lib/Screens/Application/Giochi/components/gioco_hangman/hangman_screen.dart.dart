@@ -187,7 +187,7 @@ class _HangManAppState extends State<HangMan> {
 
   String wordToCheck = '';
 
-// il metodo non verifica in tal caso ci siano lettere doppi attaccate
+// metodo per il controllo della parola
   bool checkCorrectQuestions() {
     var arrayOfWord = word.split('');
     var correctAnswer = [];

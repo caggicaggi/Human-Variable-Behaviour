@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_literals_to_create_immutables
+
 import 'package:flutter/material.dart';
 import 'package:human_variable_behaviour/Screens/Application/Diario/components/background.dart';
 
@@ -13,13 +15,12 @@ class Body extends StatefulWidget {
 class _BodyState extends State<Body> {
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
     return Background(
       child: SingleChildScrollView(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text('Widget Diario'),
+            const Text('Widget Diario'),
           ],
         ),
       ),

@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_interpolation_to_compose_strings
+// ignore_for_file: prefer_interpolation_to_compose_strings, avoid_print
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -11,6 +11,13 @@ var cognome = '';
 var email = '';
 var password = '';
 var variabile = 0;
+var IstitutoFrequentato = '';
+var Passione = '';
+var MusicaPreferita = '';
+var SportPreferito = '';
+var ArtistaPreferito = '';
+var MateriaPreferita = '';
+var Eta = '';
 
 String rispostaCorretta = '';
 String rispostaErrata1 = '';
@@ -52,7 +59,7 @@ Future signUpToDb(nameToDb, surnameToDb, emailToDb, passwordToDb) async {
   //Scrivo la query
   String query = 'INSERT INTO ' +
       table +
-      ' (nome, cognome, email, password, variabile) VALUES (' +
+      ' (nome, cognome, email, password, variabile, IstitutoFrequentato , Eta, Passione , SportPreferito , MusicaPreferita, ArtistaPreferito, MateriaPreferita) VALUES (' +
       nameToDb +
       ',' +
       surnameToDb +
@@ -62,6 +69,20 @@ Future signUpToDb(nameToDb, surnameToDb, emailToDb, passwordToDb) async {
       passwordToDb +
       ',' +
       '100' +
+      ',' +
+      "'Scrivi qui'" +
+      ',' +
+      '1' +
+      ',' +
+      "'Scrivi qui'" +
+      ',' +
+      "'Scrivi qui'" +
+      ',' +
+      "'Scrivi qui'" +
+      ',' +
+      "'Scrivi qui'" +
+      ',' +
+      "'Scrivi qui'" +
       ')';
   debugPrint(query);
   //Connessione al database
@@ -69,14 +90,20 @@ Future signUpToDb(nameToDb, surnameToDb, emailToDb, passwordToDb) async {
   await db.getConnection().then((connessione) async {
     //Inserisco le info nel database
     connessione.query(query);
-    //Leggo l'idUtente appena assegnato
-    String queryToId =
-        'select idUtente FROM ' + table + ' WHERE email = ' + emailToDb;
-    await Future.delayed(const Duration(milliseconds: 5));
-    await connessione.query(queryToId).then((results) {
-      for (var res in results) {
-        idUtente = res[0].toString();
-      }
+
+    await Future.delayed(const Duration(milliseconds: 4));
+    await connessione.query(query).then((result) async {
+      await Future.delayed(const Duration(milliseconds: 4));
+
+      //Leggo l'idUtente appena assegnato
+      String queryToId =
+          'select idUtente FROM ' + table + ' WHERE email = ' + emailToDb;
+      await connessione.query(queryToId).then((results) {
+        for (var res in results) {
+          idUtente = res[0].toString();
+        }
+        connessione.close();
+      });
     });
     connessione.close();
   });
@@ -152,7 +179,7 @@ Future<bool> readEmailFromDb(emailToReadToDb) async {
 
 //Funzione per ottenere nome e cognome dall'idUtente
 //Il metodo va messo Future perchè così se richiamato si può utilizzare l'await
-Future<void> getNameSurnameFromId() async {
+/*Future<void> getNameSurnameFromId() async {
   //Nome della tabella
   String table = 'utenti';
   //Scrivo la query
@@ -171,7 +198,7 @@ Future<void> getNameSurnameFromId() async {
       connessione.close();
     });
   });
-}
+} */
 
 //Funzione per aggiungere i '' alle stringhe passate in input
 String stringToDb(stringToConvert) => '"' + stringToConvert + '"';
@@ -337,14 +364,16 @@ Future<bool> readQuestions(domandaUtente) async {
 }
 
 //RICHIAMO TUTTE LE INFORMAZIONI DEL PROFILO TRAMITE L'IDUTENTE
-Future<void> readInformationWithId(idtuente) async {
+Future<void> readInformationWithId(idUtente) async {
   //Nome della tabella
   String table = 'utenti';
   //Scrivo la query
-  String query = 'SELECT nome,cognome,email,password FROM ' +
-      table +
-      ' where idUtente = ' +
-      idUtente;
+  String query =
+      'SELECT nome,cognome,email,password,Eta,MusicaPreferita,IstitutoFrequentato,Passione,SportPreferito,ArtistaPreferito,MateriaPreferita FROM ' +
+          table +
+          ' where idUtente = ' +
+          idUtente;
+  debugPrint(query);
   //Connessione al database
   var db = Mysql();
   await db.getConnection().then((connessione) async {
@@ -356,6 +385,13 @@ Future<void> readInformationWithId(idtuente) async {
         cognome = res[1].toString();
         email = res[2].toString();
         password = res[3].toString();
+        Eta = res[4].toString();
+        MusicaPreferita = res[5].toString();
+        IstitutoFrequentato = res[6].toString();
+        Passione = res[7].toString();
+        SportPreferito = res[8].toString();
+        ArtistaPreferito = res[9].toString();
+        MateriaPreferita = res[10].toString();
       }
       connessione.close();
     });
@@ -517,7 +553,6 @@ Future<void> updateVariable1(idUtente) async {
 
 //AGGIORNO LA VARIABILE A SECONDA DELLA RISPOSTA (IN QUESTO CASO -1 --> RISPOSTA 1 )
 Future<void> updateVariable2(idUtente) async {
-  String check = '';
   //Nome della tabella
   String table = 'utenti';
   //Attendo risultato variabile

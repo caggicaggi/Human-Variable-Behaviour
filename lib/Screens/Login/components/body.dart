@@ -103,18 +103,21 @@ class _BodyState extends State<Body> {
                     //debugPrint('Dopo della query');
                     emailPresence = true;
                     setState(() {});
-                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                        behavior: SnackBarBehavior.floating,
-                        content: Container(
-                          height: 90,
-                          decoration: BoxDecoration(color: Colors.blue),
-                          child: Text(
-                            "RICORDA DI COMPILARE I TUOI DATI NELLA SEZIONE 'PERSONA'",
-                            textAlign: TextAlign.center,
-                            style: GoogleFonts.aBeeZee(
-                                fontSize: 22, color: Colors.white),
-                          ),
-                        )));
+
+                    if (checkForNotification() == true) {
+                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                          behavior: SnackBarBehavior.floating,
+                          content: Container(
+                            height: 90,
+                            decoration: BoxDecoration(color: Colors.blue),
+                            child: Text(
+                              "RICORDA DI COMPILARE I TUOI DATI NELLA SEZIONE 'PERSONA'",
+                              textAlign: TextAlign.center,
+                              style: GoogleFonts.aBeeZee(
+                                  fontSize: 22, color: Colors.white),
+                            ),
+                          )));
+                    }
                     Navigator.push(
                       context,
                       MaterialPageRoute(
@@ -159,5 +162,20 @@ class _BodyState extends State<Body> {
         ),
       ),
     );
+  }
+
+//metodo per fare il check se i campi personali sono compilati
+  bool checkForNotification() {
+    bool check = false;
+    if (IstitutoFrequentato == "Scrivi qui" &&
+        Eta == 1 &&
+        Passione == "Scrivi qui" &&
+        SportPreferito == "Scrivi qui" &&
+        MusicaPreferita == "Scrivi qui" &&
+        ArtistaPreferito == "Scrivi qui" &&
+        MateriaPreferita == "Scrivi qui") {
+      return check = true;
+    }
+    return check = false;
   }
 }

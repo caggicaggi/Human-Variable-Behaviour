@@ -1,15 +1,12 @@
-// ignore_for_file: deprecated_member_use
+// ignore_for_file: deprecated_member_use, import_of_legacy_library_into_null_safe, override_on_non_overriding_member, prefer_const_constructors
 
 import 'dart:convert';
 //import 'dart:html';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:human_variable_behaviour/Screens/HomePage/components/background.dart';
 import 'package:human_variable_behaviour/Screens/HomePage/homepage_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:table_calendar/table_calendar.dart';
-
-import '../../../components/rounded_button.dart';
 import '../../../mysql/mysql.dart';
 import '../../HomePage/components/body.dart';
 

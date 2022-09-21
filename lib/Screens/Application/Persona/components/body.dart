@@ -114,22 +114,20 @@ class _BodyState extends State<Body> {
               buildTextField("Nome: ", nome, false),
               buildTextField("Cognome: ", cognome, false),
               buildTextField("E-mail: ", email, false),
-              buildTextField("Istituto frequentato", "Da valutare ", false),
-              buildTextField("Età: ", "Da valutare", false),
-              buildTextField("Passione: ", "Da valutare", false),
-              buildTextField("Sport preferito: ", "Da valutare", false),
-              buildTextField("Musica preferita: ", "Da valutare", false),
-              buildTextField("Artista preferito: ", "Da valutare", false),
-              buildTextField("Materia preferita: ", "Da valutare", false),
+              buildTextField(
+                  "Istituto frequentato", IstitutoFrequentato, false),
+              buildTextField("Età: ", Eta.toString(), false),
+              buildTextField("Passione: ", Passione, false),
+              buildTextField("Sport preferito: ", SportPreferito, false),
+              buildTextField("Musica preferita: ", MusicaPreferita, false),
+              buildTextField("Artista preferito: ", ArtistaPreferito, false),
+              buildTextField("Materia preferita: ", MateriaPreferita, false),
               SizedBox(
                 height: 35,
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  /*PULSANTE PER SALVERE CAMBIAMENTI ho pensato magari qua lasciamo
-                  così in modo tale che poi sarà l'utente a compilarlo magari si
-                  mette un avviso sulla home di compilare i dati */
                   RaisedButton(
                     onPressed: () {},
                     color: Colors.blue,
