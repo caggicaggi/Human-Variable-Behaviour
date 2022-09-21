@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_interpolation_to_compose_strings, avoid_print
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:human_variable_behaviour/Screens/Application/Giochi/components/gioco_quiz/Quiz%20screen.dart';
 import 'package:intl/intl.dart';
 import 'package:mysql1/mysql1.dart';
 
@@ -641,5 +642,77 @@ Future<void> updateVariable4(idUtente) async {
     await connessione.query(query).then((result) async {
       connessione.close();
     });
+  });
+}
+
+//METODO PER INSERIMENTO DATI PERSONALI
+Future<void> signUpToDbInf(
+    nome,
+    cognome,
+    email,
+    IstitutoFrequentato,
+    Eta,
+    Passione,
+    SportPreferito,
+    MusicaPreferita,
+    ArtistaPreferito,
+    MateriaPreferita) async {
+  nome = stringToDb(nome);
+  cognome = stringToDb(cognome);
+  email = stringToDb(email);
+  IstitutoFrequentato = stringToDb(IstitutoFrequentato);
+  Eta = stringToDb(Eta);
+  Passione = stringToDb(Passione);
+  SportPreferito = stringToDb(SportPreferito);
+  MusicaPreferita = stringToDb(MusicaPreferita);
+  ArtistaPreferito = stringToDb(ArtistaPreferito);
+  MateriaPreferita = stringToDb(MateriaPreferita);
+
+  //Nome della tabella
+  String table = 'utenti';
+  //Scrivo la query
+  //UPDATE Users SET weight = 160, desiredWeight = 145 WHERE id = 1;
+
+  String query = 'UPDATE ' +
+      table +
+      ' SET' +
+      " nome = " +
+      nome +
+      ',' +
+      "cognome = " +
+      cognome +
+      ',' +
+      "email = " +
+      email +
+      ',' +
+      "IstitutoFrequentato = " +
+      IstitutoFrequentato +
+      ',' +
+      "Eta = " +
+      Eta +
+      ',' +
+      "Passione = " +
+      Passione +
+      ',' +
+      "SportPreferito = " +
+      SportPreferito +
+      ',' +
+      "MusicaPreferita = " +
+      MusicaPreferita +
+      ',' +
+      "ArtistaPreferito = " +
+      ArtistaPreferito +
+      ',' +
+      "MateriaPreferita = " +
+      MateriaPreferita +
+      'WHERE idUtente = ' +
+      idUtente +
+      ";";
+  debugPrint(query);
+  var db = Mysql();
+  //eseguo query
+  await db.getConnection().then((connessione) {
+    connessione.query(query);
+    connessione.close();
   });
 }

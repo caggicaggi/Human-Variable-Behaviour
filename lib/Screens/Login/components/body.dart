@@ -16,7 +16,6 @@ import 'package:human_variable_behaviour/components/rounded_input_field.dart';
 import 'package:human_variable_behaviour/components/rounded_password_field.dart';
 import 'package:human_variable_behaviour/mysql/mysql.dart';
 
-String email = '';
 String password = '';
 //Variabili per avviso visivo
 bool emailValidation = true;
@@ -166,18 +165,18 @@ class _BodyState extends State<Body> {
       ),
     );
   }
+}
 
 //metodo per fare il check se i campi personali sono compilati
-  bool checkForNotification() {
-    if (IstitutoFrequentato == "Non hai inserito alcuna descrizione" ||
-        Eta == '1' ||
-        Passione == "Non hai inserito alcuna descrizione" ||
-        SportPreferito == "Non hai inserito alcuna descrizione" ||
-        MusicaPreferita == "Non hai inserito alcuna descrizione" ||
-        ArtistaPreferito == "Non hai inserito alcuna descrizione" ||
-        MateriaPreferita == "Non hai inserito alcuna descrizione") {
-      return checkScaffold = true;
-    }
-    return checkScaffold = false;
+bool checkForNotification() {
+  if (IstitutoFrequentato == "Non hai inserito alcuna descrizione" ||
+      Eta == '1' ||
+      Passione == "Non hai inserito alcuna descrizione" ||
+      SportPreferito == "Non hai inserito alcuna descrizione" ||
+      MusicaPreferita == "Non hai inserito alcuna descrizione" ||
+      ArtistaPreferito == "Non hai inserito alcuna descrizione" ||
+      MateriaPreferita == "Non hai inserito alcuna descrizione") {
+    return checkScaffold = true;
   }
+  return checkScaffold = false;
 }
