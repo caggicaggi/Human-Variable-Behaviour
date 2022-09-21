@@ -70,27 +70,24 @@ Future signUpToDb(nameToDb, surnameToDb, emailToDb, passwordToDb) async {
       ',' +
       '100' +
       ',' +
-      "'Scrivi qui'" +
+      "'Non hai inserito alcuna descrizione'" +
       ',' +
       '1' +
       ',' +
-      "'Scrivi qui'" +
+      "'Non hai inserito alcuna descrizione'" +
       ',' +
-      "'Scrivi qui'" +
+      "'Non hai inserito alcuna descrizione'" +
       ',' +
-      "'Scrivi qui'" +
+      "'Non hai inserito alcuna descrizione'" +
       ',' +
-      "'Scrivi qui'" +
+      "'Non hai inserito alcuna descrizione'" +
       ',' +
-      "'Scrivi qui'" +
+      "'Non hai inserito alcuna descrizione'" +
       ')';
   debugPrint(query);
   //Connessione al database
   var db = Mysql();
   await db.getConnection().then((connessione) async {
-    //Inserisco le info nel database
-    connessione.query(query);
-
     await Future.delayed(const Duration(milliseconds: 4));
     await connessione.query(query).then((result) async {
       await Future.delayed(const Duration(milliseconds: 4));

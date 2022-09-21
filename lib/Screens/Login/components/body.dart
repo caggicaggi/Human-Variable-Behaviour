@@ -22,6 +22,8 @@ String password = '';
 bool emailValidation = true;
 bool emailPresence = true;
 
+bool checkScaffold = false;
+
 class Body extends StatefulWidget {
   const Body({
     Key? key,
@@ -100,11 +102,9 @@ class _BodyState extends State<Body> {
                     //Refresh della pagina per visualizzare o cancellare l'avviso del formato errato
                     setState(() {});
                   } else {
-                    //debugPrint('Dopo della query');
-                    emailPresence = true;
-                    setState(() {});
-
-                    if (checkForNotification() == true) {
+                    await readInformationWithId(idUtente);
+                    await checkForNotification();
+                    if (checkScaffold == true) {
                       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                           behavior: SnackBarBehavior.floating,
                           content: Container(
@@ -118,6 +118,9 @@ class _BodyState extends State<Body> {
                             ),
                           )));
                     }
+                    //debugPrint('Dopo della query');
+                    emailPresence = true;
+                    setState(() {});
                     Navigator.push(
                       context,
                       MaterialPageRoute(
@@ -166,16 +169,15 @@ class _BodyState extends State<Body> {
 
 //metodo per fare il check se i campi personali sono compilati
   bool checkForNotification() {
-    bool check = false;
-    if (IstitutoFrequentato == "Scrivi qui" &&
-        Eta == 1 &&
-        Passione == "Scrivi qui" &&
-        SportPreferito == "Scrivi qui" &&
-        MusicaPreferita == "Scrivi qui" &&
-        ArtistaPreferito == "Scrivi qui" &&
-        MateriaPreferita == "Scrivi qui") {
-      return check = true;
+    if (IstitutoFrequentato == "Non hai inserito alcuna descrizione" ||
+        Eta == '1' ||
+        Passione == "Non hai inserito alcuna descrizione" ||
+        SportPreferito == "Non hai inserito alcuna descrizione" ||
+        MusicaPreferita == "Non hai inserito alcuna descrizione" ||
+        ArtistaPreferito == "Non hai inserito alcuna descrizione" ||
+        MateriaPreferita == "Non hai inserito alcuna descrizione") {
+      return checkScaffold = true;
     }
-    return check = false;
+    return checkScaffold = false;
   }
 }
