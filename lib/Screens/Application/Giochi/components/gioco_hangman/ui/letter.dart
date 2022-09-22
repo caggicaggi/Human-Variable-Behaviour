@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:human_variable_behaviour/Screens/Application/Giochi/components/gioco_hangman/ui/colors.dart';
 
 // STAMPA LA CASELLA DELLA LETTERA
-
 Widget letter(BuildContext context, String character, bool hidden) {
+  //si occupa tutto lo schermo in altezza e larghezza
   Size size = MediaQuery.of(context).size;
   return Container(
     alignment: Alignment.center,
@@ -17,6 +17,7 @@ Widget letter(BuildContext context, String character, bool hidden) {
     ),
     child: Visibility(
       visible: !hidden,
+      //stampa la lettera nel character
       child: Text(
         character,
         style: TextStyle(

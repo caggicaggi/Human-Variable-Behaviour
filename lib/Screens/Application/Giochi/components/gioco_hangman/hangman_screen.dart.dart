@@ -8,8 +8,8 @@ import 'package:human_variable_behaviour/Screens/Application/Giochi/components/g
 import 'package:human_variable_behaviour/Screens/Application/Giochi/components/gioco_hangman/ui/letter.dart';
 import 'package:human_variable_behaviour/Screens/Application/Giochi/components/gioco_hangman/utils/game.dart';
 import 'package:human_variable_behaviour/Screens/HomePage/homepage_screen.dart';
-import 'package:human_variable_behaviour/mysql/mysql.dart';
 
+//si inizializzano le variabili che si andranno a usare
 bool CorrectQuestions = false;
 int x = 0;
 Set<String> setCorrectQuestions = Set();
@@ -17,14 +17,16 @@ String word = "";
 bool checkQuestion = false;
 
 class HangMan extends StatefulWidget {
+  //si crea il costruttore
   const HangMan({Key? key}) : super(key: key);
 
+//si crea lo state
   @override
   _HangManAppState createState() => _HangManAppState();
 }
 
 class _HangManAppState extends State<HangMan> {
-  //Creo una lista che contiene l'alfabeto
+  //si crea una lista che contiene l'alfabeto
   List<String> alphabets = [
     "A",
     "B",
@@ -55,6 +57,7 @@ class _HangManAppState extends State<HangMan> {
   ];
   @override
   Widget build(BuildContext context) {
+    //si occupa tutto lo schermo in altezza e larghezza
     Size size = MediaQuery.of(context).size;
     if (checkQuestion == false) {
       word = selectStringQuestions(word).toUpperCase();
@@ -62,10 +65,11 @@ class _HangManAppState extends State<HangMan> {
     }
     return Stack(
       children: <Widget>[
+        //si imposta l'immagine di sfondo
         Image.asset(
           "assets/images/sfondo_games.png",
-          height: MediaQuery.of(context).size.height,
-          width: MediaQuery.of(context).size.width,
+          height: size.height,
+          width: size.width,
           fit: BoxFit.cover,
         ),
         Scaffold(
@@ -83,7 +87,7 @@ class _HangManAppState extends State<HangMan> {
               Center(
                 child: Stack(
                   children: <Widget>[
-                    //a seconda dei tentativi aggiungo un pezzo di immagini
+                    //a seconda dei tentativi si aggiunge un'immagine
                     figureImage(
                         context, Game.tries >= 0, "assets/images/hang.png"),
                     figureImage(
@@ -101,10 +105,10 @@ class _HangManAppState extends State<HangMan> {
                   ],
                 ),
               ),
-              //Now we will build the Hidden word widget
-              //now let's go back to the Game class and add
-              // a new variable to store the selected character
-              /* and check if it's on the word */
+              //Ora si creerà il widget Parola nascosta
+              //poi si torna alla classe Game e si aggiunge
+              // una nuova variabile per memorizzare il carattere selezionato
+              /* e si controlla se è sulla parola */
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: word
@@ -113,7 +117,7 @@ class _HangManAppState extends State<HangMan> {
                         !Game.selectedChar.contains(e.toUpperCase())))
                     .toList(),
               ),
-              //Now let's build the Game keyboard
+              //si crea la tastiera per il gioco
               SizedBox(
                 width: size.width * 1,
                 height: size.height * 0.4,
@@ -122,25 +126,28 @@ class _HangManAppState extends State<HangMan> {
                   mainAxisSpacing: 10.0,
                   crossAxisSpacing: 1.0,
                   padding: EdgeInsets.all(size.height * 0.01),
+                  //stampa tutte le lettere
                   children: alphabets.map((e) {
                     return RawMaterialButton(
                       onPressed: Game.selectedChar.contains(e)
-                          ? null // we first check that we didn't selected the button before
+                          ? null //per prima cosa si controlla di non aver selezionato il pulsante prima
                           : () {
                               setState(() {
+                                //aggiungo lettera
                                 Game.selectedChar.add(e);
+                                //caso lettera errata
                                 if (!word.split('').contains(e.toUpperCase())) {
                                   Game.tries++;
-
+                                  //tentativi esauriti
                                   if (checkCorrectQuestions() == true) {
                                     Get.to(HomePageScreen());
                                   }
                                 }
-
+                                //tentativi esauriti
                                 if (checkCorrectQuestions() == true) {
                                   Get.to(ScorePageHangMan());
                                 }
-
+                                //tentativi esauriti
                                 if (Game.tries == 6) {
                                   Get.to(ScorePageHangManBadQuestion());
                                 }
@@ -171,23 +178,27 @@ class _HangManAppState extends State<HangMan> {
     );
   }
 
+//metodo per passare la parola da indovinare
   String selectStringQuestions(String word) {
+    //inizializzo lista parole da indovinare
     List<String> listofStringQuestions = [];
-    //lista parole da indovinare senza doppie
+    //si aggiungono parole alla lista
     listofStringQuestions.add("Bullismo");
     listofStringQuestions.add("Unicam");
     listofStringQuestions.add("Scuola");
     listofStringQuestions.add("Studiare");
     listofStringQuestions.add("Universita");
 
+    //si genera un indice casuale
     var index = Random().nextInt(listofStringQuestions.length - 1) + (0);
-    ;
+
     return listofStringQuestions[index];
   }
 
   String wordToCheck = '';
 
-// metodo per il controllo della parola
+// metodo per il controllo della parola corretta che include il metodo per
+// cancellare le lettere doppie
   bool checkCorrectQuestions() {
     var arrayOfWord = word.split('');
     var correctAnswer = [];
@@ -217,6 +228,7 @@ class _HangManAppState extends State<HangMan> {
   }
 }
 
+//metodo che toglie le lettere doppie
 String removeDups(String s) {
   var arr = new List.filled(256, 0);
   String l = '';

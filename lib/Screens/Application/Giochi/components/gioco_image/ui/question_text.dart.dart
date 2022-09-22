@@ -1,16 +1,21 @@
 import 'package:flutter/material.dart';
 
 class QuestionTextWithImage extends StatefulWidget {
+  //si inizializzano le variabili
   final String _question;
   final String _img;
 
+  //si crea oggetto
   QuestionTextWithImage(this._question, this._img);
+
+  //si crea lo stato
   @override
   _QuestionTextWithImageState createState() => _QuestionTextWithImageState();
 }
 
 class _QuestionTextWithImageState extends State<QuestionTextWithImage>
     with SingleTickerProviderStateMixin {
+  //si inizializzano le variabili
   late Animation<double> _fontSizeAnimation;
   late AnimationController _fontSizeAnimationController;
 
@@ -43,10 +48,10 @@ class _QuestionTextWithImageState extends State<QuestionTextWithImage>
     }
   }
 
-  //PERMETTE DI POTER VEDERE LA DOMANDA
-
+  //PERMETTE DI POTER STAMPARE LA DOMANDA
   @override
   Widget build(BuildContext context) {
+    // si occupa tutto lo schermo in lunghezza e altezza
     Size size = MediaQuery.of(context).size;
     return Material(
       color: Colors.white,
@@ -54,9 +59,11 @@ class _QuestionTextWithImageState extends State<QuestionTextWithImage>
         padding: EdgeInsets.symmetric(horizontal: 1),
         child: Center(
             child: Column(
+          //si stampa immagine
           children: <Widget>[
             Image.asset(widget._img,
                 alignment: Alignment.topCenter, width: size.width * 0.6),
+            //si stampa domanda
             Text(
               "${widget._question}",
               style: TextStyle(

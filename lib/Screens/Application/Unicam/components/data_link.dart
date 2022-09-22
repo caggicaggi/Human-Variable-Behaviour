@@ -1,10 +1,12 @@
 class Infolink {
+  //lista variabili che si andranno a usare
   final int position;
   final String name;
   final String iconImage;
   final String description;
   final List<String> images;
 
+  //si crea il costruttore
   Infolink(
     this.position, {
     required this.name,
@@ -14,6 +16,7 @@ class Infolink {
   });
 }
 
+//compilo la lista con le informazioni
 List<Infolink> link = [
   Infolink(1,
       name: 'A chi chiedere aiuto per il bullismo?',

@@ -17,6 +17,7 @@ class Body extends StatefulWidget {
 class _BodyState extends State<Body> {
   @override
   Widget build(BuildContext context) {
+    //si occupa tutto lo schermo sia in altezza che lunghezza
     Size size = MediaQuery.of(context).size;
     return Background(
       child: Align(
@@ -34,7 +35,7 @@ class _BodyState extends State<Body> {
                     padding: const EdgeInsets.symmetric(horizontal: 20),
                     child: Column(
                       children: <Widget>[
-                        //Label per benvenuto
+                        //Label per benvenuto con nome e cognome
                         Text(
                           textAlign: TextAlign.center,
                           "Bentornato: " + nome + ' ' + cognome,
@@ -44,9 +45,10 @@ class _BodyState extends State<Body> {
                               fontSize: size.width * 0.06),
                         ),
                         //Barra di ricerca
-                        //SearchBar(),
+                        SearchBar(),
                         Column(
                           children: <Widget>[
+                            //lista informazioni
                             CategoryCard(
                                 title: "Informazioni 1",
                                 svgSrc: "assets/icons/facebook.svg",

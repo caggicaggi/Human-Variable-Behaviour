@@ -16,6 +16,7 @@ class Game {
     Colors.blue
   ];
   final String hiddenCardpath = "assets/images/hidden.png";
+
   List<String> cards_list = [];
 
   final int cardCount = 16;
@@ -28,10 +29,13 @@ class Game {
     gameImg = List.generate(cardCount, (index) => hiddenCardpath);
   }
 
-  //trovare un modo per come assegnare le stringhe in modo casuale e dinamico
+  //assegna le immagini in una posizione casuale ( metodo da sistemare)
   List<String> changeList() {
+    //creo la lista con gli indici da
     List<int> lista = [1, 2, 3];
+    //instanzio l'oggetto random
     Random random = new Random();
+    //calcolo numero casuale da 1 a 3
     int randomNumber = random.nextInt(3) + 0;
 
     if (randomNumber == 0) {

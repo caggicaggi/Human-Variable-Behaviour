@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:human_variable_behaviour/Screens/Application/Giochi/components/gioco_image/pages/score_page.dart.dart';
 import 'package:human_variable_behaviour/Screens/Application/Giochi/components/gioco_image/ui/answer_button.dart.dart';
@@ -9,13 +7,14 @@ import 'package:human_variable_behaviour/Screens/Application/Giochi/components/g
 import 'package:human_variable_behaviour/Screens/Application/Giochi/components/gioco_image/utils/quiz.dart.dart';
 
 class QuizPagina extends StatefulWidget {
+  //si crea lo stato
   @override
   _QuizPageState createState() => _QuizPageState();
 }
 
 class _QuizPageState extends State<QuizPagina> {
   late Question currentQuestion;
-  //LISTA IMMAGINI E DOMANDE
+  //si crea lista delle domande, le risposte e le immagini
   Quiz quiz = Quiz([
     Question("Nella foto si può vedere obama?", true, "assets/images/p1.jpeg"),
     Question("Questa è una pizza?", false, "assets/images/p2.jpeg"),
@@ -23,6 +22,7 @@ class _QuizPageState extends State<QuizPagina> {
     Question("In foto si può vedere Elon Mask?", true, "assets/images/p4.jpeg"),
   ]);
 
+  //si inizializza le variabili che si useranno
   late String questionText;
   late String imageName;
   late int questionNumber;
@@ -32,6 +32,7 @@ class _QuizPageState extends State<QuizPagina> {
   @override
   void initState() {
     super.initState();
+    //si setta le variabili
     currentQuestion = quiz.nextQuestion!;
     questionText = currentQuestion.question;
     imageName = currentQuestion.image;
@@ -48,6 +49,7 @@ class _QuizPageState extends State<QuizPagina> {
 
   @override
   Widget build(BuildContext context) {
+    //si occupa tutto lo schermo sia in lunghezza che altezza
     Size size = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: Colors.transparent,
@@ -59,6 +61,7 @@ class _QuizPageState extends State<QuizPagina> {
       body: Stack(
         fit: StackFit.expand,
         children: <Widget>[
+          //si imposta immagine sfondo
           Image.asset(
             "assets/images/sfondo_games.png",
             height: size.height,
@@ -79,12 +82,12 @@ class _QuizPageState extends State<QuizPagina> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
-                  //True Button
+                  //Risposta corretta
                   AnswerButton(true, () => handleAnswer(true)),
                   Padding(
                     padding: EdgeInsets.all(size.height * 0.02),
                   ),
-                  //False Button
+                  //Risposta errata
                   AnswerButton(false, () => handleAnswer(false)),
                 ],
               )
@@ -93,6 +96,7 @@ class _QuizPageState extends State<QuizPagina> {
           overlayShouldBeVisible == true
               ? CorrectWrongOverlay(isCorrect, () {
                   //se le domande terminano vado alla pagina ScorePage per il risultato
+                  //quindi se la lunghezza delle domande è uguale al numero delle domande fatte
                   if (quiz.length == checknumberQuestions) {
                     Navigator.of(context).pushAndRemoveUntil(
                         MaterialPageRoute(

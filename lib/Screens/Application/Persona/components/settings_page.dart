@@ -16,6 +16,7 @@ class _SettingsPageState extends State<SettingsPage> {
       appBar: AppBar(
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         elevation: 1,
+        //si crea l'arrow  per il ritorno alla pagina precedente
         leading: IconButton(
           onPressed: () {
             Navigator.of(context).pop();
@@ -59,6 +60,7 @@ class _SettingsPageState extends State<SettingsPage> {
             SizedBox(
               height: 10,
             ),
+            // si costruisce la sezione informazioni
             buildAccountOptionRow(context, "Change password"),
             buildAccountOptionRow(context, "Content settings"),
             buildAccountOptionRow(context, "Social"),
@@ -89,6 +91,7 @@ class _SettingsPageState extends State<SettingsPage> {
             SizedBox(
               height: 10,
             ),
+            //sezione informazioni con possibilità di attivarle o disattivarle
             buildNotificationOptionRow("New for you", true),
             buildNotificationOptionRow("Account activity", true),
             buildNotificationOptionRow("Opportunity", false),

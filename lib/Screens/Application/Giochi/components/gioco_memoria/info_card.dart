@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 
 Widget info_card(BuildContext context, String title, String info) {
+  //occupo tutto in larghezza e altezza
   Size size = MediaQuery.of(context).size;
   return Expanded(
     child: Container(

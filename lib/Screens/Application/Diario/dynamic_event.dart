@@ -11,9 +11,11 @@ import '../../../mysql/mysql.dart';
 import '../../HomePage/components/body.dart';
 
 class DynamicEvent extends StatefulWidget {
+  //creo un nuovo stato
   @override
   _DynamicEventState createState() => _DynamicEventState();
 
+//richiamo il body
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,6 +25,7 @@ class DynamicEvent extends StatefulWidget {
 }
 
 class _DynamicEventState extends State<DynamicEvent> {
+  //inizializzo variabili che verranno utilizzate
   bool b = false;
   late CalendarController _controller;
   late Map<DateTime, List<dynamic>> _events;
@@ -32,16 +35,18 @@ class _DynamicEventState extends State<DynamicEvent> {
 
   @override
   void initState() {
+    //metodo che viene caricato appena si apre la pagine
     super.initState();
     _controller = CalendarController();
     _eventController = TextEditingController();
     _events = {};
     _selectedEvents = [];
+    //richiamo metodo per la lista
     prefsData();
   }
 
   prefsData() async {
-    //calcolo lista
+    //calcolo lista eventi inseriti
     if (b == false) {
       DateTime dataInizioPosizione = DateTime.now();
       await listaGiornateInserite(dataInizioPosizione, idUtente);
@@ -49,6 +54,7 @@ class _DynamicEventState extends State<DynamicEvent> {
         _selectedEvents.add(list[i].toString());
       }
       b == true;
+      //pulisco la lista
       list.clear();
     }
     prefs = await SharedPreferences.getInstance();
@@ -79,9 +85,10 @@ class _DynamicEventState extends State<DynamicEvent> {
 
   @override
   Widget build(BuildContext context) {
-    //resetto la Map
+    //resetto la Map degli eventi
     _events.clear();
     return Container(
+      //imposto lo sfondo della pagina
       decoration: BoxDecoration(
           image: DecorationImage(
               image: AssetImage("assets/images/sfondo_games.png"),
@@ -90,6 +97,7 @@ class _DynamicEventState extends State<DynamicEvent> {
         backgroundColor: Colors.transparent,
         appBar: PreferredSize(
           preferredSize: Size.fromHeight(100.0),
+          //creeo nell'AppBar una freccia che mi riporta alla HomePage
           child: AppBar(
             backgroundColor: Colors.blue,
             leading: IconButton(
@@ -105,6 +113,7 @@ class _DynamicEventState extends State<DynamicEvent> {
                 );
               },
             ),
+            //Costruisco la barra dove è contenuto titolo e sottotitolo
             bottom: PreferredSize(
               preferredSize: Size.fromHeight(30.0),
               child: Container(
@@ -136,8 +145,10 @@ class _DynamicEventState extends State<DynamicEvent> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
+              //Costruisco il calendario
               TableCalendar(
                 events: _events,
+                //setto il layout iniziale del calendario
                 initialCalendarFormat: CalendarFormat.month,
                 calendarStyle: CalendarStyle(
                     //giorni in rosso ( cioè weekend)
@@ -160,14 +171,17 @@ class _DynamicEventState extends State<DynamicEvent> {
                       fontSize: 20,
                     ),
                     canEventMarkersOverflow: false,
+                    //giorno corrente
                     todayColor: Colors.blue,
                     selectedColor: Theme.of(context).primaryColor,
+                    //dimensione giorno corrente
                     todayStyle: TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 19.0,
                         color: Colors.white)),
                 headerStyle: HeaderStyle(
                   centerHeaderTitle: true,
+                  //bottone che appare quando si selezione la data
                   formatButtonDecoration: BoxDecoration(
                     color: Colors.blue,
                     borderRadius: BorderRadius.circular(20.0),
@@ -197,16 +211,17 @@ class _DynamicEventState extends State<DynamicEvent> {
                       decoration: BoxDecoration(
                           color: Theme.of(context).primaryColor,
                           borderRadius: BorderRadius.circular(19.0)),
+                      //setto la data che si seleziona
                       child: Text(
                         date.day.toString(),
-                        style: TextStyle(color: Colors.white, fontSize: 18),
+                        style: TextStyle(color: Colors.white, fontSize: 19),
                       )),
                   todayDayBuilder: (context, date, events) => Container(
                       margin: const EdgeInsets.all(4.0),
                       alignment: Alignment.center,
                       decoration: BoxDecoration(
                           color: Colors.blue,
-                          borderRadius: BorderRadius.circular(10.0)),
+                          borderRadius: BorderRadius.circular(19.0)),
                       child: Text(
                         date.day.toString(),
                         style: TextStyle(color: Colors.white),
@@ -225,6 +240,7 @@ class _DynamicEventState extends State<DynamicEvent> {
                           color: Colors.white,
                           border: Border.all(color: Colors.white)),
                       child: Center(
+                          //stampo descrizione
                           child: Text(
                         event,
                         style: GoogleFonts.akayaTelivigala(fontSize: 23),
@@ -235,6 +251,7 @@ class _DynamicEventState extends State<DynamicEvent> {
             ],
           ),
         ),
+        //pulsante per inserire la descrizione della giornata
         floatingActionButton: FloatingActionButton(
           backgroundColor: Colors.blue,
           child: Icon(Icons.add_comment_sharp),
@@ -244,6 +261,7 @@ class _DynamicEventState extends State<DynamicEvent> {
     );
   }
 
+//Schermata per inserire descrizione giornata
   _showAddDialog() async {
     await showDialog(
       context: context,
@@ -294,8 +312,10 @@ class _DynamicEventState extends State<DynamicEvent> {
                     //update giornata inserita
                     await signDataAndGiornata(idUtente, _controller.selectedDay,
                         _eventController.text);
+                    //ricalcolo lista
                     await listaGiornateInserite(
                         _controller.selectedDay, idUtente);
+                    //se
                     if (list.isNotEmpty) {
                       _selectedEvents.clear();
                     }
@@ -303,6 +323,8 @@ class _DynamicEventState extends State<DynamicEvent> {
                       print(list[0]);
                       _selectedEvents.add(list[i].toString());
                     }
+
+                    //ristampo la lista aggiornata
                     await _selectedEvents.map((list) => Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: Container(
@@ -312,6 +334,7 @@ class _DynamicEventState extends State<DynamicEvent> {
                                 borderRadius: BorderRadius.circular(20),
                                 color: Colors.white,
                                 border: Border.all(color: Colors.white)),
+                            //stampo la lista
                             child: Center(
                                 child: Text(
                               list.toString(),

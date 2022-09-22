@@ -7,12 +7,13 @@ import 'package:human_variable_behaviour/Screens/HomePage/homepage_screen.dart';
 class ScoreScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    //inizializzo controller
     QuestionController _qnController = Get.put(QuestionController());
-
     return Scaffold(
       body: Stack(
         fit: StackFit.expand,
         children: [
+          //imposto immagine di sfondo
           Image.asset(
             "assets/images/sfondo_games.png",
             height: MediaQuery.of(context).size.height,
@@ -22,6 +23,7 @@ class ScoreScreen extends StatelessWidget {
           Column(
             children: [
               Spacer(flex: 3),
+              //stampo titolo pagina
               Text(
                 "Score",
                 style: Theme.of(context)
@@ -30,6 +32,7 @@ class ScoreScreen extends StatelessWidget {
                     .copyWith(color: Colors.amber),
               ),
               Spacer(),
+              //calcolo del punteggio ottenuto moltiplicato per 10
               Text(
                 "${_qnController.numOfCorrectAns * 10}/${_qnController.questions.length * 10}",
                 style: Theme.of(context)
@@ -37,7 +40,9 @@ class ScoreScreen extends StatelessWidget {
                     .headline2!
                     .copyWith(color: Colors.amber),
               ),
+              //inserisco distanza
               Spacer(flex: 3),
+              //creo pulsante per tornare alla home
               TextButton(
                 onPressed: (() {
                   //resetto variabile per lista domande

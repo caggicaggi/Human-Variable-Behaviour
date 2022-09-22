@@ -5,6 +5,7 @@ import 'package:human_variable_behaviour/Screens/Application/Giochi/components/g
 class LandingPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    //occupo tutto lo spazio in larghezza e lunghezza
     Size size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
@@ -22,12 +23,14 @@ class LandingPage extends StatelessWidget {
             MaterialPageRoute(builder: (BuildContext context) => QuizPagina())),
         child: Stack(
           children: <Widget>[
+            //si imposta immagine sfondo
             Image.asset(
               "assets/images/sfondo_games.png",
               fit: BoxFit.fitHeight,
               width: size.width,
               height: size.height,
             ),
+            //inserisco l'immagine del logo dell'università
             Image.asset(
               "assets/images/logoUnicam.jpg",
               fit: BoxFit.fitHeight,
@@ -37,6 +40,7 @@ class LandingPage extends StatelessWidget {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: <Widget>[
+                  //creo bottone per andare al quiz
                   TextButton(
                       onPressed: () {
                         Navigator.of(context).push(MaterialPageRoute(

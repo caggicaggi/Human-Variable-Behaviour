@@ -9,6 +9,7 @@ class ScoreScreen extends StatelessWidget {
       body: Stack(
         fit: StackFit.expand,
         children: [
+          //imposto immagine di sfondo
           Image.asset(
             "assets/images/sfondo_games.png",
             height: MediaQuery.of(context).size.height,
@@ -17,6 +18,7 @@ class ScoreScreen extends StatelessWidget {
           ),
           Column(
             children: [
+              //inserisco lo spazio
               Spacer(flex: 3),
               Text(
                 "Score",
@@ -25,7 +27,9 @@ class ScoreScreen extends StatelessWidget {
                     .headline1!
                     .copyWith(color: Colors.amber),
               ),
+              //inserisco lo spazio
               Spacer(),
+              //stampo stringa gioco concluso
               Text(
                 "Complimenti, hai terminato il gioco!",
                 textAlign: TextAlign.center,
@@ -34,7 +38,9 @@ class ScoreScreen extends StatelessWidget {
                     .headline2!
                     .copyWith(color: Colors.amber),
               ),
+              //inserisco lo spazio
               Spacer(flex: 3),
+              //creo pulsante per ritornare alla home
               TextButton(
                 onPressed: (() {
                   Navigator.push(

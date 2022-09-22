@@ -19,17 +19,19 @@ int i = 0;
 
 class GiochiScreen extends StatelessWidget {
   const GiochiScreen({Key? key}) : super(key: key);
-//Schermata iniziale
+
   @override
   Widget build(BuildContext context) {
+    //si occupa tutto lo schermo sia in altezza che in larghezza
     Size size = MediaQuery.of(context).size;
     return Scaffold(
       body: Stack(
         children: [
+          //si inserisce immagine dello sfondo
           Image.asset(
             "assets/images/sfondo_games.png",
-            height: MediaQuery.of(context).size.height,
-            width: MediaQuery.of(context).size.width,
+            height: size.height,
+            width: size.width,
             fit: BoxFit.cover,
           ),
           SafeArea(
@@ -38,15 +40,18 @@ class GiochiScreen extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  //si inserisce spaziatura
                   Spacer(flex: 2), //2/6
                   Text(
                     "Ora comincia a giocare!",
                     style: Theme.of(context).textTheme.headline4?.copyWith(
                         color: Colors.white, fontWeight: FontWeight.bold),
                   ),
+                  //si inserisce spaziatura
                   Spacer(
                     flex: 1,
                   ), // 1/6
+                  //si crea pulsante per iniziare il gioco del quiz
                   InkWell(
                     onTap: () async {
                       Navigator.push(
@@ -71,9 +76,11 @@ class GiochiScreen extends StatelessWidget {
                       ),
                     ),
                   ),
+                  //si inserisce spaziatura
                   Spacer(
                     flex: 1,
                   ), // 1/6
+                  //si crea pulsante per iniziare il gioco dell'indovina l'immagine
                   InkWell(
                     onTap: () {
                       Navigator.push(
@@ -98,9 +105,11 @@ class GiochiScreen extends StatelessWidget {
                       ),
                     ),
                   ),
+                  //si inserisce spaziatura
                   Spacer(
                     flex: 1,
                   ),
+                  //si crea pulsante per iniziare il gioco dell'impiccato
                   InkWell(
                     onTap: () {
                       Navigator.push(context,
@@ -123,9 +132,11 @@ class GiochiScreen extends StatelessWidget {
                       ),
                     ),
                   ),
+                  //si inserisce spaziatura
                   Spacer(
                     flex: 1,
                   ),
+                  //si crea pulsante per iniziare il gioco di memoria
                   InkWell(
                     onTap: () {
                       Navigator.push(
@@ -150,6 +161,7 @@ class GiochiScreen extends StatelessWidget {
                       ),
                     ),
                   ),
+                  //si inserisce spaziatura
                   Spacer(
                     flex: 4,
                   ), // it will take 2/6 spaces
@@ -166,7 +178,9 @@ class GiochiScreen extends StatelessWidget {
 class QuizScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    //si occupa tutto lo schermo in lunghezza e larghezza
     Size size = MediaQuery.of(context).size;
+    //si cancella l'istanza del controller
     Get.delete<QuestionController>();
     return Scaffold(
       extendBodyBehindAppBar: true,
@@ -177,7 +191,9 @@ class QuizScreen extends StatelessWidget {
         actions: [
           TextButton(
             onPressed: () {
+              //si cancella l'istanza del controller
               Get.delete<QuestionController>();
+              //si va alla pagina iniziale dove scelgo i giochi
               Navigator.push(
                 context,
                 MaterialPageRoute(builder: (context) => GiochiScreen()),
@@ -192,8 +208,11 @@ class QuizScreen extends StatelessWidget {
                   size: size.height * 0.04,
                 ),
                 onPressed: () {
+                  //si cancella instanza del controller
                   Get.delete<QuestionController>();
+                  //si resetta variabile di controllo
                   b = false;
+                  //si ritorna alla HomePage
                   Navigator.push(
                     context,
                     MaterialPageRoute(builder: (context) => HomePageScreen()),

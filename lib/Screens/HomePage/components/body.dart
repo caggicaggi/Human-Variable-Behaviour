@@ -1,4 +1,3 @@
-// ignore_for_file: prefer_const_constructors
 import 'package:flutter/material.dart';
 import 'package:human_variable_behaviour/Screens/Application/Diario/dynamic_event.dart';
 import 'package:human_variable_behaviour/Screens/Application/Giochi/giochi_screen.dart';

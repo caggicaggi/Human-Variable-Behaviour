@@ -1,5 +1,5 @@
 class Game {
-  //adding the number of tries
+  //aggiungo il numero di tentativi
   static int tries = 0;
   static List<String> selectedChar = [];
 }

@@ -17,6 +17,7 @@ class Body extends StatefulWidget {
 class _BodyState extends State<Body> {
   @override
   Widget build(BuildContext context) {
+    //si occupa tutto lo spazio in altezza e larghezza
     Size size = MediaQuery.of(context).size;
     return Background(
       child: SingleChildScrollView(
@@ -24,6 +25,7 @@ class _BodyState extends State<Body> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Container(
+              //si imposta l'immagine di sfondo
               decoration: BoxDecoration(
                 image: DecorationImage(
                     image: AssetImage("assets/images/sfondo_games.png"),

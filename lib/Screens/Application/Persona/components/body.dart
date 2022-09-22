@@ -25,19 +25,25 @@ bool checkforModifica = false;
 class _BodyState extends State<Body> {
   @override
   Widget build(BuildContext context) {
+    //si setta la variabile per vedere cosa far visualizzare all'utente
     checkForNotification();
+    //si occupata tutto lo schermo sia in larghezza che altezza
     Size size = MediaQuery.of(context).size;
 
     if (checkforModifica == true) {
+      //si fa vedere la schermata per la modifica
       checkScaffold = true;
     } else {
+      //si fa vedere la schermata per la visualizzazione
       checkScaffold = false;
     }
     if (checkScaffold == true) {
+      //SCAFFOLD per la modifica dei dati
       return Scaffold(
         appBar: AppBar(
           backgroundColor: Theme.of(context).scaffoldBackgroundColor,
           elevation: 1,
+          //si crea pulsante per tornare alla home
           leading: IconButton(
             icon: Icon(
               Icons.home,
@@ -49,6 +55,7 @@ class _BodyState extends State<Body> {
               Get.to(HomePageScreen());
             },
           ),
+          //si crea pulsante per andare alle impostazioni
           actions: [
             IconButton(
               icon: Icon(
@@ -63,6 +70,7 @@ class _BodyState extends State<Body> {
           ],
         ),
         body: Container(
+          //si inserisce l'immagine di sfondo
           decoration: BoxDecoration(
             image: DecorationImage(
                 image: AssetImage("assets/images/sfondo_games.png"),
@@ -102,6 +110,7 @@ class _BodyState extends State<Body> {
                                   offset: Offset(0, 10))
                             ],
                             shape: BoxShape.circle,
+                            //immagine che si vede nella sezione profilo
                             image: DecorationImage(
                                 fit: BoxFit.cover,
                                 image: NetworkImage(
@@ -134,6 +143,7 @@ class _BodyState extends State<Body> {
                 SizedBox(
                   height: 35,
                 ),
+                //si crea la sezione per inserire il nome
                 RoundedInputField(
                   icon: Icons.person,
                   hintText: "Nome ",
@@ -141,6 +151,7 @@ class _BodyState extends State<Body> {
                     nome = value;
                   },
                 ),
+                //si crea la sezione per inserire il cognome
                 RoundedInputField(
                   icon: Icons.person,
                   hintText: "Cognome ",
@@ -148,6 +159,7 @@ class _BodyState extends State<Body> {
                     cognome = value;
                   },
                 ),
+                //si crea la sezione per inserire l'email
                 RoundedInputField(
                   icon: Icons.email,
                   hintText: "Email ",
@@ -155,6 +167,7 @@ class _BodyState extends State<Body> {
                     email = value;
                   },
                 ),
+                //si crea la sezione per inserire l Istituto Frequentato
                 RoundedInputField(
                   icon: Icons.school,
                   hintText: "Istituto Frequentato ",
@@ -162,6 +175,7 @@ class _BodyState extends State<Body> {
                     IstitutoFrequentato = value;
                   },
                 ),
+                //si crea la sezione per inserire l' Età
                 RoundedInputField(
                   icon: Icons.person,
                   hintText: "Età ",
@@ -169,6 +183,7 @@ class _BodyState extends State<Body> {
                     Eta = value;
                   },
                 ),
+                //si crea la sezione per inserire la passione
                 RoundedInputField(
                   icon: Icons.heart_broken_outlined,
                   hintText: "Passione ",
@@ -176,13 +191,14 @@ class _BodyState extends State<Body> {
                     Passione = value;
                   },
                 ),
+                //si crea la sezione per inserire lo Sport Preferito
                 RoundedInputField(
                   icon: Icons.heart_broken_outlined,
                   hintText: "Sport Preferito ",
                   onChange: (value) {
                     SportPreferito = value;
                   },
-                ),
+                ), //si crea la sezione per inserire la musica preferita
                 RoundedInputField(
                   icon: Icons.hearing_outlined,
                   hintText: "Musica preferita ",
@@ -190,6 +206,7 @@ class _BodyState extends State<Body> {
                     MusicaPreferita = value;
                   },
                 ),
+                //si crea la sezione per inserire l'Artista preferito
                 RoundedInputField(
                   icon: Icons.hearing_outlined,
                   hintText: "Artista preferito ",
@@ -197,6 +214,7 @@ class _BodyState extends State<Body> {
                     ArtistaPreferito = value;
                   },
                 ),
+                //si crea la sezione per inserire la materia preferita
                 RoundedInputField(
                   icon: Icons.school,
                   hintText: "Materia preferita ",
@@ -212,6 +230,7 @@ class _BodyState extends State<Body> {
                   children: [
                     RaisedButton(
                       onPressed: () {
+                        //metodo per caricare le modifiche nel db
                         signUpToDbInf(
                             nome,
                             cognome,
@@ -223,8 +242,10 @@ class _BodyState extends State<Body> {
                             MusicaPreferita,
                             ArtistaPreferito,
                             MateriaPreferita);
+                        //inizializzo variabili
                         checkforModifica = false;
                         checkScaffold = false;
+                        //notifica di avvenuta modifica informazioni
                         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                             behavior: SnackBarBehavior.floating,
                             content: Container(
@@ -237,6 +258,7 @@ class _BodyState extends State<Body> {
                                     fontSize: 22, color: Colors.white),
                               ),
                             )));
+                        //si rimanda all'homepage
                         Get.to(HomePageScreen());
                       },
                       color: Colors.blue,
@@ -265,6 +287,7 @@ class _BodyState extends State<Body> {
         appBar: AppBar(
           backgroundColor: Theme.of(context).scaffoldBackgroundColor,
           elevation: 1,
+          //si crea il pulsante per tornare alla home
           leading: IconButton(
             icon: Icon(
               Icons.home,
@@ -274,6 +297,7 @@ class _BodyState extends State<Body> {
               Get.to(HomePageScreen());
             },
           ),
+          //si crea il pulsante per andare alle impostazioni
           actions: [
             IconButton(
               icon: Icon(
@@ -288,6 +312,7 @@ class _BodyState extends State<Body> {
           ],
         ),
         body: Container(
+          //si setta l'immagine di sofndo
           decoration: BoxDecoration(
             image: DecorationImage(
                 image: AssetImage("assets/images/sfondo_games.png"),
@@ -326,6 +351,7 @@ class _BodyState extends State<Body> {
                                   color: Colors.black.withOpacity(0.1),
                                   offset: Offset(0, 10))
                             ],
+                            //immagine visibile nella sezione informazioni
                             shape: BoxShape.circle,
                             image: DecorationImage(
                                 fit: BoxFit.cover,
@@ -359,16 +385,27 @@ class _BodyState extends State<Body> {
                 SizedBox(
                   height: 35,
                 ),
+                //pulsante per stampare sezione nome
                 buildTextField("Nome: ", nome, false),
+                //pulsante per stampare sezione cognome
                 buildTextField("Cognome: ", cognome, false),
+                //pulsante per stampare sezione email
                 buildTextField("E-mail: ", email, false),
+                //pulsante per stampare sezione IstitutoFrequentato
                 buildTextField(
                     "Istituto frequentato", IstitutoFrequentato, false),
+                //pulsante per stampare sezione Eta, si usa il metodo per stampare
+                //una stringa dato che è un intero
                 buildTextField("Età: ", checkEta(), false),
+                //pulsante per stampare sezione Passione
                 buildTextField("Passione: ", Passione, false),
+                //pulsante per stampare sezione SportPreferito
                 buildTextField("Sport preferito: ", SportPreferito, false),
+                //pulsante per stampare sezione MusicaPreferita
                 buildTextField("Musica preferita: ", MusicaPreferita, false),
+                //pulsante per stampare sezione ArtistaPreferito
                 buildTextField("Artista preferito: ", ArtistaPreferito, false),
+                //pulsante per stampare sezione MateriaPreferita
                 buildTextField("Materia preferita: ", MateriaPreferita, false),
                 SizedBox(
                   height: 35,
@@ -378,7 +415,9 @@ class _BodyState extends State<Body> {
                   children: [
                     RaisedButton(
                       onPressed: () {
+                        //si setta variabile
                         checkforModifica = true;
+                        //si riporta alla sezione informazioni personali
                         Get.to(PersonaScreen());
                       },
                       color: Colors.blue,
@@ -405,6 +444,7 @@ class _BodyState extends State<Body> {
     }
   }
 
+  //widget per la stampa delle informazioni
   Widget buildTextField(
       String labelText, String placeholder, bool isPasswordTextField) {
     return Padding(

@@ -18,13 +18,16 @@ class _ScorePageHangManState extends State<ScorePageHangMan> {
       body: Stack(
         fit: StackFit.expand,
         children: [
+          //si imposta l'immagine di sfondo
           Image.asset(
             "assets/images/sfondo_games.png",
             fit: BoxFit.cover,
           ),
           Column(
             children: [
+              //si inserisce la spaziatura
               Spacer(flex: 3),
+              //si stampa testo tentativo andato bene
               Text(
                 "COMPLIMENTI HAI INDOVINATO LA PAROLA!",
                 textAlign: TextAlign.center,
@@ -33,17 +36,23 @@ class _ScorePageHangManState extends State<ScorePageHangMan> {
                     .headline3!
                     .copyWith(color: Colors.amber),
               ),
+              //si inserisce la spaziatura
               Spacer(flex: 3),
+              //si inserisce immagine
               Image.asset(
                 "assets/images/logoUnicam.jpg",
                 height: 200,
                 width: 400,
                 fit: BoxFit.cover,
               ),
+              //si inserisce la spaziatura
               Spacer(flex: 3),
+              // si crea pulsante per tornare alla home
               TextButton(
                 onPressed: (() {
+                  //si resetta lo state
                   setState(() {});
+                  //si inizializzano le variabili e le liste
                   checkQuestion = false;
                   Game.tries = 0;
                   Game.selectedChar.clear();

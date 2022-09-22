@@ -8,6 +8,7 @@ import 'package:human_variable_behaviour/Screens/Application/Giochi/components/g
 import 'package:human_variable_behaviour/constant.dart';
 import 'package:human_variable_behaviour/mysql/mysql.dart';
 
+//si dichiara variabili che verrano usate
 int count = 0;
 bool b = false;
 Set<int> setOfInts = Set();
@@ -15,6 +16,7 @@ Set<int> setOfInts = Set();
 bool checkBool = false;
 
 class Option extends StatelessWidget {
+  //si crea costruttore
   const Option({
     Key? key,
     required this.text,
@@ -27,11 +29,12 @@ class Option extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    //si occupa tutto lo schermo sia in larghezza che lunghezza
     Size size = MediaQuery.of(context).size;
     return GetBuilder<QuestionController>(
         init: QuestionController(),
         builder: (qnController) {
-          //settare la risposta giusta e far venire il flag verde o rosso
+          //si setta la risposta per far venire il flag verde o rosso
           Color getTheRightColor() {
             if (qnController.isAnswered) {
               if (index == qnController.correctAns) {
@@ -48,6 +51,7 @@ class Option extends StatelessWidget {
             return getTheRightColor() == kRedColor ? Icons.close : Icons.done;
           }
 
+          //si stampa totale e domanda corrente e implemento i metodo sopra dichiarati
           return InkWell(
             onTap: press,
             child: Container(
@@ -87,7 +91,7 @@ class Option extends StatelessWidget {
   }
 }
 
-// DOMANDE
+//classe che stampa le domande
 class Body extends StatelessWidget {
   const Body({
     Key? key,
@@ -95,15 +99,19 @@ class Body extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    //si occupa tutto lo schermo sia in larghezza che lungezza
     Size size = MediaQuery.of(context).size;
+    //inizializzo controller
     QuestionController _questionController = Get.put(QuestionController());
+    //si richiama metodo che resetta il numero di domande dal controller
     _questionController.resetQuestionNumber();
     return Stack(
       children: [
+        //si imposta l'immagine di sfondo
         Image.asset(
           "assets/images/sfondo_games.png",
-          height: MediaQuery.of(context).size.height,
-          width: MediaQuery.of(context).size.width,
+          height: size.height,
+          width: size.width,
           fit: BoxFit.cover,
         ),
         SafeArea(
@@ -121,7 +129,7 @@ class Body extends StatelessWidget {
                 child: Obx(
                   () => Text.rich(
                     TextSpan(
-                      //visualizzare numero domanda corrente e il totale
+                      //visualizzare numero domanda corrente
                       text:
                           "Question ${_questionController.questionNumber.value}",
                       style: Theme.of(context)
@@ -130,6 +138,7 @@ class Body extends StatelessWidget {
                           .copyWith(color: kBlackColor),
                       children: [
                         TextSpan(
+                          //visualizzare numero domande totali
                           text: "/${_questionController.questions.length}",
                           style: Theme.of(context)
                               .textTheme
@@ -142,14 +151,14 @@ class Body extends StatelessWidget {
                 ),
               ),
               Expanded(
-                //dati passati alla QuestionCard per formulare domanda
+                //dati passati alla QuestionCard per creare domanda
                 child: PageView.builder(
-                  // Block swipe to next qn
                   physics: NeverScrollableScrollPhysics(),
                   controller: _questionController.pageController,
                   onPageChanged: _questionController.updateTheQnNum,
                   itemCount: _questionController.questions.length,
                   itemBuilder: (context, index) => QuestionCard(
+                      //si passa il metodo setIndex per estrarre indice casuale per la domanda
                       question: _questionController.questions[setIndex()]),
                 ),
               ),
@@ -166,6 +175,7 @@ int setIndex() {
   //max= numero di domande
   int max = 4;
   int index = 0;
+  //si crea lista con numeri casuali
   if (b == false) {
     do {
       setOfInts.add(Random().nextInt(max));
@@ -173,6 +183,7 @@ int setIndex() {
     b = true;
   }
 
+  //si setta l'indice che torna con il primo elemento della lista
   for (var j in setOfInts) {
     index = setOfInts.first;
   }
@@ -186,6 +197,7 @@ class ProgressBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    //si occupa tutto lo schermo sia in lunghezza che altezza
     Size size = MediaQuery.of(context).size;
     return Container(
       width: double.infinity,
@@ -195,6 +207,7 @@ class ProgressBar extends StatelessWidget {
         borderRadius: BorderRadius.circular(50),
       ),
       child: GetBuilder<QuestionController>(
+        //richiamo il controller
         init: QuestionController(),
         builder: (controller) {
           return Stack(
@@ -214,7 +227,7 @@ class ProgressBar extends StatelessWidget {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      // si impostano i secondi della navbar
+                      // si impostano i secondi della barra di scorrimento
                       Text(
                         "${(controller.animation.value * 20).round()} sec",
                       ),
@@ -231,9 +244,9 @@ class ProgressBar extends StatelessWidget {
 }
 
 class QuestionCard extends StatelessWidget {
+  //si crea il  costruttore
   const QuestionCard({
     Key? key,
-    // it means we have to pass this
     required this.question,
   }) : super(key: key);
 
@@ -241,7 +254,9 @@ class QuestionCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    //si occupa tutto lo schermo sia in altezza che lunghezza
     Size size = MediaQuery.of(context).size;
+    //si inizializza il controller
     QuestionController _controller = Get.put(QuestionController());
     return Container(
       margin: EdgeInsets.symmetric(
@@ -254,6 +269,7 @@ class QuestionCard extends StatelessWidget {
       child: Column(
         children: [
           SizedBox(height: size.height * 0.001),
+          //si stampa la domanda corrente
           Text(
             question.question,
             style: Theme.of(context)
@@ -262,11 +278,13 @@ class QuestionCard extends StatelessWidget {
                 .copyWith(color: kBlackColor),
           ),
           SizedBox(height: size.height * 0.02),
+          //si stampa la lista delle risposte
           ...List.generate(
             question.options.length,
             (index) => Option(
               index: index,
               text: question.options[index],
+              //il metodo checkAns controlla la risposta in base all'indice selezionato
               press: () => _controller.checkAns(question, index),
             ),
           ),

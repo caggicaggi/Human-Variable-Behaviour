@@ -1,8 +1,10 @@
 class Question {
+  //si crea le varibili che si andrà a utilizzare
   final int id, answer;
   final String question;
   final List<String> options;
 
+//si crea l'oggetto che corrisponderebbe alla domanda
   Question(
       {required this.id,
       required this.question,
@@ -10,6 +12,7 @@ class Question {
       required this.options});
 }
 
+//si crea la lista delle domande contenenti: Indice,Domande,Risposta,IndiceRispostaEsatta
 const List sample_data = [
   {
     "id": 1,

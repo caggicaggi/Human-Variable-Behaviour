@@ -4,10 +4,14 @@ import 'package:human_variable_behaviour/Screens/Application/Giochi/components/g
 import 'package:human_variable_behaviour/Screens/HomePage/homepage_screen.dart';
 
 class ScorePage extends StatefulWidget {
+  // si dichiarano le variabili
   final int score;
   final int totalQuestion;
 
+  // si crea l'oggetto
   ScorePage(this.score, this.totalQuestion);
+
+  // si crea lo state
   @override
   _ScorePageState createState() => _ScorePageState();
 }
@@ -19,6 +23,7 @@ class _ScorePageState extends State<ScorePage> {
       body: Stack(
         fit: StackFit.expand,
         children: [
+          //si imposta l'immagine di sfondo
           Image.asset(
             "assets/images/sfondo_games.png",
             height: MediaQuery.of(context).size.height,
@@ -27,6 +32,7 @@ class _ScorePageState extends State<ScorePage> {
           ),
           Column(
             children: [
+              //si inserisce spaziatura
               Spacer(flex: 3),
               Text(
                 "Score",
@@ -35,7 +41,9 @@ class _ScorePageState extends State<ScorePage> {
                     .headline1!
                     .copyWith(color: Colors.amber),
               ),
+              //si inserisce spaziatura
               Spacer(),
+              //si stampa il punteggio ottenuto
               Text(
                 "${widget.score.toString()}/${widget.totalQuestion.toString()}",
                 style: Theme.of(context)
@@ -43,14 +51,18 @@ class _ScorePageState extends State<ScorePage> {
                     .headline2!
                     .copyWith(color: Colors.amber),
               ),
+              //si inserisce spaziatura
               Spacer(flex: 3),
+              //si crea il pulsate per tornare indietro
               TextButton(
                 onPressed: (() {
+                  //si resetta lo state
                   setState(() {});
-
+                  //si resetta le variabili
                   b1 = false;
                   setOfInts1.clear();
                   checknumberQuestions = 0;
+                  //si va alla HomePage
                   Navigator.push(
                       context,
                       MaterialPageRoute(

@@ -11,7 +11,7 @@ class Background extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    //Occupo tutto lo schermo sia in altezza che in lunghezza
+    //si occupa tutto lo schermo sia in altezza che in lunghezza
     Size size = MediaQuery.of(context).size;
     return Container(
       height: size.height,
