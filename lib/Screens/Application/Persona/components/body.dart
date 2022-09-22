@@ -44,6 +44,8 @@ class _BodyState extends State<Body> {
               color: Colors.blue,
             ),
             onPressed: () {
+              checkforModifica = false;
+              checkScaffold = false;
               Get.to(HomePageScreen());
             },
           ),
