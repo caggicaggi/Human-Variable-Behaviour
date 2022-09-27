@@ -1,5 +1,7 @@
+// ignore_for_file: prefer_const_constructors, unnecessary_null_comparison, prefer_if_null_operators, prefer_const_constructors_in_immutables, use_key_in_widget_constructors
+
 import 'package:flutter/material.dart';
-import 'package:human_variable_behaviour/Screens/Application/SchermataPrincipale/theme/colors/light_colors.dart';
+import 'package:human_variable_behaviour/constant.dart';
 
 class TopContainer extends StatelessWidget {
   final double height;
@@ -18,7 +20,7 @@ class TopContainer extends StatelessWidget {
       padding:
           padding != null ? padding : EdgeInsets.symmetric(horizontal: 20.0),
       decoration: BoxDecoration(
-          color: LightColors.kDarkYellow,
+          color: kPrimaryColor,
           borderRadius: BorderRadius.only(
             bottomRight: Radius.circular(40.0),
             bottomLeft: Radius.circular(40.0),

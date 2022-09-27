@@ -16,12 +16,13 @@ class ActiveProjectsCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     return Expanded(
       flex: 1,
       child: Container(
         margin: EdgeInsets.symmetric(vertical: 10.0),
         padding: EdgeInsets.all(15.0),
-        height: 250,
+        height: size.height * 0.25,
         decoration: BoxDecoration(
           color: cardColor,
           borderRadius: BorderRadius.circular(40.0),
@@ -31,10 +32,10 @@ class ActiveProjectsCard extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             Padding(
-              padding: const EdgeInsets.all(10.0),
+              padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 5),
               child: CircularPercentIndicator(
                 animation: true,
-                radius: 75.0,
+                radius: 50.0,
                 percent: loadingPercent,
                 lineWidth: 5.0,
                 circularStrokeCap: CircularStrokeCap.round,

@@ -5,10 +5,12 @@ import 'package:human_variable_behaviour/Screens/Application/Giochi/components/g
 import 'package:human_variable_behaviour/Screens/Application/Persona/components/background.dart';
 import 'package:human_variable_behaviour/Screens/Application/Persona/components/settings_page.dart';
 import 'package:human_variable_behaviour/Screens/Application/Persona/persona_screen.dart';
+import 'package:human_variable_behaviour/Screens/Application/SchermataPrincipale/components/body.dart';
 import 'package:human_variable_behaviour/Screens/HomePage/homepage_screen.dart';
 import 'package:human_variable_behaviour/Screens/Login/components/body.dart';
 import 'package:human_variable_behaviour/components/rounded_input_field.dart';
 import 'package:human_variable_behaviour/mysql/mysql.dart';
+import 'package:random_avatar/random_avatar.dart';
 
 class Body extends StatefulWidget {
   const Body({
@@ -94,29 +96,7 @@ class _BodyState extends State<Body> {
                 Center(
                   child: Stack(
                     children: [
-                      Container(
-                        width: 130,
-                        height: 130,
-                        decoration: BoxDecoration(
-                            border: Border.all(
-                                width: 4,
-                                color:
-                                    Theme.of(context).scaffoldBackgroundColor),
-                            boxShadow: [
-                              BoxShadow(
-                                  spreadRadius: 2,
-                                  blurRadius: 10,
-                                  color: Colors.black.withOpacity(0.1),
-                                  offset: Offset(0, 10))
-                            ],
-                            shape: BoxShape.circle,
-                            //immagine che si vede nella sezione profilo
-                            image: DecorationImage(
-                                fit: BoxFit.cover,
-                                image: NetworkImage(
-                                  "https://images.pexels.com/photos/3307758/pexels-photo-3307758.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=250",
-                                ))),
-                      ),
+                      painters[0],
                       Positioned(
                           bottom: 0,
                           right: 0,
@@ -132,9 +112,25 @@ class _BodyState extends State<Body> {
                               ),
                               color: Colors.blue,
                             ),
-                            child: Icon(
-                              Icons.edit,
-                              color: Colors.white,
+                            child: //Pulsante per la creazione dell'avatar
+                                FloatingActionButton(
+                              onPressed: () {
+                                //Se premuto creo l'avatar
+                                String svg = randomAvatarString(
+                                  DateTime.now().toIso8601String(),
+                                  trBackground: true,
+                                );
+                                debugPrint('Avatar creato: ' + svg);
+                                //Lo aggiunto alla lista
+                                painters[0] = (randomAvatar(
+                                  svg,
+                                  height: 100,
+                                  width: 90,
+                                ));
+                                //_controller.text = svg;
+                                setState(() {});
+                              },
+                              child: const Icon(Icons.account_circle_sharp),
                             ),
                           )),
                     ],
@@ -336,7 +332,10 @@ class _BodyState extends State<Body> {
                 Center(
                   child: Stack(
                     children: [
-                      Container(
+                      painters[0],
+                      /*Container(
+                        _painters[0],
+                        
                         width: 130,
                         height: 130,
                         decoration: BoxDecoration(
@@ -353,32 +352,10 @@ class _BodyState extends State<Body> {
                             ],
                             //immagine visibile nella sezione informazioni
                             shape: BoxShape.circle,
-                            image: DecorationImage(
-                                fit: BoxFit.cover,
-                                image: NetworkImage(
-                                  "https://images.pexels.com/photos/3307758/pexels-photo-3307758.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=250",
-                                ))),
+                            image: _painters[0].t),
+                          
                       ),
-                      Positioned(
-                          bottom: 0,
-                          right: 0,
-                          child: Container(
-                            height: 40,
-                            width: 40,
-                            decoration: BoxDecoration(
-                              shape: BoxShape.circle,
-                              border: Border.all(
-                                width: 4,
-                                color:
-                                    Theme.of(context).scaffoldBackgroundColor,
-                              ),
-                              color: Colors.blue,
-                            ),
-                            child: Icon(
-                              Icons.edit,
-                              color: Colors.white,
-                            ),
-                          )),
+                      */
                     ],
                   ),
                 ),
