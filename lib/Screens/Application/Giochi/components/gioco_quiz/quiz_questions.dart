@@ -1,3 +1,8 @@
+import 'package:flutter/material.dart';
+import 'package:human_variable_behaviour/Screens/Application/Giochi/giochi_screen.dart';
+
+import '../../../../../mysql/mysql.dart';
+
 class Question {
   //si crea le varibili che si andrà a utilizzare
   final int id, answer;
@@ -11,6 +16,9 @@ class Question {
       required this.answer,
       required this.options});
 }
+
+int i = 0;
+int j = 0;
 
 //si crea la lista delle domande contenenti: Indice,Domande,Risposta,IndiceRispostaEsatta
 const List sample_data = [
@@ -62,13 +70,9 @@ const List sample_data = [
   },
 ];
 
+/*
 
 //CLASSE DA LAVORARE PER RENDERLA DINAMICA
-
-/* List<String> listofQuestion = [];
-List<int> listofIdQuestions = [];
-List<String> listofAnswerQuestions = [];
-
 List sample_data = [
   {
     "id": listofIdQuestions[0],
@@ -116,19 +120,31 @@ List sample_data = [
   },
 ];
 
-String getDomanda(var i) {
+Future<void> listofAllQuestionsInformations() async {
+  getIdDomanda();
+  getDomanda();
+  getAnswerQuestion();
+}
+
+String getDomanda() {
   String check = '';
   String table = 'listaDomande';
   //Scrivo la query
-  String query =
-      'SELECT domanda FROM ' + table + ' WHERE idDom = ' + i.toString();
+  String query = 'SELECT domanda FROM ' + table;
   var db = Mysql();
   //eseguo querys
   db.getConnection().then((connessione) async {
     //delay obbligatorio per Malaccari
     await Future.delayed(const Duration(milliseconds: 1));
     await connessione.query(query).then((result) async {
-      listofQuestion.add(result.toString());
+      for (var res in result) {
+        listofQuestion.add(res.toString());
+      }
+      //print("listofQuestion");
+      //print(listofQuestion);
+      //print(listofQuestion);
+      //  print("@@@@@@@@@@@@");
+      //    print(listofQuestion[0]);
       connessione.close();
     });
   });
@@ -136,7 +152,7 @@ String getDomanda(var i) {
   return check;
 }
 
-String getIdDomanda(var i) {
+String getIdDomanda() {
   String check = '';
   String table = 'listaDomande';
   //Scrivo la query
@@ -155,19 +171,16 @@ String getIdDomanda(var i) {
       connessione.close();
     });
   });
-
   return check;
 }
 
-String getAnswerQuestion(var i) {
+String getAnswerQuestion() {
   String check = '';
   String table = 'listaDomande';
   //Scrivo la query
   String query =
       'SELECT rispostaCorretta,rispostaErrata1,rispostaErrata2,rispostaErrata3 FROM ' +
-          table +
-          ' WHERE idDom = ' +
-          i.toString();
+          table;
   var db = Mysql();
   //eseguo querys
   db.getConnection().then((connessione) async {
@@ -175,17 +188,17 @@ String getAnswerQuestion(var i) {
     await Future.delayed(const Duration(milliseconds: 1));
     await connessione.query(query).then((result) async {
       for (var res in result) {
-        listofAnswerQuestions.add(res[0].toString());
-        listofAnswerQuestions.add(res[1].toString());
-        listofAnswerQuestions.add(res[2].toString());
-        listofAnswerQuestions.add(res[3].toString());
-
-        print(listofIdQuestions);
+        listofAnswerQuestions.add(res.toString());
       }
+      //print(listofAnswerQuestions);
+      //  print("@@@@@@@@@@@@");
+      //    print(listofAnswerQuestions[0]);
       connessione.close();
     });
   });
 
   return check;
 }
+
+
 */

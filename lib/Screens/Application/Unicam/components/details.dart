@@ -22,6 +22,19 @@ class DetailPage extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
+                  FlatButton(
+                    child: Text(
+                      textAlign: TextAlign.left,
+                      "Torna Indietro",
+                      style: TextStyle(
+                          fontSize: 15,
+                          color: primaryTextColor,
+                          fontWeight: FontWeight.bold),
+                    ),
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                  ),
                   Padding(
                     padding: const EdgeInsets.all(32.0),
                     child: Column(

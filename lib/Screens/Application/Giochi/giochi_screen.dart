@@ -17,6 +17,10 @@ import 'package:human_variable_behaviour/constant.dart';
 
 int i = 0;
 
+List<String> listofQuestion = [];
+List<int> listofIdQuestions = [];
+List<String> listofAnswerQuestions = [];
+
 class GiochiScreen extends StatelessWidget {
   const GiochiScreen({Key? key}) : super(key: key);
 
@@ -54,6 +58,7 @@ class GiochiScreen extends StatelessWidget {
                   //si crea pulsante per iniziare il gioco del quiz
                   InkWell(
                     onTap: () async {
+                      //listofAllQuestionsInformations();
                       Navigator.push(
                           context,
                           MaterialPageRoute(
@@ -190,7 +195,7 @@ class QuizScreen extends StatelessWidget {
         backgroundColor: Colors.transparent,
         actions: [
           TextButton(
-            onPressed: () {
+            onPressed: () async {
               //si cancella l'istanza del controller
               Get.delete<QuestionController>();
               //si va alla pagina iniziale dove scelgo i giochi
