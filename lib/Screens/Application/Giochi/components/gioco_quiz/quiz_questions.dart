@@ -1,8 +1,3 @@
-import 'package:flutter/material.dart';
-import 'package:human_variable_behaviour/Screens/Application/Giochi/giochi_screen.dart';
-
-import '../../../../../mysql/mysql.dart';
-
 class Question {
   //si crea le varibili che si andrà a utilizzare
   final int id, answer;
@@ -25,7 +20,7 @@ const List sample_data = [
   {
     "id": 1,
     "question":
-        "C'è un alunna molto brava in tutte le materie e la noti mentre deride un alunno che ha preso un voto più basso",
+        "Una studentessa molto brava in tutte le materie e la noti mentre deride un alunno che ha preso un voto più basso",
     "options": [
       'Se hai preso di più, ti metti anche te a deriderlo',
       'Intervieni o chiami la professoressa',

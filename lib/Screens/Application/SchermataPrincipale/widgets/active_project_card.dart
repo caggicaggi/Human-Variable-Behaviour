@@ -1,19 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 
-class ActiveProjectsCard extends StatelessWidget {
+class ActiveProjectsCard extends StatefulWidget {
   final Color cardColor;
   final double loadingPercent;
   final String title;
-  final String subtitle;
+  //final String subtitle;
 
   ActiveProjectsCard({
     required this.cardColor,
     required this.loadingPercent,
     required this.title,
-    required this.subtitle,
+    //required this.subtitle,
   });
 
+  @override
+  State<ActiveProjectsCard> createState() => _ActiveProjectsCardState();
+}
+
+class _ActiveProjectsCardState extends State<ActiveProjectsCard> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -22,9 +27,9 @@ class ActiveProjectsCard extends StatelessWidget {
       child: Container(
         margin: EdgeInsets.symmetric(vertical: 10.0),
         padding: EdgeInsets.all(15.0),
-        height: size.height * 0.25,
+        height: size.height * 0.28,
         decoration: BoxDecoration(
-          color: cardColor,
+          color: widget.cardColor,
           borderRadius: BorderRadius.circular(40.0),
         ),
         child: Column(
@@ -36,13 +41,13 @@ class ActiveProjectsCard extends StatelessWidget {
               child: CircularPercentIndicator(
                 animation: true,
                 radius: 50.0,
-                percent: loadingPercent,
+                percent: widget.loadingPercent,
                 lineWidth: 5.0,
                 circularStrokeCap: CircularStrokeCap.round,
                 backgroundColor: Colors.white10,
                 progressColor: Colors.white,
                 center: Text(
-                  '${(loadingPercent * 100).round()}%',
+                  '${(widget.loadingPercent * 100).round()}%',
                   style: TextStyle(
                       fontWeight: FontWeight.w700, color: Colors.white),
                 ),
@@ -52,13 +57,14 @@ class ActiveProjectsCard extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 Text(
-                  title,
+                  widget.title,
                   style: TextStyle(
                     fontSize: 14.0,
                     color: Colors.white,
                     fontWeight: FontWeight.w700,
                   ),
                 ),
+                /*
                 Text(
                   subtitle,
                   style: TextStyle(
@@ -67,6 +73,7 @@ class ActiveProjectsCard extends StatelessWidget {
                     fontWeight: FontWeight.w400,
                   ),
                 ),
+                */
               ],
             ),
           ],

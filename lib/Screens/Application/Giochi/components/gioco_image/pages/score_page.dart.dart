@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:human_variable_behaviour/Screens/Application/Giochi/components/gioco_image/ui/answer_button.dart.dart';
 import 'package:human_variable_behaviour/Screens/Application/Giochi/components/gioco_image/utils/quiz.dart.dart';
+import 'package:human_variable_behaviour/Screens/Application/Giochi/giochi_screen.dart';
 import 'package:human_variable_behaviour/Screens/HomePage/homepage_screen.dart';
 
 class ScorePage extends StatefulWidget {
@@ -19,6 +20,7 @@ class ScorePage extends StatefulWidget {
 class _ScorePageState extends State<ScorePage> {
   @override
   Widget build(BuildContext context) {
+    addTry('Tentativi_Riusciti_Immagini');
     return Scaffold(
       body: Stack(
         fit: StackFit.expand,

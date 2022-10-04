@@ -4,9 +4,12 @@ import 'package:human_variable_behaviour/Screens/Application/Giochi/components/g
 import 'package:human_variable_behaviour/Screens/Application/Giochi/components/gioco_quiz/questions_controller.dart';
 import 'package:human_variable_behaviour/Screens/HomePage/homepage_screen.dart';
 
+import '../../giochi_screen.dart';
+
 class ScoreScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    addTry('Tentativi_Riusciti_Quiz');
     //inizializzo controller
     QuestionController _qnController = Get.put(QuestionController());
     return Scaffold(

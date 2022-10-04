@@ -1,11 +1,9 @@
 // ignore_for_file: deprecated_member_use, sort_child_properties_last
 
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:human_variable_behaviour/Screens/Application/SchermataPrincipale/widgets/active_project_card.dart';
 import 'package:human_variable_behaviour/Screens/Application/SchermataPrincipale/widgets/second_screen.dart';
 import 'package:human_variable_behaviour/Screens/Application/SchermataPrincipale/widgets/top_container.dart';
-import 'package:human_variable_behaviour/components/rounded_button.dart';
 import 'package:human_variable_behaviour/services/local_notification_service.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 import 'package:human_variable_behaviour/mysql/mysql.dart';
@@ -31,6 +29,15 @@ class _BodyState extends State<Body> {
     service.intialize();
     //listenToNotification();
     super.initState();
+  }
+
+  Text subheading(String title) {
+    return Text(title,
+        style: TextStyle(
+            color: Colors.black,
+            fontSize: 20.0,
+            fontWeight: FontWeight.w700,
+            letterSpacing: 1.2));
   }
 
   @override
@@ -127,13 +134,12 @@ class _BodyState extends State<Body> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
-                            Column(
-                              //Row(
+                            subheading('Progressi applicazioni'),
+                            Row(
                               children: <Widget>[
-                                const Text(
-                                  'This is a demo of how to use local notifications in Flutter.',
-                                  style: TextStyle(fontSize: 20),
-                                ),
+                                /*
+                                PULSANTI PER NOTIFICHE
+                                
                                 ElevatedButton(
                                   onPressed: () async {
                                     await service.showNotification(
@@ -166,46 +172,32 @@ class _BodyState extends State<Body> {
                                   child: const Text(
                                       'Show Notification With Payload'),
                                 ),
-                                /*
+                                */
                                 ActiveProjectsCard(
                                   cardColor: Colors.green,
-                                  loadingPercent: 0.25,
+                                  loadingPercent:
+                                      double.parse(Percentuale_Impiccato),
                                   title:
                                       "Percentuale vittoria gioco dell'impiccato",
-                                  subtitle: '9 hours progress',
+                                  //subtitle: '9 hours progress',
                                 ),
-                                const SizedBox(width: 20.0),
                                 ActiveProjectsCard(
                                   cardColor: Colors.red,
-                                  loadingPercent: 0.6,
+                                  loadingPercent:
+                                      double.parse(Percentuale_Immagini),
                                   title:
-                                      "Percentuale vittoria gioco di memoria",
-                                  subtitle: '20 hours progress',
+                                      "Percentuale vittoria gioco delle immagini",
+                                  //subtitle: '20 hours progress',
                                 ),
-                                */
-                              ],
-                            ),
-                            /*
-                            Row(
-                              children: <Widget>[
                                 ActiveProjectsCard(
-                                  cardColor: Colors.deepPurpleAccent,
-                                  loadingPercent: 0.45,
-                                  title:
-                                      "Percentuale vittoria gioco indovina l'immagine",
-                                  subtitle: '5 hours progress',
-                                ),
-                                const SizedBox(width: 20.0),
-                                ActiveProjectsCard(
-                                  cardColor: Colors.blue,
-                                  loadingPercent: 0.9,
-                                  title:
-                                      "Percentuale vittoria gioco delle domande",
-                                  subtitle: '23 hours progress',
+                                  cardColor: Colors.yellow,
+                                  loadingPercent:
+                                      double.parse(Percentuale_Quiz),
+                                  title: "Percentuale vittoria quiz",
+                                  //subtitle: '20 hours progress',
                                 ),
                               ],
                             ),
-                            */
                           ],
                         ),
                       ),

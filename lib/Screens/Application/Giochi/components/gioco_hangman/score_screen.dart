@@ -1,8 +1,10 @@
+// ignore_for_file: prefer_const_constructors_in_immutables, use_key_in_widget_constructors, library_private_types_in_public_api
+
 import 'package:flutter/material.dart';
 import 'package:human_variable_behaviour/Screens/Application/Giochi/components/gioco_hangman/hangman_screen.dart.dart';
 import 'package:human_variable_behaviour/Screens/Application/Giochi/components/gioco_hangman/utils/game.dart';
-import 'package:human_variable_behaviour/Screens/Application/Giochi/components/gioco_image/ui/answer_button.dart.dart';
 import 'package:human_variable_behaviour/Screens/Application/Giochi/components/gioco_image/utils/quiz.dart.dart';
+import 'package:human_variable_behaviour/Screens/Application/Giochi/giochi_screen.dart';
 import 'package:human_variable_behaviour/Screens/HomePage/homepage_screen.dart';
 
 class ScorePageHangMan extends StatefulWidget {
@@ -14,6 +16,7 @@ class ScorePageHangMan extends StatefulWidget {
 class _ScorePageHangManState extends State<ScorePageHangMan> {
   @override
   Widget build(BuildContext context) {
+    addTry('Tentativi_Riusciti_Impiccato');
     return Scaffold(
       body: Stack(
         fit: StackFit.expand,

@@ -1,7 +1,6 @@
-// ignore_for_file: prefer_interpolation_to_compose_strings, avoid_print
+// ignore_for_file: prefer_interpolation_to_compose_strings, avoid_print, non_constant_identifier_names
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:human_variable_behaviour/Screens/Application/Giochi/components/gioco_quiz/Quiz%20screen.dart';
 import 'package:intl/intl.dart';
 import 'package:mysql1/mysql1.dart';
 
@@ -19,6 +18,9 @@ var SportPreferito = '';
 var ArtistaPreferito = '';
 var MateriaPreferita = '';
 var Eta = '';
+var Percentuale_Impiccato = '';
+var Percentuale_Quiz = '';
+var Percentuale_Immagini = '';
 
 String rispostaCorretta = '';
 String rispostaErrata1 = '';
@@ -367,7 +369,8 @@ Future<void> readInformationWithId(idUtente) async {
   String table = 'utenti';
   //Scrivo la query
   String query =
-      'SELECT nome,cognome,email,password,Eta,MusicaPreferita,IstitutoFrequentato,Passione,SportPreferito,ArtistaPreferito,MateriaPreferita FROM ' +
+      'SELECT nome,cognome,email,password,Eta,MusicaPreferita,IstitutoFrequentato,Passione,SportPreferito,ArtistaPreferito,MateriaPreferita, ' +
+          'Tentativi_Totali_Impiccato,Tentativi_Riusciti_Impiccato,Tentativi_Totali_Quiz,Tentativi_Riusciti_Quiz,Tentativi_Totali_Immagini,Tentativi_Riusciti_Immagini FROM ' +
           table +
           ' where idUtente = ' +
           idUtente;
@@ -390,6 +393,10 @@ Future<void> readInformationWithId(idUtente) async {
         SportPreferito = res[8].toString();
         ArtistaPreferito = res[9].toString();
         MateriaPreferita = res[10].toString();
+        //Carico le percentuali dei giochi
+        Percentuale_Impiccato = (res[12] / res[11]).toString();
+        Percentuale_Quiz = (res[14] / res[13]).toString();
+        Percentuale_Immagini = (res[16] / res[15]).toString();
       }
       connessione.close();
     });

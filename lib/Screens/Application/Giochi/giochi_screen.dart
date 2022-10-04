@@ -14,6 +14,7 @@ import 'package:human_variable_behaviour/Screens/Application/Giochi/components/g
 import 'package:human_variable_behaviour/Screens/Application/Giochi/components/gioco_quiz/quiz_questions.dart';
 import 'package:human_variable_behaviour/Screens/HomePage/homepage_screen.dart';
 import 'package:human_variable_behaviour/constant.dart';
+import 'package:human_variable_behaviour/mysql/mysql.dart';
 
 int i = 0;
 
@@ -58,6 +59,8 @@ class GiochiScreen extends StatelessWidget {
                   //si crea pulsante per iniziare il gioco del quiz
                   InkWell(
                     onTap: () async {
+                      //Incremento il numero di tentativi
+                      addTry('Tentativi_Totali_Quiz');
                       //listofAllQuestionsInformations();
                       Navigator.push(
                           context,
@@ -88,6 +91,8 @@ class GiochiScreen extends StatelessWidget {
                   //si crea pulsante per iniziare il gioco dell'indovina l'immagine
                   InkWell(
                     onTap: () {
+                      //Incremento il numero di tentativi
+                      addTry('Tentativi_Totali_Immagini');
                       Navigator.push(
                           context,
                           MaterialPageRoute(
@@ -117,6 +122,8 @@ class GiochiScreen extends StatelessWidget {
                   //si crea pulsante per iniziare il gioco dell'impiccato
                   InkWell(
                     onTap: () {
+                      //Incremento il numero di tentativi
+                      addTry('Tentativi_Totali_Impiccato');
                       Navigator.push(context,
                           MaterialPageRoute(builder: (context) => HangMan()));
                     },
@@ -178,6 +185,41 @@ class GiochiScreen extends StatelessWidget {
       ),
     );
   }
+}
+
+void addTry(colonna) async {
+  String query =
+      'select ' + colonna + ' from utenti where idUtente = ' + idUtente;
+  debugPrint('Query: ' + query);
+  String queryUpdate = '';
+  //Connessione al database
+  var db = Mysql();
+  await db.getConnection().then((connessione) async {
+    //delay obbligatorio per Malaccari
+    await Future.delayed(const Duration(milliseconds: 1));
+    await connessione.query(query).then((result) async {
+      for (var res in result) {
+        debugPrint('Risultato: ' + res[0].toString());
+        int value = int.parse(res[0].toString()) + 1;
+        queryUpdate = 'UPDATE utenti SET ' +
+            colonna +
+            ' = ' +
+            value.toString() +
+            ' where idUtente = ' +
+            idUtente;
+      }
+      connessione.close();
+    });
+  });
+  debugPrint(queryUpdate.toString());
+  db = Mysql();
+  await db.getConnection().then((connessione) async {
+    //delay obbligatorio per Malaccari
+    await Future.delayed(const Duration(milliseconds: 1));
+    await connessione.query(queryUpdate).then((result) async {
+      (value) => connessione.close();
+    });
+  });
 }
 
 class QuizScreen extends StatelessWidget {
