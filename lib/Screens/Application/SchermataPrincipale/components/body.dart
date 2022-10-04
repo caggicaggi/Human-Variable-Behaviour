@@ -131,14 +131,16 @@ class _BodyState extends State<Body> {
                                 ActiveProjectsCard(
                                   cardColor: Colors.green,
                                   loadingPercent: 0.25,
-                                  title: 'Medical App',
+                                  title:
+                                      "Percentuale vittoria gioco dell'impiccato",
                                   subtitle: '9 hours progress',
                                 ),
                                 SizedBox(width: 20.0),
                                 ActiveProjectsCard(
                                   cardColor: Colors.red,
                                   loadingPercent: 0.6,
-                                  title: 'Making History Notes',
+                                  title:
+                                      "Percentuale vittoria gioco di memoria",
                                   subtitle: '20 hours progress',
                                 ),
                               ],
@@ -148,14 +150,16 @@ class _BodyState extends State<Body> {
                                 ActiveProjectsCard(
                                   cardColor: Colors.deepPurpleAccent,
                                   loadingPercent: 0.45,
-                                  title: 'Sports App',
+                                  title:
+                                      "Percentuale vittoria gioco indovina l'immagine",
                                   subtitle: '5 hours progress',
                                 ),
                                 SizedBox(width: 20.0),
                                 ActiveProjectsCard(
                                   cardColor: Colors.blue,
                                   loadingPercent: 0.9,
-                                  title: 'Online Flutter Course',
+                                  title:
+                                      "Percentuale vittoria gioco delle domande",
                                   subtitle: '23 hours progress',
                                 ),
                               ],
