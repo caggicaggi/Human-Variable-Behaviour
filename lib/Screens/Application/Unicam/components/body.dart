@@ -26,7 +26,7 @@ class _BodyState extends State<Body> {
           children: [
             Container(
               //si imposta l'immagine di sfondo
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 image: DecorationImage(
                     image: AssetImage("assets/images/sfondo_games.png"),
                     fit: BoxFit.cover),
@@ -44,7 +44,7 @@ class _BodyState extends State<Body> {
                             'Quale argomento vogliamo approfondire?',
                             style: TextStyle(
                               fontFamily: 'Avenir',
-                              fontSize: size.height * 0.06,
+                              fontSize: size.height * 0.05,
                               color: const Color(0xffffffff),
                               fontWeight: FontWeight.w900,
                             ),
@@ -56,122 +56,141 @@ class _BodyState extends State<Body> {
                               fontFamily: 'Avenir',
                               fontSize: size.height * 0.04,
                               color: const Color(0x7cdbf1ff),
-                              fontWeight: FontWeight.w500,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 35,
+                          ),
+                          SizedBox(
+                            height: size.height * 0.63,
+                            child: Swiper(
+                              itemCount: link.length,
+                              itemWidth: MediaQuery.of(context).size.width,
+                              itemHeight:
+                                  MediaQuery.of(context).size.height - 2,
+                              layout: SwiperLayout.STACK,
+                              pagination: const SwiperPagination(
+                                builder: DotSwiperPaginationBuilder(
+                                    activeSize: 20,
+                                    space: 10,
+                                    color: Colors.blue),
+                              ),
+                              itemBuilder: (context, index) {
+                                return InkWell(
+                                  onTap: () {
+                                    Navigator.push(
+                                      context,
+                                      PageRouteBuilder(
+                                        pageBuilder: (context, a, b) =>
+                                            DetailPage(
+                                          link: link[index],
+                                        ),
+                                      ),
+                                    );
+                                  },
+                                  child: Stack(
+                                    children: <Widget>[
+                                      Column(
+                                        children: <Widget>[
+                                          Card(
+                                            elevation: 20,
+                                            shape: RoundedRectangleBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(32),
+                                            ),
+                                            color: Colors.white,
+                                            child: Padding(
+                                              padding: const EdgeInsets.all(40),
+                                              child: Column(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                children: <Widget>[
+                                                  Text(
+                                                    link[index].name,
+                                                    style: TextStyle(
+                                                      fontFamily: 'Avenir',
+                                                      fontSize:
+                                                          size.height * 0.05,
+                                                      color: const Color(
+                                                          0xff47455f),
+                                                      fontWeight:
+                                                          FontWeight.w900,
+                                                    ),
+                                                    textAlign: TextAlign.left,
+                                                  ),
+                                                  Text(
+                                                    "UNIVERSITA' CAMERINO\n",
+                                                    style: TextStyle(
+                                                      fontFamily: 'Avenir',
+                                                      fontSize:
+                                                          size.height * 0.02,
+                                                      color: primaryTextColor,
+                                                      fontWeight:
+                                                          FontWeight.w500,
+                                                    ),
+                                                    textAlign: TextAlign.left,
+                                                  ),
+                                                  Row(
+                                                    children: <Widget>[
+                                                      Text(
+                                                        'Leggi di piu',
+                                                        style: TextStyle(
+                                                          fontFamily: 'Avenir',
+                                                          fontSize:
+                                                              size.height *
+                                                                  0.02,
+                                                          color:
+                                                              secondaryTextColor,
+                                                          fontWeight:
+                                                              FontWeight.w500,
+                                                        ),
+                                                        textAlign:
+                                                            TextAlign.left,
+                                                      ),
+                                                      Icon(
+                                                        Icons.arrow_forward,
+                                                        color:
+                                                            secondaryTextColor,
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      //Qui si possono inserire le immagini
+                                      /*Hero(
+                                      tag: planets[index].position,
+                                      child: Image.asset(
+                                        planets[index].iconImage,
+                                        height: 120,
+                                        width: 400,
+                                      )),*/
+                                      //POSIZIONE NUMERO SULLO SFONDO
+                                      Positioned(
+                                        left: size.height * 0.38,
+                                        top: size.width * 0.15,
+                                        child: Text(
+                                          link[index].position.toString(),
+                                          style: TextStyle(
+                                            fontFamily: 'Avenir',
+                                            fontSize: size.height * 0.2,
+                                            color:
+                                                primaryTextColor.withOpacity(1),
+                                            fontWeight: FontWeight.w700,
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                );
+                              },
                             ),
                           ),
                         ],
-                      ),
-                    ),
-                    Container(
-                      height: size.height * 0.63,
-                      child: Swiper(
-                        itemCount: link.length,
-                        itemWidth: MediaQuery.of(context).size.width - 2 * 5,
-                        itemHeight: MediaQuery.of(context).size.width - 2 * 30,
-                        layout: SwiperLayout.STACK,
-                        pagination: SwiperPagination(
-                          builder: DotSwiperPaginationBuilder(
-                              activeSize: 20, space: 10, color: Colors.blue),
-                        ),
-                        itemBuilder: (context, index) {
-                          return InkWell(
-                            onTap: () {
-                              Navigator.push(
-                                context,
-                                PageRouteBuilder(
-                                  pageBuilder: (context, a, b) => DetailPage(
-                                    link: link[index],
-                                  ),
-                                ),
-                              );
-                            },
-                            child: Stack(
-                              children: <Widget>[
-                                Column(
-                                  children: <Widget>[
-                                    Card(
-                                      elevation: 20,
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(32),
-                                      ),
-                                      color: Colors.white,
-                                      child: Padding(
-                                        padding: const EdgeInsets.all(40),
-                                        child: Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: <Widget>[
-                                            Text(
-                                              link[index].name,
-                                              style: TextStyle(
-                                                fontFamily: 'Avenir',
-                                                fontSize: size.height * 0.05,
-                                                color: const Color(0xff47455f),
-                                                fontWeight: FontWeight.w900,
-                                              ),
-                                              textAlign: TextAlign.left,
-                                            ),
-                                            Text(
-                                              "UNIVERSITA' CAMERINO\n",
-                                              style: TextStyle(
-                                                fontFamily: 'Avenir',
-                                                fontSize: size.height * 0.02,
-                                                color: primaryTextColor,
-                                                fontWeight: FontWeight.w500,
-                                              ),
-                                              textAlign: TextAlign.left,
-                                            ),
-                                            Row(
-                                              children: <Widget>[
-                                                Text(
-                                                  'Leggi di piu',
-                                                  style: TextStyle(
-                                                    fontFamily: 'Avenir',
-                                                    fontSize:
-                                                        size.height * 0.02,
-                                                    color: secondaryTextColor,
-                                                    fontWeight: FontWeight.w500,
-                                                  ),
-                                                  textAlign: TextAlign.left,
-                                                ),
-                                                Icon(
-                                                  Icons.arrow_forward,
-                                                  color: secondaryTextColor,
-                                                ),
-                                              ],
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                                //Qui si possono inserire le immagini
-                                /*Hero(
-                              tag: planets[index].position,
-                              child: Image.asset(
-                                planets[index].iconImage,
-                                height: 120,
-                                width: 400,
-                              )),*/
-                                //POSIZIONE NUMERO SULLO SFONDO
-                                Positioned(
-                                  left: size.height * 0.38,
-                                  top: size.width * 0.09,
-                                  child: Text(
-                                    link[index].position.toString(),
-                                    style: TextStyle(
-                                      fontFamily: 'Avenir',
-                                      fontSize: size.height * 0.2,
-                                      color: primaryTextColor.withOpacity(1),
-                                      fontWeight: FontWeight.w900,
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          );
-                        },
                       ),
                     ),
                   ],

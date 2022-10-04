@@ -1,7 +1,12 @@
+// ignore_for_file: deprecated_member_use, sort_child_properties_last
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:human_variable_behaviour/Screens/Application/SchermataPrincipale/widgets/active_project_card.dart';
+import 'package:human_variable_behaviour/Screens/Application/SchermataPrincipale/widgets/second_screen.dart';
 import 'package:human_variable_behaviour/Screens/Application/SchermataPrincipale/widgets/top_container.dart';
+import 'package:human_variable_behaviour/components/rounded_button.dart';
+import 'package:human_variable_behaviour/services/local_notification_service.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 import 'package:human_variable_behaviour/mysql/mysql.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
@@ -19,16 +24,13 @@ class Body extends StatefulWidget {
 }
 
 class _BodyState extends State<Body> {
-  //final TextEditingController _controller = TextEditingController();
-  Text subheading(String title) {
-    return Text(
-      title,
-      style: TextStyle(
-          color: Colors.black,
-          fontSize: 20.0,
-          fontWeight: FontWeight.w700,
-          letterSpacing: 1.2),
-    );
+  late final LocalNotificationService service;
+  @override
+  void initState() {
+    service = LocalNotificationService();
+    service.intialize();
+    //listenToNotification();
+    super.initState();
   }
 
   @override
@@ -49,7 +51,7 @@ class _BodyState extends State<Body> {
 
     return Container(
       //si imposta l'immagine di sfondo
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
         image: DecorationImage(
             image: AssetImage("assets/images/sfondo_games.png"),
             fit: BoxFit.cover),
@@ -120,29 +122,68 @@ class _BodyState extends State<Body> {
                     children: <Widget>[
                       Container(
                         color: Colors.transparent,
-                        padding: EdgeInsets.symmetric(
+                        padding: const EdgeInsets.symmetric(
                             horizontal: 20.0, vertical: 10.0),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
-                            subheading('Progressi Applicazioni'),
-                            Row(
+                            Column(
+                              //Row(
                               children: <Widget>[
+                                const Text(
+                                  'This is a demo of how to use local notifications in Flutter.',
+                                  style: TextStyle(fontSize: 20),
+                                ),
+                                ElevatedButton(
+                                  onPressed: () async {
+                                    await service.showNotification(
+                                        id: 0,
+                                        title: 'Notification Title',
+                                        body: 'Some body');
+                                  },
+                                  child: const Text('Show Local Notification'),
+                                ),
+                                ElevatedButton(
+                                  onPressed: () async {
+                                    await service.showScheduledNotification(
+                                      id: 0,
+                                      title: 'Notification Title',
+                                      body: 'Some body',
+                                      seconds: 4,
+                                    );
+                                  },
+                                  child:
+                                      const Text('Show Scheduled Notification'),
+                                ),
+                                ElevatedButton(
+                                  onPressed: () async {
+                                    await service.showNotificationWithPayload(
+                                        id: 0,
+                                        title: 'Notification Title',
+                                        body: 'Some body',
+                                        payload: 'payload navigation');
+                                  },
+                                  child: const Text(
+                                      'Show Notification With Payload'),
+                                ),
+                                /*
                                 ActiveProjectsCard(
                                   cardColor: Colors.green,
                                   loadingPercent: 0.25,
                                   title: 'Medical App',
                                   subtitle: '9 hours progress',
                                 ),
-                                SizedBox(width: 20.0),
+                                const SizedBox(width: 20.0),
                                 ActiveProjectsCard(
                                   cardColor: Colors.red,
                                   loadingPercent: 0.6,
                                   title: 'Making History Notes',
                                   subtitle: '20 hours progress',
                                 ),
+                                */
                               ],
                             ),
+                            /*
                             Row(
                               children: <Widget>[
                                 ActiveProjectsCard(
@@ -151,7 +192,7 @@ class _BodyState extends State<Body> {
                                   title: 'Sports App',
                                   subtitle: '5 hours progress',
                                 ),
-                                SizedBox(width: 20.0),
+                                const SizedBox(width: 20.0),
                                 ActiveProjectsCard(
                                   cardColor: Colors.blue,
                                   loadingPercent: 0.9,
@@ -160,6 +201,7 @@ class _BodyState extends State<Body> {
                                 ),
                               ],
                             ),
+                            */
                           ],
                         ),
                       ),
@@ -172,5 +214,19 @@ class _BodyState extends State<Body> {
         ),
       ),
     );
+  }
+
+  void listenToNotification() =>
+      service.onNotificationClick.stream.listen(onNoticationListener);
+
+  void onNoticationListener(String? payload) {
+    if (payload != null && payload.isNotEmpty) {
+      print('payload $payload');
+
+      Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: ((context) => SecondScreen(payload: payload))));
+    }
   }
 }
