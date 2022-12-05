@@ -8,9 +8,7 @@ class WelcomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    //Necessario per la chiamata da parte del main.dart
     return Scaffold(
-      //Chiamo la classe body.dart
       body: Body(),
     );
   }

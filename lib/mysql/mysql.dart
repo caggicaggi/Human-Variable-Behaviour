@@ -1,4 +1,5 @@
 // ignore_for_file: prefer_interpolation_to_compose_strings, avoid_print, non_constant_identifier_names
+
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -11,6 +12,7 @@ var cognome = '';
 var email = '';
 var password = '';
 var variabile = 0;
+
 var IstitutoFrequentato = '';
 var Passione = '';
 var MusicaPreferita = '';
@@ -35,7 +37,7 @@ bool check = false;
 bool risultatoQueryDomande = true;
 
 class Mysql {
-  //Cotruttore
+  //Costruttore
   Mysql();
   Future<MySqlConnection> getConnection() async {
     //Dati per la connessione al database
@@ -62,7 +64,7 @@ Future signUpToDb(nameToDb, surnameToDb, emailToDb, passwordToDb) async {
   //Scrivo la query
   String query = 'INSERT INTO ' +
       table +
-      ' (nome, cognome, email, password, variabile, IstitutoFrequentato , Eta, Passione , SportPreferito , MusicaPreferita, ArtistaPreferito, MateriaPreferita) VALUES (' +
+      ' (nome, cognome, email, password, variabile, IstitutoFrequentato , Eta, Passione , SportPreferito , MusicaPreferita, ArtistaPreferito, MateriaPreferita,Tentativi_Totali_Impiccato,Tentativi_Riusciti_Impiccato,Tentativi_Totali_Quiz,Tentativi_Riusciti_Quiz,Tentativi_Totali_Immagini,Tentativi_Riusciti_Immagini) VALUES (' +
       nameToDb +
       ',' +
       surnameToDb +
@@ -86,15 +88,26 @@ Future signUpToDb(nameToDb, surnameToDb, emailToDb, passwordToDb) async {
       "'Non hai inserito alcuna descrizione'" +
       ',' +
       "'Non hai inserito alcuna descrizione'" +
+      ',' +
+      "100" +
+      ',' +
+      "100" +
+      ',' +
+      "100" +
+      ',' +
+      "100" +
+      ',' +
+      "100" +
+      ',' +
+      "100" +
       ')';
-  debugPrint(query);
+  //debugPrint(query);
   //Connessione al database
   var db = Mysql();
   await db.getConnection().then((connessione) async {
     await Future.delayed(const Duration(milliseconds: 4));
     await connessione.query(query).then((result) async {
       await Future.delayed(const Duration(milliseconds: 4));
-
       //Leggo l'idUtente appena assegnato
       String queryToId =
           'select idUtente FROM ' + table + ' WHERE email = ' + emailToDb;
@@ -177,6 +190,11 @@ Future<bool> readEmailFromDb(emailToReadToDb) async {
   return risultatoQuery;
 }
 
+//Funzione per aggiungere i '' alle stringhe passate in input
+String stringToDb(stringToConvert) => '"' + stringToConvert + '"';
+
+//-----------RICONTROLLARE-----------
+
 //Funzione per ottenere nome e cognome dall'idUtente
 //Il metodo va messo Future perchè così se richiamato si può utilizzare l'await
 /*Future<void> getNameSurnameFromId() async {
@@ -199,9 +217,6 @@ Future<bool> readEmailFromDb(emailToReadToDb) async {
     });
   });
 } */
-
-//Funzione per aggiungere i '' alle stringhe passate in input
-String stringToDb(stringToConvert) => '"' + stringToConvert + '"';
 
 /*
 I metodi precedenti sono stati corretti e testati, ho aggiunto:
@@ -351,7 +366,6 @@ Future<bool> readQuestions(domandaUtente) async {
   //Connessione al database
   var db = Mysql();
   await db.getConnection().then((connessione) async {
-    //delay obbligatorio per Malaccari
     await Future.delayed(const Duration(milliseconds: 1));
     await connessione.query(query).then((result) async {
       risultatoQueryDomande = result.isEmpty;
@@ -722,4 +736,29 @@ Future<void> signUpToDbInf(
     connessione.query(query);
     connessione.close();
   });
+}
+
+String domanda1 = '';
+String domanda2 = '';
+String domanda3 = '';
+String domanda4 = '';
+
+//Metodo per ottenere la domanda dato l'id
+Future<String> getQuestionFromId(int id) async {
+  var table = 'listadomande';
+  //Connessione al database
+  var db = Mysql();
+  await db.getConnection().then((connessione) async {
+    await Future.delayed(const Duration(milliseconds: 4));
+    String query =
+        'select domanda FROM ' + table + ' WHERE idDom = ' + id.toString();
+    await connessione.query(query).then((result) async {
+      //Leggo la domanda
+      for (var res in result) {
+        domanda1 = res[0].toString();
+      }
+      connessione.close();
+    });
+  });
+  return 'DIO CANE';
 }

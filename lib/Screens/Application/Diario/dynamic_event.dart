@@ -8,6 +8,7 @@ import 'package:human_variable_behaviour/Screens/HomePage/homepage_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:table_calendar/table_calendar.dart';
 import '../../../mysql/mysql.dart';
+import 'package:http/http.dart' as http;
 import '../../HomePage/components/body.dart';
 
 class DynamicEvent extends StatefulWidget {
@@ -32,6 +33,11 @@ class _DynamicEventState extends State<DynamicEvent> {
   late List<dynamic> _selectedEvents;
   late TextEditingController _eventController;
   late SharedPreferences prefs;
+
+  final mail = Uri(
+      scheme: 'http',
+      host: 'humorvarbehaviour.pythonanywhere.com',
+      path: '/analysis');
 
   @override
   void initState() {
@@ -312,20 +318,23 @@ class _DynamicEventState extends State<DynamicEvent> {
                     //update giornata inserita
                     await signDataAndGiornata(idUtente, _controller.selectedDay,
                         _eventController.text);
+
                     //ricalcolo lista
                     await listaGiornateInserite(
                         _controller.selectedDay, idUtente);
-                    //se
+
+                    //se la lista non è vuota
                     if (list.isNotEmpty) {
                       _selectedEvents.clear();
                     }
+                    //assegno la lista alla variabile _selectedEvents
                     for (int i = 0; i < list.length; i++) {
                       print(list[0]);
                       _selectedEvents.add(list[i].toString());
                     }
 
                     //ristampo la lista aggiornata
-                    await _selectedEvents.map((list) => Padding(
+                    _selectedEvents.map((list) => Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: Container(
                             height: MediaQuery.of(context).size.height / 7,
@@ -345,6 +354,19 @@ class _DynamicEventState extends State<DynamicEvent> {
                             )),
                           ),
                         ));
+                    //invio la frase al sentiment analysis
+                    final response = await http.post(mail,
+                        body: json.encode({'text': _eventController.text}));
+                    final decoded =
+                        json.decode(response.body) as Map<String, dynamic>;
+                    var finalResponse = decoded['sentiment'] +
+                        '/' +
+                        decoded['emotion'] +
+                        decoded['numericResp_sen'];
+
+                    debugPrint('@@@@@@@@@@@@@@@@@@');
+                    debugPrint(
+                        'SENTIMENT ANALYSIS:' + decoded['numericResp_sen']);
                     //Controllo e salvataggio dati inseriti
                     if (_eventController.text.isEmpty) return;
                     setState(() {

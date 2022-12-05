@@ -1,7 +1,6 @@
 // ignore_for_file: prefer_const_constructors, prefer_interpolation_to_compose_strings
 
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:human_variable_behaviour/Screens/HomePage/homepage_screen.dart';
 import 'package:human_variable_behaviour/Screens/Login/login_screen.dart';
 import 'package:human_variable_behaviour/Screens/SignUp/components/background.dart';
@@ -22,10 +21,8 @@ bool emailValidation = true;
 bool emailDuplicated = true;
 
 class Body extends StatefulWidget {
-  final Widget child;
   const Body({
     Key? key,
-    required this.child,
   }) : super(key: key);
 
   @override
@@ -35,10 +32,12 @@ class Body extends StatefulWidget {
 class _BodyState extends State<Body> {
   @override
   Widget build(BuildContext context) {
+    //Occupo tutto lo schermo sia in altezza che in lunghezza
     Size size = MediaQuery.of(context).size;
     return Background(
       child: SingleChildScrollView(
         child: Column(
+          //Allineo tutto al centro
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             //Immagine del logo Unicam
@@ -46,6 +45,7 @@ class _BodyState extends State<Body> {
               'assets/images/logoUnicam.jpg',
               height: size.height * 0.15,
             ),
+            //Spaziatura
             SizedBox(
               height: size.height * 0.02,
             ),
@@ -103,37 +103,27 @@ class _BodyState extends State<Body> {
                 if (emailValidation) {
                   //Chiamo la query per verificare se email già inserita
                   if (await readEmailFromDb(email)) {
+                    //Cancello  avvisi di errore
                     emailDuplicated = true;
                     setState(() {});
                     //Con l'await aspetto che il metodo finisca, prima di procedere
-                    //debugPrint('Prima della query');
                     await signUpToDb(name, surname, email, password).then(
                       (value) {
-                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                            behavior: SnackBarBehavior.floating,
-                            content: Container(
-                              height: 90,
-                              decoration: BoxDecoration(color: Colors.blue),
-                              child: Text(
-                                "RICORDA DI COMPILARE I TUOI DATI NELLA SEZIONE 'PERSONA'",
-                                textAlign: TextAlign.center,
-                                style: GoogleFonts.aBeeZee(
-                                    fontSize: 22, color: Colors.white),
-                              ),
-                            )));
-                        //debugPrint('Dopo della query');
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) {
-                              return HomePageScreen();
-                            },
-                          ),
-                        );
+                        //Leggo tutte le informazioni dell'utente che si sta loggando e vado alla HomePage
+                        readInformationWithId(idUtente).then((value) {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) {
+                                return HomePageScreen();
+                              },
+                            ),
+                          );
+                        });
                       },
                     );
                   } else {
-                    debugPrint('Email registrata, effettuare login');
+                    //debugPrint('Email registrata, effettuare login');
                     setState(() {
                       emailDuplicated = false;
                     });
@@ -158,7 +148,10 @@ class _BodyState extends State<Body> {
                 );
               },
             ),
+            //---------OR---------
             OrDivider(),
+            //Registrati con i social
+            //To do
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [

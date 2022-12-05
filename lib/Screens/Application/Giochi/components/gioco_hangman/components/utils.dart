@@ -1,15 +1,23 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:human_variable_behaviour/Screens/Application/Giochi/components/gioco_hangman/ui/colors.dart';
 
-// STAMPA LA CASELLA DELLA LETTERA
+class Game {
+  //Aggiungo il numero di tentativi
+  static int tries = 0;
+  static List<String> selectedChar = [];
+}
+
+//Stampo la parola nascosta
 Widget letter(BuildContext context, String character, bool hidden) {
-  //si occupa tutto lo schermo in altezza e larghezza
+  //Occupo tutto lo schermo sia in altezza che in lunghezza
   Size size = MediaQuery.of(context).size;
   return Container(
     alignment: Alignment.center,
-    height: size.height * 0.1,
-    width: size.width * 0.1,
+    height: size.height * 0.05,
+    width: size.width * 0.05,
     padding: EdgeInsets.all(0),
     decoration: BoxDecoration(
       color: Colors.blue,
@@ -17,13 +25,13 @@ Widget letter(BuildContext context, String character, bool hidden) {
     ),
     child: Visibility(
       visible: !hidden,
-      //stampa la lettera nel character
+      //Stampo la lettera nel character
       child: Text(
         character,
         style: TextStyle(
           color: Colors.white,
           fontWeight: FontWeight.bold,
-          fontSize: 40.0,
+          fontSize: 20.0,
         ),
       ),
     ),

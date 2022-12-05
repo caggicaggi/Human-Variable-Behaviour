@@ -3,8 +3,6 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_signin_button/flutter_signin_button.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:human_variable_behaviour/Screens/Application/Giochi/components/gioco_quiz/quiz_questions.dart';
 import 'package:human_variable_behaviour/Screens/HomePage/homepage_screen.dart';
 import 'package:human_variable_behaviour/Screens/SignUp/sign_up_screen.dart';
 import 'package:human_variable_behaviour/Screens/Welcome/components/background.dart';
@@ -14,13 +12,15 @@ import 'package:human_variable_behaviour/components/rounded_input_field.dart';
 import 'package:human_variable_behaviour/components/rounded_password_field.dart';
 import 'package:human_variable_behaviour/mysql/mysql.dart';
 
-String password = '';
 //Variabili per avviso visivo
+String password = '';
 bool emailValidation = true;
 bool emailPresence = true;
 
+//Non ho ben capito a cosa serve
 bool checkScaffold = false;
 
+//Widget dinamico, aggiornabile
 class Body extends StatefulWidget {
   const Body({
     Key? key,
@@ -41,6 +41,7 @@ class _BodyState extends State<Body> {
           //Allineo tutto al centro
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            //Spaziatura
             SizedBox(
               height: size.height * 0.01,
             ),
@@ -60,6 +61,7 @@ class _BodyState extends State<Body> {
                 email = value;
               },
             ),
+            //Avvisi che compariranno se ci si prova a loggare e si fallisce il test
             if (!emailValidation)
               Text(
                 'Formato email non corretto',
@@ -78,10 +80,10 @@ class _BodyState extends State<Body> {
                 password = value;
               },
             ),
+            //Spaziatura
             SizedBox(
               height: size.height * 0.04,
             ),
-
             RoundedButton(
               text: 'Login',
               press: () async {
@@ -93,57 +95,46 @@ class _BodyState extends State<Body> {
                 setState(() {});
                 if (emailValidation) {
                   //Verifico se email già registrata
-                  //debugPrint('Prima della query');
                   if (await readEmailPasswordFromDb(email, password)) {
                     emailPresence = false;
                     //Refresh della pagina per visualizzare o cancellare l'avviso del formato errato
                     setState(() {});
                   } else {
-                    await readInformationWithId(idUtente);
-                    await checkForNotification();
-                    if (checkScaffold == true) {
-                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                          behavior: SnackBarBehavior.floating,
-                          content: Container(
-                            height: 90,
-                            decoration: BoxDecoration(color: Colors.blue),
-                            child: Text(
-                              "RICORDA DI COMPILARE I TUOI DATI NELLA SEZIONE 'PERSONA'",
-                              textAlign: TextAlign.center,
-                              style: GoogleFonts.aBeeZee(
-                                  fontSize: 22, color: Colors.white),
-                            ),
-                          )));
-                    }
-                    //debugPrint('Dopo della query');
-                    emailPresence = true;
-                    setState(() {});
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) {
-                          return HomePageScreen();
-                        },
-                      ),
-                    );
+                    //Leggo tutte le informazioni dell'utente che si sta loggando e vado alla HomePage
+                    await readInformationWithId(idUtente).then((value) {
+                      //Cancello precedenti avvisi di errore
+                      emailPresence = true;
+                      setState(() {});
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) {
+                            return HomePageScreen();
+                          },
+                        ),
+                      );
+                    });
                   }
                 }
               },
             ),
+            //Pulsante per loggarsi con google
+            //To do
             SignInButton(
               padding: const EdgeInsets.symmetric(horizontal: 60),
               Buttons.Google,
               text: "Sign up with Google",
               onPressed: () {},
             ),
-
+            //Pulsante per loggarsi con facebook
+            //To do
             SignInButton(
               padding: const EdgeInsets.symmetric(horizontal: 60),
               Buttons.Facebook,
               text: "Sign up with Facebook",
               onPressed: () {},
             ),
-
+            //Aggiungo la possibilità di loggarsi
             //Chiamo la classe already_have_an_account_check.dart
             AlreadyHaveAnAccountCheck(
               press: () {
@@ -163,18 +154,4 @@ class _BodyState extends State<Body> {
       ),
     );
   }
-}
-
-//metodo per fare il check se i campi personali sono compilati
-bool checkForNotification() {
-  if (IstitutoFrequentato == "Non hai inserito alcuna descrizione" ||
-      Eta == '1' ||
-      Passione == "Non hai inserito alcuna descrizione" ||
-      SportPreferito == "Non hai inserito alcuna descrizione" ||
-      MusicaPreferita == "Non hai inserito alcuna descrizione" ||
-      ArtistaPreferito == "Non hai inserito alcuna descrizione" ||
-      MateriaPreferita == "Non hai inserito alcuna descrizione") {
-    return checkScaffold = true;
-  }
-  return checkScaffold = false;
 }

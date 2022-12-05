@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:human_variable_behaviour/constant.dart';
@@ -23,6 +25,7 @@ class CategoryCard extends StatelessWidget {
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(13),
+          // ignore: prefer_const_literals_to_create_immutables
           boxShadow: [
             BoxShadow(
               offset: Offset(0, 17),

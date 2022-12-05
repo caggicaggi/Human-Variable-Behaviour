@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -7,6 +9,7 @@ import 'package:human_variable_behaviour/Screens/Application/SchermataPrincipale
 import 'package:human_variable_behaviour/Screens/HomePage/homepage_screen.dart';
 import 'package:human_variable_behaviour/Screens/Login/components/body.dart';
 import 'package:human_variable_behaviour/components/rounded_input_field.dart';
+import 'package:human_variable_behaviour/constant.dart';
 import 'package:human_variable_behaviour/mysql/mysql.dart';
 import 'package:random_avatar/random_avatar.dart';
 
@@ -26,7 +29,7 @@ class _BodyState extends State<Body> {
   @override
   Widget build(BuildContext context) {
     //si setta la variabile per vedere cosa far visualizzare all'utente
-    checkForNotification();
+    //checkForNotification();
     //si occupata tutto lo schermo sia in larghezza che altezza
     Size size = MediaQuery.of(context).size;
 
@@ -40,43 +43,9 @@ class _BodyState extends State<Body> {
     if (checkScaffold == true) {
       //SCAFFOLD per la modifica dei dati
       return Scaffold(
-        appBar: AppBar(
-          backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-          elevation: 1,
-          //si crea pulsante per tornare alla home
-          leading: IconButton(
-            icon: Icon(
-              Icons.home,
-              color: Colors.blue,
-            ),
-            onPressed: () {
-              checkforModifica = false;
-              checkScaffold = false;
-              Get.to(HomePageScreen());
-            },
-          ),
-          //si crea pulsante per andare alle impostazioni
-          actions: [
-            IconButton(
-              icon: Icon(
-                Icons.settings,
-                color: Colors.blue,
-              ),
-              onPressed: () {
-                Navigator.of(context).push(MaterialPageRoute(
-                    builder: (BuildContext context) => SettingsPage()));
-              },
-            ),
-          ],
-        ),
         body: Container(
-          //si inserisce l'immagine di sfondo
-          decoration: BoxDecoration(
-            image: DecorationImage(
-                image: AssetImage("assets/images/sfondo_games.png"),
-                fit: BoxFit.cover),
-          ),
-          padding: EdgeInsets.only(left: 16, top: 25, right: 16),
+          //Immagine di sfondo
+          decoration: getBackroundImage(),
           child: GestureDetector(
             onTap: () {
               FocusScope.of(context).unfocus();
@@ -278,33 +247,6 @@ class _BodyState extends State<Body> {
       );
     } else {
       return Scaffold(
-        appBar: AppBar(
-          backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-          elevation: 1,
-          //si crea il pulsante per tornare alla home
-          leading: IconButton(
-            icon: Icon(
-              Icons.home,
-              color: Colors.blue,
-            ),
-            onPressed: () {
-              Get.to(HomePageScreen());
-            },
-          ),
-          //si crea il pulsante per andare alle impostazioni
-          actions: [
-            IconButton(
-              icon: Icon(
-                Icons.settings,
-                color: Colors.blue,
-              ),
-              onPressed: () {
-                Navigator.of(context).push(MaterialPageRoute(
-                    builder: (BuildContext context) => SettingsPage()));
-              },
-            ),
-          ],
-        ),
         body: Container(
           //si setta l'immagine di sofndo
           decoration: BoxDecoration(

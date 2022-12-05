@@ -1,4 +1,4 @@
-// ignore_for_file: deprecated_member_use, sort_child_properties_last
+// ignore_for_file: deprecated_member_use, sort_child_properties_last, avoid_unnecessary_containers
 
 import 'package:flutter/material.dart';
 import 'package:human_variable_behaviour/Screens/Application/SchermataPrincipale/widgets/active_project_card.dart';
@@ -9,6 +9,11 @@ import 'package:percent_indicator/percent_indicator.dart';
 import 'package:human_variable_behaviour/mysql/mysql.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
 import 'package:random_avatar/random_avatar.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
+
+//Variabile per stringa da analizzare
+String humanVariableBehaviour = '';
 
 final List<Widget> painters = <Widget>[];
 
@@ -33,8 +38,9 @@ class _BodyState extends State<Body> {
 
   Text subheading(String title) {
     return Text(title,
+        // ignore: prefer_const_constructors
         style: TextStyle(
-            color: Colors.black,
+            color: Colors.white,
             fontSize: 20.0,
             fontWeight: FontWeight.w700,
             letterSpacing: 1.2));
@@ -92,15 +98,6 @@ class _BodyState extends State<Body> {
                               progressColor: Colors.red,
                               backgroundColor: Colors.yellow,
                               center: painters[0],
-/*                            
-                            CircleAvatar(
-                              backgroundColor: Colors.blue,
-                              radius: 30.0,
-                              backgroundImage: SvgPicture.asset(
-                                'assets/example.svg',
-                              ),
-                            ),
-  */
                             ),
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.center,
@@ -111,7 +108,7 @@ class _BodyState extends State<Body> {
                                     textAlign: TextAlign.start,
                                     style: TextStyle(
                                         fontSize: 22.0,
-                                        color: Colors.black,
+                                        color: Colors.white,
                                         fontWeight: FontWeight.w800,
                                         height: size.height * 0.0002),
                                   ),
@@ -174,12 +171,11 @@ class _BodyState extends State<Body> {
                                 ),
                                 */
                                 ActiveProjectsCard(
-                                  cardColor: Colors.green,
+                                  cardColor: Colors.orange,
                                   loadingPercent:
-                                      double.parse(Percentuale_Impiccato),
-                                  title:
-                                      "Percentuale vittoria gioco dell'impiccato",
-                                  //subtitle: '9 hours progress',
+                                      double.parse(Percentuale_Quiz),
+                                  title: "Percentuale vittoria quiz",
+                                  //subtitle: '20 hours progress',
                                 ),
                                 ActiveProjectsCard(
                                   cardColor: Colors.red,
@@ -190,11 +186,12 @@ class _BodyState extends State<Body> {
                                   //subtitle: '20 hours progress',
                                 ),
                                 ActiveProjectsCard(
-                                  cardColor: Colors.yellow,
+                                  cardColor: Colors.green,
                                   loadingPercent:
-                                      double.parse(Percentuale_Quiz),
-                                  title: "Percentuale vittoria quiz",
-                                  //subtitle: '20 hours progress',
+                                      double.parse(Percentuale_Impiccato),
+                                  title:
+                                      "Percentuale vittoria gioco dell'impiccato",
+                                  //subtitle: '9 hours progress',
                                 ),
                               ],
                             ),
@@ -205,6 +202,22 @@ class _BodyState extends State<Body> {
                   ),
                 ),
               ),
+              /*
+              TextButton(
+                onPressed: () async {
+                  //url to send the post request to
+                  //String url = 'gilbert500.pythonanywhere.com/name';
+                  final mail = Uri(
+                      scheme: 'http',
+                      host: 'gilbert500.pythonanywhere.com',
+                      path: '/name');
+                  //sending a post request to the url
+                  final response = await http.post(mail,
+                      body: json.encode({'name': humanVariableBehaviour}));
+                },
+                child: Text('SEND'),
+              ),
+              */
             ],
           ),
         ),

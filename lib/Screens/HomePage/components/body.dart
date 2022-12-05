@@ -1,4 +1,5 @@
 // ignore_for_file: prefer_const_constructors
+
 import 'package:flutter/material.dart';
 import 'package:human_variable_behaviour/Screens/Application/Diario/dynamic_event.dart';
 import 'package:human_variable_behaviour/Screens/Application/Giochi/giochi_screen.dart';
@@ -23,17 +24,19 @@ class _BodyState extends State<Body> {
   //Lista di widget richiamati dal NavigationBar
   //Qui occorre chiamare il construttore di una classe che ritornerà un wiget
   List<Widget> pages = [
+    //Oggetto Giochi
     GiochiScreen(),
+    //Oggetto Persona
     PersonaScreen(),
     //Oggetto Schermata principale
     SchermataPrincipaleScreen(),
+    //Oggetto Diario
     DynamicEvent(),
+    //Oggetto Unicam
     UnicamScreen(),
   ];
   @override
   Widget build(BuildContext context) {
-    //Occupo tutto lo schermo sia in altezza che in lunghezza
-    Size size = MediaQuery.of(context).size;
     return Background(
         child: Scaffold(
       body: Center(

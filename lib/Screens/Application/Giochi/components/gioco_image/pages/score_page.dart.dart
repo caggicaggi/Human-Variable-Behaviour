@@ -20,7 +20,7 @@ class ScorePage extends StatefulWidget {
 class _ScorePageState extends State<ScorePage> {
   @override
   Widget build(BuildContext context) {
-    addTry('Tentativi_Riusciti_Immagini');
+    //addTry('Tentativi_Riusciti_Immagini');
     return Scaffold(
       body: Stack(
         fit: StackFit.expand,

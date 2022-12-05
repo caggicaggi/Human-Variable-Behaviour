@@ -1,32 +1,36 @@
-import 'dart:math';
+// ignore_for_file: library_private_types_in_public_api, non_constant_identifier_names, unnecessary_new, unused_local_variable, prefer_interpolation_to_compose_strings, sort_child_properties_last, prefer_const_constructors
 
+import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:human_variable_behaviour/Screens/Application/Giochi/components/body.dart';
 import 'package:human_variable_behaviour/Screens/Application/Giochi/components/gioco_hangman/score_screen.dart';
 import 'package:human_variable_behaviour/Screens/Application/Giochi/components/gioco_hangman/scorebadquestions_screen.dart.dart';
 import 'package:human_variable_behaviour/Screens/Application/Giochi/components/gioco_hangman/ui/figure_image.dart';
-import 'package:human_variable_behaviour/Screens/Application/Giochi/components/gioco_hangman/ui/letter.dart';
-import 'package:human_variable_behaviour/Screens/Application/Giochi/components/gioco_hangman/utils/game.dart';
+import 'package:human_variable_behaviour/Screens/Application/Giochi/components/gioco_hangman/components/utils.dart';
 import 'package:human_variable_behaviour/Screens/HomePage/homepage_screen.dart';
+import 'package:human_variable_behaviour/mysql/mysql.dart';
 
-//si inizializzano le variabili che si andranno a usare
+//Variabile per verificare se la parola è stata indovinata
 bool CorrectQuestions = false;
+//Array per il salvataggio di tutte le parole del database
+List<String> listofStringQuestions = [];
+//Indice per passare alle variabili successive
+int nextParola = 0;
 int x = 0;
 Set<String> setCorrectQuestions = Set();
-String word = "";
+
 bool checkQuestion = false;
 
 class HangMan extends StatefulWidget {
-  //si crea il costruttore
   const HangMan({Key? key}) : super(key: key);
 
-//si crea lo state
   @override
   _HangManAppState createState() => _HangManAppState();
 }
 
 class _HangManAppState extends State<HangMan> {
-  //si crea una lista che contiene l'alfabeto
+  //Lista contentente l'afabeto
   List<String> alphabets = [
     "A",
     "B",
@@ -55,17 +59,14 @@ class _HangManAppState extends State<HangMan> {
     "Y",
     "Z"
   ];
+
   @override
   Widget build(BuildContext context) {
-    //si occupa tutto lo schermo in altezza e larghezza
+    //Occupo tutto lo schermo sia in altezza che in lunghezza
     Size size = MediaQuery.of(context).size;
-    if (checkQuestion == false) {
-      word = selectStringQuestions(word).toUpperCase();
-      checkQuestion = true;
-    }
     return Stack(
       children: <Widget>[
-        //si imposta l'immagine di sfondo
+        //Immagine di sfondo
         Image.asset(
           "assets/images/sfondo_games.png",
           height: size.height,
@@ -74,20 +75,18 @@ class _HangManAppState extends State<HangMan> {
         ),
         Scaffold(
           backgroundColor: Colors.transparent,
-          appBar: AppBar(
-            title: Text("Ora prova a indovinare"),
-            elevation: 0,
-            centerTitle: true,
-            backgroundColor: Colors.blue,
-          ),
           body: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
+              //Spaziatura
+              SizedBox(
+                height: size.height * 0.02,
+              ),
               Center(
                 child: Stack(
                   children: <Widget>[
-                    //a seconda dei tentativi si aggiunge un'immagine
+                    //Aggiungo una parte del corpo a seconda delle lettere indovinate
                     figureImage(
                         context, Game.tries >= 0, "assets/images/hang.png"),
                     figureImage(
@@ -105,10 +104,7 @@ class _HangManAppState extends State<HangMan> {
                   ],
                 ),
               ),
-              //Ora si creerà il widget Parola nascosta
-              //poi si torna alla classe Game e si aggiunge
-              // una nuova variabile per memorizzare il carattere selezionato
-              /* e si controlla se è sulla parola */
+              //Creo il widget letter e prendo con il selectedChar controllo se presente
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: word
@@ -117,7 +113,7 @@ class _HangManAppState extends State<HangMan> {
                         !Game.selectedChar.contains(e.toUpperCase())))
                     .toList(),
               ),
-              //si crea la tastiera per il gioco
+              //Tastiera
               SizedBox(
                 width: size.width * 1,
                 height: size.height * 0.4,
@@ -126,7 +122,7 @@ class _HangManAppState extends State<HangMan> {
                   mainAxisSpacing: 10.0,
                   crossAxisSpacing: 1.0,
                   padding: EdgeInsets.all(size.height * 0.01),
-                  //stampa tutte le lettere
+                  //Lettere
                   children: alphabets.map((e) {
                     return RawMaterialButton(
                       onPressed: Game.selectedChar.contains(e)
@@ -170,29 +166,15 @@ class _HangManAppState extends State<HangMan> {
                     );
                   }).toList(),
                 ),
-              )
+              ), //Spaziatura
+              SizedBox(
+                height: size.height * 0.02,
+              ),
             ],
           ),
         )
       ],
     );
-  }
-
-//metodo per passare la parola da indovinare
-  String selectStringQuestions(String word) {
-    //inizializzo lista parole da indovinare
-    List<String> listofStringQuestions = [];
-    //si aggiungono parole alla lista
-    listofStringQuestions.add("Bullismo");
-    listofStringQuestions.add("Unicam");
-    listofStringQuestions.add("Scuola");
-    listofStringQuestions.add("Studiare");
-    listofStringQuestions.add("Universita");
-
-    //si genera un indice casuale
-    var index = Random().nextInt(listofStringQuestions.length - 1) + (0);
-
-    return listofStringQuestions[index];
   }
 
   String wordToCheck = '';

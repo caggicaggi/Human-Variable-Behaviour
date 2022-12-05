@@ -1,4 +1,5 @@
 // ignore_for_file: prefer_const_constructors
+
 import 'package:flutter/material.dart';
 import 'package:human_variable_behaviour/Screens/Login/login_screen.dart';
 import 'package:human_variable_behaviour/Screens/SignUp/sign_up_screen.dart';
@@ -19,11 +20,6 @@ class Body extends StatelessWidget {
           //Allineo tutto al centro
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            //Testo della schermata
-            /* Text(
-              'Human Variable Behaviour',
-              style: TextStyle(fontWeight: FontWeight.bold),
-            ),*/
             //Spaziatura
             SizedBox(height: size.height * 0.05),
             //Immagine del logo Unicam
@@ -33,7 +29,7 @@ class Body extends StatelessWidget {
             ),
             //Spaziatura
             SizedBox(height: size.height * 0.05),
-            //Chiamo la class rounded_button.dart
+            //Chiamo la classe rounded_button.dart definita in Welcome\components
             //Costruttore con Testo sta stampare e Funzione da chiamare
             RoundedButton(
               text: 'LOGIN',
@@ -50,6 +46,7 @@ class Body extends StatelessWidget {
                 );
               },
             ),
+            //Chiamo la classe rounded_button.dart definita in Welcome\components
             RoundedButton(
               text: 'SIGN IN',
               color: kPrimaryLightColor,
