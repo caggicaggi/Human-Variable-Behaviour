@@ -59,16 +59,17 @@ class _BodyState extends State<Body> {
                               fontWeight: FontWeight.w600,
                             ),
                           ),
+                          //SizedBox per spazio
                           const SizedBox(
-                            height: 35,
+                            height: 60,
                           ),
                           SizedBox(
-                            height: size.height * 0.63,
+                            width: size.height * 0.63,
+                            height: size.height * 0.59,
                             child: Swiper(
                               itemCount: link.length,
                               itemWidth: MediaQuery.of(context).size.width,
-                              itemHeight:
-                                  MediaQuery.of(context).size.height - 2,
+                              itemHeight: MediaQuery.of(context).size.height,
                               layout: SwiperLayout.STACK,
                               pagination: const SwiperPagination(
                                 builder: DotSwiperPaginationBuilder(

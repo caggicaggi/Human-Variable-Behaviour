@@ -14,7 +14,7 @@ class Background extends StatelessWidget {
     //Occupo tutto lo schermo sia in altezza che in lunghezza
     Size size = MediaQuery.of(context).size;
     return Container(
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
         image: DecorationImage(
             image: AssetImage("assets/images/cactus.jpeg"), fit: BoxFit.cover),
       ),

@@ -1,7 +1,6 @@
-// ignore_for_file: deprecated_member_use, import_of_legacy_library_into_null_safe, override_on_non_overriding_member, prefer_const_constructors
+// ignore_for_file: deprecated_member_use, import_of_legacy_library_into_null_safe, override_on_non_overriding_member, prefer_const_constructors, library_private_types_in_public_api
 
 import 'dart:convert';
-//import 'dart:html';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:human_variable_behaviour/Screens/HomePage/homepage_screen.dart';
@@ -12,6 +11,8 @@ import 'package:http/http.dart' as http;
 import '../../HomePage/components/body.dart';
 
 class DynamicEvent extends StatefulWidget {
+  const DynamicEvent({Key? key}) : super(key: key);
+
   //creo un nuovo stato
   @override
   _DynamicEventState createState() => _DynamicEventState();
@@ -34,6 +35,7 @@ class _DynamicEventState extends State<DynamicEvent> {
   late TextEditingController _eventController;
   late SharedPreferences prefs;
 
+  //indirizzo per chiamata al sentiment analysis
   final mail = Uri(
       scheme: 'http',
       host: 'humorvarbehaviour.pythonanywhere.com',
@@ -41,7 +43,7 @@ class _DynamicEventState extends State<DynamicEvent> {
 
   @override
   void initState() {
-    //metodo che viene caricato appena si apre la pagine
+    //metodo che viene caricato appena si apre la pagina
     super.initState();
     _controller = CalendarController();
     _eventController = TextEditingController();
@@ -314,7 +316,13 @@ class _DynamicEventState extends State<DynamicEvent> {
                         fontWeight: FontWeight.bold),
                   ),
                   onPressed: () async {
-                    Navigator.pop(context);
+                    //rotella di caricamento
+                    showDialog(
+                        context: context,
+                        builder: (context) {
+                          return Center(child: CircularProgressIndicator());
+                        });
+
                     //update giornata inserita
                     await signDataAndGiornata(idUtente, _controller.selectedDay,
                         _eventController.text);
@@ -329,7 +337,6 @@ class _DynamicEventState extends State<DynamicEvent> {
                     }
                     //assegno la lista alla variabile _selectedEvents
                     for (int i = 0; i < list.length; i++) {
-                      print(list[0]);
                       _selectedEvents.add(list[i].toString());
                     }
 
@@ -354,7 +361,8 @@ class _DynamicEventState extends State<DynamicEvent> {
                             )),
                           ),
                         ));
-                    //invio la frase al sentiment analysis
+
+                    //Invio la frase al sentiment analysis
                     final response = await http.post(mail,
                         body: json.encode({'text': _eventController.text}));
                     final decoded =
@@ -363,10 +371,35 @@ class _DynamicEventState extends State<DynamicEvent> {
                         '/' +
                         decoded['emotion'] +
                         decoded['numericResp_sen'];
+                    debugPrint('SENTIMENT ANALYSIS:' + finalResponse);
 
-                    debugPrint('@@@@@@@@@@@@@@@@@@');
-                    debugPrint(
-                        'SENTIMENT ANALYSIS:' + decoded['numericResp_sen']);
+                    /* Sottraggo o aggiungo il valore alla variabile
+                    che corrisponde alla polarità (sentiment) contenuto nella response
+                    quindi se +1 sarà positive altrimenti negative*/
+                    //  await updateVariable(
+                    //      idUtente, int.parse(decoded['numericResp_sen']));
+
+                    /*Controllo che tipo di emozione ho come ritorno e
+                    se corrisponde a:
+                    joy       aggiungo 2
+                    sadness   sottraggo 3
+                    anger     sottraggo 2 */
+                    if (decoded['emotion'] == "joy") {
+                      print("EMOTION: " + decoded['emotion']);
+                      await updateVariable(
+                          idUtente, 2 + int.parse(decoded['numericResp_sen']));
+                    }
+                    if (decoded['emotion'] == "sadness") {
+                      print("EMOTION: " + decoded['emotion']);
+                      await updateVariable(
+                          idUtente, -3 + int.parse(decoded['numericResp_sen']));
+                    }
+                    if (decoded['emotion'] == "anger") {
+                      print("EMOTION: " + decoded['emotion']);
+                      await updateVariable(
+                          idUtente, -2 + int.parse(decoded['numericResp_sen']));
+                    }
+
                     //Controllo e salvataggio dati inseriti
                     if (_eventController.text.isEmpty) return;
                     setState(() {
@@ -384,6 +417,18 @@ class _DynamicEventState extends State<DynamicEvent> {
 
                       _eventController.clear();
                     });
+                    //aggiorno rimanendo nell'inserimento della giornata
+                    Navigator.of(context).pop();
+
+                    /*ricarico la pagina 
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) {
+                          return DynamicEvent();
+                        },
+                      ),
+                    );*/
                   },
                 ),
               ],

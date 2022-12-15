@@ -539,110 +539,17 @@ Future<int> getVariabile() async {
 }
 
 //AGGIORNO LA VARIABILE A SECONDA DELLA RISPOSTA (IN QUESTO CASO CORRETTA --> RISPOSTA +4 )
-Future<void> updateVariable1(idUtente) async {
-  //Nome della tabella
-  String table = 'utenti';
-  //Attendo risultato variabile
-  await getVariabile();
-  print("VARIABILE:");
-  print(variabile);
-  newVariabile = variabile + 4;
-  print("NEWVARIABILE");
-  print(newVariabile);
-  String query = 'Update ' +
-      table +
-      ' SET VARIABILE = ' +
-      "'" +
-      newVariabile.toString() +
-      "'" +
-      'WHERE idUtente =' +
-      "'" +
-      idUtente +
-      "'";
-  //Connessione al database
-  var db = Mysql();
-  db.getConnection().then((connessione) async {
-    //delay obbligatorio per Malaccari
-    await Future.delayed(const Duration(milliseconds: 1));
-    await connessione.query(query).then((result) async {
-      connessione.close();
-    });
-  });
-}
-
 //AGGIORNO LA VARIABILE A SECONDA DELLA RISPOSTA (IN QUESTO CASO -1 --> RISPOSTA 1 )
-Future<void> updateVariable2(idUtente) async {
+//AGGIORNA LA VARIABILE A SECONDA DELLA RISPOSTA (IN QUESTO CASO -2 --> RISPOSTA 2 )
+//AGGIORNA LA VARIABILE A SECONDA DELLA RISPOSTA (IN QUESTO CASO -3 --> RISPOSTA 3 )
+Future<void> updateVariable(idUtente, valoreDaSottrarre) async {
   //Nome della tabella
   String table = 'utenti';
   //Attendo risultato variabile
   await getVariabile();
   print("VARIABILE:");
   print(variabile);
-  newVariabile = variabile - 1;
-  print("NEWVARIABILE");
-  print(newVariabile);
-  String query = 'Update ' +
-      table +
-      ' SET VARIABILE = ' +
-      "'" +
-      newVariabile.toString() +
-      "'" +
-      'WHERE idUtente =' +
-      "'" +
-      idUtente +
-      "'";
-  //Connessione al database
-  var db = Mysql();
-  db.getConnection().then((connessione) async {
-    //delay obbligatorio per Malaccari
-    await Future.delayed(const Duration(milliseconds: 1));
-    await connessione.query(query).then((result) async {
-      connessione.close();
-    });
-  });
-}
-
-//AGGIORNO LA VARIABILE A SECONDA DELLA RISPOSTA (IN QUESTO CASO -2 --> RISPOSTA 2 )
-Future<void> updateVariable3(idUtente) async {
-  //Nome della tabella
-  String table = 'utenti';
-  //Attendo risultato variabile
-  await getVariabile();
-  print("VARIABILE:");
-  print(variabile);
-  newVariabile = variabile - 2;
-  print("NEWVARIABILE");
-  print(newVariabile);
-  String query = 'Update ' +
-      table +
-      ' SET VARIABILE = ' +
-      "'" +
-      newVariabile.toString() +
-      "'" +
-      'WHERE idUtente =' +
-      "'" +
-      idUtente +
-      "'";
-  //Connessione al database
-  var db = Mysql();
-  db.getConnection().then((connessione) async {
-    //delay obbligatorio per Malaccari
-    await Future.delayed(const Duration(milliseconds: 1));
-    await connessione.query(query).then((result) async {
-      connessione.close();
-    });
-  });
-}
-
-//AGGIORNO LA VARIABILE A SECONDA DELLA RISPOSTA (IN QUESTO CASO -3 --> RISPOSTA 3 )
-Future<void> updateVariable4(idUtente) async {
-  //Nome della tabella
-  String table = 'utenti';
-  //Attendo risultato variabile
-  await getVariabile();
-  print("VARIABILE:");
-  print(variabile);
-  newVariabile = variabile - 3;
+  var newVariabile = variabile + valoreDaSottrarre;
   print("NEWVARIABILE");
   print(newVariabile);
   String query = 'Update ' +
@@ -760,5 +667,5 @@ Future<String> getQuestionFromId(int id) async {
       connessione.close();
     });
   });
-  return 'DIO CANE';
+  return '';
 }
