@@ -1,4 +1,4 @@
-// ignore_for_file: deprecated_member_use, import_of_legacy_library_into_null_safe, override_on_non_overriding_member, prefer_const_constructors, library_private_types_in_public_api
+// ignore_for_file: deprecated_member_use, import_of_legacy_library_into_null_safe, override_on_non_overriding_member, prefer_const_constructors, library_private_types_in_public_api, use_build_context_synchronously, prefer_interpolation_to_compose_strings, avoid_print
 
 import 'dart:convert';
 import 'package:flutter/material.dart';
@@ -9,6 +9,8 @@ import 'package:table_calendar/table_calendar.dart';
 import '../../../mysql/mysql.dart';
 import 'package:http/http.dart' as http;
 import '../../HomePage/components/body.dart';
+
+var wordToSend = '';
 
 class DynamicEvent extends StatefulWidget {
   const DynamicEvent({Key? key}) : super(key: key);
@@ -282,10 +284,10 @@ class _DynamicEventState extends State<DynamicEvent> {
             child: TextField(
               maxLines: 20,
               controller: _eventController,
-              decoration: new InputDecoration(
-                border: new OutlineInputBorder(
+              decoration: InputDecoration(
+                border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(20),
-                    borderSide: new BorderSide(color: Colors.teal)),
+                    borderSide: BorderSide(color: Colors.teal)),
               ),
             ),
           ),
@@ -316,16 +318,12 @@ class _DynamicEventState extends State<DynamicEvent> {
                         fontWeight: FontWeight.bold),
                   ),
                   onPressed: () async {
-                    //rotella di caricamento
-                    showDialog(
-                        context: context,
-                        builder: (context) {
-                          return Center(child: CircularProgressIndicator());
-                        });
-
                     //update giornata inserita
                     await signDataAndGiornata(idUtente, _controller.selectedDay,
                         _eventController.text);
+
+                    //salvo la frase da inviare
+                    wordToSend = _eventController.text;
 
                     //ricalcolo lista
                     await listaGiornateInserite(
@@ -362,44 +360,6 @@ class _DynamicEventState extends State<DynamicEvent> {
                           ),
                         ));
 
-                    //Invio la frase al sentiment analysis
-                    final response = await http.post(mail,
-                        body: json.encode({'text': _eventController.text}));
-                    final decoded =
-                        json.decode(response.body) as Map<String, dynamic>;
-                    var finalResponse = decoded['sentiment'] +
-                        '/' +
-                        decoded['emotion'] +
-                        decoded['numericResp_sen'];
-                    debugPrint('SENTIMENT ANALYSIS:' + finalResponse);
-
-                    /* Sottraggo o aggiungo il valore alla variabile
-                    che corrisponde alla polarità (sentiment) contenuto nella response
-                    quindi se +1 sarà positive altrimenti negative*/
-                    //  await updateVariable(
-                    //      idUtente, int.parse(decoded['numericResp_sen']));
-
-                    /*Controllo che tipo di emozione ho come ritorno e
-                    se corrisponde a:
-                    joy       aggiungo 2
-                    sadness   sottraggo 3
-                    anger     sottraggo 2 */
-                    if (decoded['emotion'] == "joy") {
-                      print("EMOTION: " + decoded['emotion']);
-                      await updateVariable(
-                          idUtente, 2 + int.parse(decoded['numericResp_sen']));
-                    }
-                    if (decoded['emotion'] == "sadness") {
-                      print("EMOTION: " + decoded['emotion']);
-                      await updateVariable(
-                          idUtente, -3 + int.parse(decoded['numericResp_sen']));
-                    }
-                    if (decoded['emotion'] == "anger") {
-                      print("EMOTION: " + decoded['emotion']);
-                      await updateVariable(
-                          idUtente, -2 + int.parse(decoded['numericResp_sen']));
-                    }
-
                     //Controllo e salvataggio dati inseriti
                     if (_eventController.text.isEmpty) return;
                     setState(() {
@@ -417,9 +377,69 @@ class _DynamicEventState extends State<DynamicEvent> {
 
                       _eventController.clear();
                     });
+
                     //aggiorno rimanendo nell'inserimento della giornata
                     Navigator.of(context).pop();
 
+                    //Invio la frase al sentiment analysis
+                    final response = await http.post(mail,
+                        body: json.encode({'text': wordToSend}));
+                    final decoded =
+                        json.decode(response.body) as Map<String, dynamic>;
+                    var finalResponse = decoded['sentiment'] +
+                        '/' +
+                        decoded['emotion'] +
+                        decoded['numericResp_sen'];
+
+                    /* Sottraggo o aggiungo il valore alla variabile
+                    che corrisponde alla polarità (sentiment) contenuto nella response
+                    quindi se +1 sarà positive altrimenti negative*/
+                    //  await updateVariable(
+                    //      idUtente, int.parse(decoded['numericResp_sen']));
+
+                    /*Controllo che tipo di emozione ho come ritorno e
+                    se corrisponde a:
+                    joy       aggiungo 2
+                    sadness   sottraggo 3
+                    anger     sottraggo 2 
+                    fear      sottraggo 1 
+                    */
+
+                    //splitto le parole e la polarità ottenute
+                    debugPrint('Emozioni:' + decoded['emotion']);
+                    List<String> splitted = decoded['emotion'].split('.');
+                    List<String> splittedNumber =
+                        decoded['numericResp_sen'].split('.');
+                    //Prendo la variabile
+                    await getVariabile();
+                    print("Prima del for " + variabile.toString());
+                    //controllo il ritorno dell'analysis per modificare la variabile
+                    for (int i = 0; i < splitted.length; i++) {
+                      await getVariabile();
+                      print(i.toString() + " : " + variabile.toString());
+                      if (splitted[i] == "joy") {
+                        print("EMOTION: " + splitted[i]);
+                        await updateVariable(
+                            idUtente, 2 + int.parse(splittedNumber[i]));
+                      }
+                      if (splitted[i] == "sadness") {
+                        print("EMOTION: " + splitted[i]);
+                        await updateVariable(
+                            idUtente, -3 + int.parse(splittedNumber[i]));
+                      }
+                      if (splitted[i] == "anger") {
+                        print("EMOTION: " + splitted[i]);
+                        await updateVariable(
+                            idUtente, -2 + int.parse(splittedNumber[i]));
+                      }
+                      if (splitted[i] == "fear") {
+                        print("EMOTION: " + splitted[i]);
+                        await updateVariable(
+                            idUtente, -1 + int.parse(splittedNumber[i]));
+                      }
+                    }
+                    await getVariabile();
+                    print("Dopo del for " + variabile.toString());
                     /*ricarico la pagina 
                     Navigator.push(
                       context,

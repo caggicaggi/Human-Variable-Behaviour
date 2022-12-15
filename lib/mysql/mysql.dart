@@ -526,8 +526,6 @@ Future<int> getVariabile() async {
   //Connessione al database
   var db = Mysql();
   await db.getConnection().then((connessione) async {
-    //delay obbligatorio per Malaccari
-    await Future.delayed(const Duration(milliseconds: 1));
     await connessione.query(query).then((result) async {
       for (var res in result) {
         variabile = res[0];
@@ -545,13 +543,7 @@ Future<int> getVariabile() async {
 Future<void> updateVariable(idUtente, valoreDaSottrarre) async {
   //Nome della tabella
   String table = 'utenti';
-  //Attendo risultato variabile
-  await getVariabile();
-  print("VARIABILE:");
-  print(variabile);
   var newVariabile = variabile + valoreDaSottrarre;
-  print("NEWVARIABILE");
-  print(newVariabile);
   String query = 'Update ' +
       table +
       ' SET VARIABILE = ' +
@@ -562,14 +554,9 @@ Future<void> updateVariable(idUtente, valoreDaSottrarre) async {
       "'" +
       idUtente +
       "'";
-  //Connessione al database
   var db = Mysql();
-  db.getConnection().then((connessione) async {
-    //delay obbligatorio per Malaccari
-    await Future.delayed(const Duration(milliseconds: 1));
-    await connessione.query(query).then((result) async {
-      connessione.close();
-    });
+  await db.getConnection().then((connessione) async {
+    await connessione.query(query).then((value) => connessione.close());
   });
 }
 
