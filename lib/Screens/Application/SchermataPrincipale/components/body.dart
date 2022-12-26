@@ -40,7 +40,8 @@ class _BodyState extends State<Body> {
     return Text(title,
         // ignore: prefer_const_constructors
         style: TextStyle(
-            color: Colors.white,
+            fontFamily: 'Raleway',
+            color: Color.fromARGB(255, 42, 48, 223),
             fontSize: 20.0,
             fontWeight: FontWeight.w700,
             letterSpacing: 1.2));
@@ -129,15 +130,12 @@ class _BodyState extends State<Body> {
                         padding: const EdgeInsets.symmetric(
                             horizontal: 20.0, vertical: 10.0),
                         child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.center,
                           children: <Widget>[
                             subheading('Progressi applicazioni'),
                             Row(
                               children: <Widget>[
-                                /*
-                                PULSANTI PER NOTIFICHE
-                                
-                                ElevatedButton(
+                                /* ElevatedButton(
                                   onPressed: () async {
                                     await service.showNotification(
                                         id: 0,
@@ -168,8 +166,8 @@ class _BodyState extends State<Body> {
                                   },
                                   child: const Text(
                                       'Show Notification With Payload'),
-                                ),
-                                */
+                                ), */
+
                                 ActiveProjectsCard(
                                   cardColor: Colors.orange,
                                   loadingPercent:
@@ -193,6 +191,7 @@ class _BodyState extends State<Body> {
                                       "Percentuale vittoria gioco dell'impiccato",
                                   //subtitle: '9 hours progress',
                                 ),
+                              
                               ],
                             ),
                           ],
@@ -202,22 +201,6 @@ class _BodyState extends State<Body> {
                   ),
                 ),
               ),
-              /*
-              TextButton(
-                onPressed: () async {
-                  //url to send the post request to
-                  //String url = 'gilbert500.pythonanywhere.com/name';
-                  final mail = Uri(
-                      scheme: 'http',
-                      host: 'gilbert500.pythonanywhere.com',
-                      path: '/name');
-                  //sending a post request to the url
-                  final response = await http.post(mail,
-                      body: json.encode({'name': humanVariableBehaviour}));
-                },
-                child: Text('SEND'),
-              ),
-              */
             ],
           ),
         ),

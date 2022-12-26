@@ -26,7 +26,7 @@ class OptionsWidget extends StatelessWidget {
     return GestureDetector(
       onTap: () => onClickedOption(option),
       child: Container(
-        height: 50,
+        height: 70,
         padding: EdgeInsets.all(12),
         margin: EdgeInsets.symmetric(vertical: 8),
         decoration: BoxDecoration(
@@ -34,12 +34,12 @@ class OptionsWidget extends StatelessWidget {
           borderRadius: BorderRadius.circular(16),
           border: Border.all(color: Colors.grey),
         ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
               option.text,
-              style: TextStyle(fontSize: 20),
+              style: TextStyle(fontSize: 15),
             ),
             getIconForOption(option, question),
           ],

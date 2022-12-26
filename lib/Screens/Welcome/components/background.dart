@@ -15,7 +15,7 @@ class Background extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
         image: DecorationImage(
-            image: AssetImage("assets/images/cactus.jpeg"), fit: BoxFit.cover),
+            image: AssetImage("assets/images/sfondo.png"), fit: BoxFit.cover),
       ),
       height: size.height,
       width: size.width,

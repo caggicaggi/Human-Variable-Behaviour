@@ -47,7 +47,7 @@ class _BodyState extends State<Body> {
             ),
             //Immagine del logo Unicam
             Image.asset(
-              'assets/images/logoUnicam.jpg',
+              'assets/images/unicamLogo.png',
               height: size.height * 0.15,
             ),
             SizedBox(

@@ -406,40 +406,39 @@ class _DynamicEventState extends State<DynamicEvent> {
                     */
 
                     //splitto le parole e la polarità ottenute
-                    debugPrint('Emozioni:' + decoded['emotion']);
                     List<String> splitted = decoded['emotion'].split('.');
                     List<String> splittedNumber =
                         decoded['numericResp_sen'].split('.');
                     //Prendo la variabile
                     await getVariabile();
-                    print("Prima del for " + variabile.toString());
+                    print("Valore Variabile:  " + variabile.toString());
                     //controllo il ritorno dell'analysis per modificare la variabile
                     for (int i = 0; i < splitted.length; i++) {
                       await getVariabile();
-                      print(i.toString() + " : " + variabile.toString());
+                      print("Frase("+i.toString() + ") : " + variabile.toString());
                       if (splitted[i] == "joy") {
-                        print("EMOTION: " + splitted[i]);
+                        print("Emozione: " + splitted[i]);
                         await updateVariable(
                             idUtente, 2 + int.parse(splittedNumber[i]));
                       }
                       if (splitted[i] == "sadness") {
-                        print("EMOTION: " + splitted[i]);
+                        print("Emozione: " + splitted[i]);
                         await updateVariable(
                             idUtente, -3 + int.parse(splittedNumber[i]));
                       }
                       if (splitted[i] == "anger") {
-                        print("EMOTION: " + splitted[i]);
+                        print("Emozione: " + splitted[i]);
                         await updateVariable(
                             idUtente, -2 + int.parse(splittedNumber[i]));
                       }
                       if (splitted[i] == "fear") {
-                        print("EMOTION: " + splitted[i]);
+                        print("Emozione: " + splitted[i]);
                         await updateVariable(
                             idUtente, -1 + int.parse(splittedNumber[i]));
                       }
                     }
                     await getVariabile();
-                    print("Dopo del for " + variabile.toString());
+                    print("Variabile aggiornata: " + variabile.toString());
                     /*ricarico la pagina 
                     Navigator.push(
                       context,

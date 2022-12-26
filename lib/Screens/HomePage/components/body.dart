@@ -54,27 +54,27 @@ class _BodyState extends State<Body> {
           NavigationDestination(
             selectedIcon: Icon(Icons.gamepad),
             icon: Icon(Icons.gamepad_outlined),
-            label: 'giochi',
+            label: 'Games',
           ),
           NavigationDestination(
             selectedIcon: Icon(Icons.person),
             icon: Icon(Icons.person_outlined),
-            label: 'persona',
+            label: 'Profilo',
           ),
           NavigationDestination(
             selectedIcon: Icon(Icons.home),
             icon: Icon(Icons.home_outlined),
-            label: 'home',
+            label: 'Home',
           ),
           NavigationDestination(
             selectedIcon: Icon(Icons.menu_book),
             icon: Icon(Icons.menu_book_outlined),
-            label: 'diario',
+            label: 'Diario',
           ),
           NavigationDestination(
             selectedIcon: Icon(Icons.school),
             icon: Icon(Icons.school_outlined),
-            label: 'informativa',
+            label: 'Info',
           ),
         ],
       ),

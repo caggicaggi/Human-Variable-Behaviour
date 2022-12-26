@@ -24,8 +24,8 @@ class Body extends StatelessWidget {
             SizedBox(height: size.height * 0.05),
             //Immagine del logo Unicam
             Image.asset(
-              'assets/images/logoUnicam.jpg',
-              height: size.height * 0.45,
+              'assets/images/unicamLogo.png',
+              height: size.height * 0.20,
             ),
             //Spaziatura
             SizedBox(height: size.height * 0.05),

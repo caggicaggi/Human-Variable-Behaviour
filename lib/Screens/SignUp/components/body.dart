@@ -42,7 +42,7 @@ class _BodyState extends State<Body> {
           children: [
             //Immagine del logo Unicam
             Image.asset(
-              'assets/images/logoUnicam.jpg',
+              'assets/images/unicamLogo.png',
               height: size.height * 0.15,
             ),
             //Spaziatura
