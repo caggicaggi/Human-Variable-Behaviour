@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:flutter/material.dart';
 
 class AnswerButton extends StatelessWidget {
@@ -24,7 +26,7 @@ class AnswerButton extends StatelessWidget {
               padding: EdgeInsets.all(size.height * 0.01),
               child: Text(
                 //testo che si ha sopra al pulsante
-                _answer == true ? "SIII!" : "NOOO!",
+                _answer == true ? "Vero" : "Falso",
                 style: TextStyle(
                   color: Colors.white,
                   fontSize: 40.0,

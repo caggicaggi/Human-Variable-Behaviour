@@ -1,7 +1,4 @@
-import 'dart:collection';
 import 'dart:math';
-
-import 'package:flutter/material.dart';
 import 'package:human_variable_behaviour/Screens/Application/Giochi/components/gioco_image/utils/questions.dart.dart';
 
 //si dichiara variabili che verranno usate

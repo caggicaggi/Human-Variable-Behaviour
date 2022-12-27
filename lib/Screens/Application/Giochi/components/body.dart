@@ -4,6 +4,7 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:human_variable_behaviour/Screens/Application/Giochi/components/gioco_hangman/hangman_screen.dart.dart';
+import 'package:human_variable_behaviour/Screens/Application/Giochi/components/gioco_image/pages/quiz_page.dart.dart';
 import 'package:human_variable_behaviour/Screens/Application/Giochi/components/gioco_quiz/quizComponents/question.dart';
 import 'package:human_variable_behaviour/components/rounded_button.dart';
 import 'package:human_variable_behaviour/Screens/Application/Giochi/components/background.dart';
@@ -121,11 +122,11 @@ class Body extends StatelessWidget {
             //Pulsante per indovina l'immagine
             RoundedButton(
               text: 'Indovina l\'immagine',
-              press: () {
+              press: () async {
                 //Incremento il numero di tentativi
-                //addTry('Tentativi_Totali_Immagini');
-                //Navigator.push(context,
-                //    MaterialPageRoute(builder: (context) => LandingPage()));
+                await addTry('Tentativi_Totali_Immagini');
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => QuizPagina()));
               },
             ),
             //Spaziatura

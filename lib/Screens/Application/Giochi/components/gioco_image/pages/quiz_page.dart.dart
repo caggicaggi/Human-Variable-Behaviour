@@ -7,6 +7,8 @@ import 'package:human_variable_behaviour/Screens/Application/Giochi/components/g
 import 'package:human_variable_behaviour/Screens/Application/Giochi/components/gioco_image/utils/quiz.dart.dart';
 
 class QuizPagina extends StatefulWidget {
+  const QuizPagina({Key? key}) : super(key: key);
+
   //si crea lo stato
   @override
   _QuizPageState createState() => _QuizPageState();
@@ -14,12 +16,24 @@ class QuizPagina extends StatefulWidget {
 
 class _QuizPageState extends State<QuizPagina> {
   late Question currentQuestion;
+  String pathImmagini = "assets/images/indovina_immagini/";
   //si crea lista delle domande, le risposte e le immagini
   Quiz quiz = Quiz([
-    Question("Nella foto si può vedere obama?", true, "assets/images/p1.jpeg"),
-    Question("Questa è una pizza?", false, "assets/images/p2.jpeg"),
-    Question("Questo è bacon", false, "assets/images/p3.jpeg"),
-    Question("In foto si può vedere Elon Mask?", true, "assets/images/p4.jpeg"),
+    Question("In foto si nota del Bullismo Fisico?", true,
+        "assets/images/bullismo_fisico.png"),
+    Question("In foto si nota del Bullismo Verbale?", false,
+        "assets/images/bullismo_relazionale.png"),
+    Question("In foto si nota del Bullismo Fisico?", false,
+        "assets/images/bullismo_verbale.png"),
+    Question("In foto si nota un Bullo?", true, "assets/images/bullo.png"),
+    Question("In foto foto si notano dei Complici?", true,
+        "assets/images/complici.png"),
+    Question("In foto foto si notano esempi di Bullismo?", false,
+        "assets/images/cyberbullismo.png"),
+    Question("In foto foto si nota un caso di Esclusione?", true,
+        "assets/images/esclusione.png"),
+    Question(
+        "In foto foto si nota una vittima?", true, "assets/images/vittima.png"),
   ]);
 
   //si inizializza le variabili che si useranno
@@ -36,6 +50,7 @@ class _QuizPageState extends State<QuizPagina> {
     currentQuestion = quiz.nextQuestion!;
     questionText = currentQuestion.question;
     imageName = currentQuestion.image;
+    debugPrint(imageName.toString());
     questionNumber = quiz.questionNumber;
   }
 
@@ -53,11 +68,6 @@ class _QuizPageState extends State<QuizPagina> {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: Colors.transparent,
-      appBar: AppBar(
-        title: Text(" Buon divertimento!"),
-        backgroundColor: Colors.blue,
-        elevation: 0.5,
-      ),
       body: Stack(
         fit: StackFit.expand,
         children: <Widget>[

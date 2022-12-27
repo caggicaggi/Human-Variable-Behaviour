@@ -1,4 +1,4 @@
-//creo la classe delle domande
+//Definisce l'oggetto Question
 class Question {
   //dichiaro le variabili che si utilizzeranno
   final String question;
