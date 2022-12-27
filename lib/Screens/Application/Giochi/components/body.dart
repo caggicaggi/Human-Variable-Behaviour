@@ -284,10 +284,8 @@ Future<void> getParole(int randomNumber) async {
   await db.getConnection().then(
     (connessione) async {
       await connessione.query(query).then(
-        (result) {
-          debugPrint('A: ' + result.toString());
+        (result) async {
           for (var res in result) {
-            debugPrint('B: ' + res[0].toString());
             word = res[0].toString();
           }
         },
