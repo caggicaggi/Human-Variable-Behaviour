@@ -3,9 +3,14 @@ import 'package:human_variable_behaviour/Screens/Application/Giochi/components/g
 
 //si dichiara variabili che verranno usate
 bool b1 = false;
+//lista di indici casuali
 Set<int> setOfInts1 = Set();
+//indice che ritornerà
 int index = 0;
+//numero di domande fatte
 int checknumberQuestions = 0;
+//max= numero di domande da fare
+int max = 4;
 
 class Quiz {
   ///si dichiara variabili che verranno usate
@@ -18,7 +23,7 @@ class Quiz {
   //si dichiara le funzioni get
   int get score => _score;
   List<Question> get questions => _questions;
-  int get length => _questions.length;
+  int get length => max;
   int get questionNumber => _currentQuestionIndex + 1;
 
   Question? get nextQuestion {
@@ -28,7 +33,9 @@ class Quiz {
     _currentQuestionIndex = index;
     //si incrementa il numero delle domande
     checknumberQuestions++;
-    if (checknumberQuestions > _questions.length) {
+
+    //termino domande
+    if (checknumberQuestions > max) {
       return null;
     }
 
@@ -44,16 +51,15 @@ class Quiz {
 
 //metodo per estrerre indice casuale dalla lista per immagini casuali
   int setIndex() {
-    //max= numero di domande
-    int max = 4;
     int index = 0;
-    //creo oggetto Random
-    Random random = new Random();
-
+    //creo oggetto Random per generare l'indice casuale
+    Random random = Random();
+    //Indice dell'ultima domanda
+    int maxIndex = 8;
     if (b1 == false) {
       do {
         //si genera numero casuale da 0 a max che corrisponde al numero delle immagini totali
-        setOfInts1.add(Random().nextInt(max) + (0));
+        setOfInts1.add(Random().nextInt(maxIndex) + (0));
       } while (setOfInts1.length < max);
       b1 = true;
     }

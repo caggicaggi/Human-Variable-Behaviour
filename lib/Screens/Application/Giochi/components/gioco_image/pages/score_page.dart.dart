@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:flutter/material.dart';
 import 'package:human_variable_behaviour/Screens/Application/Giochi/components/gioco_image/ui/answer_button.dart.dart';
 import 'package:human_variable_behaviour/Screens/Application/Giochi/components/gioco_image/utils/quiz.dart.dart';
@@ -47,7 +49,7 @@ class _ScorePageState extends State<ScorePage> {
               Spacer(),
               //si stampa il punteggio ottenuto
               Text(
-                "${widget.score.toString()}/${widget.totalQuestion.toString()}",
+                "${widget.score.toString()}/${max.toString()}",
                 style: Theme.of(context)
                     .textTheme
                     .headline2!
