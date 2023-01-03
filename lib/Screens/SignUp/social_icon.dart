@@ -1,5 +1,4 @@
 // ignore_for_file: prefer_const_constructors
-
 import 'package:flutter/material.dart';
 import 'package:human_variable_behaviour/constant.dart';
 
@@ -11,7 +10,6 @@ class SocialIcon extends StatelessWidget {
     required this.scrIcon,
     required this.press,
   }) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
     return GestureDetector(

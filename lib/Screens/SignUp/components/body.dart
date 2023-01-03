@@ -1,5 +1,4 @@
 // ignore_for_file: prefer_const_constructors, prefer_interpolation_to_compose_strings
-
 import 'package:flutter/material.dart';
 import 'package:human_variable_behaviour/Screens/HomePage/homepage_screen.dart';
 import 'package:human_variable_behaviour/Screens/Login/login_screen.dart';
@@ -24,7 +23,6 @@ class Body extends StatefulWidget {
   const Body({
     Key? key,
   }) : super(key: key);
-
   @override
   State<Body> createState() => _BodyState();
 }
@@ -49,6 +47,7 @@ class _BodyState extends State<Body> {
             SizedBox(
               height: size.height * 0.02,
             ),
+            //Input nome
             RoundedInputField(
               icon: Icons.person,
               hintText: "Nome",
@@ -56,6 +55,7 @@ class _BodyState extends State<Body> {
                 name = value;
               },
             ),
+            //Input cognome
             RoundedInputField(
               icon: Icons.person,
               hintText: "Cognome",
@@ -63,6 +63,7 @@ class _BodyState extends State<Body> {
                 surname = value;
               },
             ),
+            //Input email
             RoundedInputField(
               icon: Icons.email,
               hintText: "Email",
@@ -70,18 +71,21 @@ class _BodyState extends State<Body> {
                 email = value;
               },
             ),
+            //Avviso formato email
             if (!emailValidation)
               Text(
                 'Formato email non corretto',
                 style:
                     TextStyle(fontWeight: FontWeight.bold, color: Colors.red),
               ),
+            //Avviso email duplicata
             if (!emailDuplicated)
               Text(
                 'Email già registrata, prego effettuare login',
                 style:
                     TextStyle(fontWeight: FontWeight.bold, color: Colors.red),
               ),
+            //Input password (oscurata)
             RoundedPasswordField(
               onChange: (value) {
                 password = value;
@@ -94,7 +98,6 @@ class _BodyState extends State<Body> {
             RoundedButton(
               text: 'SIGN UP',
               press: () async {
-                //Evento scatenato dal click sul RoundedButton
                 //Controllo formato email
                 emailValidation = RegExp(
                         r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
@@ -103,10 +106,10 @@ class _BodyState extends State<Body> {
                 if (emailValidation) {
                   //Chiamo la query per verificare se email già inserita
                   if (await readEmailFromDb(email)) {
-                    //Cancello  avvisi di errore
+                    //Cancello avvisi di errore
                     emailDuplicated = true;
                     setState(() {});
-                    //Con l'await aspetto che il metodo finisca, prima di procedere
+                    //Registro nel database il nuovo utente
                     await signUpToDb(name, surname, email, password).then(
                       (value) {
                         //Leggo tutte le informazioni dell'utente che si sta loggando e vado alla HomePage
@@ -123,7 +126,7 @@ class _BodyState extends State<Body> {
                       },
                     );
                   } else {
-                    //debugPrint('Email registrata, effettuare login');
+                    //Email già registrata
                     setState(() {
                       emailDuplicated = false;
                     });
@@ -148,23 +151,13 @@ class _BodyState extends State<Body> {
                 );
               },
             ),
-            //---------OR---------
+            //Registrazione tramite google
             OrDivider(),
-            //Registrati con i social
-            //To do
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 SocialIcon(
                   scrIcon: 'assets/images/google.jpg',
-                  press: () {},
-                ),
-                SocialIcon(
-                  scrIcon: 'assets/images/instagram.jpg',
-                  press: () {},
-                ),
-                SocialIcon(
-                  scrIcon: 'assets/images/facebook.jpg',
                   press: () {},
                 ),
               ],

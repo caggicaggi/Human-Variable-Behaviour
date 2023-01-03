@@ -1,5 +1,4 @@
 // ignore_for_file: sized_box_for_whitespace
-
 import 'package:flutter/material.dart';
 
 class Background extends StatelessWidget {
@@ -8,7 +7,6 @@ class Background extends StatelessWidget {
     Key? key,
     required this.child,
   }) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;

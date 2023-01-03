@@ -1,15 +1,11 @@
-// ignore_for_file: prefer_const_constructors
-
 import 'package:flutter/material.dart';
 import 'package:human_variable_behaviour/Screens/Login/login_screen.dart';
 import 'package:human_variable_behaviour/Screens/SignUp/sign_up_screen.dart';
 import 'package:human_variable_behaviour/Screens/Welcome/components/background.dart';
 import 'package:human_variable_behaviour/components/rounded_button.dart';
-import 'package:human_variable_behaviour/constant.dart';
 
 class Body extends StatelessWidget {
   const Body({Key? key}) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
     //Occupo tutto lo schermo sia in altezza che in lunghezza
@@ -20,43 +16,40 @@ class Body extends StatelessWidget {
           //Allineo tutto al centro
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            //Spaziatura
-            SizedBox(height: size.height * 0.05),
             //Immagine del logo Unicam
             Image.asset(
               'assets/images/unicamLogo.png',
               height: size.height * 0.20,
             ),
             //Spaziatura
-            SizedBox(height: size.height * 0.05),
-            //Chiamo la classe rounded_button.dart definita in Welcome\components
-            //Costruttore con Testo sta stampare e Funzione da chiamare
+            SizedBox(height: size.height * 0.45),
+            //Login
             RoundedButton(
               text: 'LOGIN',
-              //Se premuto il pulsante di LOGIN passo alla schermata successiva
+              //color: ,
               press: () {
-                //Passo alla pagina successiva -> return LoginScreen
+                //Pagina di login
                 Navigator.push(
                   context,
                   MaterialPageRoute(
                     builder: (context) {
-                      return LoginScreen();
+                      return const LoginScreen();
                     },
                   ),
                 );
               },
             ),
-            //Chiamo la classe rounded_button.dart definita in Welcome\components
+            //Sign In
             RoundedButton(
               text: 'SIGN IN',
-              color: kPrimaryLightColor,
+              //color: ,
               press: () {
-                //Passo alla pagina successiva -> return LoginScreen
+                //Pagina di Registrazione
                 Navigator.push(
                   context,
                   MaterialPageRoute(
                     builder: (context) {
-                      return SignUpScreen();
+                      return const SignUpScreen();
                     },
                   ),
                 );

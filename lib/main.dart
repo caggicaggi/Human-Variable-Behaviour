@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:human_variable_behaviour/Screens/Welcome/welcome_screen.dart';
-import 'package:human_variable_behaviour/constant.dart';
 import 'package:human_variable_behaviour/mysql/mysql.dart';
 
 void main() {
@@ -13,22 +12,16 @@ void main() {
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
-  // This widget is the root of your application.
+  //Main widget
   @override
   Widget build(BuildContext context) {
-    return GetMaterialApp(
+    return const GetMaterialApp(
+      //Titolo applicazione
       title: 'Human Variable Behaviour',
+      //Disattivo il debug
       debugShowCheckedModeBanner: false,
-      //Stabilisce il tema dell'applicazione
-      //Permette di scegliere i colori di tutti i widget che si utilizzeranno nell'app
-      theme: ThemeData(
-          primarySwatch: Colors.blue,
-          visualDensity: VisualDensity.adaptivePlatformDensity,
-          primaryColor: kPrimaryColor,
-          //Stabilisco il colore dello Scaffold
-          scaffoldBackgroundColor: Colors.white),
-      //Schermata inziale
-      home: const WelcomeScreen(),
+      //Pagina di benvenuto
+      home: WelcomeScreen(),
     );
   }
 }
