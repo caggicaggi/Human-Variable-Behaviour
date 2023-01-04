@@ -1,24 +1,24 @@
-// ignore_for_file: prefer_const_constructors, prefer_interpolation_to_compose_strings
 import 'package:flutter/material.dart';
 import 'package:human_variable_behaviour/Screens/HomePage/homepage_screen.dart';
 import 'package:human_variable_behaviour/Screens/Login/login_screen.dart';
 import 'package:human_variable_behaviour/Screens/SignUp/components/background.dart';
-import 'package:human_variable_behaviour/Screens/SignUp/components/or_divider.dart';
-import 'package:human_variable_behaviour/Screens/SignUp/social_icon.dart';
 import 'package:human_variable_behaviour/components/already_have_an_account_check.dart';
 import 'package:human_variable_behaviour/components/rounded_button.dart';
 import 'package:human_variable_behaviour/components/rounded_input_field.dart';
 import 'package:human_variable_behaviour/components/rounded_password_field.dart';
 import 'package:human_variable_behaviour/mysql/mysql.dart';
 
-String name = '';
-String surname = '';
-String email = '';
-String password = '';
 //Variabili per avviso visivo
 bool emailValidation = true;
 bool emailDuplicated = true;
 
+//Variabili assegnate durante
+String name = '';
+String surname = '';
+String email = '';
+String password = '';
+
+//Widget dinamico, aggiornabile
 class Body extends StatefulWidget {
   const Body({
     Key? key,
@@ -41,11 +41,11 @@ class _BodyState extends State<Body> {
             //Immagine del logo Unicam
             Image.asset(
               'assets/images/unicamLogo.png',
-              height: size.height * 0.15,
+              height: size.height * 0.20,
             ),
             //Spaziatura
             SizedBox(
-              height: size.height * 0.02,
+              height: size.height * 0.15,
             ),
             //Input nome
             RoundedInputField(
@@ -73,14 +73,14 @@ class _BodyState extends State<Body> {
             ),
             //Avviso formato email
             if (!emailValidation)
-              Text(
+              const Text(
                 'Formato email non corretto',
                 style:
                     TextStyle(fontWeight: FontWeight.bold, color: Colors.red),
               ),
             //Avviso email duplicata
             if (!emailDuplicated)
-              Text(
+              const Text(
                 'Email già registrata, prego effettuare login',
                 style:
                     TextStyle(fontWeight: FontWeight.bold, color: Colors.red),
@@ -96,7 +96,7 @@ class _BodyState extends State<Body> {
             ),
             //Avviso email già registrata
             RoundedButton(
-              text: 'SIGN UP',
+              text: 'Registrati',
               press: () async {
                 //Controllo formato email
                 emailValidation = RegExp(
@@ -118,7 +118,7 @@ class _BodyState extends State<Body> {
                             context,
                             MaterialPageRoute(
                               builder: (context) {
-                                return HomePageScreen();
+                                return const HomePageScreen();
                               },
                             ),
                           );
@@ -145,22 +145,11 @@ class _BodyState extends State<Body> {
                   context,
                   MaterialPageRoute(
                     builder: (context) {
-                      return LoginScreen();
+                      return const LoginScreen();
                     },
                   ),
                 );
               },
-            ),
-            //Registrazione tramite google
-            OrDivider(),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                SocialIcon(
-                  scrIcon: 'assets/images/google.jpg',
-                  press: () {},
-                ),
-              ],
             ),
           ],
         ),

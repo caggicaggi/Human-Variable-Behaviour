@@ -1,6 +1,14 @@
-// ignore_for_file: prefer_const_constructors
-
 import 'package:flutter/material.dart';
+
+//Immagine di sfondo dell'app
+BoxDecoration getBackroundImage() {
+  return const BoxDecoration(
+    image: DecorationImage(
+        image: AssetImage("assets/images/sfondo.png"), fit: BoxFit.cover),
+  );
+}
+
+//Da rivedere
 
 //Colori costanti utilizzati nell'applicazione
 const kPrimaryColor = Color.fromARGB(255, 10, 152, 235);
@@ -23,11 +31,3 @@ const kPrimaryGradient = LinearGradient(
 );
 
 const double kDefaultPadding = 20.0 * 0.6;
-
-//Immagine di sfondo dell'app
-BoxDecoration getBackroundImage() {
-  return BoxDecoration(
-    image: DecorationImage(
-        image: AssetImage("assets/images/sfondo_games.png"), fit: BoxFit.cover),
-  );
-}

@@ -1,11 +1,8 @@
-// ignore_for_file: prefer_const_constructors, prefer_interpolation_to_compose_strings, avoid_print
-//import 'dart:html';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_signin_button/flutter_signin_button.dart';
 import 'package:human_variable_behaviour/Screens/HomePage/homepage_screen.dart';
+import 'package:human_variable_behaviour/Screens/Login/components/background.dart';
 import 'package:human_variable_behaviour/Screens/SignUp/sign_up_screen.dart';
-import 'package:human_variable_behaviour/Screens/Welcome/components/background.dart';
 import 'package:human_variable_behaviour/components/already_have_an_account_check.dart';
 import 'package:human_variable_behaviour/components/rounded_button.dart';
 import 'package:human_variable_behaviour/components/rounded_input_field.dart';
@@ -25,11 +22,11 @@ class Body extends StatefulWidget {
   const Body({
     Key? key,
   }) : super(key: key);
-
   @override
   State<Body> createState() => _BodyState();
 }
 
+//Widget
 class _BodyState extends State<Body> {
   @override
   Widget build(BuildContext context) {
@@ -41,19 +38,15 @@ class _BodyState extends State<Body> {
           //Allineo tutto al centro
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            //Spaziatura
-            SizedBox(
-              height: size.height * 0.01,
-            ),
             //Immagine del logo Unicam
             Image.asset(
               'assets/images/unicamLogo.png',
-              height: size.height * 0.15,
+              height: size.height * 0.20,
             ),
             SizedBox(
-              height: size.height * 0.02,
+              height: size.height * 0.26,
             ),
-            //Prendo Email
+            //Input email
             RoundedInputField(
               icon: Icons.email,
               hintText: "Email",
@@ -63,29 +56,34 @@ class _BodyState extends State<Body> {
             ),
             //Avvisi che compariranno se ci si prova a loggare e si fallisce il test
             if (!emailValidation)
-              Text(
+              const Text(
                 'Formato email non corretto',
                 style:
-                    TextStyle(fontWeight: FontWeight.bold, color: Colors.red),
+                    TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
               ),
             if (!emailPresence)
-              Text(
+              const Text(
                 'Id o password errati, controlla e riprova',
                 style:
-                    TextStyle(fontWeight: FontWeight.bold, color: Colors.red),
+                    TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
               ),
             //Prendo password
             RoundedPasswordField(
               onChange: (value) {
                 password = value;
               },
+            ), //Pulsante per loggarsi con Google
+            SignInButton(
+              padding: const EdgeInsets.symmetric(horizontal: 55),
+              Buttons.Google,
+              text: "Registrati con Google",
+              onPressed: () {},
             ),
-            //Spaziatura
             SizedBox(
               height: size.height * 0.04,
             ),
             RoundedButton(
-              text: 'Login',
+              text: 'Accedi',
               press: () async {
                 //Controllo formato email
                 emailValidation = RegExp(
@@ -109,7 +107,7 @@ class _BodyState extends State<Body> {
                         context,
                         MaterialPageRoute(
                           builder: (context) {
-                            return HomePageScreen();
+                            return const HomePageScreen();
                           },
                         ),
                       );
@@ -117,33 +115,17 @@ class _BodyState extends State<Body> {
                   }
                 }
               },
+              color: Colors.white,
             ),
-            //Pulsante per loggarsi con google
-            //To do
-            SignInButton(
-              padding: const EdgeInsets.symmetric(horizontal: 60),
-              Buttons.Google,
-              text: "Sign up with Google",
-              onPressed: () {},
-            ),
-            //Pulsante per loggarsi con facebook
-            //To do
-            SignInButton(
-              padding: const EdgeInsets.symmetric(horizontal: 60),
-              Buttons.Facebook,
-              text: "Sign up with Facebook",
-              onPressed: () {},
-            ),
-            //Aggiungo la possibilità di loggarsi
-            //Chiamo la classe already_have_an_account_check.dart
+            //Pulsante per registrarsi nel caso non si avesse un account
             AlreadyHaveAnAccountCheck(
               press: () {
-                //Passo alla pagina successiva -> return LoginScreen
                 Navigator.push(
                   context,
                   MaterialPageRoute(
                     builder: (context) {
-                      return SignUpScreen();
+                      //Pagina di SignUp
+                      return const SignUpScreen();
                     },
                   ),
                 );

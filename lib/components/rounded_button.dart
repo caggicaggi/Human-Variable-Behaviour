@@ -1,33 +1,35 @@
 import 'package:flutter/material.dart';
-import 'package:human_variable_behaviour/constant.dart';
 
+//Oggetto RoundedButton
 class RoundedButton extends StatelessWidget {
   final String text;
   final VoidCallback press;
   final Color color, textColor;
-
-  //Riceve il testo e la funzione da chiamare (richiesti)
-  //Imposta background e colore testo
   const RoundedButton({
     Key? key,
     required this.text,
     required this.press,
-    this.color = kPrimaryColor,
-    this.textColor = Colors.white,
+    this.color = Colors.white,
+    this.textColor = Colors.blueGrey,
   }) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
     //Occupo tutto lo schermo sia in altezza che in lunghezza
     Size size = MediaQuery.of(context).size;
     return Container(
-      margin: const EdgeInsets.symmetric(vertical: 1),
+      //Margine fra widget precedente e successivo
+      margin: const EdgeInsets.symmetric(vertical: 5),
+      //Larghezza
       width: size.width * 0.8,
       child: ClipRRect(
-        borderRadius: BorderRadius.circular(29),
+        borderRadius: BorderRadius.circular(30),
         child: ElevatedButton(
-          //Chiamo la funzione passata se premuto
           onPressed: press,
+          //Colore di sfondo e colore quando lo si preme
+          style: ElevatedButton.styleFrom(
+            primary: Colors.white, // background
+            onPrimary: Colors.blueGrey, // foreground
+          ),
           //Assegno il testo passato in input
           child: Text(
             text,

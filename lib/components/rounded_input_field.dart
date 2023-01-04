@@ -1,34 +1,31 @@
-// ignore_for_file: unused_import, unused_local_variable
-
 import 'package:flutter/material.dart';
 import 'package:human_variable_behaviour/components/text_field_container.dart';
-import 'package:human_variable_behaviour/constant.dart';
 
+//Oggetto RoundedButton
 class RoundedInputField extends StatelessWidget {
   final String hintText;
   final IconData icon;
   final ValueChanged<String> onChange;
-
   const RoundedInputField({
     Key? key,
     required this.hintText,
     required this.icon,
     required this.onChange,
   }) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
-    //Occupo tutto lo schermo sia in altezza che in lunghezza
-    Size size = MediaQuery.of(context).size;
     return TextFieldContainer(
       child: TextField(
-        style: const TextStyle(color: Colors.white),
+        //Colore del testo che si scrive
+        style: const TextStyle(color: Colors.blueGrey),
         onChanged: onChange,
         decoration: InputDecoration(
-          hintStyle: const TextStyle(color: Colors.white),
+          //Colore del testo che compare inizialmente
+          hintStyle: const TextStyle(color: Colors.blueGrey),
           icon: Icon(
             icon,
-            color: Colors.white,
+            //Colore icona
+            color: Colors.blueGrey,
           ),
           hintText: hintText,
           border: InputBorder.none,

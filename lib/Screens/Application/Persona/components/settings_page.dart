@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:human_variable_behaviour/Screens/Welcome/welcome_screen.dart';
+import 'package:human_variable_behaviour/Screens/Login/login_screen.dart';
 import 'package:human_variable_behaviour/mysql/mysql.dart';
 
 class SettingsPage extends StatefulWidget {
@@ -101,7 +101,7 @@ class _SettingsPageState extends State<SettingsPage> {
             Center(
               child: OutlinedButton(
                 onPressed: () {
-                  Get.to(WelcomeScreen());
+                  Get.to(LoginScreen());
                 },
                 child: Text("SIGN OUT",
                     style: TextStyle(

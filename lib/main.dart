@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
-import 'package:human_variable_behaviour/Screens/Welcome/welcome_screen.dart';
+import 'package:human_variable_behaviour/Screens/Login/login_screen.dart';
 import 'package:human_variable_behaviour/mysql/mysql.dart';
 
 void main() {
@@ -20,8 +20,8 @@ class MyApp extends StatelessWidget {
       title: 'Human Variable Behaviour',
       //Disattivo il debug
       debugShowCheckedModeBanner: false,
-      //Pagina di benvenuto
-      home: WelcomeScreen(),
+      //Pagina di Login
+      home: LoginScreen(),
     );
   }
 }
