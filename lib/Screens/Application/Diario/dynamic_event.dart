@@ -295,7 +295,7 @@ class _DynamicEventState extends State<DynamicEvent> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
-                FlatButton(
+                TextButton(
                   child: Text(
                     textAlign: TextAlign.left,
                     "Torna Indietro",
@@ -308,7 +308,7 @@ class _DynamicEventState extends State<DynamicEvent> {
                     Navigator.pop(context);
                   },
                 ),
-                FlatButton(
+                TextButton(
                   child: Text(
                     "Inserisci giornata",
                     textAlign: TextAlign.right,
@@ -415,7 +415,10 @@ class _DynamicEventState extends State<DynamicEvent> {
                     //controllo il ritorno dell'analysis per modificare la variabile
                     for (int i = 0; i < splitted.length; i++) {
                       await getVariabile();
-                      print("Frase("+i.toString() + ") : " + variabile.toString());
+                      print("Frase(" +
+                          i.toString() +
+                          ") : " +
+                          variabile.toString());
                       if (splitted[i] == "joy") {
                         print("Emozione: " + splitted[i]);
                         await updateVariable(

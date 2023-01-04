@@ -124,7 +124,7 @@ class _ScorePageHangManState extends State<ScorePageHangMan> {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                FlatButton(
+                TextButton(
                   child: Text(
                     textAlign: TextAlign.center,
                     "Torna alla home page",

@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:human_variable_behaviour/Screens/Application/Unicam/components/const.dart';
 import 'package:human_variable_behaviour/Screens/Application/Unicam/components/data_link.dart';
-import 'package:human_variable_behaviour/Screens/Application/Unicam/unicam_screen.dart';
-import 'package:human_variable_behaviour/Screens/HomePage/homepage_screen.dart';
 
 class DetailPage extends StatelessWidget {
   final Infolink link;
@@ -22,7 +20,7 @@ class DetailPage extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  FlatButton(
+                  TextButton(
                     child: Text(
                       textAlign: TextAlign.left,
                       "Torna Indietro",

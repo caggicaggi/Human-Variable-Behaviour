@@ -76,14 +76,14 @@ class _BodyState extends State<Body> {
               const Text(
                 'Formato email non corretto',
                 style:
-                    TextStyle(fontWeight: FontWeight.bold, color: Colors.red),
+                    TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
               ),
             //Avviso email duplicata
             if (!emailDuplicated)
               const Text(
                 'Email già registrata, prego effettuare login',
                 style:
-                    TextStyle(fontWeight: FontWeight.bold, color: Colors.red),
+                    TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
               ),
             //Input password (oscurata)
             RoundedPasswordField(

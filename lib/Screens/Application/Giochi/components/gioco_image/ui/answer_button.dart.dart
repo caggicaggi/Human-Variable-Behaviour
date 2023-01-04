@@ -18,8 +18,8 @@ class AnswerButton extends StatelessWidget {
     return Container(
       child: Material(
         elevation: 20,
-        child: RaisedButton(
-          color: Colors.blue,
+        child: ElevatedButton(
+          style: ElevatedButton.styleFrom(backgroundColor: Colors.blue),
           onPressed: () => _onTap(),
           child: Center(
             child: Container(

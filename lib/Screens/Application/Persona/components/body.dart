@@ -3,7 +3,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:human_variable_behaviour/Screens/Application/Persona/components/settings_page.dart';
 import 'package:human_variable_behaviour/Screens/Application/Persona/persona_screen.dart';
 import 'package:human_variable_behaviour/Screens/Application/SchermataPrincipale/components/body.dart';
 import 'package:human_variable_behaviour/Screens/HomePage/homepage_screen.dart';
@@ -191,7 +190,7 @@ class _BodyState extends State<Body> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    RaisedButton(
+                    ElevatedButton(
                       onPressed: () {
                         //metodo per caricare le modifiche nel db
                         signUpToDbInf(
@@ -224,12 +223,13 @@ class _BodyState extends State<Body> {
                         //si rimanda all'homepage
                         Get.to(HomePageScreen());
                       },
-                      color: Colors.blue,
-                      padding:
-                          EdgeInsets.symmetric(horizontal: 50, vertical: 10),
-                      elevation: 2,
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(20)),
+                      style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.blue),
+                      //padding:
+                      //    EdgeInsets.symmetric(horizontal: 50, vertical: 10),
+                      //elevation: 2,
+                      //shape: RoundedRectangleBorder(
+                      //    borderRadius: BorderRadius.circular(20)),
                       child: Text(
                         "SALVA",
                         style: TextStyle(
@@ -330,19 +330,20 @@ class _BodyState extends State<Body> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    RaisedButton(
+                    ElevatedButton(
                       onPressed: () {
                         //si setta variabile
                         checkforModifica = true;
                         //si riporta alla sezione informazioni personali
                         Get.to(PersonaScreen());
                       },
-                      color: Colors.blue,
-                      padding:
-                          EdgeInsets.symmetric(horizontal: 50, vertical: 10),
-                      elevation: 2,
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(20)),
+                      style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.blue),
+                      //padding:
+                      //    EdgeInsets.symmetric(horizontal: 50, vertical: 10),
+                      //elevation: 2,
+                      //shape: RoundedRectangleBorder(
+                      //borderRadius: BorderRadius.circular(20)),
                       child: Text(
                         "MODIFICA",
                         style: TextStyle(
