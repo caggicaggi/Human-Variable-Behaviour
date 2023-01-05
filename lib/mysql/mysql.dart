@@ -1,9 +1,9 @@
-// ignore_for_file: prefer_interpolation_to_compose_strings, avoid_print, non_constant_identifier_names
-
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:mysql1/mysql1.dart';
+
+//Da rivedere
 
 //Variabili per utilizzo del programma
 var idUtente = '';
@@ -36,6 +36,7 @@ List<String> list = [];
 bool check = false;
 bool risultatoQueryDomande = true;
 
+//Oggetto Mysql
 class Mysql {
   //Costruttore
   Mysql();
@@ -50,6 +51,8 @@ class Mysql {
     return MySqlConnection.connect(settings);
   }
 }
+
+//DA RIVEDERE
 
 //Funzione per registrare l'utente nel database
 //Il metodo va messo Future perchè così se richiamato si può utilizzare l'await
@@ -101,7 +104,6 @@ Future signUpToDb(nameToDb, surnameToDb, emailToDb, passwordToDb) async {
       ',' +
       "100" +
       ')';
-  //debugPrint(query);
   //Connessione al database
   var db = Mysql();
   await db.getConnection().then((connessione) async {
@@ -162,8 +164,7 @@ Future<bool> readEmailPasswordFromDb(emailToReadToDb, passwordToDb) async {
   return risultatoQuery;
 }
 
-//Funzione per controllare l'esistenza della mail durante la registrazione
-//Il metodo va messo Future perchè così se richiamato si può utilizzare l'await
+//Funzione per controllare l'esistenza dell'email durante la registrazione
 Future<bool> readEmailFromDb(emailToReadToDb) async {
   //Aggiungo i '' a tutte le stringhe passate in input
   emailToReadToDb = stringToDb(emailToReadToDb);
@@ -178,7 +179,6 @@ Future<bool> readEmailFromDb(emailToReadToDb) async {
   var db = Mysql();
   bool risultatoQuery = true;
   await db.getConnection().then((connessione) async {
-    //delay obbligatorio per Malaccari
     await Future.delayed(const Duration(milliseconds: 1));
     await connessione.query(query).then((result) async {
       risultatoQuery = result.isEmpty;

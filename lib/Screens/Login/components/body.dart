@@ -8,6 +8,7 @@ import 'package:human_variable_behaviour/components/rounded_button.dart';
 import 'package:human_variable_behaviour/components/rounded_input_field.dart';
 import 'package:human_variable_behaviour/components/rounded_password_field.dart';
 import 'package:human_variable_behaviour/mysql/mysql.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 //Variabili per avviso visivo
 String password = '';
@@ -22,12 +23,17 @@ class Body extends StatefulWidget {
   const Body({
     Key? key,
   }) : super(key: key);
+
   @override
   State<Body> createState() => _BodyState();
 }
 
-//Widget
 class _BodyState extends State<Body> {
+  //Variabili per il login con Google
+  final GoogleSignIn _googleSignIn = GoogleSignIn();
+  bool _isLoggedIn = false;
+  late GoogleSignInAccount _userObj;
+
   @override
   Widget build(BuildContext context) {
     //Occupo tutto lo schermo sia in altezza che in lunghezza
@@ -73,11 +79,53 @@ class _BodyState extends State<Body> {
                 password = value;
               },
             ), //Pulsante per loggarsi con Google
-            SignInButton(
-              padding: const EdgeInsets.symmetric(horizontal: 55),
-              Buttons.Google,
-              text: "Registrati con Google",
-              onPressed: () {},
+            Container(
+              child: _isLoggedIn
+                  //Se loggato
+                  ? Center(
+                      child: SignInButton(
+                        padding: const EdgeInsets.symmetric(horizontal: 55),
+                        Buttons.Google,
+                        text: "Disconnetti da Google",
+                        onPressed: () {
+                          _googleSignIn.signOut().then((value) {
+                            setState(() {
+                              _isLoggedIn = false;
+                            });
+                          }).catchError((e) {});
+                        },
+                      ),
+                    )
+                  //Se non loggato
+                  : Center(
+                      child: SignInButton(
+                      padding: const EdgeInsets.symmetric(horizontal: 55),
+                      Buttons.Google,
+                      text: "Accedi con Google",
+                      onPressed: () {
+                        _googleSignIn.signIn().then((userData) {
+                          setState(() {
+                            //Login Effettuato
+                            _isLoggedIn = true;
+                            //Ottengo tutte le infomazioni
+                            _userObj = userData!;
+                            //debugPrint(_userObj.displayName);
+                            //debugPrint(_userObj.email);
+                            //Foto del profilo
+                            //Image.network(_userObj.photoUrl!)
+
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) {
+                                  return const HomePageScreen();
+                                },
+                              ),
+                            );
+                          });
+                        }).catchError((e) {});
+                      },
+                    )),
             ),
             SizedBox(
               height: size.height * 0.04,
