@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_interpolation_to_compose_strings
+
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -52,10 +54,10 @@ class Mysql {
   }
 }
 
-//DA RIVEDERE
+//Funzione per aggiungere i '' alle stringhe passate in input
+String stringToDb(stringToConvert) => '"' + stringToConvert + '"';
 
-//Funzione per registrare l'utente nel database
-//Il metodo va messo Future perchè così se richiamato si può utilizzare l'await
+//Funzione per registrare l'utente nel database (Registrazione classica)
 Future signUpToDb(nameToDb, surnameToDb, emailToDb, passwordToDb) async {
   //Aggiungo i '' a tutte le stringhe passate in input
   nameToDb = stringToDb(nameToDb);
@@ -107,9 +109,76 @@ Future signUpToDb(nameToDb, surnameToDb, emailToDb, passwordToDb) async {
   //Connessione al database
   var db = Mysql();
   await db.getConnection().then((connessione) async {
-    await Future.delayed(const Duration(milliseconds: 4));
+    await Future.delayed(const Duration(milliseconds: 1));
     await connessione.query(query).then((result) async {
-      await Future.delayed(const Duration(milliseconds: 4));
+      //Leggo l'idUtente appena assegnato
+      String queryToId =
+          'select idUtente FROM ' + table + ' WHERE email = ' + emailToDb;
+      await connessione.query(queryToId).then((results) {
+        for (var res in results) {
+          idUtente = res[0].toString();
+        }
+        connessione.close();
+      });
+    });
+    connessione.close();
+  });
+}
+
+//Funzione per registrare l'utente nel database (Registrazione Google)
+Future signUpToDbGoogle(nameSurnameToDb, emailToDb) async {
+  //Devo fare lo split, poichè il nome e il cognome sono contenuti nella stessa variabile
+  List<String> nameSurnameSplitted = nameSurnameToDb.split(' ');
+  //Aggiungo i '' a tutte le stringhe passate in input
+  String nameToDb = stringToDb(nameSurnameSplitted[0]);
+  String surnameToDb = stringToDb(nameSurnameSplitted[1]);
+  emailToDb = stringToDb(emailToDb);
+  //Nome della tabella
+  String table = 'utenti';
+  //Scrivo la query
+  String query = 'INSERT INTO ' +
+      table +
+      ' (nome, cognome, email, variabile, IstitutoFrequentato , Eta, Passione , SportPreferito , MusicaPreferita, ArtistaPreferito, MateriaPreferita,Tentativi_Totali_Impiccato,Tentativi_Riusciti_Impiccato,Tentativi_Totali_Quiz,Tentativi_Riusciti_Quiz,Tentativi_Totali_Immagini,Tentativi_Riusciti_Immagini) VALUES (' +
+      nameToDb +
+      ',' +
+      surnameToDb +
+      ',' +
+      emailToDb +
+      ',' +
+      '100' +
+      ',' +
+      "'Non hai inserito alcuna descrizione'" +
+      ',' +
+      '1' +
+      ',' +
+      "'Non hai inserito alcuna descrizione'" +
+      ',' +
+      "'Non hai inserito alcuna descrizione'" +
+      ',' +
+      "'Non hai inserito alcuna descrizione'" +
+      ',' +
+      "'Non hai inserito alcuna descrizione'" +
+      ',' +
+      "'Non hai inserito alcuna descrizione'" +
+      ',' +
+      "100" +
+      ',' +
+      "100" +
+      ',' +
+      "100" +
+      ',' +
+      "100" +
+      ',' +
+      "100" +
+      ',' +
+      "100" +
+      ')';
+  debugPrint(query);
+  //Connessione al database
+  var db = Mysql();
+  await db.getConnection().then((connessione) async {
+    await Future.delayed(const Duration(milliseconds: 1));
+    await connessione.query(query).then((result) async {
       //Leggo l'idUtente appena assegnato
       String queryToId =
           'select idUtente FROM ' + table + ' WHERE email = ' + emailToDb;
@@ -125,7 +194,6 @@ Future signUpToDb(nameToDb, surnameToDb, emailToDb, passwordToDb) async {
 }
 
 //Funzione per controllare l'esistenza della mail e password durante il login
-//Il metodo va messo Future perchè così se richiamato si può utilizzare l'await
 Future<bool> readEmailPasswordFromDb(emailToReadToDb, passwordToDb) async {
   //Aggiungo i '' a tutte le stringhe passate in input
   emailToReadToDb = stringToDb(emailToReadToDb);
@@ -144,7 +212,7 @@ Future<bool> readEmailPasswordFromDb(emailToReadToDb, passwordToDb) async {
   bool risultatoQuery = true;
   await db.getConnection().then((connessione) async {
     //delay obbligatorio per Malaccari
-    await Future.delayed(const Duration(milliseconds: 4));
+    await Future.delayed(const Duration(milliseconds: 1));
     await connessione.query(query).then((result) async {
       //Leggo l'idUtente appena assegnato
       String queryToId =
@@ -164,7 +232,7 @@ Future<bool> readEmailPasswordFromDb(emailToReadToDb, passwordToDb) async {
   return risultatoQuery;
 }
 
-//Funzione per controllare l'esistenza dell'email durante la registrazione
+//Funzione per controllare l'esistenza della mail durante il login
 Future<bool> readEmailFromDb(emailToReadToDb) async {
   //Aggiungo i '' a tutte le stringhe passate in input
   emailToReadToDb = stringToDb(emailToReadToDb);
@@ -179,19 +247,28 @@ Future<bool> readEmailFromDb(emailToReadToDb) async {
   var db = Mysql();
   bool risultatoQuery = true;
   await db.getConnection().then((connessione) async {
+    //delay obbligatorio per Malaccari
     await Future.delayed(const Duration(milliseconds: 1));
     await connessione.query(query).then((result) async {
+      //Leggo l'idUtente appena assegnato
+      String queryToId =
+          'select idUtente FROM ' + table + ' WHERE email = ' + emailToReadToDb;
+      await connessione.query(queryToId).then((results) {
+        for (var res in results) {
+          idUtente = res[0].toString();
+        }
+        connessione.close();
+      });
       risultatoQuery = result.isEmpty;
-      connessione.close();
     });
+    connessione.close();
   });
   //True = Query vuota -> Non ho la mail
   //False = Query con valore di ritorno -> Email già presente
   return risultatoQuery;
 }
 
-//Funzione per aggiungere i '' alle stringhe passate in input
-String stringToDb(stringToConvert) => '"' + stringToConvert + '"';
+//DA RIVEDERE
 
 //-----------RICONTROLLARE-----------
 

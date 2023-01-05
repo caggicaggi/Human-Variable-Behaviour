@@ -102,27 +102,47 @@ class _BodyState extends State<Body> {
                       padding: const EdgeInsets.symmetric(horizontal: 55),
                       Buttons.Google,
                       text: "Accedi con Google",
-                      onPressed: () {
-                        _googleSignIn.signIn().then((userData) {
-                          setState(() {
-                            //Login Effettuato
-                            _isLoggedIn = true;
-                            //Ottengo tutte le infomazioni
-                            _userObj = userData!;
-                            //debugPrint(_userObj.displayName);
-                            //debugPrint(_userObj.email);
-                            //Foto del profilo
-                            //Image.network(_userObj.photoUrl!)
-
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) {
-                                  return const HomePageScreen();
-                                },
-                              ),
+                      onPressed: () async {
+                        _googleSignIn.signIn().then((userData) async {
+                          //Login Effettuato
+                          _isLoggedIn = true;
+                          setState(() {});
+                          //Ottengo tutte le infomazioni
+                          _userObj = userData!;
+                          if (await readEmailFromDb(_userObj.email)) {
+                            //debugPrint("Email non presente");
+                            //Devo registrarla
+                            await signUpToDbGoogle(
+                                    _userObj.displayName, _userObj.email)
+                                .then(
+                              (value) {
+                                //Leggo tutte le informazioni dell'utente che si sta loggando e vado alla HomePage
+                                readInformationWithId(idUtente).then((value) {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) {
+                                        return const HomePageScreen();
+                                      },
+                                    ),
+                                  );
+                                });
+                              },
                             );
-                          });
+                          } else {
+                            //debugPrint("Email già presente");
+                            //Devo leggere le info
+                            await readInformationWithId(idUtente).then((value) {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) {
+                                    return const HomePageScreen();
+                                  },
+                                ),
+                              );
+                            });
+                          }
                         }).catchError((e) {});
                       },
                     )),
