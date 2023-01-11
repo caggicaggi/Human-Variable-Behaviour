@@ -173,7 +173,6 @@ Future signUpToDbGoogle(nameSurnameToDb, emailToDb) async {
       ',' +
       "100" +
       ')';
-  debugPrint(query);
   //Connessione al database
   var db = Mysql();
   await db.getConnection().then((connessione) async {

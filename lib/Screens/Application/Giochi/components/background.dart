@@ -1,4 +1,3 @@
-// ignore_for_file: sized_box_for_whitespace
 import 'package:flutter/material.dart';
 import 'package:human_variable_behaviour/constant.dart';
 
@@ -8,15 +7,14 @@ class Background extends StatelessWidget {
     Key? key,
     required this.child,
   }) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Container(
-      decoration: getBackroundImage(),
+      decoration: getBackroundImageHomePage(),
       //Definisco altezza e larghezza del Container
       height: size.height,
-      width: double.infinity,
+      width: size.width,
       child: Stack(
         alignment: Alignment.center,
         children: [

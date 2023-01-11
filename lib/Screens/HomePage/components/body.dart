@@ -7,7 +7,6 @@ import 'package:human_variable_behaviour/Screens/Application/Persona/persona_scr
 import 'package:human_variable_behaviour/Screens/Application/SchermataPrincipale/schermata_principale_screen.dart';
 import 'package:human_variable_behaviour/Screens/Application/Unicam/unicam_screen.dart';
 import 'package:human_variable_behaviour/Screens/HomePage/components/background.dart';
-import 'package:human_variable_behaviour/constant.dart';
 
 class Body extends StatefulWidget {
   const Body({
@@ -36,48 +35,55 @@ class _BodyState extends State<Body> {
     UnicamScreen(),
   ];
   @override
+
+  //Creo la bottom navigation bar
   Widget build(BuildContext context) {
     return Background(
-        child: Scaffold(
-      body: Center(
-        child: pages[_currentIndex],
+      child: Scaffold(
+        body: Center(
+          child: pages[_currentIndex],
+        ),
+        bottomNavigationBar: BottomNavigationBar(
+          currentIndex: _currentIndex,
+          onTap: (int newIndex) {
+            setState(() {
+              _currentIndex = newIndex;
+            });
+          },
+          unselectedItemColor: Colors.blueGrey,
+          showUnselectedLabels: true,
+          // ignore: prefer_const_literals_to_create_immutables
+          items: [
+            BottomNavigationBarItem(
+              backgroundColor: Color.fromARGB(255, 18, 35, 147),
+              icon: Icon(Icons.gamepad),
+              label: 'Games',
+            ),
+            BottomNavigationBarItem(
+              backgroundColor: Color.fromARGB(255, 18, 35, 147),
+              icon: Icon(Icons.person),
+              label: 'Profilo',
+            ),
+            //Home
+            BottomNavigationBarItem(
+              backgroundColor: Color.fromARGB(255, 18, 35, 147),
+              icon: Icon(Icons.home),
+              label: 'Home',
+            ),
+            //Diario
+            BottomNavigationBarItem(
+              backgroundColor: Color.fromARGB(255, 18, 35, 147),
+              icon: Icon(Icons.menu_book),
+              label: 'Diario',
+            ),
+            BottomNavigationBarItem(
+              backgroundColor: Color.fromARGB(255, 18, 35, 147),
+              icon: Icon(Icons.school),
+              label: 'Info',
+            )
+          ],
+        ),
       ),
-      bottomNavigationBar: NavigationBar(
-        backgroundColor: kPrimaryLightColor,
-        selectedIndex: _currentIndex,
-        onDestinationSelected: (int newIndex) {
-          setState(() {
-            _currentIndex = newIndex;
-          });
-        },
-        destinations: const [
-          NavigationDestination(
-            selectedIcon: Icon(Icons.gamepad),
-            icon: Icon(Icons.gamepad_outlined),
-            label: 'Games',
-          ),
-          NavigationDestination(
-            selectedIcon: Icon(Icons.person),
-            icon: Icon(Icons.person_outlined),
-            label: 'Profilo',
-          ),
-          NavigationDestination(
-            selectedIcon: Icon(Icons.home),
-            icon: Icon(Icons.home_outlined),
-            label: 'Home',
-          ),
-          NavigationDestination(
-            selectedIcon: Icon(Icons.menu_book),
-            icon: Icon(Icons.menu_book_outlined),
-            label: 'Diario',
-          ),
-          NavigationDestination(
-            selectedIcon: Icon(Icons.school),
-            icon: Icon(Icons.school_outlined),
-            label: 'Info',
-          ),
-        ],
-      ),
-    ));
+    );
   }
 }

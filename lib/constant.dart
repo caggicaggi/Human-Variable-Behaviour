@@ -8,6 +8,14 @@ BoxDecoration getBackroundImage() {
   );
 }
 
+//Immagine di sfondo della schermata principale
+BoxDecoration getBackroundImageHomePage() {
+  return const BoxDecoration(
+    image: DecorationImage(
+        image: AssetImage("assets/images/sfondoSchermataPrincipale.png"),
+        fit: BoxFit.cover),
+  );
+}
 //Da rivedere
 
 //Colori costanti utilizzati nell'applicazione
