@@ -7,6 +7,7 @@ import 'package:human_variable_behaviour/Screens/Application/Giochi/components/g
 import 'package:human_variable_behaviour/Screens/Application/Giochi/components/gioco_image/utils/quiz.dart.dart';
 import 'package:human_variable_behaviour/Screens/Application/Giochi/components/gioco_hangman/components/utils.dart';
 import 'package:human_variable_behaviour/Screens/HomePage/homepage_screen.dart';
+import 'package:human_variable_behaviour/constant.dart';
 
 import '../../../../../mysql/mysql.dart';
 
@@ -23,82 +24,99 @@ class _ScorePageHangManState extends State<ScorePageHangMan> {
   Widget build(BuildContext context) {
     //addTry('Tentativi_Riusciti_Impiccato');
     return Scaffold(
-      body: Stack(
-        fit: StackFit.expand,
+        body: Container(
+      //Immagine di sfondo
+      decoration: getBackroundImageHomePage(),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          //si imposta l'immagine di sfondo
-          Image.asset(
-            "assets/images/sfondo_games.png",
-            fit: BoxFit.cover,
-          ),
-          Column(
-            children: [
-              //si inserisce la spaziatura
-              Spacer(flex: 3),
-              //si stampa testo tentativo andato bene
-              Text(
-                "COMPLIMENTI HAI INDOVINATO LA PAROLA!",
-                textAlign: TextAlign.center,
-                style: Theme.of(context)
-                    .textTheme
-                    .headline3!
-                    .copyWith(color: Colors.amber),
-              ),
-              //si inserisce la spaziatura
-              Spacer(flex: 3),
-              //si inserisce immagine
-              Image.asset(
-                "assets/images/logoUnicam.jpg",
-                height: 200,
-                width: 400,
-                fit: BoxFit.cover,
-              ),
-              //si inserisce la spaziatura
-              Spacer(flex: 3),
-              // si crea pulsante per tornare alla home
-              TextButton(
-                onPressed: (() {
-                  //si resetta lo state
-                  setState(() {});
-                  //si inizializzano le variabili e le liste
-                  checkQuestion = false;
-                  Game.tries = 0;
-                  Game.selectedChar.clear();
-                  setCorrectQuestions.clear();
-                  CorrectQuestions = false;
-                  b1 = false;
-                  setOfInts1.clear();
-                  checknumberQuestions = 0;
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => HomePageScreen()));
-                }),
-                child: Container(
-                  height: 100.0,
-                  width: 100.0,
-                  child: FittedBox(
-                    child: FloatingActionButton(
-                      backgroundColor: Colors.white,
-                      // ignore: sort_child_properties_last
-                      child: Text(
-                        "Scopri di più!",
+          Center(
+            child: SizedBox(
+              height: 150,
+              width: 400,
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Card(
+                  child: Center(
+                    child: Text('COMPLIMENTI! Hai indovinato la parola',
                         textAlign: TextAlign.center,
-                        style: TextStyle(
-                            fontSize: 15,
-                            color: Colors.pink,
-                            fontWeight: FontWeight.bold),
-                      ),
-                      onPressed: _showAddDialog,
-                    ),
+                        style: const TextStyle(
+                            color: Colors.blue,
+                            fontSize: 32,
+                            fontStyle: FontStyle.normal)),
                   ),
                 ),
               ),
-            ],
-          )
+            ),
+          ),
+
+          // si crea pulsante per tornare alla home
+          TextButton(
+            onPressed: (() {
+              //si resetta lo state
+              setState(() {});
+              //si inizializzano le variabili e le liste
+              checkQuestion = false;
+              Game.tries = 0;
+              Game.selectedChar.clear();
+              setCorrectQuestions.clear();
+              CorrectQuestions = false;
+              b1 = false;
+              setOfInts1.clear();
+              checknumberQuestions = 0;
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => HomePageScreen()));
+            }),
+            child: SizedBox(
+              height: 100.0,
+              width: 100.0,
+              child: FittedBox(
+                child: FloatingActionButton(
+                  backgroundColor: Colors.white,
+                  // ignore: sort_child_properties_last
+                  child: Text(
+                    "Scopri di più!",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                        fontSize: 15,
+                        color: Colors.pink,
+                        fontWeight: FontWeight.bold),
+                  ),
+                  onPressed: _showAddDialog,
+                ),
+              ),
+            ),
+          ),
+
+          //Pulsante per tornare alla home page
+            ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.blue,
+                textStyle: const TextStyle(
+                    color: Colors.white,
+                    fontSize: 18,
+                    fontStyle: FontStyle.normal),
+              ),
+              onPressed: () {
+                //si resetta lo state
+              setState(() {});
+              //si inizializzano le variabili e le liste
+              checkQuestion = false;
+              Game.tries = 0;
+              Game.selectedChar.clear();
+              setCorrectQuestions.clear();
+              CorrectQuestions = false;
+              b1 = false;
+              setOfInts1.clear();
+              checknumberQuestions = 0;
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => HomePageScreen()));
+              },
+              child: Text('Home Page'),
+            ),
         ],
       ),
-    );
+    ));
   }
 
   _showAddDialog() async {

@@ -30,7 +30,7 @@ class _QuestionWidgetState extends State<QuestionWidget> {
   @override
   Widget build(BuildContext context) {
     //Occupo tutto lo schermo sia in altezza che in lunghezza
-    Size size = MediaQuery.of(context).size;
+    //Size size = MediaQuery.of(context).size;
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16.0),
       child: Column(
@@ -38,7 +38,7 @@ class _QuestionWidgetState extends State<QuestionWidget> {
         children: [
           //Spaziatura
           SizedBox(
-            height: size.height * 0.05,
+            height: 5,
           ),
           Expanded(
             //Mostra le domande una alla volta
@@ -55,7 +55,7 @@ class _QuestionWidgetState extends State<QuestionWidget> {
           _isLocked ? buildElevatedButton() : SizedBox.shrink(),
           //Spaziatura
           SizedBox(
-            height: size.height * 0.05,
+            height: 5,
           ),
         ],
       ),
@@ -63,46 +63,48 @@ class _QuestionWidgetState extends State<QuestionWidget> {
   }
 
   Column buildQuestion(Question question) {
-    //Occupo tutto lo schermo sia in altezza che in lunghezza
-    Size size = MediaQuery.of(context).size;
+    
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         //Spaziatura
         SizedBox(
-          height: size.height * 0.05,
+          height: 35,
         ),
         Text(
           question.text,
-          style: TextStyle(fontSize: 25),
+          textAlign: TextAlign.center,
+          style: TextStyle(fontSize: 30,color: Colors.white,),
         ),
         //Spaziatura
         SizedBox(
-          height: size.height * 0.05,
+          height: 5,
         ),
-        Expanded(
-          child: OptionsWidget(
-            question: question,
-            onClickedOption: (option) {
-              if (question.isLocked) {
-                return;
-              } else {
-                setState(() {
-                  question.isLocked = true;
-                  question.selectedOption = option;
-                });
-                _isLocked = question.isLocked;
-                if (question.selectedOption!.isCorrect) {
-                  _score++;
+        Center(
+          child: Expanded(
+            child: OptionsWidget(
+              question: question,
+              onClickedOption: (option) {
+                if (question.isLocked) {
+                  return;
+                } else {
+                  setState(() {
+                    question.isLocked = true;
+                    question.selectedOption = option;
+                  });
+                  _isLocked = question.isLocked;
+                  if (question.selectedOption!.isCorrect) {
+                    _score++;
+                  }
                 }
-              }
-            },
+              },
+            ),
           ),
         )
       ],
     );
   }
-
+  
   ElevatedButton buildElevatedButton() {
     return ElevatedButton(
       onPressed: () {
@@ -130,5 +132,5 @@ class _QuestionWidgetState extends State<QuestionWidget> {
           ? 'Prossima domanda'
           : 'Vedi il risultato'),
     );
-  }
+      }
 }

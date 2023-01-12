@@ -11,7 +11,7 @@ class Background extends StatelessWidget {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Container(
-      decoration: getBackroundImage(),
+      decoration: getBackroundImageHomePage(),
       //Definisco altezza e larghezza del Container
       height: size.height,
       width: double.infinity,

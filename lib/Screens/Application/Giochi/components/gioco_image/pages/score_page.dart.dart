@@ -5,6 +5,7 @@ import 'package:human_variable_behaviour/Screens/Application/Giochi/components/g
 import 'package:human_variable_behaviour/Screens/Application/Giochi/components/gioco_image/utils/quiz.dart.dart';
 import 'package:human_variable_behaviour/Screens/Application/Giochi/giochi_screen.dart';
 import 'package:human_variable_behaviour/Screens/HomePage/homepage_screen.dart';
+import 'package:human_variable_behaviour/constant.dart';
 
 class ScorePage extends StatefulWidget {
   // si dichiarano le variabili
@@ -22,70 +23,65 @@ class ScorePage extends StatefulWidget {
 class _ScorePageState extends State<ScorePage> {
   @override
   Widget build(BuildContext context) {
-    //addTry('Tentativi_Riusciti_Immagini');
+    Size size = MediaQuery.of(context).size;
     return Scaffold(
-      body: Stack(
-        fit: StackFit.expand,
-        children: [
-          //si imposta l'immagine di sfondo
-          Image.asset(
-            "assets/images/sfondo_games.png",
-            height: MediaQuery.of(context).size.height,
-            width: MediaQuery.of(context).size.width,
-            fit: BoxFit.cover,
-          ),
-          Column(
-            children: [
-              //si inserisce spaziatura
-              Spacer(flex: 3),
-              Text(
-                "Score",
-                style: Theme.of(context)
-                    .textTheme
-                    .headline1!
-                    .copyWith(color: Colors.amber),
-              ),
-              //si inserisce spaziatura
-              Spacer(),
-              //si stampa il punteggio ottenuto
-              Text(
-                "${widget.score.toString()}/${max.toString()}",
-                style: Theme.of(context)
-                    .textTheme
-                    .headline2!
-                    .copyWith(color: Colors.amber),
-              ),
-              //si inserisce spaziatura
-              Spacer(flex: 3),
-              //si crea il pulsate per tornare indietro
-              TextButton(
-                onPressed: (() {
-                  //si resetta lo state
-                  setState(() {});
-                  //si resetta le variabili
-                  b1 = false;
-                  setOfInts1.clear();
-                  checknumberQuestions = 0;
-                  //si va alla HomePage
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => HomePageScreen()));
-                }),
-                child: Text(
-                  'TORNA ALLA HOME PAGE',
-                  style: TextStyle(
-                    backgroundColor: Colors.amber,
-                    fontSize: 20,
-                    foreground: Paint()
-                      ..strokeWidth = 2
-                      ..color = Colors.white,
+      body: Container(
+        //Immagine di sfondo
+        decoration: getBackroundImageHomePage(),
+        child: Stack(
+          children: [
+            Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                SizedBox(
+                  height: 150,
+                  width: size.width,
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Card(
+                      
+                      child: Center(
+                        child: Text(
+                            'Score: ${widget.score.toString()}/${max.toString()}',
+                            style: const TextStyle(
+                                color: Colors.blue,
+                                fontSize: 32,
+                                fontStyle: FontStyle.normal)),
+                      ),
+                    ),
                   ),
                 ),
+
+SizedBox(
+              height: 10,
+            ),
+
+            //Pulsante per tornare alla home page
+            ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.blue,
+                textStyle: const TextStyle(
+                    color: Colors.white,
+                    fontSize: 18,
+                    fontStyle: FontStyle.normal),
               ),
-            ],
-          )
-        ],
+              onPressed: () {
+                //si resetta lo state
+                    setState(() {});
+                    //si resetta le variabili
+                    b1 = false;
+                    setOfInts1.clear();
+                    checknumberQuestions = 0;
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => HomePageScreen()));
+              },
+              child: Text('Home Page'),
+            ),
+                
+              ],
+            )
+          ],
+        ),
       ),
     );
   }

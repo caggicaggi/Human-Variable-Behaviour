@@ -4,6 +4,7 @@ import 'package:human_variable_behaviour/Screens/Application/Unicam/components/b
 import 'package:human_variable_behaviour/Screens/Application/Unicam/components/const.dart';
 import 'package:human_variable_behaviour/Screens/Application/Unicam/components/data_link.dart';
 import 'package:human_variable_behaviour/Screens/Application/Unicam/components/details.dart';
+import 'package:human_variable_behaviour/constant.dart';
 
 class Body extends StatefulWidget {
   const Body({
@@ -26,11 +27,7 @@ class _BodyState extends State<Body> {
           children: [
             Container(
               //si imposta l'immagine di sfondo
-              decoration: const BoxDecoration(
-                image: DecorationImage(
-                    image: AssetImage("assets/images/sfondo_games.png"),
-                    fit: BoxFit.cover),
-              ),
+              decoration: getBackroundImageHomePage(),
               child: SafeArea(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,

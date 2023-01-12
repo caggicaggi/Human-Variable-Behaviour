@@ -7,6 +7,7 @@ import 'package:human_variable_behaviour/Screens/Application/Giochi/components/g
 import 'package:human_variable_behaviour/Screens/Application/Giochi/components/gioco_image/ui/question_text.dart.dart';
 import 'package:human_variable_behaviour/Screens/Application/Giochi/components/gioco_image/utils/questions.dart.dart';
 import 'package:human_variable_behaviour/Screens/Application/Giochi/components/gioco_image/utils/quiz.dart.dart';
+import 'package:human_variable_behaviour/constant.dart';
 
 class QuizPagina extends StatefulWidget {
   const QuizPagina({Key? key}) : super(key: key);
@@ -74,72 +75,69 @@ class _QuizPageState extends State<QuizPagina> {
     //si occupa tutto lo schermo sia in lunghezza che altezza
     Size size = MediaQuery.of(context).size;
     return Scaffold(
-      backgroundColor: Colors.transparent,
-      body: Stack(
-        fit: StackFit.expand,
-        children: <Widget>[
-          SizedBox(
-            height: 30,
-            width: 100,
-          ),
-          //si imposta immagine sfondo
-          Image.asset(
-            "assets/images/sfondo_games.png",
-            height: size.height,
-            width: size.width,
-            fit: BoxFit.cover,
-          ),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            //This is our main page
-            children: <Widget>[
-              Padding(
-                //distanza dal bordo superiore
-                padding: EdgeInsets.all(size.height * 0.11),
-              ),
-              QuestionTextWithImage("$questionText", imageName),
-              Padding(
-                //distanza tra immagine e pulsanti
-                padding: EdgeInsets.all(size.height * 0.025),
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  //Risposta corretta
-                  AnswerButton(true, () => handleAnswer(true)),
-                  Padding(
-                    //distanza tra i due pulsanti
-                    padding: EdgeInsets.all(size.height * 0.02),
-                  ),
-                  //Risposta errata
-                  AnswerButton(false, () => handleAnswer(false)),
-                ],
-              )
-            ],
-          ),
-          overlayShouldBeVisible == true
-              ? CorrectWrongOverlay(isCorrect, () {
-                  //se le domande terminano vado alla pagina ScorePage per il risultato
-                  //quindi se la lunghezza delle domande è uguale al numero delle domande fatte
-                  if (quiz.length == checknumberQuestions) {
-                    Navigator.of(context).pushAndRemoveUntil(
-                        MaterialPageRoute(
-                            builder: (BuildContext context) =>
-                                ScorePage(quiz.score, quiz.length)),
-                        (Route route) => route == ScorePage);
-                    return;
-                  }
+      body: Container(
+        //Immagine di sfondo
+        decoration: getBackroundImageHomePage(),
+        child: Stack(
+          fit: StackFit.expand,
+          children: <Widget>[
+            const SizedBox(
+              height: 30,
+              width: 100,
+            ),
+            
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              //This is our main page
+              children: <Widget>[
+                Padding(
+                  //distanza dal bordo superiore
+                  padding: EdgeInsets.all(size.height * 0.11),
+                ),
+                QuestionTextWithImage("$questionText", imageName),
+                Padding(
+                  //distanza tra immagine e pulsanti
+                  padding: EdgeInsets.all(size.height * 0.025),
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    //Risposta corretta
+                    AnswerButton(true, () => handleAnswer(true)),
+                    Padding(
+                      //distanza tra i due pulsanti
+                      padding: EdgeInsets.all(size.height * 0.02),
+                    ),
+                    //Risposta errata
+                    AnswerButton(false, () => handleAnswer(false)),
+                  ],
+                )
+              ],
+            ),
+            overlayShouldBeVisible == true
+                ? CorrectWrongOverlay(isCorrect, () {
+                    //se le domande terminano vado alla pagina ScorePage per il risultato
+                    //quindi se la lunghezza delle domande è uguale al numero delle domande fatte
+                    if (quiz.length == checknumberQuestions) {
+                      Navigator.of(context).pushAndRemoveUntil(
+                          MaterialPageRoute(
+                              builder: (BuildContext context) =>
+                                  ScorePage(quiz.score, quiz.length)),
+                          (Route route) => route == ScorePage);
+                      return;
+                    }
 
-                  currentQuestion = quiz.nextQuestion!;
-                  setState(() {
-                    overlayShouldBeVisible = false;
-                    questionText = currentQuestion.question;
-                    imageName = currentQuestion.image;
-                    questionNumber = quiz.questionNumber;
-                  });
-                })
-              : Container(),
-        ],
+                    currentQuestion = quiz.nextQuestion!;
+                    setState(() {
+                      overlayShouldBeVisible = false;
+                      questionText = currentQuestion.question;
+                      imageName = currentQuestion.image;
+                      questionNumber = quiz.questionNumber;
+                    });
+                  })
+                : Container(),
+          ],
+        ),
       ),
     );
   }

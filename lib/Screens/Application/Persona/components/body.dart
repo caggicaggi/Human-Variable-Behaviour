@@ -44,18 +44,15 @@ class _BodyState extends State<Body> {
       return Scaffold(
         body: Container(
           //Immagine di sfondo
-          decoration: getBackroundImage(),
+          decoration: getBackroundImageHomePage(),
+          padding: EdgeInsets.only(left: 16, top: 25, right: 16),
           child: GestureDetector(
             onTap: () {
               FocusScope.of(context).unfocus();
             },
             child: ListView(
               children: [
-                Text(
-                  "Aggiorna qui il tuo Profilo!",
-                  style: TextStyle(fontSize: 25, fontWeight: FontWeight.w500),
-                  textAlign: TextAlign.center,
-                ),
+                
                 SizedBox(
                   height: 15,
                 ),
@@ -72,7 +69,7 @@ class _BodyState extends State<Body> {
                             decoration: BoxDecoration(
                               shape: BoxShape.circle,
                               border: Border.all(
-                                width: 4,
+                                width: 3,
                                 color:
                                     Theme.of(context).scaffoldBackgroundColor,
                               ),
@@ -105,85 +102,169 @@ class _BodyState extends State<Body> {
                 SizedBox(
                   height: 35,
                 ),
-                //si crea la sezione per inserire il nome
-                RoundedInputField(
-                  icon: Icons.person,
-                  hintText: "Nome ",
-                  onChange: (value) {
-                    nome = value;
-                  },
+
+                //DATI ANAGRAFICI
+                Center(
+                  child: Text(
+                    "Dati anagrafici",
+                    style:
+                        GoogleFonts.lobster(fontSize: 22, color: Colors.white),
+                  ),
                 ),
-                //si crea la sezione per inserire il cognome
-                RoundedInputField(
-                  icon: Icons.person,
-                  hintText: "Cognome ",
-                  onChange: (value) {
-                    cognome = value;
-                  },
+                SizedBox(
+                  height: 5,
                 ),
-                //si crea la sezione per inserire l'email
-                RoundedInputField(
-                  icon: Icons.email,
-                  hintText: "Email ",
-                  onChange: (value) {
-                    email = value;
-                  },
+
+                Center(
+                  child: SizedBox(
+                    child: Card(
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(25))),
+                      child: Column(
+                        children: [
+                          //nome
+                          RoundedInputField(
+                            icon: Icons.person_outline_sharp,
+                            hintText: nome,
+                            onChange: (value) {
+                              nome = value;
+                            },
+                          ),
+                          const Divider(thickness: 1.5),
+                          //cognome
+                          RoundedInputField(
+                            icon: Icons.person_outline_sharp,
+                            hintText: cognome,
+                            onChange: (value) {
+                              cognome = value;
+                            },
+                          ),
+                          const Divider(thickness: 1.5),
+                          //eta
+                          RoundedInputField(
+                            icon: Icons.person_outline_sharp,
+                            hintText: Eta,
+                            onChange: (value) {
+                              Eta = value;
+                            },
+                          ),
+                          const Divider(thickness: 1.5),
+                          //email
+                          RoundedInputField(
+                            icon: Icons.contact_mail,
+                            hintText: email,
+                            onChange: (value) {
+                              email = value;
+                            },
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
                 ),
-                //si crea la sezione per inserire l Istituto Frequentato
-                RoundedInputField(
-                  icon: Icons.school,
-                  hintText: "Istituto Frequentato ",
-                  onChange: (value) {
-                    IstitutoFrequentato = value;
-                  },
+
+                //Informazioni sulla scuola
+                Center(
+                  child: Text(
+                    "Istruzione",
+                    style:
+                        GoogleFonts.lobster(fontSize: 22, color: Colors.white),
+                  ),
                 ),
-                //si crea la sezione per inserire l' Età
-                RoundedInputField(
-                  icon: Icons.person,
-                  hintText: "Età ",
-                  onChange: (value) {
-                    Eta = value;
-                  },
+                SizedBox(
+                  height: 5,
                 ),
-                //si crea la sezione per inserire la passione
-                RoundedInputField(
-                  icon: Icons.heart_broken_outlined,
-                  hintText: "Passione ",
-                  onChange: (value) {
-                    Passione = value;
-                  },
+
+                Center(
+                  child: SizedBox(
+                    child: Card(
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(25))),
+                      child: Column(
+                        children: [
+                          //istituo frequentato
+                          RoundedInputField(
+                            icon: Icons.school,
+                            hintText: IstitutoFrequentato,
+                            onChange: (value) {
+                              IstitutoFrequentato = value;
+                            },
+                          ),
+                          const Divider(thickness: 1.5),
+                          //Materia preferita
+                          RoundedInputField(
+                            icon: Icons.subject,
+                            hintText: MateriaPreferita,
+                            onChange: (value) {
+                              MateriaPreferita = value;
+                            },
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
                 ),
-                //si crea la sezione per inserire lo Sport Preferito
-                RoundedInputField(
-                  icon: Icons.heart_broken_outlined,
-                  hintText: "Sport Preferito ",
-                  onChange: (value) {
-                    SportPreferito = value;
-                  },
-                ), //si crea la sezione per inserire la musica preferita
-                RoundedInputField(
-                  icon: Icons.hearing_outlined,
-                  hintText: "Musica preferita ",
-                  onChange: (value) {
-                    MusicaPreferita = value;
-                  },
+
+                //Su di te
+                Center(
+                  child: Text(
+                    "Su di te",
+                    style:
+                        GoogleFonts.lobster(fontSize: 22, color: Colors.white),
+                  ),
                 ),
-                //si crea la sezione per inserire l'Artista preferito
-                RoundedInputField(
-                  icon: Icons.hearing_outlined,
-                  hintText: "Artista preferito ",
-                  onChange: (value) {
-                    ArtistaPreferito = value;
-                  },
+                SizedBox(
+                  height: 5,
                 ),
-                //si crea la sezione per inserire la materia preferita
-                RoundedInputField(
-                  icon: Icons.school,
-                  hintText: "Materia preferita ",
-                  onChange: (value) {
-                    MateriaPreferita = value;
-                  },
+
+                Center(
+                  child: SizedBox(
+                    child: Card(
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(25))),
+                      child: Column(
+                        children: [
+                          //Passione
+                          RoundedInputField(
+                            icon: Icons.star_border,
+                            hintText: Passione,
+                            onChange: (value) {
+                              Passione = value;
+                            },
+                          ),
+                          const Divider(thickness: 1.5),
+                          //Sport prefertio
+                          RoundedInputField(
+                            icon: Icons.sports_basketball_rounded,
+                            hintText: SportPreferito,
+                            onChange: (value) {
+                              SportPreferito = value;
+                            },
+                          ),
+                          const Divider(thickness: 1.5),
+                          //Musica preferita
+                          RoundedInputField(
+                            icon: Icons.music_note,
+                            hintText: MusicaPreferita,
+                            onChange: (value) {
+                              MusicaPreferita = value;
+                            },
+                          ),
+                          const Divider(thickness: 1.5),
+                          //Artista preferito
+                          RoundedInputField(
+                            icon: Icons.mic_rounded,
+                            hintText: ArtistaPreferito,
+                            onChange: (value) {
+                              ArtistaPreferito = value;
+                            },
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
                 ),
+
                 SizedBox(
                   height: 35,
                 ),
@@ -207,29 +288,11 @@ class _BodyState extends State<Body> {
                         //inizializzo variabili
                         checkforModifica = false;
                         checkScaffold = false;
-                        //notifica di avvenuta modifica informazioni
-                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                            behavior: SnackBarBehavior.floating,
-                            content: Container(
-                              height: 40,
-                              decoration: BoxDecoration(color: Colors.blue),
-                              child: Text(
-                                "Dati aggiornati, Buon divertimento!",
-                                textAlign: TextAlign.center,
-                                style: GoogleFonts.aBeeZee(
-                                    fontSize: 22, color: Colors.white),
-                              ),
-                            )));
                         //si rimanda all'homepage
                         Get.to(HomePageScreen());
                       },
                       style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.blue),
-                      //padding:
-                      //    EdgeInsets.symmetric(horizontal: 50, vertical: 10),
-                      //elevation: 2,
-                      //shape: RoundedRectangleBorder(
-                      //    borderRadius: BorderRadius.circular(20)),
+                          backgroundColor:Color.fromARGB(255, 31, 56, 221)),
                       child: Text(
                         "SALVA",
                         style: TextStyle(
@@ -249,11 +312,7 @@ class _BodyState extends State<Body> {
       return Scaffold(
         body: Container(
           //si setta l'immagine di sofndo
-          decoration: BoxDecoration(
-            image: DecorationImage(
-                image: AssetImage("assets/images/sfondo_games.png"),
-                fit: BoxFit.cover),
-          ),
+          decoration: getBackroundImageHomePage(),
           padding: EdgeInsets.only(left: 16, top: 25, right: 16),
           child: GestureDetector(
             onTap: () {
@@ -261,11 +320,7 @@ class _BodyState extends State<Body> {
             },
             child: ListView(
               children: [
-                Text(
-                  "Ecco il tuo Profilo",
-                  style: TextStyle(fontSize: 25, fontWeight: FontWeight.w500),
-                  textAlign: TextAlign.center,
-                ),
+                
                 SizedBox(
                   height: 15,
                 ),
@@ -273,59 +328,241 @@ class _BodyState extends State<Body> {
                   child: Stack(
                     children: [
                       painters[0],
-                      /*Container(
-                        _painters[0],
-                        
-                        width: 130,
-                        height: 130,
-                        decoration: BoxDecoration(
-                            border: Border.all(
-                                width: 4,
-                                color:
-                                    Theme.of(context).scaffoldBackgroundColor),
-                            boxShadow: [
-                              BoxShadow(
-                                  spreadRadius: 2,
-                                  blurRadius: 10,
-                                  color: Colors.black.withOpacity(0.1),
-                                  offset: Offset(0, 10))
-                            ],
-                            //immagine visibile nella sezione informazioni
-                            shape: BoxShape.circle,
-                            image: _painters[0].t),
-                          
-                      ),
-                      */
                     ],
                   ),
                 ),
                 SizedBox(
-                  height: 35,
+                  height: 25,
                 ),
-                //pulsante per stampare sezione nome
-                buildTextField("Nome: ", nome, false),
-                //pulsante per stampare sezione cognome
-                buildTextField("Cognome: ", cognome, false),
-                //pulsante per stampare sezione email
-                buildTextField("E-mail: ", email, false),
-                //pulsante per stampare sezione IstitutoFrequentato
-                buildTextField(
-                    "Istituto frequentato", IstitutoFrequentato, false),
-                //pulsante per stampare sezione Eta, si usa il metodo per stampare
-                //una stringa dato che è un intero
-                buildTextField("Età: ", checkEta(), false),
-                //pulsante per stampare sezione Passione
-                buildTextField("Passione: ", Passione, false),
-                //pulsante per stampare sezione SportPreferito
-                buildTextField("Sport preferito: ", SportPreferito, false),
-                //pulsante per stampare sezione MusicaPreferita
-                buildTextField("Musica preferita: ", MusicaPreferita, false),
-                //pulsante per stampare sezione ArtistaPreferito
-                buildTextField("Artista preferito: ", ArtistaPreferito, false),
-                //pulsante per stampare sezione MateriaPreferita
-                buildTextField("Materia preferita: ", MateriaPreferita, false),
+
+                //DATI ANAGRAFICI
+                Center(
+                  child: Text(
+                    "Dati anagrafici",
+                    style:
+                        GoogleFonts.lobster(fontSize: 22, color: Colors.white),
+                  ),
+                ),
                 SizedBox(
-                  height: 35,
+                  height: 5,
+                ),
+
+                Center(
+                  child: SizedBox(
+                    child: Card(
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(25))),
+                      child: Column(
+                        children: [
+                          //nome
+                          ListTile(    
+                            visualDensity: VisualDensity(vertical: -4),                        
+                            leading: Icon(
+                              Icons.person_outline_sharp,
+                              color: Colors.teal,
+                            ),
+                            title: Text(
+                              nome,
+                              style: TextStyle(
+                                  fontSize: 14.0, color: Colors.teal.shade900),
+                            ),
+                            subtitle: Text("Nome"),
+                          ),
+
+                          const Divider(thickness: 1.5),
+                          //cognome
+                          ListTile(
+                            visualDensity: VisualDensity(vertical: -4), 
+                            leading: Icon(
+                              Icons.person_outline_sharp,
+                              color: Colors.teal,
+                            ),
+                            title: Text(
+                              cognome,
+                              style: TextStyle(
+                                  fontSize: 14.0, color: Colors.teal.shade900),
+                            ),
+                            subtitle: Text("Cognome"),
+                          ),
+
+                          const Divider(thickness: 1.5),
+                          //eta
+                          ListTile(
+                            visualDensity: VisualDensity(vertical: -4), 
+                            leading: Icon(
+                              Icons.person_outline_sharp,
+                              color: Colors.teal,
+                            ),
+                            title: Text(
+                              Eta,
+                              style: TextStyle(
+                                  fontSize: 14.0, color: Colors.teal.shade900),
+                            ),
+                            subtitle: Text("Età"),
+                          ),
+
+                          const Divider(thickness: 1.5),
+                          //email
+                          ListTile(
+                            visualDensity: VisualDensity(vertical: -2), 
+                            leading: Icon(
+                              Icons.contact_mail,
+                              color: Colors.teal,
+                            ),
+                            title: Text(
+                              email,
+                              style: TextStyle(
+                                  fontSize: 14.0, color: Colors.teal.shade900),
+                            ),
+                            subtitle: Text("Email"),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+
+                //Informazioni sulla scuola
+                Center(
+                  child: Text(
+                    "Istruzione",
+                    style:
+                        GoogleFonts.lobster(fontSize: 22, color: Colors.white),
+                  ),
+                ),
+                SizedBox(
+                  height: 5,
+                ),
+
+                Center(
+                  child: SizedBox(
+                    child: Card(
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(25))),
+                      child: Column(
+                        children: [
+                          //istituo frequentato
+                          ListTile(
+                            visualDensity: VisualDensity(vertical: -4), 
+                            leading: Icon(
+                              Icons.school,
+                              color: Colors.teal,
+                            ),
+                            title: Text(
+                              IstitutoFrequentato,
+                              style: TextStyle(
+                                  fontSize: 14.0, color: Colors.teal.shade900),
+                            ),
+                            subtitle: Text("Istituto"),
+                          ),
+                          const Divider(thickness: 1.5),
+                          //Materia preferita
+                          ListTile(
+                            visualDensity: VisualDensity(vertical: -2), 
+                            leading: Icon(
+                              Icons.subject,
+                              color: Colors.teal,
+                            ),
+                            title: Text(
+                              MateriaPreferita,
+                              style: TextStyle(
+                                  fontSize: 14.0, color: Colors.teal.shade900),
+                            ),
+                            subtitle: Text("Materia preferita"),
+                          )
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+
+                //Su di te
+                Center(
+                  child: Text(
+                    "Su di te",
+                    style:
+                        GoogleFonts.lobster(fontSize: 22, color: Colors.white),
+                  ),
+                ),
+                SizedBox(
+                  height: 5,
+                ),
+
+                Center(
+                  child: SizedBox(
+                    child: Card(
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(25))),
+                      child: Column(
+                        children: [
+                          //Passione
+                          ListTile(
+                            visualDensity: VisualDensity(vertical: -4), 
+                            leading: Icon(
+                              Icons.star_border,
+                              color: Colors.teal,
+                            ),
+                            title: Text(
+                              Passione,
+                              style: TextStyle(
+                                  fontSize: 14.0, color: Colors.teal.shade900),
+                            ),
+                            subtitle: Text("Passione"),
+                          ),
+                          const Divider(thickness: 1.5),
+                          //Sport prefertio
+                          ListTile(
+                            visualDensity: VisualDensity(vertical: -4), 
+                            leading: Icon(
+                              Icons.sports_basketball_rounded,
+                              color: Colors.teal,
+                            ),
+                            title: Text(
+                              SportPreferito,
+                              style: TextStyle(
+                                  fontSize: 14.0, color: Colors.teal.shade900),
+                            ),
+                            subtitle: Text("Sport preferito"),
+                          ),
+                          const Divider(thickness: 1.5),
+                          //Musica preferita
+                          ListTile(
+                            visualDensity: VisualDensity(vertical: -4), 
+                            leading: Icon(
+                              Icons.music_note,
+                              color: Colors.teal,
+                            ),
+                            title: Text(
+                              MusicaPreferita,
+                              style: TextStyle(
+                                  fontSize: 14.0, color: Colors.teal.shade900),
+                            ),
+                            subtitle: Text("Musica preferita"),
+                          ),
+
+                          const Divider(thickness: 1.5),
+                          //Artista preferito
+                          ListTile(
+                            visualDensity: VisualDensity(vertical: -2), 
+                            leading: Icon(
+                              Icons.mic_rounded,
+                              color: Colors.teal,
+                            ),
+                            title: Text(
+                              ArtistaPreferito,
+                              style: TextStyle(
+                                  fontSize: 14.0, color: Colors.teal.shade900),
+                            ),
+                            subtitle: Text("Artista preferito"),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+
+                SizedBox(
+                  height: 25,
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -338,12 +575,7 @@ class _BodyState extends State<Body> {
                         Get.to(PersonaScreen());
                       },
                       style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.blue),
-                      //padding:
-                      //    EdgeInsets.symmetric(horizontal: 50, vertical: 10),
-                      //elevation: 2,
-                      //shape: RoundedRectangleBorder(
-                      //borderRadius: BorderRadius.circular(20)),
+                          backgroundColor: Color.fromARGB(255, 31, 56, 221)),
                       child: Text(
                         "MODIFICA",
                         style: TextStyle(
@@ -378,7 +610,7 @@ class _BodyState extends State<Body> {
   //Controllo per stampare Stringa sulla variabile età
   String checkEta() {
     if (Eta == "1") {
-      return Eta = "non hai inserito aluna descrizione";
+      return Eta = "non hai inserito alcuna descrizione";
     } else {
       return Eta = Eta.toString();
     }

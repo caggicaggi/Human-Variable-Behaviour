@@ -44,13 +44,22 @@ class _BodyState extends State<Body> {
           //Allineo tutto al centro
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            SizedBox(
+              height: size.height * 0.05,
+            ),
+            //logo Human Variable
+            Image.asset('assets/images/logoH.png',
+            height: size.height * 0.32),
+            SizedBox(
+             height: size.height * 0.03,
+            ),
             //Immagine del logo Unicam
             Image.asset(
               'assets/images/unicamLogo.png',
-              height: size.height * 0.20,
+              height: size.height * 0.1,
             ),
             SizedBox(
-              height: size.height * 0.26,
+              height: size.height * 0.03,
             ),
             //Input email
             RoundedInputField(
@@ -78,7 +87,11 @@ class _BodyState extends State<Body> {
               onChange: (value) {
                 password = value;
               },
-            ), //Pulsante per loggarsi con Google
+            ), 
+             SizedBox(
+              height: size.height * 0.04,
+            ),
+            //Pulsante per loggarsi con Google
             Container(
               child: _isLoggedIn
                   //Se loggato
@@ -96,9 +109,11 @@ class _BodyState extends State<Body> {
                         },
                       ),
                     )
+                    
                   //Se non loggato
                   : Center(
                       child: SignInButton(
+                      
                       padding: const EdgeInsets.symmetric(horizontal: 55),
                       Buttons.Google,
                       text: "Accedi con Google",
@@ -147,9 +162,7 @@ class _BodyState extends State<Body> {
                       },
                     )),
             ),
-            SizedBox(
-              height: size.height * 0.04,
-            ),
+           
             RoundedButton(
               text: 'Accedi',
               press: () async {

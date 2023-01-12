@@ -20,15 +20,15 @@ class _QuestionToDisplayState extends State<QuestionToDisplay> {
     return Scaffold(
       body: Container(
         //Immagine di sfondo
-        decoration: getBackroundImage(),
+        decoration: getBackroundImageHomePage(),
         child: Column(
           //Allineamento children
-          crossAxisAlignment: CrossAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
           //Inserisco il widget per le domande
           children: [
             //Spaziatura
             SizedBox(
-              height: size.height * 0.10,
+              height: 15,
             ),
             Expanded(
               child: Scaffold(

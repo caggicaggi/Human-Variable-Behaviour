@@ -13,7 +13,7 @@ class Background extends StatelessWidget {
     //Occupo tutto lo schermo sia in altezza che in lunghezza
     Size size = MediaQuery.of(context).size;
     return Container(
-      decoration: getBackroundImage(),
+      decoration: getBackroundImageHomePage(),
       height: size.height,
       width: double.infinity,
       child: Stack(

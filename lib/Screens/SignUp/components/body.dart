@@ -38,14 +38,22 @@ class _BodyState extends State<Body> {
           //Allineo tutto al centro
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            SizedBox(
+              height: size.height * 0.05,
+            ),
+            //logo Human Variable
+            Image.asset('assets/images/logoH.png',
+            height: size.height * 0.20),
+            SizedBox(
+             height: size.height * 0.03,
+            ),
             //Immagine del logo Unicam
             Image.asset(
               'assets/images/unicamLogo.png',
-              height: size.height * 0.20,
+              height: size.height * 0.08,
             ),
-            //Spaziatura
             SizedBox(
-              height: size.height * 0.15,
+              height: size.height * 0.03,
             ),
             //Input nome
             RoundedInputField(

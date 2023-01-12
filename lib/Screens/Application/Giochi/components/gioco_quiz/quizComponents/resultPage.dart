@@ -15,44 +15,49 @@ class ResultPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    //Occupo tutto lo schermo sia in altezza che in lunghezza
-    Size size = MediaQuery.of(context).size;
+    
     return Background(
       child: SingleChildScrollView(
         child: Column(
           //Allineo tutto al centro
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            //Spaziatura
+               SizedBox(
+                height: 150,
+                width: 400,
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Card(
+                    child: Center(
+                      child: Text('Score: $score/${questions.length}',
+                          style: const TextStyle(
+                              color: Colors.blue,
+                              fontSize: 32,
+                              fontStyle: FontStyle.normal)),
+                    ),
+                  ),
+                ),
+            
+            ),
+
             SizedBox(
-              height: size.height * 0.05,
+              height: 10,
             ),
-            Text(
-              'Hai ottenuto un punteggio pari a : $score/${questions.length}',
-              style: TextStyle(
-                backgroundColor: Colors.blueAccent,
-                fontSize: 15,
-                foreground: Paint()
-                  ..strokeWidth = 2
-                  ..color = Colors.white,
-              ),
-            ),
+
             //Pulsante per tornare alla home page
-            TextButton(
-              onPressed: (() {
+            ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.blue,
+                textStyle: const TextStyle(
+                    color: Colors.white,
+                    fontSize: 18,
+                    fontStyle: FontStyle.normal),
+              ),
+              onPressed: () {
                 Navigator.push(context,
                     MaterialPageRoute(builder: (context) => HomePageScreen()));
-              }),
-              child: Text(
-                'Home Page',
-                style: TextStyle(
-                  backgroundColor: Colors.blue,
-                  fontSize: 20,
-                  foreground: Paint()
-                    ..strokeWidth = 2
-                    ..color = Colors.white,
-                ),
-              ),
+              },
+              child: Text('Home Page'),
             ),
           ],
         ),

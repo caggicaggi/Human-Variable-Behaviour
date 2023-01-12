@@ -4,6 +4,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:human_variable_behaviour/Screens/HomePage/homepage_screen.dart';
+import 'package:human_variable_behaviour/constant.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:table_calendar/table_calendar.dart';
 import '../../../mysql/mysql.dart';
@@ -99,10 +100,7 @@ class _DynamicEventState extends State<DynamicEvent> {
     _events.clear();
     return Container(
       //imposto lo sfondo della pagina
-      decoration: BoxDecoration(
-          image: DecorationImage(
-              image: AssetImage("assets/images/sfondo_games.png"),
-              fit: BoxFit.cover)),
+      decoration: getBackroundImageHomePage(), 
       child: Scaffold(
         backgroundColor: Colors.transparent,
         appBar: PreferredSize(
