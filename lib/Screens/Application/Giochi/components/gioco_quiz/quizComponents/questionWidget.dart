@@ -30,16 +30,13 @@ class _QuestionWidgetState extends State<QuestionWidget> {
   @override
   Widget build(BuildContext context) {
     //Occupo tutto lo schermo sia in altezza che in lunghezza
-    //Size size = MediaQuery.of(context).size;
+    Size size = MediaQuery.of(context).size;
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.end,
         children: [
-          //Spaziatura
-          SizedBox(
-            height: 5,
-          ),
+          
           Expanded(
             //Mostra le domande una alla volta
             child: PageView.builder(
@@ -52,29 +49,30 @@ class _QuestionWidgetState extends State<QuestionWidget> {
               },
             ),
           ),
+
+         
           _isLocked ? buildElevatedButton() : SizedBox.shrink(),
-          //Spaziatura
-          SizedBox(
-            height: 5,
-          ),
+          
         ],
       ),
     );
   }
 
   Column buildQuestion(Question question) {
-    
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         //Spaziatura
         SizedBox(
-          height: 35,
+          height: 30,
         ),
         Text(
           question.text,
           textAlign: TextAlign.center,
-          style: TextStyle(fontSize: 30,color: Colors.white,),
+          style: TextStyle(
+            fontSize: 30,
+            color: Colors.white,
+          ),
         ),
         //Spaziatura
         SizedBox(
@@ -104,7 +102,7 @@ class _QuestionWidgetState extends State<QuestionWidget> {
       ],
     );
   }
-  
+
   ElevatedButton buildElevatedButton() {
     return ElevatedButton(
       onPressed: () {
@@ -132,5 +130,5 @@ class _QuestionWidgetState extends State<QuestionWidget> {
           ? 'Prossima domanda'
           : 'Vedi il risultato'),
     );
-      }
+  }
 }

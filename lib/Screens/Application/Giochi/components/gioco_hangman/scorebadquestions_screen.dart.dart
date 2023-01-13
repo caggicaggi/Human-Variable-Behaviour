@@ -30,7 +30,7 @@ class _ScorePageHangManState extends State<ScorePageHangManBadQuestion> {
                 padding: EdgeInsets.all(8.0),
                 child: Card(
                   child: Center(
-                    child: Text('Questa volta non ci sei riuscito! Riprovaci!',
+                    child: Text('Questa volta non ci sei riuscito!\nRiprovaci!',
                         textAlign: TextAlign.center,
                         style: TextStyle(
                             color: Colors.blue,

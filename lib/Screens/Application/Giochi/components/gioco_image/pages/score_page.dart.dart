@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
+import 'package:human_variable_behaviour/Screens/Application/Giochi/components/gioco_image/pages/quiz_page.dart.dart';
 import 'package:human_variable_behaviour/Screens/Application/Giochi/components/gioco_image/ui/answer_button.dart.dart';
 import 'package:human_variable_behaviour/Screens/Application/Giochi/components/gioco_image/utils/quiz.dart.dart';
 import 'package:human_variable_behaviour/Screens/Application/Giochi/giochi_screen.dart';
@@ -54,6 +55,27 @@ class _ScorePageState extends State<ScorePage> {
 
 SizedBox(
               height: 10,
+            ),
+            //Pulsante Riprova
+            ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.blue,
+                textStyle: const TextStyle(
+                    color: Colors.white,
+                    fontSize: 18,
+                    fontStyle: FontStyle.normal),
+              ),
+              onPressed: () {
+                //si resetta lo state
+                    setState(() {});
+                    //si resetta le variabili
+                    b1 = false;
+                    setOfInts1.clear();
+                    checknumberQuestions = 0;
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => QuizPagina()));
+              },
+              child: Text('Riprova'),
             ),
 
             //Pulsante per tornare alla home page

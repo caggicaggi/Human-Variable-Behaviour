@@ -23,10 +23,12 @@ class OptionsWidget extends StatelessWidget {
 
   Widget buildOption(BuildContext context, Option option) {
     final color = getColorForOption(option, question);
+    Size size = MediaQuery.of(context).size;
     return GestureDetector(
       onTap: () => onClickedOption(option),
       child: Container(
-        height: 90,
+        height: size.height * 0.14,
+        width: size.width * 0.85,
         padding: EdgeInsets.all(12),
         margin: EdgeInsets.symmetric(vertical: 8),
         decoration: BoxDecoration(
@@ -35,12 +37,15 @@ class OptionsWidget extends StatelessWidget {
           border: Border.all(color: Colors.grey),
         ),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+          //crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
               option.text,
               textAlign: TextAlign.center,
               style: TextStyle(fontSize: 15),
+            ),
+            SizedBox(
+              height: 3,
             ),
              getIconForOption(option, question),
           ],

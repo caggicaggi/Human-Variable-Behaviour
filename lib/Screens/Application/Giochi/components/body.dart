@@ -143,6 +143,7 @@ class Body extends StatelessWidget {
                 int randomNumber =
                     random.nextInt(10); // from 0 upto 10 included
                 await getParole(randomNumber);
+                debugPrint(word);
                 Navigator.push(context,
                     MaterialPageRoute(builder: (context) => HangMan()));
               },

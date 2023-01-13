@@ -52,7 +52,6 @@ class _BodyState extends State<Body> {
             },
             child: ListView(
               children: [
-                
                 SizedBox(
                   height: 15,
                 ),
@@ -107,8 +106,10 @@ class _BodyState extends State<Body> {
                 Center(
                   child: Text(
                     "Dati anagrafici",
-                    style:
-                        GoogleFonts.lobster(fontSize: 22, color: Colors.white),
+                    style: GoogleFonts.montserrat(
+                        fontSize: 22,
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold),
                   ),
                 ),
                 SizedBox(
@@ -162,13 +163,18 @@ class _BodyState extends State<Body> {
                     ),
                   ),
                 ),
+                SizedBox(
+                  height: 5,
+                ),
 
                 //Informazioni sulla scuola
                 Center(
                   child: Text(
                     "Istruzione",
-                    style:
-                        GoogleFonts.lobster(fontSize: 22, color: Colors.white),
+                    style: GoogleFonts.montserrat(
+                        fontSize: 22,
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold),
                   ),
                 ),
                 SizedBox(
@@ -204,13 +210,18 @@ class _BodyState extends State<Body> {
                     ),
                   ),
                 ),
+                SizedBox(
+                  height: 5,
+                ),
 
                 //Su di te
                 Center(
                   child: Text(
                     "Su di te",
-                    style:
-                        GoogleFonts.lobster(fontSize: 22, color: Colors.white),
+                    style: GoogleFonts.montserrat(
+                        fontSize: 22,
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold),
                   ),
                 ),
                 SizedBox(
@@ -292,7 +303,7 @@ class _BodyState extends State<Body> {
                         Get.to(HomePageScreen());
                       },
                       style: ElevatedButton.styleFrom(
-                          backgroundColor:Color.fromARGB(255, 31, 56, 221)),
+                          backgroundColor: Color.fromARGB(255, 31, 56, 221)),
                       child: Text(
                         "SALVA",
                         style: TextStyle(
@@ -320,7 +331,6 @@ class _BodyState extends State<Body> {
             },
             child: ListView(
               children: [
-                
                 SizedBox(
                   height: 15,
                 ),
@@ -339,8 +349,10 @@ class _BodyState extends State<Body> {
                 Center(
                   child: Text(
                     "Dati anagrafici",
-                    style:
-                        GoogleFonts.lobster(fontSize: 22, color: Colors.white),
+                    style: GoogleFonts.montserrat(
+                        fontSize: 22,
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold),
                   ),
                 ),
                 SizedBox(
@@ -355,8 +367,8 @@ class _BodyState extends State<Body> {
                       child: Column(
                         children: [
                           //nome
-                          ListTile(    
-                            visualDensity: VisualDensity(vertical: -4),                        
+                          ListTile(
+                            visualDensity: VisualDensity(vertical: -4),
                             leading: Icon(
                               Icons.person_outline_sharp,
                               color: Colors.teal,
@@ -372,7 +384,7 @@ class _BodyState extends State<Body> {
                           const Divider(thickness: 1.5),
                           //cognome
                           ListTile(
-                            visualDensity: VisualDensity(vertical: -4), 
+                            visualDensity: VisualDensity(vertical: -4),
                             leading: Icon(
                               Icons.person_outline_sharp,
                               color: Colors.teal,
@@ -388,7 +400,7 @@ class _BodyState extends State<Body> {
                           const Divider(thickness: 1.5),
                           //eta
                           ListTile(
-                            visualDensity: VisualDensity(vertical: -4), 
+                            visualDensity: VisualDensity(vertical: -4),
                             leading: Icon(
                               Icons.person_outline_sharp,
                               color: Colors.teal,
@@ -404,7 +416,7 @@ class _BodyState extends State<Body> {
                           const Divider(thickness: 1.5),
                           //email
                           ListTile(
-                            visualDensity: VisualDensity(vertical: -2), 
+                            visualDensity: VisualDensity(vertical: -2),
                             leading: Icon(
                               Icons.contact_mail,
                               color: Colors.teal,
@@ -421,13 +433,18 @@ class _BodyState extends State<Body> {
                     ),
                   ),
                 ),
+                SizedBox(
+                  height: 5,
+                ),
 
                 //Informazioni sulla scuola
                 Center(
                   child: Text(
                     "Istruzione",
-                    style:
-                        GoogleFonts.lobster(fontSize: 22, color: Colors.white),
+                    style: GoogleFonts.montserrat(
+                        fontSize: 22,
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold),
                   ),
                 ),
                 SizedBox(
@@ -443,7 +460,7 @@ class _BodyState extends State<Body> {
                         children: [
                           //istituo frequentato
                           ListTile(
-                            visualDensity: VisualDensity(vertical: -4), 
+                            visualDensity: VisualDensity(vertical: -4),
                             leading: Icon(
                               Icons.school,
                               color: Colors.teal,
@@ -458,7 +475,7 @@ class _BodyState extends State<Body> {
                           const Divider(thickness: 1.5),
                           //Materia preferita
                           ListTile(
-                            visualDensity: VisualDensity(vertical: -2), 
+                            visualDensity: VisualDensity(vertical: -2),
                             leading: Icon(
                               Icons.subject,
                               color: Colors.teal,
@@ -475,13 +492,18 @@ class _BodyState extends State<Body> {
                     ),
                   ),
                 ),
+                SizedBox(
+                  height: 5,
+                ),
 
                 //Su di te
                 Center(
                   child: Text(
                     "Su di te",
-                    style:
-                        GoogleFonts.lobster(fontSize: 22, color: Colors.white),
+                    style: GoogleFonts.montserrat(
+                        fontSize: 22,
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold),
                   ),
                 ),
                 SizedBox(
@@ -497,7 +519,7 @@ class _BodyState extends State<Body> {
                         children: [
                           //Passione
                           ListTile(
-                            visualDensity: VisualDensity(vertical: -4), 
+                            visualDensity: VisualDensity(vertical: -4),
                             leading: Icon(
                               Icons.star_border,
                               color: Colors.teal,
@@ -512,7 +534,7 @@ class _BodyState extends State<Body> {
                           const Divider(thickness: 1.5),
                           //Sport prefertio
                           ListTile(
-                            visualDensity: VisualDensity(vertical: -4), 
+                            visualDensity: VisualDensity(vertical: -4),
                             leading: Icon(
                               Icons.sports_basketball_rounded,
                               color: Colors.teal,
@@ -527,7 +549,7 @@ class _BodyState extends State<Body> {
                           const Divider(thickness: 1.5),
                           //Musica preferita
                           ListTile(
-                            visualDensity: VisualDensity(vertical: -4), 
+                            visualDensity: VisualDensity(vertical: -4),
                             leading: Icon(
                               Icons.music_note,
                               color: Colors.teal,
@@ -543,7 +565,7 @@ class _BodyState extends State<Body> {
                           const Divider(thickness: 1.5),
                           //Artista preferito
                           ListTile(
-                            visualDensity: VisualDensity(vertical: -2), 
+                            visualDensity: VisualDensity(vertical: -2),
                             leading: Icon(
                               Icons.mic_rounded,
                               color: Colors.teal,
@@ -575,7 +597,7 @@ class _BodyState extends State<Body> {
                         Get.to(PersonaScreen());
                       },
                       style: ElevatedButton.styleFrom(
-                          backgroundColor: Color.fromARGB(255, 31, 56, 221)),
+                          backgroundColor: Colors.blue),
                       child: Text(
                         "MODIFICA",
                         style: TextStyle(

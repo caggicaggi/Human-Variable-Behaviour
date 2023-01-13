@@ -107,46 +107,14 @@ class _DynamicEventState extends State<DynamicEvent> {
           preferredSize: Size.fromHeight(100.0),
           //creeo nell'AppBar una freccia che mi riporta alla HomePage
           child: AppBar(
-            backgroundColor: Colors.blue,
-            leading: IconButton(
-              icon: Icon(Icons.arrow_back, color: Colors.black),
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) {
-                      return HomePageScreen();
-                    },
-                  ),
-                );
-              },
+            title: Text(
+              "Diario",
+              style: GoogleFonts.montserrat(
+                  fontSize: 28,
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold),
             ),
-            //Costruisco la barra dove è contenuto titolo e sottotitolo
-            bottom: PreferredSize(
-              preferredSize: Size.fromHeight(30.0),
-              child: Container(
-                alignment: Alignment.center,
-                padding: EdgeInsets.symmetric(horizontal: 10),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Text(
-                      'ECCO IL TUO DIARIO PERSONALE ',
-                      textAlign: TextAlign.center,
-                      style: GoogleFonts.akayaTelivigala(
-                          fontSize: 30, color: Colors.white),
-                    ),
-                    Text(
-                      "Raccontami una tua giornata",
-                      textAlign: TextAlign.center,
-                      style: GoogleFonts.akayaTelivigala(
-                          fontSize: 22, color: Colors.white),
-                    ),
-                  ],
-                ),
-              ),
-            ),
+           
           ),
         ),
         body: SingleChildScrollView(

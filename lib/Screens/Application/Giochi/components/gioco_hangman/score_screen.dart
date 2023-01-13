@@ -38,7 +38,7 @@ class _ScorePageHangManState extends State<ScorePageHangMan> {
                 padding: const EdgeInsets.all(8.0),
                 child: Card(
                   child: Center(
-                    child: Text('COMPLIMENTI! Hai indovinato la parola',
+                    child: Text('COMPLIMENTI!\n Hai indovinato la parola',
                         textAlign: TextAlign.center,
                         style: const TextStyle(
                             color: Colors.blue,
@@ -50,9 +50,30 @@ class _ScorePageHangManState extends State<ScorePageHangMan> {
             ),
           ),
 
-          // si crea pulsante per tornare alla home
-          TextButton(
-            onPressed: (() {
+          ElevatedButton(
+            style: ElevatedButton.styleFrom(
+              backgroundColor: Colors.blue,
+              textStyle: const TextStyle(
+                  color: Colors.white,
+                  fontSize: 18,
+                  fontStyle: FontStyle.normal),
+            ),
+            onPressed: () {
+              _showAddDialog();
+            },
+            child: Text('Scopri di più'),
+          ),
+
+          //Pulsante per tornare alla home page
+          ElevatedButton(
+            style: ElevatedButton.styleFrom(
+              backgroundColor: Colors.blue,
+              textStyle: const TextStyle(
+                  color: Colors.white,
+                  fontSize: 18,
+                  fontStyle: FontStyle.normal),
+            ),
+            onPressed: () {
               //si resetta lo state
               setState(() {});
               //si inizializzano le variabili e le liste
@@ -66,54 +87,9 @@ class _ScorePageHangManState extends State<ScorePageHangMan> {
               checknumberQuestions = 0;
               Navigator.push(context,
                   MaterialPageRoute(builder: (context) => HomePageScreen()));
-            }),
-            child: SizedBox(
-              height: 100.0,
-              width: 100.0,
-              child: FittedBox(
-                child: FloatingActionButton(
-                  backgroundColor: Colors.white,
-                  // ignore: sort_child_properties_last
-                  child: Text(
-                    "Scopri di più!",
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                        fontSize: 15,
-                        color: Colors.pink,
-                        fontWeight: FontWeight.bold),
-                  ),
-                  onPressed: _showAddDialog,
-                ),
-              ),
-            ),
+            },
+            child: Text('Home Page'),
           ),
-
-          //Pulsante per tornare alla home page
-            ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.blue,
-                textStyle: const TextStyle(
-                    color: Colors.white,
-                    fontSize: 18,
-                    fontStyle: FontStyle.normal),
-              ),
-              onPressed: () {
-                //si resetta lo state
-              setState(() {});
-              //si inizializzano le variabili e le liste
-              checkQuestion = false;
-              Game.tries = 0;
-              Game.selectedChar.clear();
-              setCorrectQuestions.clear();
-              CorrectQuestions = false;
-              b1 = false;
-              setOfInts1.clear();
-              checknumberQuestions = 0;
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => HomePageScreen()));
-              },
-              child: Text('Home Page'),
-            ),
         ],
       ),
     ));
@@ -126,7 +102,7 @@ class _ScorePageHangManState extends State<ScorePageHangMan> {
       builder: (context) => AlertDialog(
           backgroundColor: Colors.white,
           title: Text(
-            "Ecco il singificato della parola che hai indovinato: ",
+            "Cosa significa " + word + ' ?',
             textAlign: TextAlign.center,
             style: GoogleFonts.aBeeZee(),
           ),
@@ -145,17 +121,17 @@ class _ScorePageHangManState extends State<ScorePageHangMan> {
                 TextButton(
                   child: Text(
                     textAlign: TextAlign.center,
-                    "Torna alla home page",
+                    "Chiudi",
                     style: TextStyle(
                         fontSize: 15,
-                        color: Color.fromARGB(255, 212, 8, 174),
+                        color: Colors.blue,
                         fontWeight: FontWeight.bold),
                   ),
                   onPressed: () {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => HomePageScreen()));
+                            builder: (context) => ScorePageHangMan()));
                   },
                 ),
               ],

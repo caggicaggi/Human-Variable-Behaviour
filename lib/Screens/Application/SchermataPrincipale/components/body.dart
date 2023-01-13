@@ -87,7 +87,10 @@ class _BodyState extends State<Body> {
           Center(
             child: Text(
               "Progressi applicazioni",
-              style: GoogleFonts.lobster(fontSize: 32, color: Colors.white),
+              style: GoogleFonts.montserrat(
+                  fontSize: 32,
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold),
             ),
           ),
 
@@ -195,10 +198,11 @@ class _BodyState extends State<Body> {
                                         padding: const EdgeInsets.all(8.0),
                                         child: Text(
                                           'Human Variable Behaviour',
-                                          style: TextStyle(
-                                            fontSize: 28,
+                                          textAlign: TextAlign.center,
+                                          style: GoogleFonts.montserrat(
+                                            fontSize: 26,
                                             color: Colors.blue[900],
-                                            fontWeight: FontWeight.w500,
+                                            fontWeight: FontWeight.bold,
                                           ),
 
                                           //Textstyle
@@ -283,6 +287,7 @@ class SecondRoute extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Color.fromARGB(255, 18, 35, 147),
         title: const Text('Human Variable Behaviour'),
       ),
       body: Center(

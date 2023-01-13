@@ -31,7 +31,8 @@ class HangMan extends StatefulWidget {
 }
 
 class _HangManAppState extends State<HangMan> {
-  //Lista contentente l'afabeto
+  //Lista contentente l'afabeto 
+  
   List<String> alphabets = [
     "A",
     "B",
@@ -65,6 +66,7 @@ class _HangManAppState extends State<HangMan> {
   Widget build(BuildContext context) {
     //Occupo tutto lo schermo sia in altezza che in lunghezza
     Size size = MediaQuery.of(context).size;
+    
     return Scaffold(
         body: Container(
       //Immagine di sfondo
@@ -91,7 +93,7 @@ class _HangManAppState extends State<HangMan> {
               ],
             ),
           ),
-          
+
           //Creo il widget letter e prendo con il selectedChar controllo se presente
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -101,6 +103,7 @@ class _HangManAppState extends State<HangMan> {
                     !Game.selectedChar.contains(e.toUpperCase())))
                 .toList(),
           ),
+
           //Tastiera
           SizedBox(
             width: size.width * 1,
@@ -170,6 +173,7 @@ class _HangManAppState extends State<HangMan> {
   bool checkCorrectQuestions() {
     var arrayOfWord = word.split('');
     var correctAnswer = [];
+    
 
     for (var e in Game.selectedChar) {
       if ((!word.split('').contains(e)) == false) correctAnswer.add(e);
