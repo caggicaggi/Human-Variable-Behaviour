@@ -100,27 +100,29 @@ class _DynamicEventState extends State<DynamicEvent> {
     _events.clear();
     return Container(
       //imposto lo sfondo della pagina
-      decoration: getBackroundImageHomePage(), 
+      decoration: getBackroundImageHomePage(),
+
       child: Scaffold(
         backgroundColor: Colors.transparent,
-        appBar: PreferredSize(
-          preferredSize: Size.fromHeight(100.0),
-          //creeo nell'AppBar una freccia che mi riporta alla HomePage
-          child: AppBar(
-            title: Text(
-              "Diario",
-              style: GoogleFonts.montserrat(
-                  fontSize: 28,
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold),
-            ),
-           
-          ),
-        ),
         body: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
+              SizedBox(
+                height: 30,
+              ),
+              Center(
+                child: Text(
+                  "Diario",
+                  
+                  style: GoogleFonts.lobster(
+                      fontSize: 38,
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold),
+                ),
+              ),
+              
+
               //Costruisco il calendario
               TableCalendar(
                 events: _events,
@@ -212,14 +214,14 @@ class _DynamicEventState extends State<DynamicEvent> {
                       height: MediaQuery.of(context).size.height / 7,
                       width: MediaQuery.of(context).size.width / 1,
                       decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(20),
+                          borderRadius: BorderRadius.circular(16),
                           color: Colors.white,
                           border: Border.all(color: Colors.white)),
                       child: Center(
                           //stampo descrizione
                           child: Text(
                         event,
-                        style: GoogleFonts.akayaTelivigala(fontSize: 23),
+                        style: GoogleFonts.akayaTelivigala(fontSize: 18),
                         textAlign: TextAlign.center,
                       )),
                     ),
@@ -408,15 +410,7 @@ class _DynamicEventState extends State<DynamicEvent> {
                     }
                     await getVariabile();
                     print("Variabile aggiornata: " + variabile.toString());
-                    /*ricarico la pagina 
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) {
-                          return DynamicEvent();
-                        },
-                      ),
-                    );*/
+                    
                   },
                 ),
               ],

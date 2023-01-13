@@ -38,7 +38,7 @@ class _ScorePageHangManState extends State<ScorePageHangMan> {
                 padding: const EdgeInsets.all(8.0),
                 child: Card(
                   child: Center(
-                    child: Text('COMPLIMENTI!\n Hai indovinato la parola',
+                    child: Text('COMPLIMENTI!\n Hai indovinato la parola\n' + word,
                         textAlign: TextAlign.center,
                         style: const TextStyle(
                             color: Colors.blue,
@@ -59,9 +59,9 @@ class _ScorePageHangManState extends State<ScorePageHangMan> {
                   fontStyle: FontStyle.normal),
             ),
             onPressed: () {
-              _showAddDialog();
+              showAddDialog();
             },
-            child: Text('Scopri di più'),
+            child: Text('Significato'),
           ),
 
           //Pulsante per tornare alla home page
@@ -95,7 +95,7 @@ class _ScorePageHangManState extends State<ScorePageHangMan> {
     ));
   }
 
-  _showAddDialog() async {
+   showAddDialog() async {
     await _getTitle(word);
     await showDialog(
       context: context,
