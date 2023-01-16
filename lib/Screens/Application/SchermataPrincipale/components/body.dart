@@ -71,13 +71,13 @@ class _BodyState extends State<Body> {
             width: size.width,
             color: Colors.transparent,
             child: CircularPercentIndicator(
-              radius: 50.0,
+              radius: 60.0,
               lineWidth: 5.0,
               animation: true,
-              percent: 0.5,
+              percent: variabile.toDouble() / 100,
               circularStrokeCap: CircularStrokeCap.round,
               progressColor: Colors.red,
-              backgroundColor: Colors.transparent,
+              backgroundColor: Colors.yellow,
               center: painters[0],
             ),
           ),
@@ -185,7 +185,7 @@ class _BodyState extends State<Body> {
                               shadowColor: Colors.black,
                               color: Colors.greenAccent[100],
                               child: SizedBox(
-                                width: size.width * 0.85,
+                                width: size.width * 0.80,
                                 child: Align(
                                   alignment: Alignment.center,
                                   child: Column(
@@ -195,7 +195,7 @@ class _BodyState extends State<Body> {
                                         height: 10,
                                       ), //SizedBox
                                       Padding(
-                                        padding: const EdgeInsets.all(8.0),
+                                        padding: const EdgeInsets.all(10.0),
                                         child: Text(
                                           'Human Variable Behaviour',
                                           textAlign: TextAlign.center,

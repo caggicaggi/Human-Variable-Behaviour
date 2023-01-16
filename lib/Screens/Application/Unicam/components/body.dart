@@ -4,7 +4,6 @@ import 'package:human_variable_behaviour/Screens/Application/Unicam/components/b
 import 'package:human_variable_behaviour/Screens/Application/Unicam/components/const.dart';
 import 'package:human_variable_behaviour/Screens/Application/Unicam/components/data_link.dart';
 import 'package:human_variable_behaviour/Screens/Application/Unicam/components/details.dart';
-import 'package:human_variable_behaviour/constant.dart';
 
 class Body extends StatefulWidget {
   const Body({
@@ -26,8 +25,6 @@ class _BodyState extends State<Body> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Container(
-              //si imposta l'immagine di sfondo
-              decoration: getBackroundImageHomePage(),
               child: SafeArea(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -46,7 +43,7 @@ class _BodyState extends State<Body> {
                               fontWeight: FontWeight.w900,
                             ),
                           ),
-                          Text(
+                          /*Text(
                             'SERVIZI UNICAM',
                             textAlign: TextAlign.left,
                             style: TextStyle(
@@ -56,6 +53,7 @@ class _BodyState extends State<Body> {
                               fontWeight: FontWeight.w600,
                             ),
                           ),
+                          */
                           //SizedBox per spazio
                           const SizedBox(
                             height: 60,

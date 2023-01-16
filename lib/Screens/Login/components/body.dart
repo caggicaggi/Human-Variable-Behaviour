@@ -48,10 +48,9 @@ class _BodyState extends State<Body> {
               height: size.height * 0.05,
             ),
             //logo Human Variable
-            Image.asset('assets/images/logoH.png',
-            height: size.height * 0.32),
+            Image.asset('assets/images/logoH.png', height: size.height * 0.32),
             SizedBox(
-             height: size.height * 0.03,
+              height: size.height * 0.03,
             ),
             //Immagine del logo Unicam
             Image.asset(
@@ -87,8 +86,8 @@ class _BodyState extends State<Body> {
               onChange: (value) {
                 password = value;
               },
-            ), 
-             SizedBox(
+            ),
+            SizedBox(
               height: size.height * 0.04,
             ),
             //Pulsante per loggarsi con Google
@@ -109,11 +108,10 @@ class _BodyState extends State<Body> {
                         },
                       ),
                     )
-                    
+
                   //Se non loggato
                   : Center(
                       child: SignInButton(
-                      
                       padding: const EdgeInsets.symmetric(horizontal: 55),
                       Buttons.Google,
                       text: "Accedi con Google",
@@ -162,7 +160,7 @@ class _BodyState extends State<Body> {
                       },
                     )),
             ),
-           
+
             RoundedButton(
               text: 'Accedi',
               press: () async {

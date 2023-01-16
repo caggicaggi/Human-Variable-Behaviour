@@ -7,6 +7,7 @@ import 'package:human_variable_behaviour/Screens/Application/Persona/persona_scr
 import 'package:human_variable_behaviour/Screens/Application/SchermataPrincipale/schermata_principale_screen.dart';
 import 'package:human_variable_behaviour/Screens/Application/Unicam/unicam_screen.dart';
 import 'package:human_variable_behaviour/Screens/HomePage/components/background.dart';
+import 'package:human_variable_behaviour/mysql/mysql.dart';
 
 class Body extends StatefulWidget {
   const Body({

@@ -1,5 +1,3 @@
-// ignore_for_file: prefer_const_constructors, unused_local_variable
-
 import 'package:flutter/material.dart';
 import 'package:human_variable_behaviour/Screens/Application/Giochi/components/gioco_quiz/quizComponents/question.dart';
 
@@ -47,7 +45,7 @@ class OptionsWidget extends StatelessWidget {
             SizedBox(
               height: 3,
             ),
-             getIconForOption(option, question),
+            getIconForOption(option, question),
           ],
         ),
       ),

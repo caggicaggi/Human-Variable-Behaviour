@@ -38,7 +38,8 @@ class _ScorePageHangManState extends State<ScorePageHangMan> {
                 padding: const EdgeInsets.all(8.0),
                 child: Card(
                   child: Center(
-                    child: Text('COMPLIMENTI!\n Hai indovinato la parola\n' + word,
+                    child: Text(
+                        'COMPLIMENTI!\n Hai indovinato la parola\n' + word,
                         textAlign: TextAlign.center,
                         style: const TextStyle(
                             color: Colors.blue,
@@ -73,7 +74,9 @@ class _ScorePageHangManState extends State<ScorePageHangMan> {
                   fontSize: 18,
                   fontStyle: FontStyle.normal),
             ),
-            onPressed: () {
+            onPressed: () async {
+              await addTryCorrect("Tentativi_Riusciti_Impiccato");
+              await readInformationWithId(idUtente);
               //si resetta lo state
               setState(() {});
               //si inizializzano le variabili e le liste
@@ -95,7 +98,7 @@ class _ScorePageHangManState extends State<ScorePageHangMan> {
     ));
   }
 
-   showAddDialog() async {
+  showAddDialog() async {
     await _getTitle(word);
     await showDialog(
       context: context,

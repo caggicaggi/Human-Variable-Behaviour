@@ -1,25 +1,30 @@
-// ignore_for_file: prefer_const_constructors, prefer_interpolation_to_compose_strings, use_build_context_synchronously, unnecessary_new
+// ignore_for_file: use_build_context_synchronously, prefer_interpolation_to_compose_strings
 
 import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:human_variable_behaviour/Screens/Application/Giochi/components/gioco_hangman/hangman_screen.dart.dart';
 import 'package:human_variable_behaviour/Screens/Application/Giochi/components/gioco_image/pages/quiz_page.dart.dart';
 import 'package:human_variable_behaviour/Screens/Application/Giochi/components/gioco_quiz/quizComponents/question.dart';
+import 'package:human_variable_behaviour/Screens/Application/Giochi/components/gioco_quiz/quizComponents/questionsToDisplay.dart';
 import 'package:human_variable_behaviour/components/rounded_button.dart';
 import 'package:human_variable_behaviour/Screens/Application/Giochi/components/background.dart';
 import 'package:human_variable_behaviour/mysql/mysql.dart';
-import 'gioco_quiz/quizComponents/questionsToDisplay.dart';
 
+/////////////
+//QUIZ GAME//
+/////////////
 //Array per lista delle domande
 List<String> listofQuestion = [];
 //Array per lista delle risposte
 List<String> listofAnswerQuestions = [];
 //Array per lista id domande
 List<int> listofIdQuestions = [];
-//Array per lista risposte corrette
-//List<String> listofCorrectAnswer = [];
 //Array di Domanda
 var questions = [];
+
+/////////////
+//IMPICCATO//
+/////////////
 //Parola che si dovrà indovinare
 String word = '';
 
@@ -58,26 +63,27 @@ class Body extends StatelessWidget {
                 listofQuestion = [];
                 listofAnswerQuestions = [];
                 listofIdQuestions = [];
-                //listofCorrectAnswer = [];
                 //Prendo le domande dal database
                 await getIdDomanda();
                 await getDomanda();
                 await getAnswerQuestion();
-                //await getCorrectAnswer();
-
-                //Creo le domande
+                //Creo le domande e le relative risposte
                 questions = [
                   Question(
+                    //Domanda
                     text: listofQuestion[0],
                     options: [
+                      //Risposte
                       Option(text: listofAnswerQuestions[1], isCorrect: false),
                       Option(text: listofAnswerQuestions[0], isCorrect: true),
                       Option(text: listofAnswerQuestions[2], isCorrect: false),
                       Option(text: listofAnswerQuestions[3], isCorrect: false),
                     ],
                   ),
+                  //Domanda
                   Question(
                     text: listofQuestion[1],
+                    //Risposte
                     options: [
                       Option(text: listofAnswerQuestions[4], isCorrect: true),
                       Option(text: listofAnswerQuestions[5], isCorrect: false),
@@ -85,22 +91,26 @@ class Body extends StatelessWidget {
                       Option(text: listofAnswerQuestions[7], isCorrect: false),
                     ],
                   ),
+                  //Domanda
                   Question(
                     text: listofQuestion[2],
                     options: [
-                      Option(text: listofAnswerQuestions[8], isCorrect: true),
+                      //Risposte
                       Option(text: listofAnswerQuestions[9], isCorrect: false),
                       Option(text: listofAnswerQuestions[10], isCorrect: false),
+                      Option(text: listofAnswerQuestions[8], isCorrect: true),
                       Option(text: listofAnswerQuestions[11], isCorrect: false),
                     ],
                   ),
+                  //Domanda
                   Question(
                     text: listofQuestion[3],
                     options: [
-                      Option(text: listofAnswerQuestions[12], isCorrect: true),
+                      //Risposte
                       Option(text: listofAnswerQuestions[13], isCorrect: false),
                       Option(text: listofAnswerQuestions[14], isCorrect: false),
                       Option(text: listofAnswerQuestions[15], isCorrect: false),
+                      Option(text: listofAnswerQuestions[12], isCorrect: true),
                     ],
                   ),
                 ];
@@ -109,7 +119,7 @@ class Body extends StatelessWidget {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => QuestionToDisplay(),
+                    builder: (context) => const QuestionToDisplay(),
                   ),
                 );
               },
@@ -167,8 +177,6 @@ Future<void> addTry(colonna) async {
   //Connessione al database
   var db = Mysql();
   await db.getConnection().then((connessione) async {
-    //delay obbligatorio per Malaccari
-    await Future.delayed(const Duration(milliseconds: 1));
     await connessione.query(query).then((result) async {
       for (var res in result) {
         int value = int.parse(res[0].toString()) + 1;
@@ -190,6 +198,37 @@ Future<void> addTry(colonna) async {
     });
   });
   debugPrint("Aggiungo i tentativi");
+}
+
+//Aggiungo un tentativo riuscito alla tabella data in input
+Future<void> addTryCorrect(colonna) async {
+  String query =
+      'select ' + colonna + ' from utenti where idUtente = ' + idUtente;
+  String queryUpdate = '';
+  //Connessione al database
+  var db = Mysql();
+  await db.getConnection().then((connessione) async {
+    await connessione.query(query).then((result) async {
+      for (var res in result) {
+        int value = int.parse(res[0].toString()) + 1;
+        queryUpdate = 'UPDATE utenti SET ' +
+            colonna +
+            ' = ' +
+            value.toString() +
+            ' where idUtente = ' +
+            idUtente;
+      }
+      connessione.close();
+    });
+  });
+  db = Mysql();
+  await db.getConnection().then((connessione) async {
+    await Future.delayed(const Duration(milliseconds: 1));
+    await connessione.query(queryUpdate).then((result) async {
+      (value) => connessione.close();
+    });
+  });
+  debugPrint("Aggiungo i tentativi riusciti");
 }
 
 ///////////////////

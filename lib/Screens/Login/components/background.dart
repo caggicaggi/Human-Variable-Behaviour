@@ -7,12 +7,12 @@ class Background extends StatelessWidget {
     Key? key,
     required this.child,
   }) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Container(
       decoration: getBackroundImageHomePage(),
-      //Definisco altezza e larghezza del Container
       height: size.height,
       width: double.infinity,
       child: Stack(

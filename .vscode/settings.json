@@ -1,4 +1,7 @@
 {
     "cmake.sourceDirectory": "${workspaceFolder}/linux",
-    "java.configuration.updateBuildConfiguration": "interactive"
+    "java.configuration.updateBuildConfiguration": "interactive",
+    "editor.cursorStyle": "line",
+    "editor.wordWrap": "off",
+    "editor.autoSurround": "languageDefined"
 }

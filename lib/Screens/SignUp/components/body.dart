@@ -42,10 +42,9 @@ class _BodyState extends State<Body> {
               height: size.height * 0.05,
             ),
             //logo Human Variable
-            Image.asset('assets/images/logoH.png',
-            height: size.height * 0.20),
+            Image.asset('assets/images/logoH.png', height: size.height * 0.20),
             SizedBox(
-             height: size.height * 0.03,
+              height: size.height * 0.03,
             ),
             //Immagine del logo Unicam
             Image.asset(

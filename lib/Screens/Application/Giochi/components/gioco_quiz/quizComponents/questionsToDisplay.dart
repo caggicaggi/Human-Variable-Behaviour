@@ -22,14 +22,9 @@ class _QuestionToDisplayState extends State<QuestionToDisplay> {
         //Immagine di sfondo
         decoration: getBackroundImageHomePage(),
         child: Column(
-          //Allineamento children
           crossAxisAlignment: CrossAxisAlignment.center,
           //Inserisco il widget per le domande
           children: [
-            //Spaziatura
-            SizedBox(
-              height: 15,
-            ),
             Expanded(
               child: Scaffold(
                 backgroundColor: Colors.transparent,

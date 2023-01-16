@@ -78,7 +78,7 @@ Future signUpToDb(nameToDb, surnameToDb, emailToDb, passwordToDb) async {
       ',' +
       passwordToDb +
       ',' +
-      '100' +
+      '50' +
       ',' +
       "'Non hai inserito alcuna descrizione'" +
       ',' +
@@ -96,15 +96,15 @@ Future signUpToDb(nameToDb, surnameToDb, emailToDb, passwordToDb) async {
       ',' +
       "100" +
       ',' +
-      "100" +
+      "50" +
       ',' +
       "100" +
       ',' +
-      "100" +
+      "50" +
       ',' +
       "100" +
       ',' +
-      "100" +
+      "50" +
       ')';
   //Connessione al database
   var db = Mysql();
@@ -145,7 +145,7 @@ Future signUpToDbGoogle(nameSurnameToDb, emailToDb) async {
       ',' +
       emailToDb +
       ',' +
-      '100' +
+      '50' +
       ',' +
       "'Non hai inserito alcuna descrizione'" +
       ',' +
@@ -163,15 +163,15 @@ Future signUpToDbGoogle(nameSurnameToDb, emailToDb) async {
       ',' +
       "100" +
       ',' +
-      "100" +
+      "50" +
       ',' +
       "100" +
       ',' +
-      "100" +
+      "50" +
       ',' +
       "100" +
       ',' +
-      "100" +
+      "50" +
       ')';
   //Connessione al database
   var db = Mysql();
@@ -460,7 +460,7 @@ Future<void> readInformationWithId(idUtente) async {
   //Scrivo la query
   String query =
       'SELECT nome,cognome,email,password,Eta,MusicaPreferita,IstitutoFrequentato,Passione,SportPreferito,ArtistaPreferito,MateriaPreferita, ' +
-          'Tentativi_Totali_Impiccato,Tentativi_Riusciti_Impiccato,Tentativi_Totali_Quiz,Tentativi_Riusciti_Quiz,Tentativi_Totali_Immagini,Tentativi_Riusciti_Immagini FROM ' +
+          'Tentativi_Totali_Impiccato,Tentativi_Riusciti_Impiccato,Tentativi_Totali_Quiz,Tentativi_Riusciti_Quiz,Tentativi_Totali_Immagini,Tentativi_Riusciti_Immagini,VARIABILE FROM ' +
           table +
           ' where idUtente = ' +
           idUtente;
@@ -468,8 +468,6 @@ Future<void> readInformationWithId(idUtente) async {
   //Connessione al database
   var db = Mysql();
   await db.getConnection().then((connessione) async {
-    //delay obbligatorio per Malaccari
-    await Future.delayed(const Duration(milliseconds: 1));
     await connessione.query(query).then((result) async {
       for (var res in result) {
         nome = res[0].toString();
@@ -484,9 +482,25 @@ Future<void> readInformationWithId(idUtente) async {
         ArtistaPreferito = res[9].toString();
         MateriaPreferita = res[10].toString();
         //Carico le percentuali dei giochi
-        Percentuale_Impiccato = (res[12] / res[11]).toString();
-        Percentuale_Quiz = (res[14] / res[13]).toString();
-        Percentuale_Immagini = (res[16] / res[15]).toString();
+        if (res[12] == 0 && res[11] == 0) {
+          Percentuale_Impiccato = 0.toString();
+        } else {
+          Percentuale_Impiccato = (res[12] / res[11]).toString();
+        }
+        if (res[14] == 0 && res[13] == 0) {
+          Percentuale_Quiz = 0.toString();
+        } else {
+          Percentuale_Quiz = (res[14] / res[13]).toString();
+        }
+        if (res[16] == 0 && res[15] == 0) {
+          Percentuale_Immagini = 0.toString();
+        } else {
+          Percentuale_Immagini = (res[16] / res[15]).toString();
+        }
+        debugPrint("IMPICCATO: " + Percentuale_Impiccato);
+        debugPrint("QUIZ: " + Percentuale_Quiz);
+        debugPrint("IMMAGINI: " + Percentuale_Immagini);
+        variabile = res[17];
       }
       connessione.close();
     });
@@ -592,8 +606,7 @@ String getRispostaErrata3(domanda) {
 }
 
 //RICHIAMO LA VARIABILE DELL'UTENTE
-Future<int> getVariabile() async {
-  var check = 0;
+Future<void> getVariabile() async {
   //Nome della tabella
   String table = 'utenti';
   //Scrivo la query
@@ -601,6 +614,7 @@ Future<int> getVariabile() async {
       'SELECT VARIABILE FROM ' + table + ' where idUtente = ' + idUtente;
   //Connessione al database
   var db = Mysql();
+  debugPrint(query);
   await db.getConnection().then((connessione) async {
     await connessione.query(query).then((result) async {
       for (var res in result) {
@@ -609,17 +623,20 @@ Future<int> getVariabile() async {
       connessione.close();
     });
   });
-  return check;
 }
 
 //AGGIORNO LA VARIABILE A SECONDA DELLA RISPOSTA (IN QUESTO CASO CORRETTA --> RISPOSTA +4 )
 //AGGIORNO LA VARIABILE A SECONDA DELLA RISPOSTA (IN QUESTO CASO -1 --> RISPOSTA 1 )
 //AGGIORNA LA VARIABILE A SECONDA DELLA RISPOSTA (IN QUESTO CASO -2 --> RISPOSTA 2 )
 //AGGIORNA LA VARIABILE A SECONDA DELLA RISPOSTA (IN QUESTO CASO -3 --> RISPOSTA 3 )
-Future<void> updateVariable(idUtente, valoreDaSottrarre) async {
+Future<void> updateVariable(idUtente, valoreDaValutare) async {
   //Nome della tabella
   String table = 'utenti';
-  var newVariabile = variabile + valoreDaSottrarre;
+  var newVariabile = variabile + valoreDaValutare;
+  //Il valore della variabile non può superare 100
+  if (newVariabile >= 100) {
+    newVariabile = 100;
+  }
   String query = 'Update ' +
       table +
       ' SET VARIABILE = ' +

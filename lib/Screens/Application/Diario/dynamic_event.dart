@@ -3,7 +3,6 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:human_variable_behaviour/Screens/HomePage/homepage_screen.dart';
 import 'package:human_variable_behaviour/constant.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:table_calendar/table_calendar.dart';
@@ -114,14 +113,12 @@ class _DynamicEventState extends State<DynamicEvent> {
               Center(
                 child: Text(
                   "Diario",
-                  
                   style: GoogleFonts.lobster(
                       fontSize: 38,
                       color: Colors.white,
                       fontWeight: FontWeight.bold),
                 ),
               ),
-              
 
               //Costruisco il calendario
               TableCalendar(
@@ -327,7 +324,7 @@ class _DynamicEventState extends State<DynamicEvent> {
                             )),
                           ),
                         ));
-
+                    setState(() {});
                     //Controllo e salvataggio dati inseriti
                     if (_eventController.text.isEmpty) return;
                     setState(() {
@@ -383,10 +380,6 @@ class _DynamicEventState extends State<DynamicEvent> {
                     //controllo il ritorno dell'analysis per modificare la variabile
                     for (int i = 0; i < splitted.length; i++) {
                       await getVariabile();
-                      print("Frase(" +
-                          i.toString() +
-                          ") : " +
-                          variabile.toString());
                       if (splitted[i] == "joy") {
                         print("Emozione: " + splitted[i]);
                         await updateVariable(
@@ -410,7 +403,6 @@ class _DynamicEventState extends State<DynamicEvent> {
                     }
                     await getVariabile();
                     print("Variabile aggiornata: " + variabile.toString());
-                    
                   },
                 ),
               ],

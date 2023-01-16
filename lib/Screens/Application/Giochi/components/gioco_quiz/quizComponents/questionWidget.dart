@@ -16,27 +16,29 @@ class QuestionWidget extends StatefulWidget {
 }
 
 class _QuestionWidgetState extends State<QuestionWidget> {
+  //Variabile per pagina da visualizzare
   late PageController _controller;
+  //Numero della domanda che si sta facendo
   int _questionNumber = 1;
+  //Punteggio ottenuto
   int _score = 0;
+
   bool _isLocked = false;
 
   @override
   void initState() {
     super.initState();
+    //Parto dalla prima pagina
     _controller = PageController(initialPage: 0);
   }
 
   @override
   Widget build(BuildContext context) {
-    //Occupo tutto lo schermo sia in altezza che in lunghezza
-    Size size = MediaQuery.of(context).size;
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16.0),
+      padding: const EdgeInsets.symmetric(horizontal: 20.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.end,
         children: [
-          
           Expanded(
             //Mostra le domande una alla volta
             child: PageView.builder(
@@ -49,10 +51,7 @@ class _QuestionWidgetState extends State<QuestionWidget> {
               },
             ),
           ),
-
-         
           _isLocked ? buildElevatedButton() : SizedBox.shrink(),
-          
         ],
       ),
     );
