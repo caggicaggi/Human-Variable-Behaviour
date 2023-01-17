@@ -10,7 +10,6 @@ import 'package:human_variable_behaviour/Screens/Login/components/body.dart';
 import 'package:human_variable_behaviour/components/rounded_input_field.dart';
 import 'package:human_variable_behaviour/constant.dart';
 import 'package:human_variable_behaviour/mysql/mysql.dart';
-import 'package:random_avatar/random_avatar.dart';
 
 class Body extends StatefulWidget {
   const Body({
@@ -58,7 +57,10 @@ class _BodyState extends State<Body> {
                 Center(
                   child: Stack(
                     children: [
-                      painters[0],
+                      CircleAvatar(
+                          radius: 45,
+                          backgroundImage: NetworkImage(
+                              "https://api.multiavatar.com/$nome$cognome+.png")),
                       Positioned(
                           bottom: 0,
                           right: 0,
@@ -76,22 +78,7 @@ class _BodyState extends State<Body> {
                             ),
                             child: //Pulsante per la creazione dell'avatar
                                 FloatingActionButton(
-                              onPressed: () {
-                                //Se premuto creo l'avatar
-                                String svg = randomAvatarString(
-                                  DateTime.now().toIso8601String(),
-                                  trBackground: true,
-                                );
-                                debugPrint('Avatar creato: ' + svg);
-                                //Lo aggiunto alla lista
-                                painters[0] = (randomAvatar(
-                                  svg,
-                                  height: 100,
-                                  width: 90,
-                                ));
-                                //_controller.text = svg;
-                                setState(() {});
-                              },
+                              onPressed: () {},
                               child: const Icon(Icons.account_circle_sharp),
                             ),
                           )),
@@ -337,7 +324,10 @@ class _BodyState extends State<Body> {
                 Center(
                   child: Stack(
                     children: [
-                      painters[0],
+                      CircleAvatar(
+                          radius: 45,
+                          backgroundImage: NetworkImage(
+                              "https://api.multiavatar.com/$nome$cognome+.png")),
                     ],
                   ),
                 ),

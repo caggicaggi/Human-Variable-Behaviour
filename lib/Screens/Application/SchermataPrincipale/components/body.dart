@@ -9,12 +9,11 @@ import 'package:human_variable_behaviour/services/local_notification_service.dar
 import 'package:percent_indicator/percent_indicator.dart';
 import 'package:human_variable_behaviour/mysql/mysql.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
-import 'package:random_avatar/random_avatar.dart';
 
 //Variabile per stringa da analizzare
 String humanVariableBehaviour = '';
 
-//?
+//Lista per salvare gli avatar randomici
 final List<Widget> painters = <Widget>[];
 
 class Body extends StatefulWidget {
@@ -26,6 +25,7 @@ class Body extends StatefulWidget {
 }
 
 class _BodyState extends State<Body> {
+  //Notifiche
   late final LocalNotificationService service;
   @override
   void initState() {
@@ -35,6 +35,7 @@ class _BodyState extends State<Body> {
     super.initState();
   }
 
+  //Formattazione Progressi applicazioni
   Text subheading(String title) {
     return Text(title,
         style: const TextStyle(
@@ -46,17 +47,6 @@ class _BodyState extends State<Body> {
 
   @override
   Widget build(BuildContext context) {
-    String svg = randomAvatarString(
-      DateTime.now().toIso8601String(),
-      trBackground: true,
-    );
-    //Lo aggiunto alla lista
-    painters.add(randomAvatar(
-      svg,
-      height: 100,
-      width: 90,
-    ));
-
     Size size = MediaQuery.of(context).size;
     return Background(
       child: Column(
@@ -77,7 +67,10 @@ class _BodyState extends State<Body> {
               circularStrokeCap: CircularStrokeCap.round,
               progressColor: Colors.red,
               backgroundColor: Colors.yellow,
-              center: painters[0],
+              center: CircleAvatar(
+                  radius: 45,
+                  backgroundImage: NetworkImage(
+                      "https://api.multiavatar.com/$nome$cognome+.png")),
             ),
           ),
           SizedBox(
@@ -92,7 +85,6 @@ class _BodyState extends State<Body> {
                   fontWeight: FontWeight.bold),
             ),
           ),
-
           Expanded(
             child: SingleChildScrollView(
               child: Column(

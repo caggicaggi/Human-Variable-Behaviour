@@ -7,7 +7,6 @@ import 'package:human_variable_behaviour/Screens/Application/Info/info_home_scre
 import 'package:human_variable_behaviour/Screens/Application/Persona/persona_screen.dart';
 import 'package:human_variable_behaviour/Screens/Application/SchermataPrincipale/schermata_principale_screen.dart';
 import 'package:human_variable_behaviour/Screens/HomePage/components/background.dart';
-import 'package:human_variable_behaviour/mysql/mysql.dart';
 
 class Body extends StatefulWidget {
   const Body({
@@ -26,14 +25,14 @@ class _BodyState extends State<Body> {
   List<Widget> pages = [
     //Oggetto Giochi
     GiochiScreen(),
-    //Oggetto Persona
-    PersonaScreen(),
-    //Oggetto Schermata principale
-    SchermataPrincipaleScreen(),
     //Oggetto Diario
     DynamicEvent(),
+    //Oggetto Schermata principale
+    SchermataPrincipaleScreen(),
     //Oggetto Unicam
     InfoHomeScreen(),
+    //Oggetto Persona
+    PersonaScreen(),
   ];
   @override
 
@@ -60,10 +59,11 @@ class _BodyState extends State<Body> {
               icon: Icon(Icons.gamepad),
               label: 'Games',
             ),
+            //Diario
             BottomNavigationBarItem(
               backgroundColor: Color.fromARGB(255, 18, 35, 147),
-              icon: Icon(Icons.person),
-              label: 'Profilo',
+              icon: Icon(Icons.menu_book),
+              label: 'Diario',
             ),
             //Home
             BottomNavigationBarItem(
@@ -71,17 +71,16 @@ class _BodyState extends State<Body> {
               icon: Icon(Icons.home),
               label: 'Home',
             ),
-            //Diario
-            BottomNavigationBarItem(
-              backgroundColor: Color.fromARGB(255, 18, 35, 147),
-              icon: Icon(Icons.menu_book),
-              label: 'Diario',
-            ),
             BottomNavigationBarItem(
               backgroundColor: Color.fromARGB(255, 18, 35, 147),
               icon: Icon(Icons.school),
               label: 'Info',
-            )
+            ),
+            BottomNavigationBarItem(
+              backgroundColor: Color.fromARGB(255, 18, 35, 147),
+              icon: Icon(Icons.person),
+              label: 'Profilo',
+            ),
           ],
         ),
       ),

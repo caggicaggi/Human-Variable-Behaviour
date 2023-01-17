@@ -19,8 +19,9 @@ class ArticleScreen extends StatelessWidget {
         width: double.infinity,
         imageUrl: article.imageUrl,
         child: Scaffold(
+            backgroundColor: Colors.transparent,
             appBar: AppBar(
-              iconTheme: const IconThemeData(color: Colors.white),
+              iconTheme: const IconThemeData(color: Colors.black),
               backgroundColor: Colors.transparent,
               elevation: 0,
             ),

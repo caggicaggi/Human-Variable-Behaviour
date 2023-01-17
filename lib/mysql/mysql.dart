@@ -64,12 +64,13 @@ Future signUpToDb(nameToDb, surnameToDb, emailToDb, passwordToDb) async {
   surnameToDb = stringToDb(surnameToDb);
   emailToDb = stringToDb(emailToDb);
   passwordToDb = stringToDb(passwordToDb);
+
   //Nome della tabella
   String table = 'utenti';
   //Scrivo la query
   String query = 'INSERT INTO ' +
       table +
-      ' (nome, cognome, email, password, variabile, IstitutoFrequentato , Eta, Passione , SportPreferito , MusicaPreferita, ArtistaPreferito, MateriaPreferita,Tentativi_Totali_Impiccato,Tentativi_Riusciti_Impiccato,Tentativi_Totali_Quiz,Tentativi_Riusciti_Quiz,Tentativi_Totali_Immagini,Tentativi_Riusciti_Immagini) VALUES (' +
+      ' (nome, cognome, email, password ,variabile, IstitutoFrequentato , Eta, Passione , SportPreferito , MusicaPreferita, ArtistaPreferito, MateriaPreferita,Tentativi_Totali_Impiccato,Tentativi_Riusciti_Impiccato,Tentativi_Totali_Quiz,Tentativi_Riusciti_Quiz,Tentativi_Totali_Immagini,Tentativi_Riusciti_Immagini) VALUES (' +
       nameToDb +
       ',' +
       surnameToDb +
@@ -106,6 +107,7 @@ Future signUpToDb(nameToDb, surnameToDb, emailToDb, passwordToDb) async {
       ',' +
       "50" +
       ')';
+
   //Connessione al database
   var db = Mysql();
   await db.getConnection().then((connessione) async {
