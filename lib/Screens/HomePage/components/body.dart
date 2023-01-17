@@ -6,7 +6,6 @@ import 'package:human_variable_behaviour/Screens/Application/Giochi/giochi_scree
 import 'package:human_variable_behaviour/Screens/Application/Info/info_home_screen.dart';
 import 'package:human_variable_behaviour/Screens/Application/Persona/persona_screen.dart';
 import 'package:human_variable_behaviour/Screens/Application/SchermataPrincipale/schermata_principale_screen.dart';
-import 'package:human_variable_behaviour/Screens/Application/Unicam/unicam_screen.dart';
 import 'package:human_variable_behaviour/Screens/HomePage/components/background.dart';
 import 'package:human_variable_behaviour/mysql/mysql.dart';
 

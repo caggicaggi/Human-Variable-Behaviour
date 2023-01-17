@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:human_variable_behaviour/Screens/Application/Info/article_screen.dart';
-import 'package:human_variable_behaviour/Screens/Application/Info/info_home_screen.dart';
 import 'package:human_variable_behaviour/Screens/Login/login_screen.dart';
 import 'package:human_variable_behaviour/mysql/mysql.dart';
 
@@ -17,14 +15,16 @@ class MyApp extends StatelessWidget {
   //Main widget
   @override
   Widget build(BuildContext context) {
-    return const GetMaterialApp(
+    return MaterialApp(
       //Titolo applicazione
       title: 'Human Variable Behaviour',
       //Disattivo il debug
       debugShowCheckedModeBanner: false,
+      routes: {
+        ArticleScreen.routeName: (context) => const ArticleScreen(),
+      },
       //Pagina di Login
-      home: LoginScreen(),
-      
+      home: const LoginScreen(),
     );
   }
 }

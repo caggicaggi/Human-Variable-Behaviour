@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:human_variable_behaviour/Screens/Application/Giochi/components/gioco_image/utils/quiz.dart.dart';
 import 'package:human_variable_behaviour/Screens/Application/Info/article_screen.dart';
 import 'package:human_variable_behaviour/Screens/Application/Info/widgets/custom_tag.dart';
 import 'package:human_variable_behaviour/Screens/Application/Info/widgets/image_container.dart';
@@ -22,7 +21,7 @@ class InfoHomeScreen extends StatelessWidget {
           onPressed: () {},
           icon: const Icon(
             Icons.menu,
-            color: Colors.white,
+            color: Colors.transparent,
           ),
         ),
       ),
@@ -79,7 +78,13 @@ class _NewsOfTheDay extends StatelessWidget {
             TextButton(
                 //onPressed Learn More per aprire articolo
                 onPressed: () {
-                  Navigator.of(context).push(MaterialPageRoute(builder: (context) => const ArticleScreen()));
+                  Navigator.pushNamed(
+                    context,
+                    ArticleScreen.routeName,
+                    arguments: article,
+                  );
+                  //Navigator.of(context).push(MaterialPageRoute(
+                  //                    builder: (context) => const ArticleScreen()));
                 },
                 style: TextButton.styleFrom(padding: EdgeInsets.zero),
                 child: Row(
@@ -122,13 +127,13 @@ class _BreakingNews extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                'Breaking News',
+                'Ultime notizie',
                 style: Theme.of(context)
                     .textTheme
                     .headlineSmall!
                     .copyWith(fontWeight: FontWeight.bold),
               ),
-              Text('More news', style: Theme.of(context).textTheme.bodyLarge!),
+              //Text('More news', style: Theme.of(context).textTheme.bodyLarge!),
             ],
           ),
           const SizedBox(height: 20),

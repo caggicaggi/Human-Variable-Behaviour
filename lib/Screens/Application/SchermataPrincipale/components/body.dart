@@ -5,7 +5,6 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:human_variable_behaviour/Screens/Application/SchermataPrincipale/components/background.dart';
 import 'package:human_variable_behaviour/Screens/Application/SchermataPrincipale/widgets/active_project_card.dart';
 import 'package:human_variable_behaviour/Screens/Application/SchermataPrincipale/widgets/second_screen.dart';
-import 'package:human_variable_behaviour/Screens/Application/Unicam/components/const.dart';
 import 'package:human_variable_behaviour/services/local_notification_service.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 import 'package:human_variable_behaviour/mysql/mysql.dart';
@@ -221,6 +220,7 @@ class _BodyState extends State<Body> {
                                       const SizedBox(
                                         height: 10,
                                       ), //SizedBox
+                                      /*
                                       SizedBox(
                                         width: 100,
                                         child: ElevatedButton(
@@ -245,7 +245,7 @@ class _BodyState extends State<Body> {
                                             ),
                                           ),
                                         ),
-                                      )
+                                      )*/
                                     ],
                                   ),
                                 ),
@@ -280,6 +280,7 @@ class _BodyState extends State<Body> {
   }
 }
 
+/*
 class SecondRoute extends StatelessWidget {
   const SecondRoute({super.key});
 
@@ -319,3 +320,4 @@ class SecondRoute extends StatelessWidget {
     );
   }
 }
+*/
