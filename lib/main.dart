@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
+import 'package:human_variable_behaviour/Screens/Application/Info/article_screen.dart';
+import 'package:human_variable_behaviour/Screens/Application/Info/info_home_screen.dart';
 import 'package:human_variable_behaviour/Screens/Login/login_screen.dart';
 import 'package:human_variable_behaviour/mysql/mysql.dart';
 
@@ -22,6 +24,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       //Pagina di Login
       home: LoginScreen(),
+      
     );
   }
 }

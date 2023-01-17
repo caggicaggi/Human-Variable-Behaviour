@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:human_variable_behaviour/Screens/Application/Diario/dynamic_event.dart';
 import 'package:human_variable_behaviour/Screens/Application/Giochi/giochi_screen.dart';
+import 'package:human_variable_behaviour/Screens/Application/Info/info_home_screen.dart';
 import 'package:human_variable_behaviour/Screens/Application/Persona/persona_screen.dart';
 import 'package:human_variable_behaviour/Screens/Application/SchermataPrincipale/schermata_principale_screen.dart';
 import 'package:human_variable_behaviour/Screens/Application/Unicam/unicam_screen.dart';
@@ -33,7 +34,7 @@ class _BodyState extends State<Body> {
     //Oggetto Diario
     DynamicEvent(),
     //Oggetto Unicam
-    UnicamScreen(),
+    InfoHomeScreen(),
   ];
   @override
 
