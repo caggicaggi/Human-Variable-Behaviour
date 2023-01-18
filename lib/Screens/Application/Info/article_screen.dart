@@ -21,7 +21,7 @@ class ArticleScreen extends StatelessWidget {
         child: Scaffold(
             backgroundColor: Colors.transparent,
             appBar: AppBar(
-              iconTheme: const IconThemeData(color: Colors.black),
+              iconTheme: const IconThemeData(color: Colors.white),
               backgroundColor: Colors.transparent,
               elevation: 0,
             ),
@@ -37,6 +37,54 @@ class ArticleScreen extends StatelessWidget {
   }
 }
 
+//parte superiore contenente l'immagines
+class _NewsHeadLine extends StatelessWidget {
+  const _NewsHeadLine({
+    Key? key,
+    required this.article,
+  }) : super(key: key);
+
+  final Article article;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(20.0),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.end,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          SizedBox(height: MediaQuery.of(context).size.height * 0.15),
+          CustomTag(backgroundColor: Colors.grey.withAlpha(150), children: [
+            Text(
+              article.category,
+              style: Theme.of(context)
+                  .textTheme
+                  .bodyMedium!
+                  .copyWith(color: Colors.white),
+            )
+          ]),
+          const SizedBox(height: 10),
+          Text(
+            article.title,
+            style: Theme.of(context).textTheme.headlineSmall!.copyWith(
+                height: 1.25, color: Colors.white, fontWeight: FontWeight.bold),
+          ),
+          const SizedBox(height: 10),
+          Text(
+            article.subtitle,
+            style: Theme.of(context)
+                .textTheme
+                .bodyMedium!
+                .copyWith(color: Colors.white),
+          )
+        ],
+      ),
+    );
+  }
+}
+
+//parte inferione contenente l'articolo
 class _NewsBody extends StatelessWidget {
   const _NewsBody({
     Key? key,
@@ -84,10 +132,10 @@ class _NewsBody extends StatelessWidget {
                 ),
                 const SizedBox(width: 10),
                 Text(
-                    '${DateTime.now().difference(article.createdAt).inHours} h',
+                    '${DateTime.now().difference(article.createdAt).inHours} min',
                     style: Theme.of(context).textTheme.bodyMedium!)
               ]),
-              const SizedBox(width: 10),
+              /*const SizedBox(width: 10),
               CustomTag(backgroundColor: Colors.grey.shade200, children: [
                 const Icon(
                   Icons.remove_red_eye,
@@ -96,7 +144,7 @@ class _NewsBody extends StatelessWidget {
                 const SizedBox(width: 10),
                 Text('${article.views}',
                     style: Theme.of(context).textTheme.bodyMedium!)
-              ]),
+              ]),*/
             ],
           ),
           const SizedBox(height: 20),
@@ -116,67 +164,21 @@ class _NewsBody extends StatelessWidget {
           const SizedBox(height: 20),
           GridView.builder(
               shrinkWrap: true,
-              itemCount: 2,
+              itemCount: 1,
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2,
+                crossAxisCount: 1,
                 childAspectRatio: 1.25,
               ),
               itemBuilder: (context, index) {
                 return ImageContainer(
                   width: MediaQuery.of(context).size.width * 0.42,
-                  imageUrl: article.imageUrl,
+                  imageUrl: article.secondImageUrl,
                   margin: const EdgeInsets.only(
                     right: 5.0,
                     bottom: 5.0,
                   ),
                 );
               })
-        ],
-      ),
-    );
-  }
-}
-
-class _NewsHeadLine extends StatelessWidget {
-  const _NewsHeadLine({
-    Key? key,
-    required this.article,
-  }) : super(key: key);
-
-  final Article article;
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(20.0),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.end,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          SizedBox(height: MediaQuery.of(context).size.height * 0.15),
-          CustomTag(backgroundColor: Colors.grey.withAlpha(150), children: [
-            Text(
-              article.category,
-              style: Theme.of(context)
-                  .textTheme
-                  .bodyMedium!
-                  .copyWith(color: Colors.white),
-            )
-          ]),
-          const SizedBox(height: 10),
-          Text(
-            article.title,
-            style: Theme.of(context).textTheme.headlineSmall!.copyWith(
-                height: 1.25, color: Colors.white, fontWeight: FontWeight.bold),
-          ),
-          const SizedBox(height: 10),
-          Text(
-            article.subtitle,
-            style: Theme.of(context)
-                .textTheme
-                .bodyMedium!
-                .copyWith(color: Colors.white),
-          )
         ],
       ),
     );

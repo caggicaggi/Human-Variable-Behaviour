@@ -123,7 +123,7 @@ class _BodyState extends State<Body> {
                           //Ottengo tutte le infomazioni
                           _userObj = userData!;
                           if (await readEmailFromDb(_userObj.email)) {
-                            //debugPrint("Email non presente");
+                            
                             //Devo registrarla
                             await signUpToDbGoogle(
                                     _userObj.displayName, _userObj.email)
@@ -143,7 +143,7 @@ class _BodyState extends State<Body> {
                               },
                             );
                           } else {
-                            //debugPrint("Email già presente");
+                            
                             //Devo leggere le info
                             await readInformationWithId(idUtente).then((value) {
                               Navigator.push(

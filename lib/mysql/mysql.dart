@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_interpolation_to_compose_strings
 
 import 'dart:async';
+import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:mysql1/mysql1.dart';
@@ -14,6 +15,7 @@ var cognome = '';
 var email = '';
 var password = '';
 var variabile = 0;
+String avatarStr = '';
 
 var IstitutoFrequentato = '';
 var Passione = '';
@@ -462,11 +464,11 @@ Future<void> readInformationWithId(idUtente) async {
   //Scrivo la query
   String query =
       'SELECT nome,cognome,email,password,Eta,MusicaPreferita,IstitutoFrequentato,Passione,SportPreferito,ArtistaPreferito,MateriaPreferita, ' +
-          'Tentativi_Totali_Impiccato,Tentativi_Riusciti_Impiccato,Tentativi_Totali_Quiz,Tentativi_Riusciti_Quiz,Tentativi_Totali_Immagini,Tentativi_Riusciti_Immagini,VARIABILE FROM ' +
+          'Tentativi_Totali_Impiccato,Tentativi_Riusciti_Impiccato,Tentativi_Totali_Quiz,Tentativi_Riusciti_Quiz,Tentativi_Totali_Immagini,Tentativi_Riusciti_Immagini,VARIABILE,avatarStr FROM ' +
           table +
           ' where idUtente = ' +
           idUtente;
-  debugPrint(query);
+  
   //Connessione al database
   var db = Mysql();
   await db.getConnection().then((connessione) async {
@@ -499,10 +501,10 @@ Future<void> readInformationWithId(idUtente) async {
         } else {
           Percentuale_Immagini = (res[16] / res[15]).toString();
         }
-        debugPrint("IMPICCATO: " + Percentuale_Impiccato);
-        debugPrint("QUIZ: " + Percentuale_Quiz);
-        debugPrint("IMMAGINI: " + Percentuale_Immagini);
+        
         variabile = res[17];
+        avatarStr = res[18].toString();
+        
       }
       connessione.close();
     });
@@ -616,7 +618,7 @@ Future<void> getVariabile() async {
       'SELECT VARIABILE FROM ' + table + ' where idUtente = ' + idUtente;
   //Connessione al database
   var db = Mysql();
-  debugPrint(query);
+  
   await db.getConnection().then((connessione) async {
     await connessione.query(query).then((result) async {
       for (var res in result) {
@@ -718,7 +720,7 @@ Future<void> signUpToDbInf(
       'WHERE idUtente = ' +
       idUtente +
       ";";
-  debugPrint(query);
+  
   var db = Mysql();
   //eseguo query
   await db.getConnection().then((connessione) {
@@ -750,4 +752,62 @@ Future<String> getQuestionFromId(int id) async {
     });
   });
   return '';
+}
+
+//METODO PER settare la stringa avatar
+Future<void> setAvatarString(String id) async {
+  //Nome della tabella
+  String table = 'utenti';
+  String rndStr = '123';
+  //genero un numero casuale tra 0 e 9
+  Random random = Random();
+  int rndNum = random.nextInt(9)+1;
+  //genero una stringa casuale di lunghezza casuale
+  String generateRandomString(int len) {
+    var r = Random();
+    const _chars =
+        'AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz1234567890';
+    return List.generate(len, (index) => _chars[r.nextInt(_chars.length)])
+        .join();
+  }
+
+  rndStr = generateRandomString(rndNum);
+  
+  //Scrivo la query
+  String queryUp0 = "SET SQL_SAFE_UPDATES = 0;";
+  String query = " UPDATE " +
+      table +
+      " SET avatarStr = '" +
+      rndStr +
+      "'  WHERE idUtente = " +
+      id.toString() +
+      ' ;';
+  String queryUp1 = "SET SQL_SAFE_UPDATES = 1;";
+  
+  var db = Mysql();
+  //eseguo query
+  await db.getConnection().then((connessione) {
+    connessione.query(queryUp0);
+    connessione.query(query);
+    connessione.query(queryUp1);
+    connessione.close();
+  });
+}
+
+//Metodo per ottenere la stringa dell'avatar dato l'id
+Future<void> getAvatarString(String id) async {
+  var table = 'utenti';
+  //Connessione al database
+  var db = Mysql();
+  await db.getConnection().then((connessione) async {
+    await Future.delayed(const Duration(milliseconds: 4));
+    String query =
+        'SELECT avatarStr FROM ' + table + ' WHERE idUtente = ' + id.toString();
+    await connessione.query(query).then((result) async {
+      for (var res in result) {
+       avatarStr= await res[0];
+      }
+      connessione.close();
+    });
+  });
 }

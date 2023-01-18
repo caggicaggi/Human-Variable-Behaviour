@@ -70,7 +70,7 @@ class _BodyState extends State<Body> {
               center: CircleAvatar(
                   radius: 45,
                   backgroundImage: NetworkImage(
-                      "https://api.multiavatar.com/$nome$cognome+.png")),
+                      "https://api.multiavatar.com/$avatarStr.png")),
             ),
           ),
           SizedBox(
@@ -160,94 +160,6 @@ class _BodyState extends State<Body> {
                       ],
                     ),
                   ),
-                  Container(
-                    color: Colors.transparent,
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 20.0, vertical: 10.0),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: <Widget>[
-                        Row(
-                          children: <Widget>[
-                            Card(
-                              margin: const EdgeInsets.symmetric(
-                                  horizontal: 10.0, vertical: 10.0),
-                              elevation: 50,
-                              shadowColor: Colors.black,
-                              color: Colors.greenAccent[100],
-                              child: SizedBox(
-                                width: size.width * 0.80,
-                                child: Align(
-                                  alignment: Alignment.center,
-                                  child: Column(
-                                    children: [
-                                      //CircleAvatar
-                                      const SizedBox(
-                                        height: 10,
-                                      ), //SizedBox
-                                      Padding(
-                                        padding: const EdgeInsets.all(10.0),
-                                        child: Text(
-                                          'Human Variable Behaviour',
-                                          textAlign: TextAlign.center,
-                                          style: GoogleFonts.montserrat(
-                                            fontSize: 26,
-                                            color: Colors.blue[900],
-                                            fontWeight: FontWeight.bold,
-                                          ),
-
-                                          //Textstyle
-                                        ),
-                                      ), //Text
-                                      const SizedBox(
-                                        height: 5,
-                                      ), //SizedBox
-                                      const Text(
-                                        'Obbiettivo del progetto',
-                                        style: TextStyle(
-                                          fontSize: 15,
-                                          color: Colors.blue,
-                                        ), //Textstyle
-                                      ), //Text
-                                      const SizedBox(
-                                        height: 10,
-                                      ), //SizedBox
-                                      /*
-                                      SizedBox(
-                                        width: 100,
-                                        child: ElevatedButton(
-                                          onPressed: () {
-                                            Navigator.push(
-                                              context,
-                                              MaterialPageRoute(
-                                                  builder: (context) =>
-                                                      const SecondRoute()),
-                                            );
-                                          },
-                                          style: ButtonStyle(
-                                              backgroundColor:
-                                                  MaterialStateProperty.all(
-                                                      Colors.blue)),
-                                          child: Center(
-                                            child: Row(
-                                              children: const [
-                                                Icon(Icons.touch_app),
-                                                Text('Scopri'),
-                                              ],
-                                            ),
-                                          ),
-                                        ),
-                                      )*/
-                                    ],
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                  ),
                 ],
               ),
             ),
@@ -271,45 +183,3 @@ class _BodyState extends State<Body> {
     }
   }
 }
-
-/*
-class SecondRoute extends StatelessWidget {
-  const SecondRoute({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Color.fromARGB(255, 18, 35, 147),
-        title: const Text('Human Variable Behaviour'),
-      ),
-      body: Center(
-        child: Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Text(
-                obbiettivoProgetto,
-                maxLines: 2222,
-                overflow: TextOverflow.ellipsis,
-                style: TextStyle(
-                  fontFamily: 'Avenir',
-                  fontSize: 14,
-                  color: contentTextColor,
-                  fontWeight: FontWeight.w500,
-                ),
-              ),
-            ),
-            ElevatedButton(
-              onPressed: () {
-                Navigator.pop(context);
-              },
-              child: const Text('Torna indietro'),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
-*/

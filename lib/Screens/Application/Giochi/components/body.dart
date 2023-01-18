@@ -197,7 +197,7 @@ Future<void> addTry(colonna) async {
       (value) => connessione.close();
     });
   });
-  debugPrint("Aggiungo i tentativi");
+  
 }
 
 //Aggiungo un tentativo riuscito alla tabella data in input
@@ -228,7 +228,7 @@ Future<void> addTryCorrect(colonna) async {
       (value) => connessione.close();
     });
   });
-  debugPrint("Aggiungo i tentativi riusciti");
+  
 }
 
 ///////////////////
@@ -319,7 +319,7 @@ Future<void> getParole(int randomNumber) async {
       table +
       ' where idlistaparole = ' +
       randomNumber.toString();
-  debugPrint(query);
+  
   var db = Mysql();
   await db.getConnection().then(
     (connessione) async {

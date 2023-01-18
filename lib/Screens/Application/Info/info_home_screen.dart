@@ -59,7 +59,7 @@ class _NewsOfTheDay extends StatelessWidget {
           children: [
             CustomTag(backgroundColor: Colors.grey.withAlpha(150), children: [
               Text(
-                'News of the day',
+                'Bullismo',
                 style: Theme.of(context)
                     .textTheme
                     .bodyMedium!
@@ -90,7 +90,7 @@ class _NewsOfTheDay extends StatelessWidget {
                 child: Row(
                   children: [
                     Text(
-                      'Learn More',
+                      'Scopri di più',
                       style: Theme.of(context)
                           .textTheme
                           .bodyLarge!
@@ -127,7 +127,7 @@ class _BreakingNews extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                'Ultime notizie',
+                'Articoli',
                 style: Theme.of(context)
                     .textTheme
                     .headlineSmall!
