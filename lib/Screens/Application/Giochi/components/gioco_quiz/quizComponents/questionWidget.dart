@@ -34,25 +34,27 @@ class _QuestionWidgetState extends State<QuestionWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 20.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.end,
-        children: [
-          Expanded(
-            //Mostra le domande una alla volta
-            child: PageView.builder(
-              itemCount: questions.length,
-              controller: _controller,
-              physics: const NeverScrollableScrollPhysics(),
-              itemBuilder: (context, index) {
-                final _question = questions[index];
-                return buildQuestion(_question);
-              },
+    return Container(
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 20.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.end,
+          children: [
+            Expanded(
+              //Mostra le domande una alla volta
+              child: PageView.builder(
+                itemCount: questions.length,
+                controller: _controller,
+                physics: const NeverScrollableScrollPhysics(),
+                itemBuilder: (context, index) {
+                  final _question = questions[index];
+                  return buildQuestion(_question);
+                },
+              ),
             ),
-          ),
-          _isLocked ? buildElevatedButton() : SizedBox.shrink(),
-        ],
+            _isLocked ? buildElevatedButton() : SizedBox.shrink(),
+          ],
+        ),
       ),
     );
   }
@@ -88,6 +90,8 @@ class _QuestionWidgetState extends State<QuestionWidget> {
                   setState(() {
                     question.isLocked = true;
                     question.selectedOption = option;
+                    debugPrint(question.toString());
+                    debugPrint(question.options.toString());
                   });
                   _isLocked = question.isLocked;
                   if (question.selectedOption!.isCorrect) {

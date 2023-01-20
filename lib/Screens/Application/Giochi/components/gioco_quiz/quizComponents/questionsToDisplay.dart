@@ -26,10 +26,8 @@ class _QuestionToDisplayState extends State<QuestionToDisplay> {
           //Inserisco il widget per le domande
           children: [
             Expanded(
-              child: Scaffold(
-                backgroundColor: Colors.transparent,
-                body: QuestionWidget(),
-              ),
+              child: QuestionWidget(),
+              
             ),
             SizedBox(
               height: size.height * 0.10,

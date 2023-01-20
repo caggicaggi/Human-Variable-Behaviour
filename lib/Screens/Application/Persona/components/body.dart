@@ -286,7 +286,10 @@ class _BodyState extends State<Body> {
                       checkforModifica = false;
                       checkScaffold = false;
                       //si rimanda all'homepage
-                      Get.to(HomePageScreen());
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => HomePageScreen()));
                     },
                     style: ElevatedButton.styleFrom(
                         backgroundColor: Color.fromARGB(255, 31, 56, 221)),
@@ -578,7 +581,10 @@ class _BodyState extends State<Body> {
                       //si setta variabile
                       checkforModifica = true;
                       //si riporta alla sezione informazioni personali
-                      Get.to(PersonaScreen());
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => PersonaScreen()));
                     },
                     style:
                         ElevatedButton.styleFrom(backgroundColor: Colors.blue),

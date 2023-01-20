@@ -65,6 +65,7 @@ class _ScorePageState extends State<ScorePage> {
                         fontStyle: FontStyle.normal),
                   ),
                   onPressed: () async {
+                    await addTry("Tentativi_Totali_Immagini");
                     if (widget.score > 2) {
                       await addTryCorrect("Tentativi_Riusciti_Immagini");
                     }

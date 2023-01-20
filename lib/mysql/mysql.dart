@@ -97,17 +97,17 @@ Future signUpToDb(nameToDb, surnameToDb, emailToDb, passwordToDb) async {
       ',' +
       "'Non hai inserito alcuna descrizione'" +
       ',' +
-      "100" +
+      "0" +
       ',' +
-      "50" +
+      "0" +
       ',' +
-      "100" +
+      "0" +
       ',' +
-      "50" +
+      "0" +
       ',' +
-      "100" +
+      "0" +
       ',' +
-      "50" +
+      "0" +
       ')';
 
   //Connessione al database
@@ -165,17 +165,17 @@ Future signUpToDbGoogle(nameSurnameToDb, emailToDb) async {
       ',' +
       "'Non hai inserito alcuna descrizione'" +
       ',' +
-      "100" +
+      "0" +
       ',' +
-      "50" +
+      "0" +
       ',' +
-      "100" +
+      "0" +
       ',' +
-      "50" +
+      "0" +
       ',' +
-      "100" +
+      "0" +
       ',' +
-      "50" +
+      "0" +
       ')';
   //Connessione al database
   var db = Mysql();
@@ -468,7 +468,7 @@ Future<void> readInformationWithId(idUtente) async {
           table +
           ' where idUtente = ' +
           idUtente;
-  
+
   //Connessione al database
   var db = Mysql();
   await db.getConnection().then((connessione) async {
@@ -501,10 +501,9 @@ Future<void> readInformationWithId(idUtente) async {
         } else {
           Percentuale_Immagini = (res[16] / res[15]).toString();
         }
-        
+
         variabile = res[17];
         avatarStr = res[18].toString();
-        
       }
       connessione.close();
     });
@@ -618,7 +617,7 @@ Future<void> getVariabile() async {
       'SELECT VARIABILE FROM ' + table + ' where idUtente = ' + idUtente;
   //Connessione al database
   var db = Mysql();
-  
+
   await db.getConnection().then((connessione) async {
     await connessione.query(query).then((result) async {
       for (var res in result) {
@@ -720,7 +719,7 @@ Future<void> signUpToDbInf(
       'WHERE idUtente = ' +
       idUtente +
       ";";
-  
+
   var db = Mysql();
   //eseguo query
   await db.getConnection().then((connessione) {
@@ -761,7 +760,7 @@ Future<void> setAvatarString(String id) async {
   String rndStr = '123';
   //genero un numero casuale tra 0 e 9
   Random random = Random();
-  int rndNum = random.nextInt(9)+1;
+  int rndNum = random.nextInt(9) + 1;
   //genero una stringa casuale di lunghezza casuale
   String generateRandomString(int len) {
     var r = Random();
@@ -772,9 +771,8 @@ Future<void> setAvatarString(String id) async {
   }
 
   rndStr = generateRandomString(rndNum);
-  
+
   //Scrivo la query
-  String queryUp0 = "SET SQL_SAFE_UPDATES = 0;";
   String query = " UPDATE " +
       table +
       " SET avatarStr = '" +
@@ -782,14 +780,11 @@ Future<void> setAvatarString(String id) async {
       "'  WHERE idUtente = " +
       id.toString() +
       ' ;';
-  String queryUp1 = "SET SQL_SAFE_UPDATES = 1;";
-  
+
   var db = Mysql();
   //eseguo query
   await db.getConnection().then((connessione) {
-    connessione.query(queryUp0);
     connessione.query(query);
-    connessione.query(queryUp1);
     connessione.close();
   });
 }
@@ -805,7 +800,7 @@ Future<void> getAvatarString(String id) async {
         'SELECT avatarStr FROM ' + table + ' WHERE idUtente = ' + id.toString();
     await connessione.query(query).then((result) async {
       for (var res in result) {
-       avatarStr= await res[0];
+        avatarStr = await res[0];
       }
       connessione.close();
     });

@@ -66,9 +66,9 @@ class _BodyState extends State<Body> {
               percent: variabile.toDouble() / 100,
               circularStrokeCap: CircularStrokeCap.round,
               progressColor: Colors.red,
-              backgroundColor: Colors.yellow,
+              backgroundColor: Colors.transparent,
               center: CircleAvatar(
-                  radius: 45,
+                  radius: 50,
                   backgroundImage: NetworkImage(
                       "https://api.multiavatar.com/$avatarStr.png")),
             ),
@@ -101,24 +101,19 @@ class _BodyState extends State<Body> {
                             ActiveProjectsCard(
                               cardColor: Colors.orange,
                               loadingPercent: double.parse(Percentuale_Quiz),
-                              title: "Percentuale vittoria quiz",
-                              //subtitle: '20 hours progress',
+                              title: "Quiz GAME",
                             ),
                             ActiveProjectsCard(
                               cardColor: Colors.red,
                               loadingPercent:
                                   double.parse(Percentuale_Immagini),
-                              title:
-                                  "Percentuale vittoria gioco delle immagini",
-                              //subtitle: '20 hours progress',
+                              title: "True or False GAME",
                             ),
                             ActiveProjectsCard(
                               cardColor: Colors.green,
                               loadingPercent:
                                   double.parse(Percentuale_Impiccato),
-                              title:
-                                  "Percentuale vittoria gioco dell'impiccato",
-                              //subtitle: '9 hours progress',
+                              title: " Gioco dell'Impiccato",
                             ),
 
                             /*

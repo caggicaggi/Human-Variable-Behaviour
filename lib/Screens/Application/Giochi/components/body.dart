@@ -197,7 +197,6 @@ Future<void> addTry(colonna) async {
       (value) => connessione.close();
     });
   });
-  
 }
 
 //Aggiungo un tentativo riuscito alla tabella data in input
@@ -228,8 +227,35 @@ Future<void> addTryCorrect(colonna) async {
       (value) => connessione.close();
     });
   });
-  
 }
+
+////////////////////////
+//METODI PER IMPICCATO//
+////////////////////////
+
+//Prendo le domande dal database
+Future<void> getParole(int randomNumber) async {
+  String table = 'listaparole';
+  //Scrivo la query
+  String query = 'SELECT parola FROM ' +
+      table +
+      ' where idlistaparole = ' +
+      randomNumber.toString();
+
+  var db = Mysql();
+  await db.getConnection().then(
+    (connessione) async {
+      await connessione.query(query).then(
+        (result) async {
+          for (var res in result) {
+            word = res[0].toString();
+          }
+        },
+      );
+    },
+  );
+}
+
 
 ///////////////////
 //METODI PER QUIZ//
@@ -284,88 +310,7 @@ Future<void> getAnswerQuestion() async {
         listofAnswerQuestions.add(res[2].toString());
         listofAnswerQuestions.add(res[3].toString());
       }
+      
     });
   });
 }
-
-/*
-Al momento non utilizzato
-//Prendo la risposta corretta dal database
-Future<void> getCorrectAnswer() async {
-  String table = 'listaDomande';
-  //Scrivo la query
-  String query = 'SELECT rispostaCorretta FROM ' + table;
-  var db = Mysql();
-  await db.getConnection().then((connessione) async {
-    await connessione.query(query).then((result) {
-      for (var res in result) {
-        //Aggiungo all'array
-        listofCorrectAnswer.add(res[0].toString());
-      }
-    });
-  });
-}
-*/
-
-////////////////////////
-//METODI PER IMPICCATO//
-////////////////////////
-
-//Prendo le domande dal database
-Future<void> getParole(int randomNumber) async {
-  String table = 'listaparole';
-  //Scrivo la query
-  String query = 'SELECT parola FROM ' +
-      table +
-      ' where idlistaparole = ' +
-      randomNumber.toString();
-  
-  var db = Mysql();
-  await db.getConnection().then(
-    (connessione) async {
-      await connessione.query(query).then(
-        (result) async {
-          for (var res in result) {
-            word = res[0].toString();
-          }
-        },
-      );
-    },
-  );
-}
-
-
-///////////////////////
-//METODI PER IMMAGINI//
-///////////////////////
-
-
-
-
-/*
-//si crea pulsante per iniziare il gioco di memoria
-InkWell(
-  onTap: () {
-    Navigator.push(
-        context,
-        MaterialPageRoute(
-            builder: (context) => MemoriaScreen()));
-  },
-  child: Container(
-    width: double.infinity,
-    alignment: Alignment.center,
-    padding: EdgeInsets.all(kDefaultPadding * 0.75), // 15
-    decoration: BoxDecoration(
-      gradient: kPrimaryGradient,
-      borderRadius: BorderRadius.all(Radius.circular(12)),
-    ),
-    child: Text(
-      "Inizia il gioco di memoria",
-      style: Theme.of(context)
-          .textTheme
-          .button
-          ?.copyWith(color: Colors.black),
-    ),
-  ),
-),
-*/

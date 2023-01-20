@@ -128,17 +128,29 @@ class _HangManAppState extends State<HangMan> {
                               Game.tries++;
                               //tentativi esauriti
                               if (checkCorrectQuestions() == true) {
-                                Get.to(HomePageScreen());
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            HomePageScreen()));
                               }
                             }
                             //tentativi esauriti
                             if (checkCorrectQuestions() == true) {
                               showAddDialog();
-                              Get.to(ScorePageHangMan());
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          ScorePageHangMan()));
                             }
                             //tentativi esauriti
                             if (Game.tries == 6) {
-                              Get.to(ScorePageHangManBadQuestion());
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          ScorePageHangManBadQuestion()));
                             }
                           });
                         },
@@ -213,6 +225,7 @@ class _HangManAppState extends State<HangMan> {
     }
     return l;
   }
+
   showAddDialog() async {
     await _getTitle(word);
     await showDialog(

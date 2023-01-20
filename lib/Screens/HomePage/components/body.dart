@@ -2,11 +2,11 @@
 
 import 'package:flutter/material.dart';
 import 'package:human_variable_behaviour/Screens/Application/Diario/dynamic_event.dart';
-import 'package:human_variable_behaviour/Screens/Application/Giochi/giochi_screen.dart';
 import 'package:human_variable_behaviour/Screens/Application/Info/info_home_screen.dart';
 import 'package:human_variable_behaviour/Screens/Application/Persona/persona_screen.dart';
 import 'package:human_variable_behaviour/Screens/Application/SchermataPrincipale/schermata_principale_screen.dart';
 import 'package:human_variable_behaviour/Screens/HomePage/components/background.dart';
+import '../../Application/Giochi/components/choice_screen/home_screen.dart';
 
 class Body extends StatefulWidget {
   const Body({
@@ -24,7 +24,7 @@ class _BodyState extends State<Body> {
   //Qui occorre chiamare il construttore di una classe che ritornerà un wiget
   List<Widget> pages = [
     //Oggetto Giochi
-    GiochiScreen(),
+    HomeScreenChoiceGames(),
     //Oggetto Diario
     DynamicEvent(),
     //Oggetto Schermata principale
