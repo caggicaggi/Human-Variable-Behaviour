@@ -20,6 +20,7 @@ List<String> listofQuestion = [];
 List<String> listofAnswerQuestions = [];
 //Array per lista id domande
 List<int> listofIdQuestions = [];
+ Set<int> rndNum = {}  ;
 
 //Array di Domanda
 var questions = [];
@@ -91,8 +92,12 @@ class GameScreen extends StatelessWidget {
                               builder: (context) => const HangMan()));
                     }
                     if (game.name == 'Cosa ne sai del bullismo?') {
-
-                      
+                      rndNum.clear();
+                      do {
+                        Random random = Random();
+                      rndNum.add(random.nextInt(17)+1) ;
+                      } while (rndNum.length <4);
+                      debugPrint(rndNum.toString());
                       //Incremento il numero di tentativi
                       await addTry('Tentativi_Totali_Quiz');
                       //Cancello la lista delle domande
@@ -103,7 +108,6 @@ class GameScreen extends StatelessWidget {
                       await getIdDomanda();
                       await getDomanda();
                       await getAnswerQuestion();
-                      
 
                       //Passo alla schermata del quiz
                       Navigator.push(

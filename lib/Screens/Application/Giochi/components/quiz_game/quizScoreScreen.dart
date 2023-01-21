@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:human_variable_behaviour/Screens/Application/Giochi/components/body.dart';
 import 'package:human_variable_behaviour/Screens/Application/Giochi/components/quiz_game/data/quizQuestions_list.dart';
 import 'package:human_variable_behaviour/Screens/HomePage/homepage_screen.dart';
 import 'package:human_variable_behaviour/constant.dart';
-
-import '../../../../HomePage/components/background.dart';
+import 'package:human_variable_behaviour/mysql/mysql.dart';
 
 class QuizScoreScreen extends StatefulWidget {
   final int score;
@@ -40,7 +40,7 @@ class _QuizScoreScreenState extends State<QuizScoreScreen> {
             ),
           ),
 
-          SizedBox(
+          const SizedBox(
             height: 10,
           ),
 
@@ -54,13 +54,14 @@ class _QuizScoreScreenState extends State<QuizScoreScreen> {
                   fontStyle: FontStyle.normal),
             ),
             onPressed: () async {
+              addTry("Tentativi_Totali_Quiz");
               //Aggiorno i tentati riusciti
-             /* if (widget.score > 2) {
+              if (widget.score > 20) {
                 await addTryCorrect("Tentativi_Riusciti_Quiz");
               }
               await readInformationWithId(idUtente).then((value) {
                 
-              });*/
+              });
 
               Navigator.push(context,
                     MaterialPageRoute(builder: (context) => const HomePageScreen()));

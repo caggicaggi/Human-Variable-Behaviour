@@ -3,39 +3,39 @@ import 'package:human_variable_behaviour/Screens/Application/Giochi/components/q
 
 List<QuizQuestionModel> quizQuestions = [
   QuizQuestionModel(
-    listofQuestion[0],
+    listofQuestion[rndNum.elementAt(0)],
     {
-      listofAnswerQuestions[1]: false,
-      listofAnswerQuestions[0]: true,
-      listofAnswerQuestions[2]: false,
-      listofAnswerQuestions[3]: false,
+      listofAnswerQuestions[(rndNum.elementAt(0)*4)+1]: false,
+      listofAnswerQuestions[(rndNum.elementAt(0)*4)]: true,
+      listofAnswerQuestions[(rndNum.elementAt(0)*4)+2]: false,
+      listofAnswerQuestions[(rndNum.elementAt(0)*4)+3]: false,
     },
   ),
   QuizQuestionModel(
-    listofQuestion[1],
+    listofQuestion[rndNum.elementAt(1)],
     {
-      listofAnswerQuestions[4]: true,
-      listofAnswerQuestions[5]: false,
-      listofAnswerQuestions[6]: false,
-      listofAnswerQuestions[7]: false,
+      listofAnswerQuestions[(rndNum.elementAt(1)*4)]: true,
+      listofAnswerQuestions[(rndNum.elementAt(1)*4)+1]: false,
+      listofAnswerQuestions[(rndNum.elementAt(1)*4)+2]: false,
+      listofAnswerQuestions[(rndNum.elementAt(1)*4)+3]: false,
     },
   ),
   QuizQuestionModel(
-    listofQuestion[2],
+    listofQuestion[rndNum.elementAt(2)],
     {
-      listofAnswerQuestions[4]: true,
-      listofAnswerQuestions[5]: false,
-      listofAnswerQuestions[6]: false,
-      listofAnswerQuestions[7]: false,
+      listofAnswerQuestions[(rndNum.elementAt(2)*4)+1]: false,
+      listofAnswerQuestions[(rndNum.elementAt(2)*4)+2]: false,
+      listofAnswerQuestions[(rndNum.elementAt(2)*4)]: true,
+      listofAnswerQuestions[(rndNum.elementAt(2)*4)+3]: false,
     },
   ),
   QuizQuestionModel(
-    listofQuestion[3],
+    listofQuestion[rndNum.elementAt(3)],
     {
-      listofAnswerQuestions[9]: false,
-      listofAnswerQuestions[10]: false,
-      listofAnswerQuestions[8]: true,
-      listofAnswerQuestions[11]: false,
+      listofAnswerQuestions[(rndNum.elementAt(3)*4)+1]: false,
+      listofAnswerQuestions[(rndNum.elementAt(3)*4)+2]: false,
+      listofAnswerQuestions[(rndNum.elementAt(3)*4)+3]: false,
+      listofAnswerQuestions[(rndNum.elementAt(3)*4)]: true,
     },
   ),
 ];

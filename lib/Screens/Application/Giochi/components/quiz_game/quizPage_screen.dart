@@ -15,7 +15,7 @@ class QuizPage extends StatefulWidget {
 
 class _QuizPageState extends State<QuizPage> {
   Color mainColor = Colors.blue;
-  Color secondColor = Colors.yellow;
+  Color secondColor = Colors.transparent;
 
   //PageController per il PageView
   PageController? _controller = PageController(initialPage: 0);
@@ -151,10 +151,10 @@ class _QuizPageState extends State<QuizPage> {
                             : null,
                         style: OutlinedButton.styleFrom(
                             shape: StadiumBorder(),
-                            backgroundColor: Color.fromARGB(255, 243, 33, 191),
+                            backgroundColor: Color.fromARGB(255, 47, 33, 243),
                             side: BorderSide(
-                              color: Color.fromARGB(255, 243, 226, 33),
-                              width: 1.0,
+                              color: Colors.white,
+                              width: 2.0,
                             )),
                         child: Text(
                           index + 1 == quizQuestions.length
