@@ -1,8 +1,6 @@
 // ignore_for_file: library_private_types_in_public_api, non_constant_identifier_names, unnecessary_new, unused_local_variable, prefer_interpolation_to_compose_strings, sort_child_properties_last, prefer_const_constructors
 
-import 'dart:math';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:human_variable_behaviour/Screens/Application/Giochi/components/body.dart';
 import 'package:human_variable_behaviour/Screens/Application/Giochi/components/gioco_hangman/score_screen.dart';

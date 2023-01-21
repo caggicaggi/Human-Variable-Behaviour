@@ -2,6 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:human_variable_behaviour/Screens/Application/Giochi/components/quiz_game/data/quizQuestions_list.dart';
 import 'package:human_variable_behaviour/Screens/Application/Giochi/components/quiz_game/quizScoreScreen.dart';
 
+
+
+
+
 class QuizPage extends StatefulWidget {
   const QuizPage({super.key});
 
@@ -11,7 +15,7 @@ class QuizPage extends StatefulWidget {
 
 class _QuizPageState extends State<QuizPage> {
   Color mainColor = Colors.blue;
-  Color secondColor = Colors.yellow;
+  Color secondColor = Colors.transparent;
 
   //PageController per il PageView
   PageController? _controller = PageController(initialPage: 0);
@@ -61,6 +65,7 @@ class _QuizPageState extends State<QuizPage> {
                   const SizedBox(
                     height: 20.0,
                   ),
+                  //creaQuizQuestions()
                   //DOMANDA
                   Text(
                     quizQuestions[index].quizQuestion!,
@@ -72,6 +77,7 @@ class _QuizPageState extends State<QuizPage> {
                   const SizedBox(
                     height: 25,
                   ),
+                  
                   //Lista di button che rappresentano le opzioni di risposta
                   for (int i = 0;
                       i < quizQuestions[index].quizAnswer!.length;
@@ -145,10 +151,10 @@ class _QuizPageState extends State<QuizPage> {
                             : null,
                         style: OutlinedButton.styleFrom(
                             shape: StadiumBorder(),
-                            backgroundColor: Color.fromARGB(255, 243, 33, 191),
+                            backgroundColor: Color.fromARGB(255, 47, 33, 243),
                             side: BorderSide(
-                              color: Color.fromARGB(255, 243, 226, 33),
-                              width: 1.0,
+                              color: Colors.white,
+                              width: 2.0,
                             )),
                         child: Text(
                           index + 1 == quizQuestions.length

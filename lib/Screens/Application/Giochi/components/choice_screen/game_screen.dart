@@ -5,8 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:human_variable_behaviour/Screens/Application/Giochi/components/body.dart';
 import 'package:human_variable_behaviour/Screens/Application/Giochi/components/gioco_hangman/hangman_screen.dart.dart';
 import 'package:human_variable_behaviour/Screens/Application/Giochi/components/gioco_image/pages/quiz_page.dart.dart';
-import 'package:human_variable_behaviour/Screens/Application/Giochi/components/gioco_quiz/quizComponents/question.dart';
-import 'package:human_variable_behaviour/Screens/Application/Giochi/components/gioco_quiz/quizComponents/questionsToDisplay.dart';
 import 'package:human_variable_behaviour/Screens/Application/Giochi/components/quiz_game/quizPage_screen.dart';
 import 'package:human_variable_behaviour/mysql/mysql.dart';
 
@@ -15,12 +13,15 @@ import 'models/games_model.dart';
 /////////////
 //QUIZ GAME//
 /////////////
+/////Metodi per caricare domande da DB
 //Array per lista delle domande
 List<String> listofQuestion = [];
 //Array per lista delle risposte
 List<String> listofAnswerQuestions = [];
 //Array per lista id domande
 List<int> listofIdQuestions = [];
+ Set<int> rndNum = {}  ;
+
 //Array di Domanda
 var questions = [];
 
@@ -91,8 +92,12 @@ class GameScreen extends StatelessWidget {
                               builder: (context) => const HangMan()));
                     }
                     if (game.name == 'Cosa ne sai del bullismo?') {
-
-                      /*
+                      rndNum.clear();
+                      do {
+                        Random random = Random();
+                      rndNum.add(random.nextInt(17)+1) ;
+                      } while (rndNum.length <4);
+                      debugPrint(rndNum.toString());
                       //Incremento il numero di tentativi
                       await addTry('Tentativi_Totali_Quiz');
                       //Cancello la lista delle domande
@@ -103,84 +108,6 @@ class GameScreen extends StatelessWidget {
                       await getIdDomanda();
                       await getDomanda();
                       await getAnswerQuestion();
-                      //Creo le domande e le relative risposte
-                      questions = [
-                        Question(
-                          text: listofQuestion[0],
-                          options: [
-                            //Risposte
-                            Option(
-                                text: listofAnswerQuestions[1],
-                                isCorrect: false),
-                            Option(
-                                text: listofAnswerQuestions[0],
-                                isCorrect: true),
-                            Option(
-                                text: listofAnswerQuestions[2],
-                                isCorrect: false),
-                            Option(
-                                text: listofAnswerQuestions[3],
-                                isCorrect: false),
-                          ],
-                        ),
-                        //Domanda
-                        Question(
-                          text: listofQuestion[1],
-                          //Risposte
-                          options: [
-                            Option(
-                                text: listofAnswerQuestions[4],
-                                isCorrect: true),
-                            Option(
-                                text: listofAnswerQuestions[5],
-                                isCorrect: false),
-                            Option(
-                                text: listofAnswerQuestions[6],
-                                isCorrect: false),
-                            Option(
-                                text: listofAnswerQuestions[7],
-                                isCorrect: false),
-                          ],
-                        ),
-                        //Domanda
-                        Question(
-                          text: listofQuestion[2],
-                          options: [
-                            //Risposte
-                            Option(
-                                text: listofAnswerQuestions[9],
-                                isCorrect: false),
-                            Option(
-                                text: listofAnswerQuestions[10],
-                                isCorrect: false),
-                            Option(
-                                text: listofAnswerQuestions[8],
-                                isCorrect: true),
-                            Option(
-                                text: listofAnswerQuestions[11],
-                                isCorrect: false),
-                          ],
-                        ),
-                        //Domanda
-                        Question(
-                          text: listofQuestion[3],
-                          options: [
-                            //Risposte
-                            Option(
-                                text: listofAnswerQuestions[13],
-                                isCorrect: false),
-                            Option(
-                                text: listofAnswerQuestions[14],
-                                isCorrect: false),
-                            Option(
-                                text: listofAnswerQuestions[15],
-                                isCorrect: false),
-                            Option(
-                                text: listofAnswerQuestions[12],
-                                isCorrect: true),
-                          ],
-                        ),
-                      ];*/
 
                       //Passo alla schermata del quiz
                       Navigator.push(

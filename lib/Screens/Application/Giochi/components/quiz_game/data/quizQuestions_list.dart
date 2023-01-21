@@ -1,40 +1,41 @@
+import 'package:human_variable_behaviour/Screens/Application/Giochi/components/choice_screen/game_screen.dart';
 import 'package:human_variable_behaviour/Screens/Application/Giochi/components/quiz_game/models/quizQuestion_model.dart';
 
 List<QuizQuestionModel> quizQuestions = [
   QuizQuestionModel(
-    'Domanda 1',
+    listofQuestion[rndNum.elementAt(0)],
     {
-      "1": false,
-      "true": true,
-      "3": false,
-      "4": false,
+      listofAnswerQuestions[(rndNum.elementAt(0)*4)+1]: false,
+      listofAnswerQuestions[(rndNum.elementAt(0)*4)]: true,
+      listofAnswerQuestions[(rndNum.elementAt(0)*4)+2]: false,
+      listofAnswerQuestions[(rndNum.elementAt(0)*4)+3]: false,
     },
   ),
   QuizQuestionModel(
-    'Domanda 2',
+    listofQuestion[rndNum.elementAt(1)],
     {
-      "true": true,
-      "2": false,
-      "3": false,
-      "4": false,
+      listofAnswerQuestions[(rndNum.elementAt(1)*4)]: true,
+      listofAnswerQuestions[(rndNum.elementAt(1)*4)+1]: false,
+      listofAnswerQuestions[(rndNum.elementAt(1)*4)+2]: false,
+      listofAnswerQuestions[(rndNum.elementAt(1)*4)+3]: false,
     },
   ),
   QuizQuestionModel(
-    'Domanda 3',
+    listofQuestion[rndNum.elementAt(2)],
     {
-      "1": false,
-      "2": false,
-      "true": true,
-      "4": false,
+      listofAnswerQuestions[(rndNum.elementAt(2)*4)+1]: false,
+      listofAnswerQuestions[(rndNum.elementAt(2)*4)+2]: false,
+      listofAnswerQuestions[(rndNum.elementAt(2)*4)]: true,
+      listofAnswerQuestions[(rndNum.elementAt(2)*4)+3]: false,
     },
   ),
   QuizQuestionModel(
-    'Domanda 4',
+    listofQuestion[rndNum.elementAt(3)],
     {
-      "1": false,
-      "2": false,
-      "3": false,
-      "true": true,
+      listofAnswerQuestions[(rndNum.elementAt(3)*4)+1]: false,
+      listofAnswerQuestions[(rndNum.elementAt(3)*4)+2]: false,
+      listofAnswerQuestions[(rndNum.elementAt(3)*4)+3]: false,
+      listofAnswerQuestions[(rndNum.elementAt(3)*4)]: true,
     },
   ),
 ];
