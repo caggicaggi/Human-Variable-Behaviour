@@ -1,40 +1,41 @@
+import 'package:human_variable_behaviour/Screens/Application/Giochi/components/choice_screen/game_screen.dart';
 import 'package:human_variable_behaviour/Screens/Application/Giochi/components/quiz_game/models/quizQuestion_model.dart';
 
 List<QuizQuestionModel> quizQuestions = [
   QuizQuestionModel(
-    'Domanda 1',
+    listofQuestion[0],
     {
-      "1": false,
-      "true": true,
-      "3": false,
-      "4": false,
+      listofAnswerQuestions[1]: false,
+      listofAnswerQuestions[0]: true,
+      listofAnswerQuestions[2]: false,
+      listofAnswerQuestions[3]: false,
     },
   ),
   QuizQuestionModel(
-    'Domanda 2',
+    listofQuestion[1],
     {
-      "true": true,
-      "2": false,
-      "3": false,
-      "4": false,
+      listofAnswerQuestions[4]: true,
+      listofAnswerQuestions[5]: false,
+      listofAnswerQuestions[6]: false,
+      listofAnswerQuestions[7]: false,
     },
   ),
   QuizQuestionModel(
-    'Domanda 3',
+    listofQuestion[2],
     {
-      "1": false,
-      "2": false,
-      "true": true,
-      "4": false,
+      listofAnswerQuestions[4]: true,
+      listofAnswerQuestions[5]: false,
+      listofAnswerQuestions[6]: false,
+      listofAnswerQuestions[7]: false,
     },
   ),
   QuizQuestionModel(
-    'Domanda 4',
+    listofQuestion[3],
     {
-      "1": false,
-      "2": false,
-      "3": false,
-      "true": true,
+      listofAnswerQuestions[9]: false,
+      listofAnswerQuestions[10]: false,
+      listofAnswerQuestions[8]: true,
+      listofAnswerQuestions[11]: false,
     },
   ),
 ];

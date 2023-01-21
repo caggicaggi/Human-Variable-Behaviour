@@ -2,6 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:human_variable_behaviour/Screens/Application/Giochi/components/quiz_game/data/quizQuestions_list.dart';
 import 'package:human_variable_behaviour/Screens/Application/Giochi/components/quiz_game/quizScoreScreen.dart';
 
+
+
+
+
 class QuizPage extends StatefulWidget {
   const QuizPage({super.key});
 
@@ -61,6 +65,7 @@ class _QuizPageState extends State<QuizPage> {
                   const SizedBox(
                     height: 20.0,
                   ),
+                  //creaQuizQuestions()
                   //DOMANDA
                   Text(
                     quizQuestions[index].quizQuestion!,
@@ -72,6 +77,7 @@ class _QuizPageState extends State<QuizPage> {
                   const SizedBox(
                     height: 25,
                   ),
+                  
                   //Lista di button che rappresentano le opzioni di risposta
                   for (int i = 0;
                       i < quizQuestions[index].quizAnswer!.length;
