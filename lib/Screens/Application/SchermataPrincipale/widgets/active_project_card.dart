@@ -5,13 +5,14 @@ class ActiveProjectsCard extends StatefulWidget {
   final Color cardColor;
   final double loadingPercent;
   final String title;
-  //final String subtitle;
+  final String subtitle;
 
-  ActiveProjectsCard({
+  const ActiveProjectsCard({
+    super.key,
     required this.cardColor,
     required this.loadingPercent,
     required this.title,
-    //required this.subtitle,
+    required this.subtitle,
   });
 
   @override
@@ -25,56 +26,62 @@ class _ActiveProjectsCardState extends State<ActiveProjectsCard> {
     return Expanded(
       flex: 1,
       child: Container(
-        margin: EdgeInsets.symmetric(vertical: 10.0),
-        padding: EdgeInsets.all(15.0),
-        height: size.height * 0.28,
+        //Spazio fra margini di tutto il container
+        height: size.height * 0.15,
         decoration: BoxDecoration(
           color: widget.cardColor,
           borderRadius: BorderRadius.circular(40.0),
         ),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 5),
+              padding: const EdgeInsets.symmetric(horizontal: 0, vertical: 25),
               child: CircularPercentIndicator(
                 animation: true,
-                radius: 50.0,
+                radius: 35.0,
                 percent: widget.loadingPercent,
-                lineWidth: 5.0,
+                lineWidth: 6.0,
                 circularStrokeCap: CircularStrokeCap.round,
                 backgroundColor: Colors.white10,
                 progressColor: Colors.white,
                 center: Text(
                   '${(widget.loadingPercent * 100).round()}%',
-                  style: TextStyle(
-                      fontWeight: FontWeight.w700, color: Colors.white),
+                  style: const TextStyle(
+                    fontSize: 22.0,
+                    color: Colors.white,
+                    fontWeight: FontWeight.w800,
+                  ),
                 ),
               ),
             ),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Text(
-                  widget.title,
-                  style: TextStyle(
-                    fontSize: 14.0,
-                    color: Colors.white,
-                    fontWeight: FontWeight.w700,
+            const SizedBox(
+              width: 50,
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 0, vertical: 25),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Text(
+                    widget.title,
+                    style: const TextStyle(
+                      fontSize: 22.0,
+                      color: Colors.white,
+                      fontWeight: FontWeight.w800,
+                    ),
                   ),
-                ),
-                /*
-                Text(
-                  subtitle,
-                  style: TextStyle(
-                    fontSize: 12.0,
-                    color: Colors.white54,
-                    fontWeight: FontWeight.w400,
+                  Text(
+                    widget.subtitle,
+                    style: const TextStyle(
+                      fontSize: 14.0,
+                      color: Colors.white,
+                      fontWeight: FontWeight.w400,
+                    ),
                   ),
-                ),
-                */
-              ],
+                ],
+              ),
             ),
           ],
         ),
