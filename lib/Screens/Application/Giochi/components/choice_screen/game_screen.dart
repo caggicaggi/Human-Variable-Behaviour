@@ -7,6 +7,7 @@ import 'package:human_variable_behaviour/Screens/Application/Giochi/components/g
 import 'package:human_variable_behaviour/Screens/Application/Giochi/components/gioco_image/pages/quiz_page.dart.dart';
 import 'package:human_variable_behaviour/Screens/Application/Giochi/components/gioco_quiz/quizComponents/question.dart';
 import 'package:human_variable_behaviour/Screens/Application/Giochi/components/gioco_quiz/quizComponents/questionsToDisplay.dart';
+import 'package:human_variable_behaviour/Screens/Application/Giochi/components/quiz_game/quizPage_screen.dart';
 import 'package:human_variable_behaviour/mysql/mysql.dart';
 
 import 'models/games_model.dart';
@@ -90,6 +91,8 @@ class GameScreen extends StatelessWidget {
                               builder: (context) => const HangMan()));
                     }
                     if (game.name == 'Cosa ne sai del bullismo?') {
+
+                      /*
                       //Incremento il numero di tentativi
                       await addTry('Tentativi_Totali_Quiz');
                       //Cancello la lista delle domande
@@ -177,13 +180,13 @@ class GameScreen extends StatelessWidget {
                                 isCorrect: true),
                           ],
                         ),
-                      ];
+                      ];*/
 
                       //Passo alla schermata del quiz
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => const QuestionToDisplay(),
+                          builder: (context) => const QuizPage(),
                         ),
                       );
                     }
@@ -378,7 +381,6 @@ Future<void> getDomanda() async {
         //Aggiungo all'array
         listofQuestion.add(res[0].toString());
       }
-      
     });
   });
 }
@@ -416,7 +418,6 @@ Future<void> getAnswerQuestion() async {
         listofAnswerQuestions.add(res[2].toString());
         listofAnswerQuestions.add(res[3].toString());
       }
-      
     });
   });
 }
