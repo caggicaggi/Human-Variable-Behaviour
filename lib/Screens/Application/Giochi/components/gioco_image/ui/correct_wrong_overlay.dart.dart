@@ -67,7 +67,7 @@ class _CorrectWrongOverlayState extends State<CorrectWrongOverlay>
               style: TextStyle(color: Colors.white, fontSize: 30.0),
             ),
             Text(
-              "premi per andare avanti",
+              "Premi per andare avanti",
               style: TextStyle(color: Colors.white, fontSize: 13.0),
             )
           ],

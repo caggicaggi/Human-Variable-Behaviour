@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:human_variable_behaviour/Screens/Application/Giochi/components/choice_screen/game_screen.dart';
 import '../choice_screen/models/games_model.dart';
-import '../gioco_quiz/quizComponents/question.dart';
 import 'widgets/games_list_item.dart';
 
 class HomeScreenChoiceGames extends StatelessWidget {
@@ -54,13 +53,13 @@ class HomeScreenChoiceGames extends StatelessWidget {
                 style: Theme.of(context).textTheme.headline6,
                 children: [
                   TextSpan(
-                    text: 'Featured ',
+                    text: 'Giochi ',
                     style: Theme.of(context)
                         .textTheme
                         .headline6!
                         .copyWith(fontWeight: FontWeight.bold),
                   ),
-                  const TextSpan(text: 'Games'),
+                  const TextSpan(text: 'in primo piano'),
                 ],
               ),
             ),

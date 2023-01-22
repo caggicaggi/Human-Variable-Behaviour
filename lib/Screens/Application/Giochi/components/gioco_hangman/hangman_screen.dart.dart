@@ -136,6 +136,7 @@ class _HangManAppState extends State<HangMan> {
                             //tentativi esauriti
                             if (checkCorrectQuestions() == true) {
                               showAddDialog();
+                              addTryCorrect("Tentativi_Riusciti_Impiccato");
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(

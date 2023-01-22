@@ -28,19 +28,19 @@ class Article extends Equatable {
   static List<Article> articles = [
     Article(
       id: '1',
-      title: 'A chi posso chiedere aiuto contro il bullismo?',
-      subtitle: '',
+      title: 'I rischi dei social network',
+      subtitle: 'Dal phishing al cyberbullismo',
       body:
-          "Sono poche le vittime di bullismo che riescono a parlare liberamente del loro problema con una persona adulta. Si prova vergogna, si ha paura di non essere creduti o, peggio, si è stati minacciati di non farlo. Il bullismo vive di omertà: non aver mai paura di chiedere auto. Bisogna avere coraggio di denunciare. Chi si fa difendere da un genitore non è uno sfigato. Al contrario è importante poter parlare con genitori e adulti di cui ti fidi delle prepotenze subite. Soprattutto se non si tratta di episodi, ma di situazioni che si ripetono quotidiatitlente. Denunciare un atto di bullismo è il primo passo per far cessare una prepotenza e un monito per chi considera la scuola un gioco, piuttosto che uno spazio di crescita personale. Denunciare non significa fare la spia ma aiutare chi è in difficolta. La scuola è un logo dove tutti hanno diritto a star bene e sentirsi protetti, sicuri. La classe, come la famiglia, dovrebbe essere un ambiente in cui ciascuno può sentirsi al sicuro, protetto. Avere la possibilità di crescere imparando è un diritto e un dovere. Come un diritto e un dovere è stare bene a scuola. A scuola c'è sempre un professore o una professoressa a cui puoi chiedere aiuto se hai visto o subito atti di prepotenza: in ogni scuola è presente un/a referente su bullismo e cyberbullismo che è preparato/a per affrontare il problema. Grazie alla tua denuncia la scuola può intervenire per interrompere le prepotenze e far intervenire un/a psicologo/a",
-      author: 'Sigmund Freud',
+          'In considerazione della sempre più precoce età di utilizzo dei social è necessario non sottovalutare i potenziali rischi. Ciò che si scrive e le immagini che si pubblicano sui social network hanno quasi sempre un impatto a breve ed a lungo termine sulla vita reale quotidiana e nei rapporti con le persone con le quali si interagisce ogni giorno. Bisogna tenere presente che ogni volta che si inseriscono i nostri dati personali su un sito su un social network se ne perde il controllo, spesso si concede automaticamente al fornitore del servizio la licenza di utilizzare il materiale che si inserisce foto, chat, opinioni. Ogni volta che si utilizza una carta di credito/debito, che si inserisce una password per accedere a determinati servizi, che si utilizza una carta fedeltà o una tessera di sconto messa a disposizione dalle grandi catene commerciali, che si fa un acquisto online o una ricerca tramite un qualsiasi browser, si compie inevitabilmente una piccola cessione di sovranità. Stessa cosa avviene quando si installano sul nostro smartphone o sul nostro tablet delle app, i programmi di queste applicazioni a volte possono richiedere l accesso alla nostra rubrica, alle nostre foto o contenuti multimediali che nulla hanno a che vedere con la funzionalità della APP stessa. Inoltre, ciò che si inserisce può essere copiato e registrato dagli altri utenti del social e non sempre per fini leciti. Tutto ciò che si scrive e posta, poi, contribuisce a rivelare a terzi chi siamo, cosa facciamo, le nostre abitudini, le nostre condizioni di salute, il nostro tenore di vita, i nostri interessi, le nostre opinioni politiche, religiose, il nostro orientamento sessuale: insomma, tutte informazioni che consentono di creare un nostro profilo che servirà alle aziende commerciali per un marketing più mirato (basta cliccare un “mi piace” su una pagina di un social o su un commento per essere analizzati e etichettati). Ogni volta che condividiamo qualcosa, dobbiamo pensare a chi potrà leggere (datore di lavoro o potenziale datore di lavoro, insegnante dei nostri figli, vicino di casa, conoscente) e dobbiamo valutarne l opportunità chiedendoci, anche, se ciò che pubblichiamo ci potrà piacere tra qualche anno. È notizia recente, a tal proposito, l obbligo per i richiedenti un visto per entrare negli Stati Uniti a fornire i dettagli dei profili social utilizzati in modo da permettere i controlli da parte delle Autorità. Benché la diminuzione della privacy sia insita nell uso di Internet e dei social network vi sono rischi ben più gravi, dal punto di vista delle conseguenze che possono causare ad esempio: furto di identità; diffusione illecita di immagini; pedopornografia, sextortion, sexting e grooming; cyberbullismo; dipendenza da Internet (IAD – Internet Addiction Disorder).',
+      author: 'Daniela Di Leo',
       authorImageUrl:
-          'https://www.studiarapido.it/wp-content/uploads/2014/09/freud.jpeg',
-      category: 'Bullismo',
+          'https://www.tramefestival.it/trame/wp-content/uploads/2018/06/foto.de-leo-759x500.jpg',
+      category: 'Privacy e Dati personali',
       secondImageUrl:
-          'https://media.istockphoto.com/id/1315459620/it/vettoriale/smettila-di-firmare-il-bullismo-stop-al-bullismo-e-agli-abusi-sui-minori-nella-scuola.jpg?s=612x612&w=0&k=20&c=LxA5K3UdiNOnsAAFhs-YqimlVGm69bp8BSyftEbAcjc=',
+          'https://www.sofarmamorra.it/wp-content/uploads/2015/12/Socialmedia.png',
       imageUrl:
-          'https://www.loris-pinzani.it/wp-content/uploads/2021/02/bullismo_scuola_famiglia.jpg',
-      createdAt: DateTime.now().subtract(const Duration(hours: 2)),
+          'https://psicoterapeuta-psicologo.com/wp-content/uploads/2020/11/social.jpg',
+      createdAt: DateTime.now().subtract(const Duration(hours: 3)),
     ),
     Article(
       id: '2',
@@ -60,19 +60,19 @@ class Article extends Equatable {
     ),
     Article(
       id: '3',
-      title: 'I rischi dei social network',
-      subtitle: 'Dal phishing al cyberbullismo',
+      title: 'A chi posso chiedere aiuto contro il bullismo?',
+      subtitle: '',
       body:
-          'In considerazione della sempre più precoce età di utilizzo dei social è necessario non sottovalutare i potenziali rischi. Ciò che si scrive e le immagini che si pubblicano sui social network hanno quasi sempre un impatto a breve ed a lungo termine sulla vita reale quotidiana e nei rapporti con le persone con le quali si interagisce ogni giorno. Bisogna tenere presente che ogni volta che si inseriscono i nostri dati personali su un sito su un social network se ne perde il controllo, spesso si concede automaticamente al fornitore del servizio la licenza di utilizzare il materiale che si inserisce foto, chat, opinioni. Ogni volta che si utilizza una carta di credito/debito, che si inserisce una password per accedere a determinati servizi, che si utilizza una carta fedeltà o una tessera di sconto messa a disposizione dalle grandi catene commerciali, che si fa un acquisto online o una ricerca tramite un qualsiasi browser, si compie inevitabilmente una piccola cessione di sovranità. Stessa cosa avviene quando si installano sul nostro smartphone o sul nostro tablet delle app, i programmi di queste applicazioni a volte possono richiedere l accesso alla nostra rubrica, alle nostre foto o contenuti multimediali che nulla hanno a che vedere con la funzionalità della APP stessa. Inoltre, ciò che si inserisce può essere copiato e registrato dagli altri utenti del social e non sempre per fini leciti. Tutto ciò che si scrive e posta, poi, contribuisce a rivelare a terzi chi siamo, cosa facciamo, le nostre abitudini, le nostre condizioni di salute, il nostro tenore di vita, i nostri interessi, le nostre opinioni politiche, religiose, il nostro orientamento sessuale: insomma, tutte informazioni che consentono di creare un nostro profilo che servirà alle aziende commerciali per un marketing più mirato (basta cliccare un “mi piace” su una pagina di un social o su un commento per essere analizzati e etichettati). Ogni volta che condividiamo qualcosa, dobbiamo pensare a chi potrà leggere (datore di lavoro o potenziale datore di lavoro, insegnante dei nostri figli, vicino di casa, conoscente) e dobbiamo valutarne l opportunità chiedendoci, anche, se ciò che pubblichiamo ci potrà piacere tra qualche anno. È notizia recente, a tal proposito, l obbligo per i richiedenti un visto per entrare negli Stati Uniti a fornire i dettagli dei profili social utilizzati in modo da permettere i controlli da parte delle Autorità. Benché la diminuzione della privacy sia insita nell uso di Internet e dei social network vi sono rischi ben più gravi, dal punto di vista delle conseguenze che possono causare ad esempio: furto di identità; diffusione illecita di immagini; pedopornografia, sextortion, sexting e grooming; cyberbullismo; dipendenza da Internet (IAD – Internet Addiction Disorder).',
-      author: 'Daniela Di Leo',
+          "Sono poche le vittime di bullismo che riescono a parlare liberamente del loro problema con una persona adulta. Si prova vergogna, si ha paura di non essere creduti o, peggio, si è stati minacciati di non farlo. Il bullismo vive di omertà: non aver mai paura di chiedere auto. Bisogna avere coraggio di denunciare. Chi si fa difendere da un genitore non è uno sfigato. Al contrario è importante poter parlare con genitori e adulti di cui ti fidi delle prepotenze subite. Soprattutto se non si tratta di episodi, ma di situazioni che si ripetono quotidiatitlente. Denunciare un atto di bullismo è il primo passo per far cessare una prepotenza e un monito per chi considera la scuola un gioco, piuttosto che uno spazio di crescita personale. Denunciare non significa fare la spia ma aiutare chi è in difficolta. La scuola è un logo dove tutti hanno diritto a star bene e sentirsi protetti, sicuri. La classe, come la famiglia, dovrebbe essere un ambiente in cui ciascuno può sentirsi al sicuro, protetto. Avere la possibilità di crescere imparando è un diritto e un dovere. Come un diritto e un dovere è stare bene a scuola. A scuola c'è sempre un professore o una professoressa a cui puoi chiedere aiuto se hai visto o subito atti di prepotenza: in ogni scuola è presente un/a referente su bullismo e cyberbullismo che è preparato/a per affrontare il problema. Grazie alla tua denuncia la scuola può intervenire per interrompere le prepotenze e far intervenire un/a psicologo/a",
+      author: 'Sigmund Freud',
       authorImageUrl:
-          'https://www.tramefestival.it/trame/wp-content/uploads/2018/06/foto.de-leo-759x500.jpg',
-      category: 'Privacy e Dati personali',
+          'https://www.studiarapido.it/wp-content/uploads/2014/09/freud.jpeg',
+      category: 'Bullismo',
       secondImageUrl:
-          'https://www.sofarmamorra.it/wp-content/uploads/2015/12/Socialmedia.png',
+          'https://media.istockphoto.com/id/1315459620/it/vettoriale/smettila-di-firmare-il-bullismo-stop-al-bullismo-e-agli-abusi-sui-minori-nella-scuola.jpg?s=612x612&w=0&k=20&c=LxA5K3UdiNOnsAAFhs-YqimlVGm69bp8BSyftEbAcjc=',
       imageUrl:
-          'https://psicoterapeuta-psicologo.com/wp-content/uploads/2020/11/social.jpg',
-      createdAt: DateTime.now().subtract(const Duration(hours: 3)),
+          'https://www.loris-pinzani.it/wp-content/uploads/2021/02/bullismo_scuola_famiglia.jpg',
+      createdAt: DateTime.now().subtract(const Duration(hours: 2)),
     ),
     Article(
       id: '4',

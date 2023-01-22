@@ -2,10 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:human_variable_behaviour/Screens/Application/Giochi/components/quiz_game/data/quizQuestions_list.dart';
 import 'package:human_variable_behaviour/Screens/Application/Giochi/components/quiz_game/quizScoreScreen.dart';
 
-
-
-
-
 class QuizPage extends StatefulWidget {
   const QuizPage({super.key});
 
@@ -21,8 +17,8 @@ class _QuizPageState extends State<QuizPage> {
   PageController? _controller = PageController(initialPage: 0);
   //setto le variabili del gioco
   bool isPressed = false;
-  Color isTrue = Colors.green;
-  Color isWrong = Colors.red;
+  Color isTrue = Color.fromARGB(204, 28, 236, 21);
+  Color isWrong = Color.fromARGB(199, 235, 37, 23);
   Color btnColor = Colors.yellow;
   int score = 0;
 
@@ -72,12 +68,13 @@ class _QuizPageState extends State<QuizPage> {
                     style: const TextStyle(
                       color: Colors.white,
                       fontSize: 28.0,
+                      fontWeight: FontWeight.w500,
                     ),
                   ),
                   const SizedBox(
                     height: 25,
                   ),
-                  
+
                   //Lista di button che rappresentano le opzioni di risposta
                   for (int i = 0;
                       i < quizQuestions[index].quizAnswer!.length;
@@ -118,6 +115,7 @@ class _QuizPageState extends State<QuizPage> {
                               },
                         child: Text(
                           quizQuestions[index].quizAnswer!.keys.toList()[i],
+                          textAlign: TextAlign.center,
                           style: const TextStyle(
                             color: Colors.white,
                           ),
@@ -125,7 +123,7 @@ class _QuizPageState extends State<QuizPage> {
                       ),
                     ),
                   const SizedBox(
-                    height: 50.0,
+                    height: 35.0,
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.end,
@@ -150,17 +148,18 @@ class _QuizPageState extends State<QuizPage> {
                                   }
                             : null,
                         style: OutlinedButton.styleFrom(
-                            shape: StadiumBorder(),
-                            backgroundColor: Color.fromARGB(255, 47, 33, 243),
-                            side: BorderSide(
-                              color: Colors.white,
-                              width: 2.0,
-                            )),
+                          shape: StadiumBorder(),
+                          backgroundColor: Color.fromARGB(204, 28, 236, 21),
+                        ),
                         child: Text(
                           index + 1 == quizQuestions.length
-                              ? "See result"
-                              : "Next Question",
-                          style: TextStyle(color: Colors.white),
+                              ? "Vai ai risultati"
+                              : "Prossima domanda",
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
                       ),
                     ],

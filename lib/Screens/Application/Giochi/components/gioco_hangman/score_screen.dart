@@ -75,7 +75,7 @@ class _ScorePageHangManState extends State<ScorePageHangMan> {
                   fontStyle: FontStyle.normal),
             ),
             onPressed: () async {
-              await addTryCorrect("Tentativi_Riusciti_Impiccato");
+              
               await readInformationWithId(idUtente);
               //si resetta lo state
               setState(() {});

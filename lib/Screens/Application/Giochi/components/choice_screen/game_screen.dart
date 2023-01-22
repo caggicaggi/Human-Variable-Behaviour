@@ -161,6 +161,7 @@ class GameScreen extends StatelessWidget {
             const SizedBox(height: 10),
             Text(
               game.descrition,
+              textAlign: TextAlign.center,
               maxLines: 8,
               style: Theme.of(context)
                   .textTheme

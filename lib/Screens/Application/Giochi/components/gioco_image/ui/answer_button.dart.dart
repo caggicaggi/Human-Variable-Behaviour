@@ -16,10 +16,15 @@ class AnswerButton extends StatelessWidget {
     //si occupa tutto lo schermo sia in altezza che lunghezza
     Size size = MediaQuery.of(context).size;
     return Container(
-      child: Material(
-        elevation: 20,
+      
+      //child: Material(
+        //elevation: 20,
+        
         child: ElevatedButton(
-          style: ElevatedButton.styleFrom(backgroundColor: Colors.blue),
+          style: ElevatedButton.styleFrom(
+              /*shape: RoundedRectangleBorder(
+                       borderRadius: BorderRadius.circular(16)),*/
+              backgroundColor: _answer == true ? Colors.green : Colors.red),
           onPressed: () => _onTap(),
           child: Center(
             child: Container(
@@ -30,14 +35,14 @@ class AnswerButton extends StatelessWidget {
                 style: TextStyle(
                   color: Colors.white,
                   fontSize: 40.0,
-                  fontWeight: FontWeight.w100,
+                  fontWeight: FontWeight.w400,
                   fontStyle: FontStyle.italic,
                 ),
               ),
             ),
           ),
         ),
-      ),
+      //),
     );
   }
 }
