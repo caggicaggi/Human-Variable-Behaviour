@@ -18,7 +18,7 @@ class HomeScreenChoiceGames extends StatelessWidget {
           onPressed: () {},
           icon: const Icon(
             Icons.menu,
-            color: Color(0xFF122393),
+            color: Colors.transparent,
           ),
         ),
         flexibleSpace: ClipPath(
@@ -44,26 +44,10 @@ class HomeScreenChoiceGames extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.symmetric(
             horizontal: 20.0,
-            vertical: 150.0,
+            vertical: 120.0,
           ),
           child:
               Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-            RichText(
-              text: TextSpan(
-                style: Theme.of(context).textTheme.headline6,
-                children: [
-                  TextSpan(
-                    text: 'Giochi ',
-                    style: Theme.of(context)
-                        .textTheme
-                        .headline6!
-                        .copyWith(fontWeight: FontWeight.bold),
-                  ),
-                  const TextSpan(text: 'in primo piano'),
-                ],
-              ),
-            ),
-            const SizedBox(height: 20),
             for (final game in games)
               InkWell(
                 onTap: () {

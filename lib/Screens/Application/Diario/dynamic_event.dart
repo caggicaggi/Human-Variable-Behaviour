@@ -208,7 +208,7 @@ class _DynamicEventState extends State<DynamicEvent> {
               ..._selectedEvents.map((event) => Padding(
                     padding: const EdgeInsets.all(5.0),
                     child: Container(
-                      height: MediaQuery.of(context).size.height / 7,
+                      height: MediaQuery.of(context).size.height / 10,
                       width: MediaQuery.of(context).size.width / 1,
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(16),
@@ -436,21 +436,29 @@ class _DynamicEventState extends State<DynamicEvent> {
                                 await getVariabile();
                                 if (splitted[i] == "joy") {
                                   print("Emozione: " + splitted[i] + " (+2)");
+                                  print("Polarità rilevata: " +
+                                      splittedNumber[i]);
                                   await updateVariable(idUtente,
                                       2 + int.parse(splittedNumber[i]));
                                 }
                                 if (splitted[i] == "sadness") {
-                                  print("Emozione: " + splitted[i]+ " (-3)");
+                                  print("Emozione: " + splitted[i] + " (-3)");
+                                  print("Polarità rilevata: " +
+                                      splittedNumber[i]);
                                   await updateVariable(idUtente,
                                       -3 + int.parse(splittedNumber[i]));
                                 }
                                 if (splitted[i] == "anger") {
-                                  print("Emozione: " + splitted[i]+ " (-2)");
+                                  print("Emozione: " + splitted[i] + " (-2)");
+                                  print("Polarità rilevata: " +
+                                      splittedNumber[i]);
                                   await updateVariable(idUtente,
                                       -2 + int.parse(splittedNumber[i]));
                                 }
                                 if (splitted[i] == "fear") {
-                                  print("Emozione: " + splitted[i]+ " (-1)");
+                                  print("Emozione: " + splitted[i] + " (-1)");
+                                  print("Polarità rilevata: " +
+                                      splittedNumber[i]);
                                   await updateVariable(idUtente,
                                       -1 + int.parse(splittedNumber[i]));
                                 }

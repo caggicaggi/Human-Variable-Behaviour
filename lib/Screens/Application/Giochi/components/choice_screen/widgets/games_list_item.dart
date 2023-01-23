@@ -67,6 +67,3 @@ class GameListItem extends StatelessWidget {
     );
   }
 }
-
-
-// class _parallaxFlowDelegate extends FlowDelegate {}

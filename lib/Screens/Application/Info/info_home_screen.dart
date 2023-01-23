@@ -83,8 +83,6 @@ class _NewsOfTheDay extends StatelessWidget {
                     ArticleScreen.routeName,
                     arguments: article,
                   );
-                  //Navigator.of(context).push(MaterialPageRoute(
-                  //                    builder: (context) => const ArticleScreen()));
                 },
                 style: TextButton.styleFrom(padding: EdgeInsets.zero),
                 child: Row(
@@ -133,7 +131,6 @@ class _BreakingNews extends StatelessWidget {
                     .headlineSmall!
                     .copyWith(fontWeight: FontWeight.bold),
               ),
-              //Text('More news', style: Theme.of(context).textTheme.bodyLarge!),
             ],
           ),
           const SizedBox(height: 20),

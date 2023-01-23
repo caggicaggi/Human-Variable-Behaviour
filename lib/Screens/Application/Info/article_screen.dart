@@ -135,16 +135,6 @@ class _NewsBody extends StatelessWidget {
                     '${DateTime.now().difference(article.createdAt).inHours} min',
                     style: Theme.of(context).textTheme.bodyMedium!)
               ]),
-              /*const SizedBox(width: 10),
-              CustomTag(backgroundColor: Colors.grey.shade200, children: [
-                const Icon(
-                  Icons.remove_red_eye,
-                  color: Colors.grey,
-                ),
-                const SizedBox(width: 10),
-                Text('${article.views}',
-                    style: Theme.of(context).textTheme.bodyMedium!)
-              ]),*/
             ],
           ),
           const SizedBox(height: 20),

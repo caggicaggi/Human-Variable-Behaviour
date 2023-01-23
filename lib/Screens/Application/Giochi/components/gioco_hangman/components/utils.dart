@@ -1,8 +1,6 @@
 // ignore_for_file: prefer_const_constructors
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:human_variable_behaviour/Screens/Application/Giochi/components/gioco_hangman/ui/colors.dart';
 
 class Game {
   //Aggiungo il numero di tentativi
