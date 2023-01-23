@@ -239,130 +239,182 @@ class _DynamicEventState extends State<DynamicEvent> {
 //Schermata per inserire descrizione giornata
   _showAddDialog() async {
     await showDialog(
-      context: context,
-      builder: (context) => AlertDialog(
-          backgroundColor: Colors.white,
-          title: Text("Qui puoi raccontare la tua giornata: "),
-          content: SizedBox(
-            height: 160,
-            width: 400,
-            child: TextField(
-              maxLines: 20,
-              controller: _eventController,
-              decoration: InputDecoration(
-                border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(20),
-                    borderSide: BorderSide(color: Colors.teal)),
-              ),
-            ),
-          ),
-          actions: <Widget>[
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        context: context,
+        builder: (context) => Stack(
               children: <Widget>[
-                TextButton(
-                  child: Text(
-                    textAlign: TextAlign.left,
-                    "Torna Indietro",
-                    style: TextStyle(
-                        fontSize: 15,
-                        color: Color.fromARGB(255, 54, 143, 244),
-                        fontWeight: FontWeight.bold),
-                  ),
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
-                ),
-                TextButton(
-                  child: Text(
-                    "Inserisci giornata",
-                    textAlign: TextAlign.right,
-                    style: TextStyle(
-                        fontSize: 15,
-                        color: Color.fromARGB(255, 54, 143, 244),
-                        fontWeight: FontWeight.bold),
-                  ),
-                  onPressed: () async {
-                    //update giornata inserita
-                    await signDataAndGiornata(idUtente, _controller.selectedDay,
-                        _eventController.text);
-
-                    //salvo la frase da inviare
-                    wordToSend = _eventController.text;
-
-                    //ricalcolo lista
-                    await listaGiornateInserite(
-                        _controller.selectedDay, idUtente);
-
-                    //se la lista non è vuota
-                    if (list.isNotEmpty) {
-                      _selectedEvents.clear();
-                    }
-                    //assegno la lista alla variabile _selectedEvents
-                    for (int i = 0; i < list.length; i++) {
-                      _selectedEvents.add(list[i].toString());
-                    }
-
-                    //ristampo la lista aggiornata
-                    _selectedEvents.map((list) => Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Container(
-                            height: MediaQuery.of(context).size.height / 7,
-                            width: MediaQuery.of(context).size.width / 1,
-                            decoration: BoxDecoration(
+                //Container per titolo,pulsanti e input test
+                Container(
+                  padding: EdgeInsets.only(
+                      left: 20, top: 45 + 20, right: 20, bottom: 20),
+                  margin: EdgeInsets.only(top: 45),
+                  //Box che contiene tutti i Widget del Dialog
+                  decoration: BoxDecoration(
+                      shape: BoxShape.rectangle,
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(20),
+                      //impostare il contorno
+                      boxShadow: [
+                        BoxShadow(
+                            color: Colors.black,
+                            offset: Offset(0, 20),
+                            blurRadius: 200),
+                      ]),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: <Widget>[
+                      //tiolo
+                      Text(
+                        "Qui puoi raccontare la tua giornata!",
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                            fontSize: 20,
+                            color: Color.fromARGB(255, 18, 35, 147),
+                            fontWeight: FontWeight.bold),
+                      ),
+                      //spaziatura
+                      SizedBox(
+                        height: 15,
+                      ),
+                      //casella dove inserire la giornata
+                      Material(
+                        child: TextField(
+                          //linee massime da poter inserire
+                          maxLines: 5,
+                          controller: _eventController,
+                          decoration: InputDecoration(
+                            filled: true, //<-- SEE HERE
+                            fillColor: Color.fromARGB(255, 230, 229, 229),
+                            border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(20),
-                                color: Colors.white,
-                                border: Border.all(color: Colors.white)),
-                            //stampo la lista
-                            child: Center(
-                                child: Text(
-                              list.toString(),
-                              style: TextStyle(
-                                  color: Colors.black,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 16),
-                            )),
+                                borderSide: BorderSide(color: Colors.teal)),
                           ),
-                        ));
-                    setState(() {});
-                    //Controllo e salvataggio dati inseriti
-                    if (_eventController.text.isEmpty) return;
-                    setState(() {
-                      if (_events[_controller.selectedDay] != null) {
-                        _events[_controller.selectedDay]
-                            ?.add(_eventController.text);
-                      } else {
-                        _events[_controller.selectedDay] = [
-                          _eventController.text
-                        ];
-                      }
-                      //aggiungo la stringa a Map<DateTime,List<String>>
-                      prefs.setString(
-                          "events", json.encode(encodeMap(_events)));
+                        ),
+                      ),
+                      //spaziatura
+                      SizedBox(
+                        height: 30,
+                      ),
+                      //riga che contiene i pulsanti
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: <Widget>[
+                          ElevatedButton(
+                            onPressed: () {
+                              Navigator.pop(context);
+                            },
+                            style: ElevatedButton.styleFrom(
+                                padding: EdgeInsets.all(5.0),
+                                backgroundColor:
+                                    Color.fromARGB(255, 18, 35, 147)),
+                            child: Text(
+                              "Torna Indietro",
+                              style: TextStyle(
+                                  fontSize: 15,
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                          ),
+                          ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                                padding: EdgeInsets.all(5.0),
+                                backgroundColor:
+                                    Color.fromARGB(255, 18, 35, 147)),
+                            child: Text(
+                              "Inserisci giornata",
+                              textAlign: TextAlign.right,
+                              style: TextStyle(
+                                  fontSize: 15,
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                            onPressed: () async {
+                              //update giornata inserita
+                              await signDataAndGiornata(
+                                  idUtente,
+                                  _controller.selectedDay,
+                                  _eventController.text);
 
-                      _eventController.clear();
-                    });
+                              //salvo la frase da inviare
+                              wordToSend = _eventController.text;
 
-                    //aggiorno rimanendo nell'inserimento della giornata
-                    Navigator.of(context).pop();
+                              //ricalcolo lista
+                              await listaGiornateInserite(
+                                  _controller.selectedDay, idUtente);
 
-                    //Invio la frase al sentiment analysis
-                    final response = await http.post(mail,
-                        body: json.encode({'text': wordToSend}));
-                    final decoded =
-                        json.decode(response.body) as Map<String, dynamic>;
-                    var finalResponse = decoded['sentiment'] +
-                        '/' +
-                        decoded['emotion'] +
-                        decoded['numericResp_sen'];
+                              //se la lista non è vuota
+                              if (list.isNotEmpty) {
+                                _selectedEvents.clear();
+                              }
+                              //assegno la lista alla variabile _selectedEvents
+                              for (int i = 0; i < list.length; i++) {
+                                _selectedEvents.add(list[i].toString());
+                              }
 
-                    /* Sottraggo o aggiungo il valore alla variabile
+                              //ristampo la lista aggiornata
+                              _selectedEvents.map((list) => Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Container(
+                                      height:
+                                          MediaQuery.of(context).size.height /
+                                              7,
+                                      width:
+                                          MediaQuery.of(context).size.width / 1,
+                                      decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(20),
+                                          color: Colors.white,
+                                          border:
+                                              Border.all(color: Colors.white)),
+                                      //stampo la lista
+                                      child: Center(
+                                          child: Text(
+                                        list.toString(),
+                                        style: TextStyle(
+                                            color: Colors.black,
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 16),
+                                      )),
+                                    ),
+                                  ));
+                              setState(() {});
+                              //Controllo e salvataggio dati inseriti
+                              if (_eventController.text.isEmpty) return;
+                              setState(() {
+                                if (_events[_controller.selectedDay] != null) {
+                                  _events[_controller.selectedDay]
+                                      ?.add(_eventController.text);
+                                } else {
+                                  _events[_controller.selectedDay] = [
+                                    _eventController.text
+                                  ];
+                                }
+                                //aggiungo la stringa a Map<DateTime,List<String>>
+                                prefs.setString(
+                                    "events", json.encode(encodeMap(_events)));
+
+                                _eventController.clear();
+                              });
+
+                              //aggiorno rimanendo nell'inserimento della giornata
+                              Navigator.of(context).pop();
+
+                              //Invio la frase al sentiment analysis
+                              final response = await http.post(mail,
+                                  body: json.encode({'text': wordToSend}));
+                              final decoded = json.decode(response.body)
+                                  as Map<String, dynamic>;
+                              var finalResponse = decoded['sentiment'] +
+                                  '/' +
+                                  decoded['emotion'] +
+                                  decoded['numericResp_sen'];
+
+                              /* Sottraggo o aggiungo il valore alla variabile
                     che corrisponde alla polarità (sentiment) contenuto nella response
                     quindi se +1 sarà positive altrimenti negative*/
-                    //  await updateVariable(
-                    //      idUtente, int.parse(decoded['numericResp_sen']));
+                              //  await updateVariable(
+                              //      idUtente, int.parse(decoded['numericResp_sen']));
 
-                    /*Controllo che tipo di emozione ho come ritorno e
+                              /*Controllo che tipo di emozione ho come ritorno e
                     se corrisponde a:
                     joy       aggiungo 2
                     sadness   sottraggo 3
@@ -370,44 +422,65 @@ class _DynamicEventState extends State<DynamicEvent> {
                     fear      sottraggo 1 
                     */
 
-                    //splitto le parole e la polarità ottenute
-                    List<String> splitted = decoded['emotion'].split('.');
-                    List<String> splittedNumber =
-                        decoded['numericResp_sen'].split('.');
-                    //Prendo la variabile
-                    await getVariabile();
-                    print("Valore Variabile:  " + variabile.toString());
-                    //controllo il ritorno dell'analysis per modificare la variabile
-                    for (int i = 0; i < splitted.length; i++) {
-                      await getVariabile();
-                      if (splitted[i] == "joy") {
-                        print("Emozione: " + splitted[i]);
-                        await updateVariable(
-                            idUtente, 2 + int.parse(splittedNumber[i]));
-                      }
-                      if (splitted[i] == "sadness") {
-                        print("Emozione: " + splitted[i]);
-                        await updateVariable(
-                            idUtente, -3 + int.parse(splittedNumber[i]));
-                      }
-                      if (splitted[i] == "anger") {
-                        print("Emozione: " + splitted[i]);
-                        await updateVariable(
-                            idUtente, -2 + int.parse(splittedNumber[i]));
-                      }
-                      if (splitted[i] == "fear") {
-                        print("Emozione: " + splitted[i]);
-                        await updateVariable(
-                            idUtente, -1 + int.parse(splittedNumber[i]));
-                      }
-                    }
-                    await getVariabile();
-                    print("Variabile aggiornata: " + variabile.toString());
-                  },
+                              //splitto le parole e la polarità ottenute
+                              List<String> splitted =
+                                  decoded['emotion'].split('.');
+                              List<String> splittedNumber =
+                                  decoded['numericResp_sen'].split('.');
+                              //Prendo la variabile
+                              await getVariabile();
+                              print(
+                                  "Valore Variabile:  " + variabile.toString());
+                              //controllo il ritorno dell'analysis per modificare la variabile
+                              for (int i = 0; i < splitted.length; i++) {
+                                await getVariabile();
+                                if (splitted[i] == "joy") {
+                                  print("Emozione: " + splitted[i]);
+                                  await updateVariable(idUtente,
+                                      2 + int.parse(splittedNumber[i]));
+                                }
+                                if (splitted[i] == "sadness") {
+                                  print("Emozione: " + splitted[i]);
+                                  await updateVariable(idUtente,
+                                      -3 + int.parse(splittedNumber[i]));
+                                }
+                                if (splitted[i] == "anger") {
+                                  print("Emozione: " + splitted[i]);
+                                  await updateVariable(idUtente,
+                                      -2 + int.parse(splittedNumber[i]));
+                                }
+                                if (splitted[i] == "fear") {
+                                  print("Emozione: " + splitted[i]);
+                                  await updateVariable(idUtente,
+                                      -1 + int.parse(splittedNumber[i]));
+                                }
+                              }
+                              await getVariabile();
+                              print("Variabile aggiornata: " +
+                                  variabile.toString());
+                            },
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+                Positioned(
+                  left: 20,
+                  right: 20,
+                  child: CircleAvatar(
+                    backgroundColor: Colors.transparent,
+                    radius: 45,
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.all(Radius.circular(45)),
+                      child: CircleAvatar(
+                          radius: 45,
+                          backgroundImage: NetworkImage(
+                              "https://api.multiavatar.com/$avatarStr.png")),
+                    ),
+                  ),
                 ),
               ],
-            )
-          ]),
-    );
+            ));
   }
 }

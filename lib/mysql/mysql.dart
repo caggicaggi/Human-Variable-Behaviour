@@ -312,6 +312,7 @@ Future<void> signDataAndGiornata(
     idutente, dataGiornata, descrizioneGiornata) async {
   dataGiornata = dataGiornata.toLocal();
   dataGiornata = DateFormat('yyyy-MM-dd').format(dataGiornata);
+  if(descrizioneGiornata == ''){return;}
   //Nome della tabella
   String table = 'diarioUtente';
   //Scrivo la query
@@ -324,6 +325,7 @@ Future<void> signDataAndGiornata(
     connessione.query(query);
     connessione.close();
   });
+  
 }
 
 // OTTENGO LISTA EVENTI INSERITI

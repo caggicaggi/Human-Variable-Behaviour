@@ -132,7 +132,7 @@ class _BodyState extends State<Body> {
                         padding: const EdgeInsets.symmetric(
                             horizontal: 10.0, vertical: 0),
                         child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
+                          //crossAxisAlignment: CrossAxisAlignment.center,
                           children: <Widget>[
                             Row(
                               children: <Widget>[

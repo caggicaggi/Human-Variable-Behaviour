@@ -57,7 +57,7 @@ class _BodyState extends State<Body> {
             BottomNavigationBarItem(
               backgroundColor: Color.fromARGB(255, 18, 35, 147),
               icon: Icon(Icons.gamepad),
-              label: 'Games',
+              label: 'Giochi',
             ),
             //Diario
             BottomNavigationBarItem(

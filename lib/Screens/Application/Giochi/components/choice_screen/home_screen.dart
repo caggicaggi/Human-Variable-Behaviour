@@ -29,7 +29,7 @@ class HomeScreenChoiceGames extends StatelessWidget {
             color: const Color(0xFF122393),
             child: Center(
               child: Text(
-                'Games',
+                'Giochi',
                 style: Theme.of(context)
                     .textTheme
                     .headlineSmall!

@@ -27,7 +27,7 @@ class _ActiveProjectsCardState extends State<ActiveProjectsCard> {
       flex: 1,
       child: Container(
         //Spazio fra margini di tutto il container
-        height: size.height * 0.15,
+        height: size.height * 0.18,
         decoration: BoxDecoration(
           color: widget.cardColor,
           borderRadius: BorderRadius.circular(40.0),
