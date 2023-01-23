@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:human_variable_behaviour/Screens/Application/Giochi/components/body.dart';
+
 import 'package:human_variable_behaviour/Screens/Application/Giochi/components/quiz_game/data/quizQuestions_list.dart';
 import 'package:human_variable_behaviour/Screens/HomePage/homepage_screen.dart';
 import 'package:human_variable_behaviour/constant.dart';

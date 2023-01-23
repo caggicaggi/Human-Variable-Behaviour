@@ -435,22 +435,22 @@ class _DynamicEventState extends State<DynamicEvent> {
                               for (int i = 0; i < splitted.length; i++) {
                                 await getVariabile();
                                 if (splitted[i] == "joy") {
-                                  print("Emozione: " + splitted[i]);
+                                  print("Emozione: " + splitted[i] + " (+2)");
                                   await updateVariable(idUtente,
                                       2 + int.parse(splittedNumber[i]));
                                 }
                                 if (splitted[i] == "sadness") {
-                                  print("Emozione: " + splitted[i]);
+                                  print("Emozione: " + splitted[i]+ " (-3)");
                                   await updateVariable(idUtente,
                                       -3 + int.parse(splittedNumber[i]));
                                 }
                                 if (splitted[i] == "anger") {
-                                  print("Emozione: " + splitted[i]);
+                                  print("Emozione: " + splitted[i]+ " (-2)");
                                   await updateVariable(idUtente,
                                       -2 + int.parse(splittedNumber[i]));
                                 }
                                 if (splitted[i] == "fear") {
-                                  print("Emozione: " + splitted[i]);
+                                  print("Emozione: " + splitted[i]+ " (-1)");
                                   await updateVariable(idUtente,
                                       -1 + int.parse(splittedNumber[i]));
                                 }

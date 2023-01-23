@@ -3,6 +3,7 @@
 import 'dart:async';
 import 'dart:math';
 import 'package:flutter/material.dart';
+import 'package:human_variable_behaviour/Screens/Application/Giochi/components/choice_screen/game_screen.dart';
 import 'package:intl/intl.dart';
 import 'package:mysql1/mysql1.dart';
 
@@ -805,6 +806,153 @@ Future<void> getAvatarString(String id) async {
         avatarStr = await res[0];
       }
       connessione.close();
+    });
+  });
+}
+
+
+//Aggiungo un tentativo alla tabella data in input
+Future<void> addTry(colonna) async {
+  String query =
+      'select ' + colonna + ' from utenti where idUtente = ' + idUtente;
+  String queryUpdate = '';
+  //Connessione al database
+  var db = Mysql();
+  await db.getConnection().then((connessione) async {
+    await connessione.query(query).then((result) async {
+      for (var res in result) {
+        int value = int.parse(res[0].toString()) + 1;
+        queryUpdate = 'UPDATE utenti SET ' +
+            colonna +
+            ' = ' +
+            value.toString() +
+            ' where idUtente = ' +
+            idUtente;
+      }
+      connessione.close();
+    });
+  });
+  db = Mysql();
+  await db.getConnection().then((connessione) async {
+    await Future.delayed(const Duration(milliseconds: 1));
+    await connessione.query(queryUpdate).then((result) async {
+      (value) => connessione.close();
+    });
+  });
+}
+
+//Aggiungo un tentativo riuscito alla tabella data in input
+Future<void> addTryCorrect(colonna) async {
+  String query =
+      'select ' + colonna + ' from utenti where idUtente = ' + idUtente;
+  String queryUpdate = '';
+  //Connessione al database
+  var db = Mysql();
+  await db.getConnection().then((connessione) async {
+    await connessione.query(query).then((result) async {
+      for (var res in result) {
+        int value = int.parse(res[0].toString()) + 1;
+        queryUpdate = 'UPDATE utenti SET ' +
+            colonna +
+            ' = ' +
+            value.toString() +
+            ' where idUtente = ' +
+            idUtente;
+      }
+      connessione.close();
+    });
+  });
+  db = Mysql();
+  await db.getConnection().then((connessione) async {
+    await Future.delayed(const Duration(milliseconds: 1));
+    await connessione.query(queryUpdate).then((result) async {
+      (value) => connessione.close();
+    });
+  });
+}
+
+////////////////////////
+//METODI PER IMPICCATO//
+////////////////////////
+
+//Prendo le domande dal database
+Future<void> getParole(int randomNumber) async {
+  String table = 'listaparole';
+  //Scrivo la query
+  String query = 'SELECT parola FROM ' +
+      table +
+      ' where idlistaparole = ' +
+      randomNumber.toString();
+
+  var db = Mysql();
+  await db.getConnection().then(
+    (connessione) async {
+      await connessione.query(query).then(
+        (result) async {
+          for (var res in result) {
+            word = res[0].toString();
+          }
+        },
+      );
+    },
+  );
+}
+
+
+///////////////////
+//METODI PER QUIZ//
+///////////////////
+
+//Prendo le domande dal database
+Future<void> getDomanda() async {
+  String table = 'listaDomande';
+  //Scrivo la query
+  String query = 'SELECT domanda FROM ' + table;
+  var db = Mysql();
+  await db.getConnection().then((connessione) async {
+    await connessione.query(query).then((result) {
+      for (var res in result) {
+        //Aggiungo all'array
+        listofQuestion.add(res[0].toString());
+      }
+    });
+  });
+}
+
+//Prendo gli id delle domande dal database
+Future<void> getIdDomanda() async {
+  String table = 'listaDomande';
+  //Scrivo la query
+  String query = 'SELECT idDom FROM ' + table;
+  var db = Mysql();
+  await db.getConnection().then((connessione) async {
+    await connessione.query(query).then((result) {
+      for (var res in result) {
+        //Aggiungo all'array
+        listofIdQuestions.add(int.parse(res[0].toString()));
+      }
+    });
+  });
+}
+
+//Prendo le risposte dal database
+Future<void> getAnswerQuestion() async {
+  String table = 'listaDomande';
+  //Scrivo la query
+  String query =
+      'SELECT rispostaCorretta,rispostaErrata1,rispostaErrata2,rispostaErrata3 FROM ' +
+          table;
+  var db = Mysql();
+  await db.getConnection().then((connessione) async {
+    await connessione.query(query).then((result) {
+      for (var res in result) {
+        //Aggiungo all'array
+        listofAnswerQuestions.add(res[0].toString());
+        listofAnswerQuestions.add(res[1].toString());
+        listofAnswerQuestions.add(res[2].toString());
+        listofAnswerQuestions.add(res[3].toString());
+      }
+      
     });
   });
 }
