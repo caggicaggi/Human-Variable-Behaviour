@@ -169,7 +169,7 @@ class _BodyState extends State<Body> {
                         margin: const EdgeInsets.only(bottom: 20),
                         padding: const EdgeInsets.all(10),
                         decoration: BoxDecoration(
-                          color: const Color.fromARGB(255, 34, 57, 209),
+                          color: const Color.fromARGB(255, 73, 97, 255),
                           borderRadius: BorderRadius.circular(20),
                           boxShadow: const [
                             BoxShadow(

@@ -75,6 +75,9 @@ class _ScorePageHangManState extends State<ScorePageHangMan> {
                   fontStyle: FontStyle.normal),
             ),
             onPressed: () async {
+              debugPrint("Variabile: $variabile");
+              debugPrint("Modifica da apportare: 4");
+              await updateVariable(idUtente, 4);
               await readInformationWithId(idUtente);
               //si resetta lo state
               setState(() {});
@@ -87,8 +90,10 @@ class _ScorePageHangManState extends State<ScorePageHangMan> {
               b1 = false;
               setOfInts1.clear();
               checknumberQuestions = 0;
+              debugPrint("Variabile aggiornata : $variabile");
               Navigator.push(context,
                   MaterialPageRoute(builder: (context) => HomePageScreen()));
+                  
             },
             child: Text('Home Page'),
           ),

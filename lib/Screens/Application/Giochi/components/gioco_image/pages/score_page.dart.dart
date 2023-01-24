@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:human_variable_behaviour/Screens/Application/Giochi/components/gioco_image/pages/quiz_page.dart.dart';
 import 'package:human_variable_behaviour/Screens/Application/Giochi/components/gioco_image/utils/quiz.dart.dart';
+import 'package:human_variable_behaviour/Screens/Application/Giochi/components/quiz_game/quizScoreScreen.dart';
 import 'package:human_variable_behaviour/Screens/HomePage/homepage_screen.dart';
 import 'package:human_variable_behaviour/constant.dart';
 import 'package:human_variable_behaviour/mysql/mysql.dart';
@@ -68,6 +69,10 @@ class _ScorePageState extends State<ScorePage> {
                     if (widget.score > 2) {
                       await addTryCorrect("Tentativi_Riusciti_Immagini");
                     }
+                    debugPrint("Variabile: $variabile");
+                    debugPrint(
+                        "Modifica da apportare: ${scoreToAdd(widget.score)}");
+                    await updateVariable(idUtente, scoreToAdd(widget.score));
                     await readInformationWithId(idUtente);
                     //si resetta lo state
                     setState(() {});
@@ -75,6 +80,7 @@ class _ScorePageState extends State<ScorePage> {
                     b1 = false;
                     setOfInts1.clear();
                     checknumberQuestions = 0;
+                    debugPrint("Variabile aggiornata : $variabile");
                     Navigator.push(context,
                         MaterialPageRoute(builder: (context) => QuizPagina()));
                   },
@@ -94,6 +100,10 @@ class _ScorePageState extends State<ScorePage> {
                     if (widget.score > 2) {
                       await addTryCorrect("Tentativi_Riusciti_Immagini");
                     }
+                    debugPrint("Variabile: $variabile");
+                    debugPrint(
+                        "Modifica da apportare: ${scoreToAdd(widget.score)}");
+                    await updateVariable(idUtente, scoreToAdd(widget.score));
                     await readInformationWithId(idUtente);
                     //si resetta lo state
                     setState(() {});
@@ -101,6 +111,7 @@ class _ScorePageState extends State<ScorePage> {
                     b1 = false;
                     setOfInts1.clear();
                     checknumberQuestions = 0;
+                    debugPrint("Variabile aggiornata : $variabile");
                     Navigator.push(
                         context,
                         MaterialPageRoute(

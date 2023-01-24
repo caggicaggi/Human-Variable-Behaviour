@@ -30,7 +30,7 @@ class _QuizScoreScreenState extends State<QuizScoreScreen> {
               child: Card(
                 child: Center(
                   child: Text(
-                      'Score: ${widget.score} / ${quizQuestions.length * 10}',
+                      'Score: ${widget.score} / ${quizQuestions.length}',
                       style: const TextStyle(
                           color: Colors.blue,
                           fontSize: 32,
@@ -54,16 +54,19 @@ class _QuizScoreScreenState extends State<QuizScoreScreen> {
                   fontStyle: FontStyle.normal),
             ),
             onPressed: () async {
-              
               //Aggiorno i tentati riusciti
               if (widget.score > 20) {
                 await addTryCorrect("Tentativi_Riusciti_Quiz");
               }
+              debugPrint("Variabile: $variabile");
+              debugPrint("Modifica da apportare: ${scoreToAdd(widget.score)}");
+              await updateVariable(idUtente, scoreToAdd(widget.score));
               await readInformationWithId(idUtente);
               Navigator.push(
                   context,
                   MaterialPageRoute(
                       builder: (context) => const HomePageScreen()));
+              debugPrint("Variabile aggiornata : $variabile");
             },
             child: Text('Home Page'),
           ),
@@ -71,4 +74,24 @@ class _QuizScoreScreenState extends State<QuizScoreScreen> {
       ),
     );
   }
+}
+
+int scoreToAdd(int score) {
+  int i = 0;
+  if (score == 0) {
+    i = -5;
+  }
+  if (score == 1) {
+    i = -3;
+  }
+  if (score == 2) {
+    i = 1;
+  }
+  if (score == 3) {
+    i = 3;
+  }
+  if (score == 4) {
+    i = 5;
+  }
+  return i;
 }

@@ -100,7 +100,7 @@ class GameScreen extends StatelessWidget {
                         Random random = Random();
                       rndNum.add(random.nextInt(17)+1) ;
                       } while (rndNum.length <4);
-                      debugPrint(rndNum.toString());
+                      debugPrint("Id domande da DB: $rndNum");
                       //Incremento il numero di tentativi
                       await addTry('Tentativi_Totali_Quiz');
                       //Cancello la lista delle domande

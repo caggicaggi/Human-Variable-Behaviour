@@ -109,8 +109,8 @@ class _QuizPageState extends State<QuizPage> {
                                     .value)
                                 //Risposta giusta
                                 {
-                                  score += 10;
-                                  debugPrint(score.toString());
+                                  score += 1;
+                                  debugPrint("Risposte corrette: $score");
                                 }
                               },
                         child: Text(

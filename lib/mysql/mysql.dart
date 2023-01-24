@@ -656,6 +656,10 @@ Future<void> updateVariable(idUtente, valoreDaValutare) async {
   if (newVariabile >= 100) {
     newVariabile = 100;
   }
+  //il valore della variabile non può scendere sotto 0
+  if (newVariabile <= 0) {
+    newVariabile = 0;
+  }
   String query = 'Update ' +
       table +
       ' SET VARIABILE = ' +
