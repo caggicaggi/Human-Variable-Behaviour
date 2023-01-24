@@ -59,7 +59,7 @@ class _QuizScoreScreenState extends State<QuizScoreScreen> {
               if (widget.score > 20) {
                 await addTryCorrect("Tentativi_Riusciti_Quiz");
               }
-              await readInformationWithId(idUtente).then((value) {});
+              await readInformationWithId(idUtente);
               Navigator.push(
                   context,
                   MaterialPageRoute(

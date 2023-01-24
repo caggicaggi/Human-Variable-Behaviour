@@ -1,7 +1,6 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:human_variable_behaviour/Screens/Application/Persona/persona_screen.dart';
 import 'package:human_variable_behaviour/Screens/HomePage/homepage_screen.dart';

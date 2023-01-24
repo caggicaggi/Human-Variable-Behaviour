@@ -20,8 +20,8 @@ class TopContainer extends StatelessWidget {
       decoration: const BoxDecoration(
           color: Color.fromARGB(255, 73, 97, 255),
           borderRadius: BorderRadius.only(
-            bottomRight: Radius.circular(40.0),
-            bottomLeft: Radius.circular(40.0),
+            bottomRight: Radius.circular(20.0),
+            bottomLeft: Radius.circular(20.0),
           )),
       height: height,
       width: width,

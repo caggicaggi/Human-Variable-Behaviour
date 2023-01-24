@@ -28,6 +28,12 @@ var Eta = '';
 var Percentuale_Impiccato = '';
 var Percentuale_Quiz = '';
 var Percentuale_Immagini = '';
+var Tentativi_Riusciti_Immagini = '';
+var Tentativi_Riusciti_Quiz = '';
+var Tentativi_Riusciti_Impiccato = '';
+var Tentativi_Totali_Immagini = '';
+var Tentativi_Totali_Quiz = '';
+var Tentativi_Totali_Impiccato = '';
 
 String rispostaCorretta = '';
 String rispostaErrata1 = '';
@@ -313,7 +319,9 @@ Future<void> signDataAndGiornata(
     idutente, dataGiornata, descrizioneGiornata) async {
   dataGiornata = dataGiornata.toLocal();
   dataGiornata = DateFormat('yyyy-MM-dd').format(dataGiornata);
-  if(descrizioneGiornata == ''){return;}
+  if (descrizioneGiornata == '') {
+    return;
+  }
   //Nome della tabella
   String table = 'diarioUtente';
   //Scrivo la query
@@ -326,7 +334,6 @@ Future<void> signDataAndGiornata(
     connessione.query(query);
     connessione.close();
   });
-  
 }
 
 // OTTENGO LISTA EVENTI INSERITI
@@ -507,6 +514,12 @@ Future<void> readInformationWithId(idUtente) async {
 
         variabile = res[17];
         avatarStr = res[18].toString();
+        Tentativi_Riusciti_Immagini = res[16].toString();
+        Tentativi_Riusciti_Quiz = res[14].toString();
+        Tentativi_Riusciti_Impiccato = res[12].toString();
+        Tentativi_Totali_Immagini = res[15].toString();
+        Tentativi_Totali_Quiz = res[13].toString();
+        Tentativi_Totali_Impiccato = res[11].toString();
       }
       connessione.close();
     });
@@ -810,7 +823,6 @@ Future<void> getAvatarString(String id) async {
   });
 }
 
-
 //Aggiungo un tentativo alla tabella data in input
 Future<void> addTry(colonna) async {
   String query =
@@ -898,7 +910,6 @@ Future<void> getParole(int randomNumber) async {
   );
 }
 
-
 ///////////////////
 //METODI PER QUIZ//
 ///////////////////
@@ -952,7 +963,6 @@ Future<void> getAnswerQuestion() async {
         listofAnswerQuestions.add(res[2].toString());
         listofAnswerQuestions.add(res[3].toString());
       }
-      
     });
   });
 }
