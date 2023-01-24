@@ -38,7 +38,8 @@ class Game {
     Game(
       name: 'HangMan',
       imagePath:
-          'https://www.noinonni.it/wp-content/uploads/2019/11/gioco-impiccato.jpg',
+          //'https://www.noinonni.it/wp-content/uploads/2019/11/gioco-impiccato.jpg',
+          'https://www.freeonline.org/img_giochi/1602598340.6g',
       descrition:
           'Prova ad indovinare la parola nascosta per imparare qualcosa di nuovo sul bullismo e sulle altre forme di violenza. Tenta di indovinare la parola cliccando su una lettera e scoprire se fa parte della parola.',
       category: 'Gioco dell impiccato',

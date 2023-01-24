@@ -55,7 +55,7 @@ class _QuizScoreScreenState extends State<QuizScoreScreen> {
             ),
             onPressed: () async {
               //Aggiorno i tentati riusciti
-              if (widget.score > 20) {
+              if (widget.score > 2) {
                 await addTryCorrect("Tentativi_Riusciti_Quiz");
               }
               debugPrint("Variabile: $variabile");

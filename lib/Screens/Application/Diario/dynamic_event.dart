@@ -1,9 +1,14 @@
 // ignore_for_file: deprecated_member_use, import_of_legacy_library_into_null_safe, override_on_non_overriding_member, prefer_const_constructors, library_private_types_in_public_api, use_build_context_synchronously, prefer_interpolation_to_compose_strings, avoid_print
 
 import 'dart:convert';
+import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:human_variable_behaviour/Screens/Application/Giochi/components/choice_screen/game_screen.dart';
+import 'package:human_variable_behaviour/Screens/Application/Giochi/components/gioco_hangman/hangman_screen.dart.dart';
+import 'package:human_variable_behaviour/Screens/Application/Giochi/components/quiz_game/quizPage_screen.dart';
 import 'package:human_variable_behaviour/constant.dart';
+import 'package:human_variable_behaviour/services/local_notification_service.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:table_calendar/table_calendar.dart';
 import '../../../mysql/mysql.dart';
@@ -37,6 +42,9 @@ class _DynamicEventState extends State<DynamicEvent> {
   late TextEditingController _eventController;
   late SharedPreferences prefs;
 
+  //Notifiche
+  late final LocalNotificationService service;
+
   //indirizzo per chiamata al sentiment analysis
   final mail = Uri(
       scheme: 'http',
@@ -45,14 +53,17 @@ class _DynamicEventState extends State<DynamicEvent> {
 
   @override
   void initState() {
-    //metodo che viene caricato appena si apre la pagina
-    super.initState();
+    service = LocalNotificationService();
+    service.intialize();
+    listenToNotification();
     _controller = CalendarController();
     _eventController = TextEditingController();
     _events = {};
     _selectedEvents = [];
     //richiamo metodo per la lista
     prefsData();
+    //metodo che viene caricato appena si apre la pagina
+    super.initState();
   }
 
   prefsData() async {
@@ -100,7 +111,6 @@ class _DynamicEventState extends State<DynamicEvent> {
     return Container(
       //imposto lo sfondo della pagina
       decoration: getBackroundImageHomePage(),
-
       child: Scaffold(
         backgroundColor: Colors.transparent,
         body: SingleChildScrollView(
@@ -253,6 +263,7 @@ class _DynamicEventState extends State<DynamicEvent> {
                       color: Colors.white,
                       borderRadius: BorderRadius.circular(20),
                       //impostare il contorno
+                      // ignore: prefer_const_literals_to_create_immutables
                       boxShadow: [
                         BoxShadow(
                             color: Colors.black,
@@ -466,6 +477,14 @@ class _DynamicEventState extends State<DynamicEvent> {
                               await getVariabile();
                               print("Variabile aggiornata: " +
                                   variabile.toString());
+
+                              await service.showScheduledNotification(
+                                id: 0,
+                                title: 'Ciao ' + nome,
+                                body:
+                                    'Hai visitato la nostra sezione diario, ora prova il nostro Gioco!',
+                                seconds: 25,
+                              );
                             },
                           ),
                         ],
@@ -490,5 +509,24 @@ class _DynamicEventState extends State<DynamicEvent> {
                 ),
               ],
             ));
+  }
+
+  void listenToNotification() =>
+      service.onNotificationClick.stream.listen(onNoticationListener);
+
+  void onNoticationListener(String? payload) async {
+    //Incremento il numero di tentativi
+    await addTry('Tentativi_Totali_Impiccato');
+    //Numero random per acquisizione parola
+    Random random = new Random();
+    int randomNumber = random.nextInt(10); // from 0 upto 10 included
+    await getParole(randomNumber);
+    debugPrint(word);
+
+    if (payload != null && payload.isNotEmpty) {
+      //Diario
+      Navigator.push(
+          context, MaterialPageRoute(builder: ((context) => const HangMan())));
+    }
   }
 }

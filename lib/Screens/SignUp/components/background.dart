@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:human_variable_behaviour/constant.dart';
 
 class Background extends StatelessWidget {
   final Widget child;
@@ -13,7 +12,8 @@ class Background extends StatelessWidget {
     //Occupo tutto lo schermo sia in altezza che in lunghezza
     Size size = MediaQuery.of(context).size;
     return Container(
-      decoration: getBackroundImageHomePage(),
+      //decoration: getBackroundImageHomePage(),
+      color: Colors.white,
       height: size.height,
       width: double.infinity,
       child: Stack(

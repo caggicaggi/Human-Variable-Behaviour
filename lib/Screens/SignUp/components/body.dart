@@ -1,4 +1,7 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:flutter/material.dart';
+import 'package:human_variable_behaviour/Screens/Application/Persona/persona_screen.dart';
 import 'package:human_variable_behaviour/Screens/HomePage/homepage_screen.dart';
 import 'package:human_variable_behaviour/Screens/Login/login_screen.dart';
 import 'package:human_variable_behaviour/Screens/SignUp/components/background.dart';
@@ -7,6 +10,7 @@ import 'package:human_variable_behaviour/components/rounded_button.dart';
 import 'package:human_variable_behaviour/components/rounded_input_field.dart';
 import 'package:human_variable_behaviour/components/rounded_password_field.dart';
 import 'package:human_variable_behaviour/mysql/mysql.dart';
+import 'package:human_variable_behaviour/services/local_notification_service.dart';
 
 //Variabili per avviso visivo
 bool emailValidation = true;
@@ -28,6 +32,16 @@ class Body extends StatefulWidget {
 }
 
 class _BodyState extends State<Body> {
+  //Notifiche
+  late final LocalNotificationService service;
+  @override
+  void initState() {
+    service = LocalNotificationService();
+    service.intialize();
+    listenToNotification();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     //Occupo tutto lo schermo sia in altezza che in lunghezza
@@ -38,11 +52,8 @@ class _BodyState extends State<Body> {
           //Allineo tutto al centro
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            SizedBox(
-              height: size.height * 0.05,
-            ),
             //logo Human Variable
-            Image.asset('assets/images/logoH.png', height: size.height * 0.20),
+            Image.asset('assets/images/logoH.png', height: size.height * 0.30),
             SizedBox(
               height: size.height * 0.03,
             ),
@@ -52,7 +63,7 @@ class _BodyState extends State<Body> {
               height: size.height * 0.08,
             ),
             SizedBox(
-              height: size.height * 0.03,
+              height: size.height * 0.05,
             ),
             //Input nome
             RoundedInputField(
@@ -83,14 +94,14 @@ class _BodyState extends State<Body> {
               const Text(
                 'Formato email non corretto',
                 style:
-                    TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
+                    TextStyle(fontWeight: FontWeight.bold, color: Colors.red),
               ),
             //Avviso email duplicata
             if (!emailDuplicated)
               const Text(
                 'Email già registrata, prego effettuare login',
                 style:
-                    TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
+                    TextStyle(fontWeight: FontWeight.bold, color: Colors.red),
               ),
             //Input password (oscurata)
             RoundedPasswordField(
@@ -120,7 +131,14 @@ class _BodyState extends State<Body> {
                     await signUpToDb(name, surname, email, password).then(
                       (value) {
                         //Leggo tutte le informazioni dell'utente che si sta loggando e vado alla HomePage
-                        readInformationWithId(idUtente).then((value) {
+                        readInformationWithId(idUtente).then((value) async {
+                          //Notifica
+                          await service.showScheduledNotification(
+                            id: 0,
+                            title: 'Benvenuto $nome',
+                            body: 'Parlami di te!',
+                            seconds: 25,
+                          );
                           Navigator.push(
                             context,
                             MaterialPageRoute(
@@ -162,5 +180,16 @@ class _BodyState extends State<Body> {
         ),
       ),
     );
+  }
+
+  void listenToNotification() =>
+      service.onNotificationClick.stream.listen(onNoticationListener);
+
+  void onNoticationListener(String? payload) async {
+    if (payload != null && payload.isNotEmpty) {
+      //Diario
+      Navigator.push(context,
+          MaterialPageRoute(builder: ((context) => const PersonaScreen())));
+    }
   }
 }

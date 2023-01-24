@@ -15,20 +15,26 @@ class RoundedInputField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextFieldContainer(
-      child: TextField(
-        //Colore del testo che si scrive
-        style: const TextStyle(color: Colors.blueGrey),
-        onChanged: onChange,
-        decoration: InputDecoration(
-          //Colore del testo che compare inizialmente
-          hintStyle: const TextStyle(color: Colors.blueGrey),
-          icon: Icon(
-            icon,
-            //Colore icona
-            color: Colors.blueGrey,
+      child: Container(
+        padding: const EdgeInsets.only(left: 15),
+        decoration: BoxDecoration(
+            border: Border.all(color: Colors.blueGrey, width: 2),
+            borderRadius: BorderRadius.circular(50)),
+        child: TextField(
+          //Colore del testo che si scrive
+          style: const TextStyle(color: Colors.blueGrey),
+          onChanged: onChange,
+          decoration: InputDecoration(
+            //Colore del testo che compare inizialmente
+            hintStyle: const TextStyle(color: Colors.blueGrey),
+            icon: Icon(
+              icon,
+              //Colore icona
+              color: Colors.blueGrey,
+            ),
+            hintText: hintText,
+            border: InputBorder.none,
           ),
-          hintText: hintText,
-          border: InputBorder.none,
         ),
       ),
     );

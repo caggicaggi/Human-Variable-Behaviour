@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_signin_button/flutter_signin_button.dart';
+import 'package:human_variable_behaviour/Screens/Application/Diario/dynamic_event.dart';
 import 'package:human_variable_behaviour/Screens/HomePage/homepage_screen.dart';
 import 'package:human_variable_behaviour/Screens/Login/components/background.dart';
 import 'package:human_variable_behaviour/Screens/SignUp/sign_up_screen.dart';
@@ -9,13 +10,14 @@ import 'package:human_variable_behaviour/components/rounded_input_field.dart';
 import 'package:human_variable_behaviour/components/rounded_password_field.dart';
 import 'package:human_variable_behaviour/mysql/mysql.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:human_variable_behaviour/services/local_notification_service.dart';
 
 //Variabili per avviso visivo
 String password = '';
 bool emailValidation = true;
 bool emailPresence = true;
 
-//Non ho ben capito a cosa serve
+//Variabile per visualizzazione corretta sezione profilo
 bool checkScaffold = false;
 
 //Widget dinamico, aggiornabile
@@ -34,6 +36,16 @@ class _BodyState extends State<Body> {
   bool _isLoggedIn = false;
   late GoogleSignInAccount _userObj;
 
+  //Notifiche
+  late final LocalNotificationService service;
+  @override
+  void initState() {
+    service = LocalNotificationService();
+    service.intialize();
+    listenToNotification();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     //Occupo tutto lo schermo sia in altezza che in lunghezza
@@ -44,21 +56,18 @@ class _BodyState extends State<Body> {
           //Allineo tutto al centro
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            SizedBox(
-              height: size.height * 0.05,
-            ),
             //logo Human Variable
-            Image.asset('assets/images/logoH.png', height: size.height * 0.32),
+            Image.asset('assets/images/logoH.png', height: size.height * 0.30),
             SizedBox(
               height: size.height * 0.03,
             ),
             //Immagine del logo Unicam
             Image.asset(
               'assets/images/unicamLogo.png',
-              height: size.height * 0.1,
+              height: size.height * 0.08,
             ),
             SizedBox(
-              height: size.height * 0.03,
+              height: size.height * 0.15,
             ),
             //Input email
             RoundedInputField(
@@ -73,13 +82,13 @@ class _BodyState extends State<Body> {
               const Text(
                 'Formato email non corretto',
                 style:
-                    TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
+                    TextStyle(fontWeight: FontWeight.bold, color: Colors.red),
               ),
             if (!emailPresence)
               const Text(
                 'Id o password errati, controlla e riprova',
                 style:
-                    TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
+                    TextStyle(fontWeight: FontWeight.bold, color: Colors.red),
               ),
             //Prendo password
             RoundedPasswordField(
@@ -108,7 +117,6 @@ class _BodyState extends State<Body> {
                         },
                       ),
                     )
-
                   //Se non loggato
                   : Center(
                       child: SignInButton(
@@ -123,7 +131,6 @@ class _BodyState extends State<Body> {
                           //Ottengo tutte le infomazioni
                           _userObj = userData!;
                           if (await readEmailFromDb(_userObj.email)) {
-                            
                             //Devo registrarla
                             await signUpToDbGoogle(
                                     _userObj.displayName, _userObj.email)
@@ -143,7 +150,6 @@ class _BodyState extends State<Body> {
                               },
                             );
                           } else {
-                            
                             //Devo leggere le info
                             await readInformationWithId(idUtente).then((value) {
                               Navigator.push(
@@ -178,10 +184,18 @@ class _BodyState extends State<Body> {
                     setState(() {});
                   } else {
                     //Leggo tutte le informazioni dell'utente che si sta loggando e vado alla HomePage
-                    await readInformationWithId(idUtente).then((value) {
+                    await readInformationWithId(idUtente).then((value) async {
                       //Cancello precedenti avvisi di errore
                       emailPresence = true;
                       setState(() {});
+                      //Notifica
+                      await service.showScheduledNotification(
+                        id: 0,
+                        title: 'Bentornato ' + nome,
+                        body:
+                            'Raccontami la tua giornata, spero sia andato tutto bene!',
+                        seconds: 25,
+                      );
                       Navigator.push(
                         context,
                         MaterialPageRoute(
@@ -214,5 +228,16 @@ class _BodyState extends State<Body> {
         ),
       ),
     );
+  }
+
+  void listenToNotification() =>
+      service.onNotificationClick.stream.listen(onNoticationListener);
+
+  void onNoticationListener(String? payload) async {
+    if (payload != null && payload.isNotEmpty) {
+      //Diario
+      Navigator.push(context,
+          MaterialPageRoute(builder: ((context) => const DynamicEvent())));
+    }
   }
 }
