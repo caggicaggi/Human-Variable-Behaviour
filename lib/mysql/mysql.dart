@@ -90,19 +90,19 @@ Future signUpToDb(nameToDb, surnameToDb, emailToDb, passwordToDb) async {
       ',' +
       '50' +
       ',' +
-      "'Non hai inserito alcuna descrizione'" +
+      "'IstitutoFrequentato'" +
       ',' +
-      '1' +
+      '0' +
       ',' +
-      "'Non hai inserito alcuna descrizione'" +
+      "'Passione'" +
       ',' +
-      "'Non hai inserito alcuna descrizione'" +
+      "'Sport Preferito'" +
       ',' +
-      "'Non hai inserito alcuna descrizione'" +
+      "'Musica Preferita'" +
       ',' +
-      "'Non hai inserito alcuna descrizione'" +
+      "'Artista Preferito'" +
       ',' +
-      "'Non hai inserito alcuna descrizione'" +
+      "'Materia Preferita'" +
       ',' +
       "0" +
       ',' +
@@ -158,19 +158,19 @@ Future signUpToDbGoogle(nameSurnameToDb, emailToDb) async {
       ',' +
       '50' +
       ',' +
-      "'Non hai inserito alcuna descrizione'" +
+      "'IstitutoFrequentato'" +
       ',' +
-      '1' +
+      '0' +
       ',' +
-      "'Non hai inserito alcuna descrizione'" +
+      "'Passione'" +
       ',' +
-      "'Non hai inserito alcuna descrizione'" +
+      "'Sport Preferito'" +
       ',' +
-      "'Non hai inserito alcuna descrizione'" +
+      "'Musica Preferita'" +
       ',' +
-      "'Non hai inserito alcuna descrizione'" +
+      "'Artista Preferito'" +
       ',' +
-      "'Non hai inserito alcuna descrizione'" +
+      "'Materia Preferita'" +
       ',' +
       "0" +
       ',' +
@@ -277,42 +277,6 @@ Future<bool> readEmailFromDb(emailToReadToDb) async {
   //False = Query con valore di ritorno -> Email già presente
   return risultatoQuery;
 }
-
-//DA RIVEDERE
-
-//-----------RICONTROLLARE-----------
-
-//Funzione per ottenere nome e cognome dall'idUtente
-//Il metodo va messo Future perchè così se richiamato si può utilizzare l'await
-/*Future<void> getNameSurnameFromId() async {
-  //Nome della tabella
-  String table = 'utenti';
-  //Scrivo la query
-  String query =
-      'SELECT nome, cognome FROM ' + table + ' where idUtente = ' + idUtente;
-  //Connessione al database
-  var db = Mysql();
-  await db.getConnection().then((connessione) async {
-    //Delay aggiuntivo
-    await Future.delayed(const Duration(milliseconds: 1));
-    await connessione.query(query).then((results) async {
-      for (var res in results) {
-        nome = res[0].toString();
-        cognome = res[1].toString();
-      }
-      connessione.close();
-    });
-  });
-} */
-
-/*
-I metodi precedenti sono stati corretti e testati, ho aggiunto:
-Future per poter utilizzare l'await quando richiamati nell'app
-Così facendo il programma procede solo nel momento in qui il metodo finisce
-senza quest'impostazione non saremo mai sincronizzati col databas
-*/
-
-//Metodi Malaccari, da rivedere
 
 //FUNZIONE PER INSERIRE LA GIORNATA
 Future<void> signDataAndGiornata(

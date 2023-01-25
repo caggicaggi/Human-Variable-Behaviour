@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:flutter/material.dart';
 import 'package:flutter_signin_button/flutter_signin_button.dart';
 import 'package:human_variable_behaviour/Screens/Application/Diario/dynamic_event.dart';
@@ -193,7 +195,7 @@ class _BodyState extends State<Body> {
                         id: 0,
                         title: 'Bentornato ' + nome,
                         body:
-                            'Raccontami la tua giornata, spero sia andato tutto bene!',
+                            'Raccontami la tua giornata, è andato tutto bene!',
                         seconds: 25,
                       );
                       Navigator.push(

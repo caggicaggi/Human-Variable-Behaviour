@@ -76,7 +76,7 @@ class LocalNotificationService {
         tz.local,
       ),
       details,
-      payload: 'DAJE MALAC',
+      payload: 'Payolad',
       androidAllowWhileIdle: true,
       uiLocalNotificationDateInterpretation:
           UILocalNotificationDateInterpretation.absoluteTime,
@@ -109,11 +109,11 @@ class LocalNotificationService {
 
   void onDidReceiveLocalNotification(
       int id, String? title, String? body, String? payload) {
-    print('id $id');
+    //print('id $id');
   }
 
   void onSelectNotification(String? payload) {
-    print('Payload schedulato $payload');
+    //print('Payload schedulato $payload');
     if (payload != null && payload.isNotEmpty) {
       onNotificationClick.add(payload);
     }

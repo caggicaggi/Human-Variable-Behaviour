@@ -109,6 +109,13 @@ class _BodyState extends State<Body> {
                     child: Column(
                       children: [
                         //nome
+                        Text(
+                          "Nome",
+                          style: GoogleFonts.montserrat(
+                              fontSize: 15,
+                              color: Colors.black,
+                              fontWeight: FontWeight.normal),
+                        ),
                         RoundedInputField(
                           icon: Icons.person_outline_sharp,
                           hintText: nome,
